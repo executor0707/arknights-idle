@@ -1,0 +1,26 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=logbase'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`localStorage.clear();location.reload()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1700));
+await send('Runtime.evaluate',{expression:`document.querySelector('[data-action="tutorial-skip"]')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,500));
+console.log('endless', await evalJS(send,`JSON.stringify({f100:__RHODES__.G.STAGE_BY_ID.get('endless-100')?.rec, f1000:__RHODES__.G.ensureEndlessFloor(1000).rec, pulls1000:__RHODES__.G.ensureEndlessFloor(1000).idle.orundumPerHour/600})`));
+// force event
+console.log('event', await evalJS(send,`(()=>{let e=null;for(let i=0;i<300&&!e;i++){__RHODES__.state.randomEvent.nextAt=1;e=__RHODES__.G.checkRandomEvent()}return JSON.stringify({id:e?.event?.id,operator:e?.event?.operator,result:e?.result,log:__RHODES__.state.randomEvent.log.length})})()`));
+await new Promise(r=>setTimeout(r,300));
+await evalJS(send,`document.querySelector('[data-action="close-modal"]')?.click();__RHODES__.setView('events',true);true`);
+await new Promise(r=>setTimeout(r,500));
+console.log('events-page', await evalJS(send,`JSON.stringify({rows:document.querySelectorAll('.event-log-row').length,filters:document.querySelectorAll('[data-event-filter]').length,ops:document.querySelectorAll('[data-event-filter="operator"] option').length})`));
+await screenshot(send,'.cache/events-page.png',1440,1000);
+await evalJS(send,`__RHODES__.setView('base',true);true`);
+await new Promise(r=>setTimeout(r,500));
+console.log('base', await evalJS(send,`JSON.stringify({rooms:document.querySelectorAll('.room-card').length,combat:document.querySelectorAll('.room-combat').length,crit:document.querySelector('.base-summary-card:nth-child(4) b')?.textContent})`));
+await screenshot(send,'.cache/base-values.png',1440,1000);
+process.exit(0);

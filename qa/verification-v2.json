@@ -165,14 +165,18 @@
       "annihilation": "boss_blksnk"
     },
     "endless": {
-      "floorCap": 325,
-      "maxFloor": 325,
-      "maxPower": "pending 5-person recalc",
-      "floor1PullsPerHour": 15,
-      "floor325PullsPerHour": 120,
+      "floorCap": null,
+      "infinite": true,
+      "recStart": 16000,
+      "recStep": 8,
+      "pullsStart": 15,
+      "pullsStep": 0.1,
+      "shardsStep": 0.05,
+      "blocksStep": 0.004,
+      "lmdStep": 22,
+      "expStep": 9,
       "bossPool": 6,
-      "autoNext": true,
-      "maxPowerOld": 71009
+      "autoNext": true
     },
     "materials": {
       "promotion": "chip + LMD only",
@@ -252,6 +256,22 @@
       "normalHeal": true,
       "healUsesAttackInterval": true,
       "tested": true
+    },
+    "base": {
+      "critCap": 1,
+      "controlMaxLevel": 1900,
+      "basePowerGain": 16,
+      "perRoomValues": true
+    },
+    "eventLog": {
+      "page": "events",
+      "filters": [
+        "range",
+        "operator",
+        "outcome"
+      ],
+      "logCap": 120,
+      "operatorNames": true
     }
   },
   "limitations": [

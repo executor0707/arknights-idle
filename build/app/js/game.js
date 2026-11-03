@@ -15,6 +15,8 @@ export const bus = new EventTarget();
 
 const CLASS_KEY = { 先锋: 'vanguard', 近卫: 'guard', 重装: 'defender', 狙击: 'sniper', 术师: 'caster', 医疗: 'medic', 辅助: 'supporter', 特种: 'specialist' };
 const CAPS = { 2: [30], 3: [40, 55], 4: [45, 60, 70], 5: [50, 70, 80], 6: [50, 80, 90] };
+// Control room gives 0.05% crit per level on top of the 5% base crit.
+export const CONTROL_MAX_LEVEL = 1900;
 const MAX_ELITE = { 2: 0, 3: 1, 4: 2, 5: 2, 6: 2 };
 const TUTORIAL_FLAG = 'rhodes_idle_tutorial_v1';
 
@@ -133,8 +135,6 @@ export function loadGame() {
   unlockAmiyaForms();
   ensureDaily();
   ensureShop();
-  const endlessCap = maxEndlessPower();
-  for (const s of STAGES) if (s.group === 'endless') s.rec = Math.min(s.rec, endlessCap);
   return state;
 }
 
@@ -302,10 +302,23 @@ export function ensureEndlessFloor(n) {
   const id = 'endless-' + floor;
   if (STAGE_BY_ID.has(id)) return STAGE_BY_ID.get(id);
   const stage = makeEndlessStage(floor);
-  stage.rec = Math.min(stage.rec, maxEndlessPower());
   STAGES.push(stage);
   STAGE_BY_ID.set(stage.id, stage);
   return stage;
+}
+
+export function baseLevelPowerGain() {
+  const before = maxEndlessPower();
+  const levels = new Map();
+  for (const r of ROOMS) {
+    if (r.id === 'control') continue; // crit is capped and excluded from power
+    const s = state.base.rooms[r.id];
+    levels.set(r.id, s.level);
+    s.level += 1;
+  }
+  const after = maxEndlessPower();
+  for (const [id, level] of levels) state.base.rooms[id].level = level;
+  return Math.max(0, after - before);
 }
 
 export function nextLevelInfo(id) {
@@ -871,7 +884,7 @@ export function roomRate(id) {
 export function getBaseBonuses() {
   const lv = (id) => state.base.rooms[id]?.damaged ? 0 : (state.base.rooms[id]?.level || 0);
   return {
-    crit: 0.05 + lv('control') * 0.0005,
+    crit: Math.min(1, 0.05 + lv('control') * 0.0005),
     critDmg: 1.5 + lv('trade') * 0.001,
     atk: lv('factory') * 0.0006,
     aspd: lv('power') * 0.0003,
@@ -902,7 +915,13 @@ export function roomUpgradeCost(id) {
     items: { base_block: Math.max(1, Math.ceil(s.level * 0.55)) },
   };
 }
+export function canUpgradeRoom(id) {
+  if (id === 'control' && state.base.rooms.control.level >= CONTROL_MAX_LEVEL) return false;
+  return true;
+}
+
 export function upgradeRoom(id) {
+  if (!canUpgradeRoom(id)) return false;
   const info = roomUpgradeCost(id);
   if (!info || !pay(info)) return false;
   state.base.rooms[id].level += 1;
@@ -1053,9 +1072,9 @@ export function checkRandomEvent(now = Date.now()) {
   if (Math.random() >= 0.15) { saveNow(); return null; }
   const event = RANDOM_EVENTS[Math.floor(Math.random() * RANDOM_EVENTS.length)];
   const result = randomEventResult(event);
-  const entry = { id: event.id, title: event.title, text: event.text, tone: event.tone, result, at: now };
+  const entry = { id: event.id, title: event.title, text: event.text, tone: event.tone, operator: event.operator || '罗德岛', kind: event.kind || 'neutral', result, at: now };
   state.randomEvent.log.unshift(entry);
-  state.randomEvent.log = state.randomEvent.log.slice(0, 30);
+  state.randomEvent.log = state.randomEvent.log.slice(0, 120);
   saveNow();
   bus.dispatchEvent(new CustomEvent('random-event', { detail: { event, result, entry } }));
   return { event, result, entry };

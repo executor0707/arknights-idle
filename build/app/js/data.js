@@ -154,11 +154,12 @@ const LEGACY_STAGES = [
 ];
 
 export const ENDLESS_BOSSES = ['boss_skulsr', 'boss_frstar', 'boss_faust', 'boss_mephi', 'boss_sfsui', 'boss_blksnk'];
-export const MAX_ENDLESS_FLOOR = 325;
+export const MAX_ENDLESS_FLOOR = Infinity;
 export function makeEndlessStage(n) {
-  const floor = Math.max(1, Math.min(MAX_ENDLESS_FLOOR, Math.floor(n)));
-  // The cap is applied against the 12x 6-star max power in game.js.
-  const rec = Math.round(16000 + (71009 - 16000) * ((floor - 1) / (MAX_ENDLESS_FLOOR - 1)));
+  const floor = Math.max(1, Math.floor(n));
+  // Two endless floors per full-base-level power gain. The base calculator
+  // currently yields +16 power for upgrading every room once, so +8/floor.
+  const rec = 16000 + 8 * (floor - 1);
   const i = floor - 1;
   const bossKey = ENDLESS_BOSSES[(floor * 37 + Math.floor(floor / 7)) % ENDLESS_BOSSES.length];
   return {
@@ -177,11 +178,11 @@ export function makeEndlessStage(n) {
     bossKey,
     rewards: { lmd: 1200 + rec * 0.18, orundum: 20 + i * 9, doctorExp: 18 + Math.min(60, i * 4), items: {} },
     idle: {
-      orundumPerHour: 9000 + (72000 - 9000) * ((floor - 1) / (MAX_ENDLESS_FLOOR - 1)),
-      shardsPerHour: 12 + 16 * ((floor - 1) / (MAX_ENDLESS_FLOOR - 1)),
-      blocksPerHour: 2.4 + 1.2 * ((floor - 1) / (MAX_ENDLESS_FLOOR - 1)),
-      lmdPerHour: 8000 + 7000 * ((floor - 1) / (MAX_ENDLESS_FLOOR - 1)),
-      expPerHour: 3200 + 2800 * ((floor - 1) / (MAX_ENDLESS_FLOOR - 1)),
+      orundumPerHour: 9000 + 60 * (floor - 1),
+      shardsPerHour: 12 + 0.05 * (floor - 1),
+      blocksPerHour: 2.4 + 0.004 * (floor - 1),
+      lmdPerHour: 8000 + 22 * (floor - 1),
+      expPerHour: 3200 + 9 * (floor - 1),
     },
   };
 }

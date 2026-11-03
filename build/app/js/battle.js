@@ -1,4 +1,4 @@
-import { state, getOpStats, getSquadBuffs, getBaseBonuses, grantStageRewards, saveNow, bus, STAGE_BY_ID, STAGES, isStageUnlocked, ensureEndlessFloor, maxEndlessPower } from './game.js';
+import { state, getOpStats, getSquadBuffs, getBaseBonuses, grantStageRewards, saveNow, bus, STAGE_BY_ID, STAGES, isStageUnlocked, ensureEndlessFloor } from './game.js';
 import { OPERATORS } from './operators.js';
 
 const MELEE = new Set(['vanguard', 'guard', 'defender', 'specialist']);
@@ -65,7 +65,6 @@ export class Battle {
     const ids = state.squad.filter(Boolean);
     if (!ids.length) return false;
     this.stage = stage;
-    if (stage.group === 'endless') stage.rec = Math.min(stage.rec, maxEndlessPower());
     this.runId = (this.runId || 0) + 1;
     state.stage.selected = stage.id;
     this.status = 'running';
