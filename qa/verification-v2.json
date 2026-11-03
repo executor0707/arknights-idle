@@ -215,7 +215,8 @@
       "modelBase": 130,
       "defaultScale": 1.2,
       "bobAmplitude": 1.6,
-      "skillAnimations": false
+      "skillAnimations": true,
+      "order": "slot 1 left -> slot 5 right"
     },
     "battleRules": {
       "leakFailAt": 3,
@@ -239,7 +240,9 @@
       "perOperatorWiki": false,
       "attackLockSeconds": 0.8,
       "targetPriority": "lowest HP",
-      "skillAnimations": false
+      "skillAnimations": true,
+      "skillCutin": true,
+      "skillBanner": true
     },
     "squadEditor": {
       "slots": 5,
@@ -289,6 +292,12 @@
         "chip",
         "special"
       ]
+    },
+    "squadInteraction": {
+      "clickSlotToRemove": true,
+      "clickRosterToFillFirstEmpty": true,
+      "xButtonRemoved": true,
+      "modalJitterFixed": true
     }
   },
   "limitations": [

@@ -6,7 +6,8 @@ const MELEE = new Set(['vanguard', 'guard', 'defender', 'specialist']);
 // percentages of the arena; the renderer turns them into a side-scroller.
 const LANES = [64];
 // Same road line; only the horizontal spacing is staggered front-to-back.
-const MARCH_SLOTS = [[56, 64], [49, 64], [42, 64], [35, 64], [28, 64]];
+// Slot 1 is leftmost; slots 2-5 advance to the right.
+const MARCH_SLOTS = [[28, 64], [35, 64], [42, 64], [49, 64], [56, 64]];
 const BOSS_BY_CHAPTER = {
   0: 'boss_skulsr', 1: 'boss_skulsr', 2: 'boss_skulsr', 3: 'boss_skulsr',
   4: 'boss_frstar', 5: 'boss_faust', 6: 'boss_mephi', 7: 'boss_mephi',
@@ -428,7 +429,6 @@ export class Battle {
     e.dead = true;
     this.kills++;
     this._effect(e.x, e.y, e.boss ? 'bossdown' : 'down', e.boss ? 1.2 : 0.45);
-    this._effect(e.x, e.y - 3, 'loot', e.boss ? 0.9 : 0.55);
     if (e.boss) this.shake = 0.5;
     for (const a of this.allies) if (!a.dead && a.id === 'kirin_yato') a.sp = Math.min(a.maxSp, a.sp + 20);
   }
@@ -474,9 +474,8 @@ export class Battle {
     const power = a.skillPower * (a.id === 'dusk' ? 1.2 : 1);
     a.sp = 0;
     a.castUntil = 0.7;
-    // Only the basic attack animation is shown. Skill banners and cut-ins are disabled.
-    this.cast = null;
-    this.cutIn = null;
+    this.cast = { name: `${op.name} · ${skill.name}`, life: 1.35, color: a.arts ? '#67d9ff' : '#ffb544' };
+    this.cutIn = { id: a.id, name: op.name, skill: skill.name, life: 1.15, key: `${a.id}-${this.time.toFixed(2)}` };
     bus.dispatchEvent(new CustomEvent('battle-sfx', { detail: { sound: 'skill' } }));
     if (skill.type === 'aoe') {
       const targets = enemiesInRange.length ? enemiesInRange : this.enemies;
