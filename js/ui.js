@@ -61,6 +61,7 @@ const ui = {
   tutorialStep: 0,
   pullOverlay: null,
   deploying: null,
+  gridVisible: false,
   showRanges: false,
   log: [],
 };
@@ -92,6 +93,7 @@ export function initUI(battleInstance) {
   G.bus.addEventListener('battle-end', e => {
     if (e.detail.win) updateChrome();
   });
+  G.bus.addEventListener('random-event', e => showRandomEvent(e.detail));
   G.bus.addEventListener('battle-start', e => {
     const s = e.detail?.stage;
     if (!s) return;
@@ -138,6 +140,7 @@ function bindEvents() {
     if (e.key === 'Escape') {
       if (ui.pullOverlay) closePullOverlay();
       else if ($('#modalRoot').children.length) closeModal();
+      else if (battle?.paused) { battle.togglePause(); syncArena(); }
     }
   });
   $('#modalRoot').addEventListener('click', (e) => {
@@ -364,12 +367,13 @@ function renderBattle() {
             <div class="arena-layer fx" id="layerFx"></div>
             <div class="arena-layer allies" id="layerAllies"></div>
             <div class="arena-layer floats" id="layerFloats"></div>
+            <div id="deployGrid" class="deploy-grid hidden">${Array.from({ length: 18 }, (_, i) => `<i class="deploy-cell" data-col="${i % 6}" data-row="${Math.floor(i / 6)}"></i>`).join('')}</div>
             <div id="rangeOverlay" class="range-overlay hidden"></div>
             <div id="arenaOverlay"></div>
             <div id="arenaCast" class="cast-banner hidden"></div>
             <div id="skillCutin" class="skill-cutin hidden"></div>
             <div id="arenaWave" class="wave-flash hidden"></div>
-            <div id="arenaPause" class="arena-paused hidden">PAUSED</div>
+            <div id="arenaPause" class="arena-paused hidden"><div class="pause-card"><span>PAUSED</span><b>自动作战已暂停</b><button class="btn btn-primary btn-small" data-action="pause">继续作战</button></div></div>
           </div>
           <div class="arena-bottom">
             <div class="arena-status"><i class="status-led ${damaged.length ? 'red' : ''}"></i><span id="arenaStatusText">${battle?.status === 'running' ? 'AUTO OPERATION' : 'STANDBY'} · 目标 ${esc(stage.name)}</span></div>
@@ -404,7 +408,7 @@ function renderBattle() {
       </div>
 
       <aside class="squad-panel">
-        <div class="squad-head"><div class="panel-title">编队</div><div class="squad-head"><b>${squadCount}<span class="dim" style="font-size:11px">/12</span></b></div></div>
+        <div class="squad-head"><div class="panel-title">编队</div><div class="squad-head"><button class="btn btn-small ${ui.gridVisible ? 'btn-primary' : ''}" data-action="toggle-deploy">部署</button><b>${squadCount}<span class="dim" style="font-size:11px">/12</span></b></div></div>
         <div class="squad-power"><span>TOTAL POWER</span><b>${fmt(power)}</b></div>
         <div class="squad-list">${squad}</div>
         <div class="squad-actions">
@@ -480,8 +484,10 @@ function rewardChips(stage) {
   chips.push(`<span class="reward-chip">龙门币 <b>${fmt(r.lmd)}</b></span>`);
   if (r.orundum) chips.push(`<span class="reward-chip">合成玉 <b>${r.orundum}</b></span>`);
   if (!state.stage.firstClear[stage.id]) chips.push(`<span class="reward-chip">首通 <b>◆ ${stage.firstClearPrime}</b></span>`);
-  for (const [id, n] of Object.entries(r.items || {})) chips.push(`<span class="reward-chip">${MATERIALS[id]?.name || id} <b>×${n}</b></span>`);
-  if (stage.drops?.length) chips.push(`<span class="reward-chip">随机素材 <b>×1-3</b></span>`);
+  if (stage.group === 'resource') {
+    for (const [id, n] of Object.entries(r.items || {})) chips.push(`<span class="reward-chip">${MATERIALS[id]?.name || id} <b>×${n}</b></span>`);
+    if (stage.drops?.length) chips.push(`<span class="reward-chip">随机素材 <b>×1-3</b></span>`);
+  }
   return chips.join('');
 }
 
@@ -525,15 +531,41 @@ function renderRangeOverlay() {
   }).join('');
 }
 
+function renderGridRange() {
+  const grid = $('#deployGrid');
+  if (!grid) return;
+  const cells = [...grid.querySelectorAll('.deploy-cell')];
+  cells.forEach(c => c.classList.remove('in-range', 'self-range'));
+  if (!ui.deploying || !battle) return;
+  const unit = battle.allies.find(a => a.id === ui.deploying && !a.dead);
+  if (!unit) return;
+  const st = G.getOpStats(unit.id);
+  const cols = [15, 29, 43, 57, 71, 85];
+  const rows = [21, 50, 79];
+  const ux = cols.reduce((best, x, i) => Math.abs(x - unit.x) < Math.abs(cols[best] - unit.x) ? i : best, 0);
+  const uy = rows.reduce((best, y, i) => Math.abs(y - unit.y) < Math.abs(rows[best] - unit.y) ? i : best, 0);
+  const ranged = (st?.range || 0) > 40;
+  for (const cell of cells) {
+    const col = Number(cell.dataset.col), row = Number(cell.dataset.row);
+    const dx = col - ux, dy = Math.abs(row - uy);
+    const inRange = ranged
+      ? (dx >= 1 && dx <= 3 && dy <= 1)
+      : (dx === 1 && dy === 0);
+    cell.classList.toggle('in-range', inRange);
+    cell.classList.toggle('self-range', col === ux && row === uy);
+  }
+}
+
 function startDeploy(id) {
   if (!battle?.allies.some(a => a.id === id)) {
     toast('该干员不在当前编队。先编入队伍，再调整站位。', 'warn');
     return;
   }
   ui.deploying = id;
+  ui.gridVisible = true;
   ui.showRanges = true;
   if (ui.view !== 'battle') setView('battle');
-  requestAnimationFrame(() => { renderRangeOverlay(); });
+  requestAnimationFrame(() => { renderRangeOverlay(); renderGridRange(); });
   const d = G.OP_BY_ID.get(id);
   toast(`调整 ${d?.name || id} 的部署位置：点击战场空地。`, 'success');
 }
@@ -549,6 +581,7 @@ function placeDeployment(clientX, clientY) {
     toast(`${d?.name || ui.deploying} 已移动到新位置。`, 'success');
     ui.deploying = null;
     ui.showRanges = false;
+    ui.gridVisible = false;
     renderRangeOverlay();
     syncArena();
   }
@@ -648,7 +681,10 @@ function syncArena(rebuild = false) {
     node.classList.toggle('stunned', e.stun > 0);
   }
   for (const [uid, node] of a.enemies) if (!eAlive.has(uid)) { node.remove(); a.enemies.delete(uid); }
+  const deployGrid = $('#deployGrid');
+  if (deployGrid) deployGrid.classList.toggle('hidden', !(ui.gridVisible || !!ui.deploying));
   renderRangeOverlay();
+  renderGridRange();
 
   // projectiles
   const pAlive = new Set();
@@ -886,6 +922,25 @@ export function openOperator(id, opts = {}) {
         <div class="stat-box"><span>信赖加成</span><b>+${(s.trust / 100 * 8).toFixed(1)}%</b></div>
       </div>
 
+      ${id === 'amiya' || id === 'char_1001_amiya2' || id === 'char_1037_amiya3' ? `<div class="detail-section amiya-form-section">
+        <div class="detail-section-head"><b>升变</b><span>剧情形态切换</span></div>
+        <div class="detail-section-body">
+          <div class="amiya-forms">
+            ${[
+              ['amiya', '阿米娅 · 术师', '主线初始'],
+              ['char_1001_amiya2', '阿米娅 · 近卫', '通关 R8-11'],
+              ['char_1037_amiya3', '阿米娅 · 医疗', '通关 14-23'],
+            ].map(([fid, name, req]) => {
+              const isCurrent = fid === id;
+              const unlocked = fid === 'amiya' || G.amiyaFormUnlocked(fid);
+              return `<button class="amiya-form ${isCurrent ? 'active' : ''}" data-action="amiya-form" data-id="${fid}" ${isCurrent || !unlocked ? 'disabled' : ''}>
+                <b>${esc(name)}</b><span>${isCurrent ? '当前形态' : unlocked ? '点击切换' : req}</span>
+              </button>`;
+            }).join('')}
+          </div>
+        </div>
+      </div>` : ''}
+
       <div class="detail-section">
         <div class="detail-section-head"><b>战斗部署</b><span>点击战场调整站位 · 展示攻击范围</span></div>
         <div class="detail-section-body">
@@ -894,7 +949,7 @@ export function openOperator(id, opts = {}) {
             <div class="deploy-copy">
               <b>${st.range > 40 ? '远程位' : '近战位'} · 阻挡 ${st.block}</b>
               <span>近战只攻击自己阻挡的敌人；远程按射程攻击。部署位置会写进当前存档。</span>
-              <button class="btn btn-small btn-primary" data-action="op-deploy" data-id="${id}">调整部署位置</button>
+              <span class="small">在战斗页「编队」旁的「部署」中调整站位。</span>
             </div>
           </div>
         </div>
@@ -1181,7 +1236,7 @@ function roomOutputText(r) {
     case 'lmd': return `龙门币 <b>+${fmt(G.roomRate(r.id) * 3600)}/h</b>`;
     case 'record': return `作战记录 <b>+${fmt(G.roomRate(r.id) * 3600)} 经验/h</b>`;
     case 'block': return `基建材料块 <b>+${(G.roomRate(r.id) * 3600).toFixed(1)}/h</b>`;
-    case 'material': return `随机材料 <b>+${(G.roomRate(r.id) * 3600).toFixed(1)}/h</b>`;
+    case 'material': return `技巧概要 <b>+${(G.roomRate(r.id) * 3600).toFixed(1)}/h</b>`;
     case 'book': return `技巧概要 <b>+${(G.roomRate(r.id) * 3600).toFixed(1)}/h</b>`;
     case 'global': return `全舰产出 <b>+${((r.rate * (s.level - 1)) * 100).toFixed(1)}%</b>`;
     case 'repair': return `维修折扣 <b>${(G.repairDiscount() * 100).toFixed(0)}%</b>`;
@@ -1298,6 +1353,14 @@ function renderArchive() {
           <div class="panel-head"><div class="panel-title">成长记录</div><span class="panel-meta">ACHIEVEMENTS</span></div>
           <div class="panel-body"><div class="badge-grid">${achievements.map(([n, on, desc]) => `<span class="badge ${on ? 'on' : ''}" title="${desc}">${on ? '✓ ' : '○ '}${n}</span>`).join('')}</div></div>
         </div>
+        <div class="panel mt-12">
+          <div class="panel-head"><div class="panel-title">随机事件记录</div><span class="panel-meta">INCIDENTS</span></div>
+          <div class="panel-body">
+            ${(state.randomEvent?.log || []).length
+              ? `<div class="event-log">${state.randomEvent.log.slice(0, 8).map(e => `<div class="event-row"><b>${esc(e.title)}</b><span class="${e.tone === 'bad' ? 'red' : e.tone === 'good' ? 'green' : 'orange'}">${esc(e.result)}</span></div>`).join('')}</div>`
+              : '<div class="small">暂无记录。干员们目前都很安静。</div>'}
+          </div>
+        </div>
       </div>
     </div>
     <div class="archive-grid">
@@ -1387,6 +1450,22 @@ function openSkinGallery() {
     </div>`;
   }).join('');
   openModal(modalShell('时装回廊', `<div class="flex-between mb-12"><span class="small">${list.length} / ${SKINS.length} 套 · 当前 ◆ ${fmt(state.primes)}</span><button class="btn btn-small ${ui.galleryOwned ? 'active' : ''}" data-action="gallery-owned">${ownedOnly ? '显示全部' : '仅显示已拥有'}</button></div><div class="gallery-grid">${cards || '<div class="empty-state">还没有时装。</div>'}</div>`, { wide: true, kicker: 'SKIN ARCHIVE // PRTS', sub: '全部时装统一售价 ' + SKIN_PRICE + ' 源石。' }));
+}
+
+export function showRandomEvent({ event, result }) {
+  const tone = event.tone === 'bad' ? 'red' : event.tone === 'good' ? 'green' : 'orange';
+  const body = `<div class="random-event-card">
+    <div class="random-event-kicker">OPERATOR INCIDENT // ${esc(event.id.toUpperCase())}</div>
+    <h4>${esc(event.title)}</h4>
+    <p>${esc(event.text)}</p>
+    <div class="random-event-result ${tone}">${esc(result)}</div>
+  </div>`;
+  openModal(modalShell('干员随机事件', body, {
+    narrow: true,
+    kicker: 'RHODES ISLAND // INCIDENT REPORT',
+    actions: '<button class="btn btn-primary" data-action="close-modal">知道了</button>',
+  }));
+  if (event.tone === 'bad') sfx('warn'); else sfx('gold');
 }
 
 export function showOffline(report) {
@@ -1487,6 +1566,14 @@ async function onClick(e) {
       openSquadEditor(); break;
     case 'deploy-select':
       startDeploy(id); break;
+    case 'toggle-deploy':
+      ui.gridVisible = !ui.gridVisible;
+      ui.deploying = null;
+      ui.showRanges = false;
+      renderRangeOverlay();
+      renderView();
+      toast(ui.gridVisible ? '部署模式：点击干员，再点击战场格子。' : '已退出部署模式。', 'success');
+      break;
     case 'toggle-ranges':
       ui.showRanges = !ui.showRanges;
       renderRangeOverlay();
@@ -1497,6 +1584,8 @@ async function onClick(e) {
       setView('battle');
       setTimeout(() => startDeploy(id), 80);
       break;
+    case 'amiya-form':
+      openOperator(id); break;
     case 'auto-squad':
       G.autoSquad(); battle.start(); renderView(); toast('已按战力自动编队。', 'success'); break;
     case 'remove-squad':

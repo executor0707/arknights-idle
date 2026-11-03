@@ -153,36 +153,47 @@ const LEGACY_STAGES = [
   })),
 ];
 
-const ENDLESS_BOSSES = ['boss_skulsr', 'boss_frstar', 'boss_faust', 'boss_mephi', 'boss_sfsui', 'boss_blksnk'];
-const ENDLESS_STAGES = Array.from({ length: 12 }, (_, i) => {
-  const rec = Math.round(16000 * Math.pow(1.36, i));
-  const t = i / 11;
+export const ENDLESS_BOSSES = ['boss_skulsr', 'boss_frstar', 'boss_faust', 'boss_mephi', 'boss_sfsui', 'boss_blksnk'];
+export const MAX_ENDLESS_FLOOR = 325;
+export function makeEndlessStage(n) {
+  const floor = Math.max(1, Math.min(MAX_ENDLESS_FLOOR, Math.floor(n)));
+  // The cap is applied against the 12x 6-star max power in game.js.
+  const rec = Math.round(16000 + (71009 - 16000) * ((floor - 1) / (MAX_ENDLESS_FLOOR - 1)));
+  const i = floor - 1;
+  const bossKey = ENDLESS_BOSSES[(floor * 37 + Math.floor(floor / 7)) % ENDLESS_BOSSES.length];
   return {
-    id: 'endless-' + (i + 1),
+    id: 'endless-' + floor,
     group: 'endless',
-    code: 'END-' + String(i + 1).padStart(2, '0'),
+    code: 'END-' + String(floor).padStart(3, '0'),
     chapter: '无尽战斗',
-    name: '无尽战线 ' + String(i + 1).padStart(2, '0'),
+    name: '无尽战线 ' + String(floor).padStart(2, '0'),
+    floor,
     rec,
-    waves: 3 + Math.floor(i / 3),
-    desc: `无尽战线第 ${i + 1} 层。敌人强度与规模逐层上升；失败会留在当前层继续挂机，直到练度足够。`,
+    waves: Math.min(8, 3 + Math.floor(i / 3)),
+    desc: `无尽战线第 ${floor} 层。敌人强度与规模逐层上升；失败会留在当前层继续挂机，直到练度足够。`,
     color: '#c58cff',
     drops: [],
     firstClearPrime: 1,
-    bossKey: ENDLESS_BOSSES[i % ENDLESS_BOSSES.length],
-    rewards: { lmd: 1200 + rec * 0.18, orundum: 20 + i * 9, doctorExp: 18 + i * 4, items: {} },
+    bossKey,
+    rewards: { lmd: 1200 + rec * 0.18, orundum: 20 + i * 9, doctorExp: 18 + Math.min(60, i * 4), items: {} },
     idle: {
-      orundumPerHour: 18000 + i * 900,
-      shardsPerHour: 22 + i * 0.8,
-      blocksPerHour: 2.8 + i * 0.12,
-      lmdPerHour: 8000 + i * 500,
-      expPerHour: 3200 + i * 180,
+      orundumPerHour: 9000 + (72000 - 9000) * ((floor - 1) / (MAX_ENDLESS_FLOOR - 1)),
+      shardsPerHour: 12 + 16 * ((floor - 1) / (MAX_ENDLESS_FLOOR - 1)),
+      blocksPerHour: 2.4 + 1.2 * ((floor - 1) / (MAX_ENDLESS_FLOOR - 1)),
+      lmdPerHour: 8000 + 7000 * ((floor - 1) / (MAX_ENDLESS_FLOOR - 1)),
+      expPerHour: 3200 + 2800 * ((floor - 1) / (MAX_ENDLESS_FLOOR - 1)),
     },
   };
-});
+}
+const ENDLESS_STAGES = Array.from({ length: 12 }, (_, i) => makeEndlessStage(i + 1));
 
 const CORE_STAGES = V2_STAGES.filter(s => s.group !== 'chip' && !(s.group === 'resource' && s.code === 'PR-D'));
-export const STAGES = [...CORE_STAGES, ...ENDLESS_STAGES];
+const CA_STAGE = {
+  id: 'CA-5', group: 'resource', code: 'CA-5', chapter: '资源筹备', name: '技巧概要·五',
+  rec: 4800, waves: 3, desc: '整理并回收技巧概要，用于干员技能升级与专精。',
+  color: '#c58cff', drops: [], rewards: { lmd: 600, orundum: 12, doctorExp: 12, items: { book1: 4, book2: 2, book3: 1 } },
+};
+export const STAGES = [...CORE_STAGES, CA_STAGE, ...ENDLESS_STAGES];
 export { MAIN_CHAPTERS };
 
 const MIN_REC = 4200;
@@ -238,7 +249,7 @@ export const ROOMS = [
   { id: 'factory', name: '制造站', glyph: '造', desc: '生产作战记录。每级提升全队攻击力。', effect: 'record', rate: 2.4, baseCost: 5200, color: '#72d6d0', combat: { atk: 0.0006 }, combatLabel: '全队攻击 +0.06%' },
   { id: 'power', name: '发电站', glyph: '电', desc: '为全舰供能。每级提升攻速与全舰产出。', effect: 'global', rate: 0.015, baseCost: 6800, color: '#67d9ff', combat: { aspd: 0.0003 }, combatLabel: '攻击速度 +0.03%' },
   { id: 'reception', name: '会客室', glyph: '客', desc: '接待来访势力。每级缓慢产出基建材料块并提升治疗量。', effect: 'block', rate: 1 / 1800, baseCost: 8200, color: '#f08ac6', combat: { heal: 0.0004 }, combatLabel: '治疗量 +0.04%' },
-  { id: 'workshop', name: '加工站', glyph: '加', desc: '定时加工随机养成材料。每级提升治疗量。', effect: 'material', rate: 1 / 240, baseCost: 7000, color: '#c58cff', combat: { heal: 0.0003 }, combatLabel: '治疗量 +0.03%' },
+  { id: 'workshop', name: '加工站', glyph: '加', desc: '定时整理技巧概要。每级提升治疗量。', effect: 'material', rate: 1 / 240, baseCost: 7000, color: '#c58cff', combat: { heal: 0.0003 }, combatLabel: '治疗量 +0.03%' },
   { id: 'training', name: '训练室', glyph: '训', desc: '定时整理技巧概要。每级提升治疗量。', effect: 'book', rate: 1 / 200, baseCost: 6600, color: '#8ee08a', combat: { heal: 0.0008 }, combatLabel: '治疗量 +0.08%' },
   { id: 'dorm', name: '宿舍', glyph: '宿', desc: '让干员好好休息。每级提升生命上限并降低维修费用。', effect: 'repair', rate: 0, baseCost: 5800, color: '#d7dde5', combat: { hp: 0.0008 }, combatLabel: '生命上限 +0.08%' },
 ];

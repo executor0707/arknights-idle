@@ -1,4 +1,4 @@
-import { state, getOpStats, getSquadBuffs, getBaseBonuses, grantStageRewards, saveNow, bus, STAGE_BY_ID, STAGES, isStageUnlocked } from './game.js';
+import { state, getOpStats, getSquadBuffs, getBaseBonuses, grantStageRewards, saveNow, bus, STAGE_BY_ID, STAGES, isStageUnlocked, ensureEndlessFloor, maxEndlessPower } from './game.js';
 import { OPERATORS } from './operators.js';
 
 const MELEE = new Set(['vanguard', 'guard', 'defender', 'specialist']);
@@ -63,6 +63,7 @@ export class Battle {
     const ids = state.squad.filter(Boolean);
     if (!ids.length) return false;
     this.stage = stage;
+    if (stage.group === 'endless') stage.rec = Math.min(stage.rec, maxEndlessPower());
     this.runId = (this.runId || 0) + 1;
     state.stage.selected = stage.id;
     this.status = 'running';
@@ -280,12 +281,25 @@ export class Battle {
   setDeployment(id, x, y) {
     const a = this.allies.find(u => u.id === id && !u.dead);
     if (!a) return false;
+    const GRID_X = [15, 29, 43, 57, 71, 85];
+    const GRID_Y = [21, 50, 79];
     const nx = clamp(Number(x) || a.x, 8, 92);
     const ny = clamp(Number(y) || a.y, 8, 92);
-    const lane = LANES.reduce((best, ly, i) => Math.abs(ly - ny) < Math.abs(LANES[best] - ny) ? i : best, 0);
-    a.x = nx; a.y = LANES[lane]; a.lane = lane;
+    const col = GRID_X.reduce((best, gx, i) => Math.abs(gx - nx) < Math.abs(GRID_X[best] - nx) ? i : best, 0);
+    const lane = GRID_Y.reduce((best, gy, i) => Math.abs(gy - ny) < Math.abs(GRID_Y[best] - ny) ? i : best, 0);
+    const tx = GRID_X[col], ty = GRID_Y[lane];
+    const occupied = this.allies.find(u => u.id !== id && !u.dead && u.lane === lane && Math.abs(u.x - tx) < 3);
     if (!state.deploy) state.deploy = {};
-    state.deploy[id] = { x: nx, y: LANES[lane], lane };
+    if (occupied) {
+      const old = { x: a.x, y: a.y, lane: a.lane };
+      a.x = occupied.x; a.y = occupied.y; a.lane = occupied.lane;
+      occupied.x = old.x; occupied.y = old.y; occupied.lane = old.lane;
+      state.deploy[id] = { x: a.x, y: a.y, lane: a.lane };
+      state.deploy[occupied.id] = { x: occupied.x, y: occupied.y, lane: occupied.lane };
+    } else {
+      a.x = tx; a.y = ty; a.lane = lane;
+      state.deploy[id] = { x: tx, y: ty, lane };
+    }
     this._assignBlocks();
     saveNow();
     return true;
@@ -570,7 +584,10 @@ export class Battle {
     if (this.stage.group === 'main' || this.stage.group === 'endless') {
       const list = STAGES.filter(s => s.group === this.stage.group);
       const i = list.findIndex(s => s.id === this.stage.id);
-      const next = list[i + 1];
+      if (this.stage.group === 'endless' && i + 1 >= list.length) {
+        ensureEndlessFloor((this.stage.floor || i + 1) + 1);
+      }
+      const next = STAGES.filter(s => s.group === this.stage.group)[i + 1];
       if (next && isStageUnlocked(next)) return next.id;
     }
     return this.stage.id;

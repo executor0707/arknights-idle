@@ -49,7 +49,7 @@ export function initSpineArena(arena) {
   frame = document.createElement('iframe');
   frame.className = 'spine38-frame';
   frame.src = 'spine38-frame.html';
-  frame.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;z-index:3;pointer-events:none;';
+  frame.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;z-index:3;pointer-events:none;opacity:0;';
   frame.setAttribute('allowtransparency', 'true');
   frame.addEventListener('load', () => {
     frameLoaded = true;

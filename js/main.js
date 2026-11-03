@@ -18,6 +18,7 @@ let battle = null;
 let running = false;
 let last = performance.now();
 let saveTimer = 0;
+let eventTimer = 0;
 let booted = false;
 let offlineReport = null;
 
@@ -74,6 +75,8 @@ function loop(ts) {
   tickIdle(dt);
   battle?.tick(dt);
   tick(dt);
+  eventTimer += dt;
+  if (eventTimer >= 2) { eventTimer = 0; G.checkRandomEvent(); }
   saveTimer += dt;
   if (saveTimer >= 8) { saveTimer = 0; saveNow(); }
   requestAnimationFrame(loop);
@@ -82,15 +85,10 @@ function loop(ts) {
 document.addEventListener('visibilitychange', () => {
   if (!booted) return;
   if (document.hidden) {
+    // Page is still open: this is not an offline session. Just persist.
     saveNow();
   } else {
-    const report = applyOffline();
-    if (report) {
-      // 离线收益按时间推进，重新开一轮以刷新战场。
-      battle.start(state.stage.selected);
-      renderBattleView();
-      showOfflineReport(report);
-    }
+    // Tab focus is not an offline session: no report and no battle restart.
     last = performance.now();
   }
 });

@@ -85,7 +85,7 @@ export const SKINS = [
     "series": "CASC",
     "color": "#0e3092",
     "desc": "由阿米娅参与设计的CASC合作服装/触及星辰。配备精密的生命保障系统，兼顾维生性能与舒适性，足以应对外层空间的极端环境。",
-    "img": "assets/operators/char_1001_amiya2.webp",
+    "img": "assets/skins/char_1001_amiya2-skin1.webp",
     "price": 18
   },
   {
@@ -96,7 +96,7 @@ export const SKINS = [
     "series": "忒斯特收藏/XVIII",
     "color": "#3B7D9A",
     "desc": "忒斯特收藏系列/于万千宇宙之中。阿米娅踏上的一段追寻之路。或许有失控的源石将整个世界毁灭，但于千千万万个宇宙之中，她终会找到你，找到希望。",
-    "img": "assets/operators/char_1001_amiya2.webp",
+    "img": "assets/skins/char_1001_amiya2-skin2.webp",
     "price": 18
   },
   {
@@ -5938,7 +5938,7 @@ export const SKINS_BY_OP = {
       "series": "CASC",
       "color": "#0e3092",
       "desc": "由阿米娅参与设计的CASC合作服装/触及星辰。配备精密的生命保障系统，兼顾维生性能与舒适性，足以应对外层空间的极端环境。",
-      "img": "assets/operators/char_1001_amiya2.webp",
+      "img": "assets/skins/char_1001_amiya2-skin1.webp",
       "price": 18
     },
     {
@@ -5949,7 +5949,7 @@ export const SKINS_BY_OP = {
       "series": "忒斯特收藏/XVIII",
       "color": "#3B7D9A",
       "desc": "忒斯特收藏系列/于万千宇宙之中。阿米娅踏上的一段追寻之路。或许有失控的源石将整个世界毁灭，但于千千万万个宇宙之中，她终会找到你，找到希望。",
-      "img": "assets/operators/char_1001_amiya2.webp",
+      "img": "assets/skins/char_1001_amiya2-skin2.webp",
       "price": 18
     }
   ],
