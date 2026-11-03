@@ -1,0 +1,16 @@
+import { connect, screenshot, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'https://executor0707.github.io/arknights-idle/?v=fixlive'});
+await new Promise(r=>setTimeout(r,3500));
+await evalJS(send,`document.getElementById('enterBtn').click();true`);
+await new Promise(r=>setTimeout(r,1800));
+await evalJS(send,`document.querySelector('[data-action="tutorial-skip"]')?.click();true`);
+await new Promise(r=>setTimeout(r,4000));
+console.log('battle', await evalJS(send,`JSON.stringify({spine:document.querySelectorAll('.ally-token.spine-unit').length,enemy:document.querySelectorAll('.enemy-token.spine-unit').length,errs:window.__errs})`));
+await evalJS(send,`document.querySelector('[data-nav="gacha"]').click();true`);
+await new Promise(r=>setTimeout(r,600));
+console.log('gacha', await evalJS(send,`JSON.stringify({hero:document.querySelector('.banner-hero')?.getBoundingClientRect().height,portrait:document.querySelector('.banner-portrait')?.getBoundingClientRect().height,errs:window.__errs})`));
+await screenshot(send,'qa/v2-live-fixes.png',1440,1000);
+process.exit(0);
