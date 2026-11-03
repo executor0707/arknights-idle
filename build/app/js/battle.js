@@ -88,6 +88,7 @@ export class Battle {
     this.kills = 0;
     this.totalSpawned = 0;
     this.stats = { damage: 0, healing: 0, leaks: 0 };
+    this.leaks = 0;
     this.shake = 0;
     this.waveFlash = 1.6;
     this.buffs = getSquadBuffs(ids);
@@ -114,7 +115,7 @@ export class Battle {
     const bb = this.baseBonuses || { atk: 0, hp: 0, aspd: 0, heal: 0, crit: 0.05, critDmg: 1.5 };
     const hp = Math.round(st.hp * (1 + b.hp) * (1 + bb.hp));
     return {
-      uid: uid('a'), id, x, y, lane, role: st.role,
+      uid: uid('a'), id, x, y, lane, role: st.role, bobPhase: Math.random() * Math.PI * 2,
       hp, maxHp: hp, shield: 0, atk: st.atk * (1 + b.atk) * (1 + bb.atk), def: st.def * (1 + b.def),
       res: st.res, interval: st.interval / (1 + bb.aspd), range: st.range, block: st.block,
       cooldown: rand(0.1, 0.6), sp: id === 'amiya' ? 5 : 0, maxSp: id === 'amiya' ? 27 : 30,
@@ -158,17 +159,24 @@ export class Battle {
     const stage = this.stage;
     const info = ENEMY_INFO[item.type];
     const baseHp = stage.rec * (0.205 + item.wave * 0.026);
-    const hp = baseHp * info.hp * rand(0.9, 1.1);
+    let hp = baseHp * info.hp * rand(0.9, 1.1);
+    let atk = stage.rec * 0.0105 * info.atk * rand(0.9, 1.1);
+    let bossPower = 0;
+    if (item.boss) {
+      // A boss is a single unit at 1.75x the party's average member power.
+      bossPower = (stage.rec / 5) * 1.75;
+      hp = bossPower * 2.4;
+      atk = bossPower * 0.22;
+    }
     const enemy = {
-      uid: uid('e'), type: item.type, glyph: info.glyph, boss: item.boss, bossKey: item.bossKey || null,
+      uid: uid('e'), type: item.type, glyph: info.glyph, boss: item.boss, bossKey: item.bossKey || null, bossPower,
       x: 105 + rand(0, 6), y: LANES[item.lane] + rand(-1.4, 1.4), lane: item.lane,
-      hp, maxHp: hp, atk: stage.rec * 0.0105 * info.atk * rand(0.9, 1.1),
+      hp, maxHp: hp, atk,
       def: stage.rec * 0.0011 * (item.boss ? 1.8 : 1), res: 5 + item.wave * 2 + (item.type === 'caster' ? 15 : 0),
       speed: 6.2 * info.speed, blockable: info.block, size: info.size,
       blockedBy: null, attackCd: rand(0.5, 1.2), stun: 0, slow: 0, slowT: 0, burn: 0, burnDmg: 0,
       vuln: 0, vulnT: 0, hitFlash: 0, dead: false,
     };
-    if (item.boss) { enemy.atk *= 1.35; }
     this.enemies.push(enemy);
     this.totalSpawned++;
   }
@@ -231,13 +239,16 @@ export class Battle {
       const speed = e.speed * (1 - e.slow);
       e.x -= speed * dt;
       if (e.x <= 5.5) {
-        this.baseHp -= e.boss ? 3 : 1;
-        this.shake = 0.35;
+        const leakCost = e.boss ? 3 : 1;
+        this.baseHp -= leakCost;
+        this.leaks += leakCost;
         this.stats.leaks++;
-        this._float(8, e.y, `-${e.boss ? 3 : 1}`, 'danger');
+        this.shake = 0.35;
+        this._float(8, e.y, `漏怪 ${leakCost}`, 'danger');
         this._effect(6, e.y, 'breach', 0.6);
         bus.dispatchEvent(new CustomEvent('battle-sfx', { detail: { sound: 'breach' } }));
         e.dead = true;
+        if (this.leaks >= 3) { this._finish(false, '漏怪 3 个，防线失守'); return; }
       }
     }
     this.enemies = this.enemies.filter(e => !e.dead);

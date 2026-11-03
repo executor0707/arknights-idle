@@ -204,9 +204,15 @@
     "marchBattle": {
       "squad": 5,
       "horizontal": true,
-      "characterColumn": true,
-      "oldGridRemoved": true,
-      "spineUnits": 5
+      "sameRoad": true,
+      "spineBob": true,
+      "enemyAligned": true,
+      "oldGridRemoved": true
+    },
+    "battleRules": {
+      "leakFailAt": 3,
+      "bossLeakCount": 3,
+      "bossPowerMultiplier": 1.75
     }
   },
   "limitations": [
