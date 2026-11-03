@@ -15,6 +15,10 @@ export const bus = new EventTarget();
 
 const CLASS_KEY = { 先锋: 'vanguard', 近卫: 'guard', 重装: 'defender', 狙击: 'sniper', 术师: 'caster', 医疗: 'medic', 辅助: 'supporter', 特种: 'specialist' };
 const CAPS = { 2: [30], 3: [40, 55], 4: [45, 60, 70], 5: [50, 70, 80], 6: [50, 80, 90] };
+export const USEFUL_ITEM_IDS = new Set([
+  'record1', 'record2', 'record3', 'record4',
+  'book1', 'book2', 'book3', 'chip', 'chip_pack', 'module', 'token', 'base_block',
+]);
 // Control room gives 0.05% crit per level on top of the 5% base crit.
 export const CONTROL_MAX_LEVEL = 1900;
 const MAX_ELITE = { 2: 0, 3: 1, 4: 2, 5: 2, 6: 2 };
@@ -51,10 +55,7 @@ export function createDefaultState() {
       record1: 40, record2: 20, record3: 8, record4: 0,
       book1: 6, book2: 2, book3: 0,
       chip: 30, chip_pack: 10,
-      rock1: 8, rock2: 4, rock3: 0, sugar1: 8, sugar2: 2, sugar3: 0,
-      ester1: 8, ester2: 2, ester3: 0, iron1: 6, iron2: 1, ketone1: 4, ketone2: 0,
-      device1: 3, device2: 0, alcohol: 0, grindstone: 0, rma: 0, manganese: 0,
-      alloy: 0, crystal: 0, gel: 0, module: 0, token: 0, base_block: 20,
+      module: 0, token: 0, base_block: 20,
     },
     stage: { selected: 'CE-6', cleared: [], firstClear: {}, auto: true, speed: 1, totalRuns: 0 },
     deploy: {},
@@ -121,6 +122,10 @@ export function loadGame() {
   if (chipSum > 0 || packSum > 0) {
     state.inventory.chip = (state.inventory.chip || 0) + chipSum;
     state.inventory.chip_pack = (state.inventory.chip_pack || 0) + packSum;
+  }
+  // Remove pre-simplification materials that no longer have any use.
+  for (const id of Object.keys(state.inventory)) {
+    if (!USEFUL_ITEM_IDS.has(id)) delete state.inventory[id];
   }
   if (!state.idle) state.idle = { orundum: 0, shards: 0, blocks: 0, lmd: 0, exp: 0, chips: 0, chipPacks: 0, seconds: 0 };
   if (typeof state.idle.chips !== 'number') state.idle.chips = 0;
