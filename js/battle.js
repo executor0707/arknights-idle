@@ -1,10 +1,17 @@
-import { state, getOpStats, getSquadBuffs, getBaseBonuses, grantStageRewards, saveNow, bus, STAGE_BY_ID, isStageUnlocked } from './game.js';
+import { state, getOpStats, getSquadBuffs, getBaseBonuses, grantStageRewards, saveNow, bus, STAGE_BY_ID, STAGES, isStageUnlocked } from './game.js';
 import { OPERATORS } from './operators.js';
 
 const MELEE = new Set(['vanguard', 'guard', 'defender', 'specialist']);
 const LANES = [21, 50, 79];
 const FRONT_SLOTS = [[40, 0], [40, 1], [40, 2], [31, 0], [31, 1], [31, 2]];
 const BACK_SLOTS = [[23, 0], [23, 1], [23, 2], [14, 0], [14, 1], [14, 2]];
+const BOSS_BY_CHAPTER = {
+  0: 'boss_skulsr', 1: 'boss_skulsr', 2: 'boss_skulsr', 3: 'boss_skulsr',
+  4: 'boss_frstar', 5: 'boss_faust', 6: 'boss_mephi', 7: 'boss_mephi',
+  8: 'boss_skulsr', 9: 'boss_sfsui', 10: 'boss_sfsui', 11: 'boss_blksnk',
+  12: 'boss_blksnk', 13: 'boss_sfsui', 14: 'boss_blksnk', 15: 'boss_sfsui',
+  16: 'boss_blksnk', 17: 'boss_sfsui',
+};
 const ENEMY_INFO = {
   soldier: { glyph: '兵', hp: 1, atk: 1, speed: 1, block: true, size: 1 },
   shield: { glyph: '盾', hp: 1.7, atk: 0.9, speed: 0.72, block: true, size: 1.06 },
@@ -74,6 +81,7 @@ export class Battle {
     this.effects = [];
     this.cast = null;
     this.cutIn = null;
+    this.nextStageId = null;
     this.kills = 0;
     this.totalSpawned = 0;
     this.stats = { damage: 0, healing: 0, leaks: 0 };
@@ -127,8 +135,17 @@ export class Battle {
     };
   }
 
+  _bossKeyForStage() {
+    const s = this.stage;
+    if (s?.bossKey) return s.bossKey;
+    if (s?.group === 'annihilation') return 'boss_blksnk';
+    const ch = Number(s?.chapterKey ?? 0);
+    return BOSS_BY_CHAPTER[ch] || 'boss_skulsr';
+  }
+
   _buildSpawnQueue() {
     const stage = this.stage;
+    const bossKey = this._bossKeyForStage();
     const waves = this.totalWaves;
     let at = 1.2;
     for (let w = 0; w < waves; w++) {
@@ -140,7 +157,7 @@ export class Battle {
         else if (w === 0) type = Math.random() < 0.2 ? 'shield' : 'soldier';
         else if (w === 1) type = Math.random() < 0.45 ? 'shield' : Math.random() < 0.3 ? 'caster' : 'soldier';
         else type = Math.random() < 0.3 ? 'drone' : Math.random() < 0.45 ? 'caster' : Math.random() < 0.4 ? 'shield' : 'soldier';
-        this.spawnQueue.push({ at, wave: w + 1, type, lane: Math.floor(Math.random() * 3), boss: isBoss });
+        this.spawnQueue.push({ at, wave: w + 1, type, lane: Math.floor(Math.random() * 3), boss: isBoss, bossKey: isBoss ? bossKey : null });
         at += isBoss ? 1.6 : rand(0.75, 1.22);
       }
       at += 2.2;
@@ -153,7 +170,7 @@ export class Battle {
     const baseHp = stage.rec * (0.205 + item.wave * 0.026);
     const hp = baseHp * info.hp * rand(0.9, 1.1);
     const enemy = {
-      uid: uid('e'), type: item.type, glyph: info.glyph, boss: item.boss,
+      uid: uid('e'), type: item.type, glyph: info.glyph, boss: item.boss, bossKey: item.bossKey || null,
       x: 105 + rand(0, 6), y: LANES[item.lane] + rand(-3.4, 3.4), lane: item.lane,
       hp, maxHp: hp, atk: stage.rec * 0.0105 * info.atk * rand(0.9, 1.1),
       def: stage.rec * 0.0011 * (item.boss ? 1.8 : 1), res: 5 + item.wave * 2 + (item.type === 'caster' ? 15 : 0),
@@ -169,7 +186,7 @@ export class Battle {
   tick(dtReal) {
     if (this.status === 'victory' || this.status === 'defeat') {
       this.endTimer -= dtReal;
-      if (this.endTimer <= 0 && this.shouldAutoRestart && !this.paused) this.start(this.stage.id);
+      if (this.endTimer <= 0 && this.shouldAutoRestart && !this.paused) this.start(this.nextStageId || this.stage.id);
       return;
     }
     if (this.status !== 'running' || this.paused) return;
@@ -548,6 +565,17 @@ export class Battle {
     this.effects = this.effects.filter(e => e.life > 0);
   }
 
+  _nextStageAfterWin() {
+    if (!state.stage.auto) return this.stage.id;
+    if (this.stage.group === 'main' || this.stage.group === 'endless') {
+      const list = STAGES.filter(s => s.group === this.stage.group);
+      const i = list.findIndex(s => s.id === this.stage.id);
+      const next = list[i + 1];
+      if (next && isStageUnlocked(next)) return next.id;
+    }
+    return this.stage.id;
+  }
+
   _finish(win, reason) {
     if (this.status === 'victory' || this.status === 'defeat') return;
     this.status = win ? 'victory' : 'defeat';
@@ -556,6 +584,7 @@ export class Battle {
     this.shouldAutoRestart = !!state.stage.auto;
     state.stats.runs += win ? 0 : 1;
     if (!win) {
+      this.nextStageId = this.stage.id;
       this.lastReward = null;
       this.lastWin = false;
       state.stats.losses += 1;
@@ -566,7 +595,8 @@ export class Battle {
       this.onFinish?.({ win, reason, stage: this.stage, reward: null });
       return;
     }
-    if (this.stage.group === 'main' && !state.stage.cleared.includes(this.stage.id)) state.stage.cleared.push(this.stage.id);
+    if ((this.stage.group === 'main' || this.stage.group === 'endless') && !state.stage.cleared.includes(this.stage.id)) state.stage.cleared.push(this.stage.id);
+    this.nextStageId = this._nextStageAfterWin();
     state.stage.totalRuns = (state.stage.totalRuns || 0) + 1;
     const reward = grantStageRewards(this.stage);
     this.lastReward = reward;

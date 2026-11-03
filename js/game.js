@@ -46,10 +46,7 @@ export function createDefaultState() {
     inventory: {
       record1: 40, record2: 20, record3: 8, record4: 0,
       book1: 6, book2: 2, book3: 0,
-      chip_vanguard: 2, chip_guard: 2, chip_defender: 2, chip_sniper: 2,
-      chip_caster: 2, chip_medic: 2, chip_supporter: 2, chip_specialist: 2,
-      pack_vanguard: 0, pack_guard: 0, pack_defender: 0, pack_sniper: 0,
-      pack_caster: 0, pack_medic: 0, pack_supporter: 0, pack_specialist: 0,
+      chip: 30, chip_pack: 10,
       rock1: 8, rock2: 4, rock3: 0, sugar1: 8, sugar2: 2, sugar3: 0,
       ester1: 8, ester2: 2, ester3: 0, iron1: 6, iron2: 1, ketone1: 4, ketone2: 0,
       device1: 3, device2: 0, alcohol: 0, grindstone: 0, rma: 0, manganese: 0,
@@ -57,7 +54,7 @@ export function createDefaultState() {
     },
     stage: { selected: 'CE-6', cleared: [], firstClear: {}, auto: true, speed: 1, totalRuns: 0 },
     deploy: {},
-    idle: { orundum: 0, shards: 0, blocks: 0, lmd: 0, exp: 0, seconds: 0 },
+    idle: { orundum: 0, shards: 0, blocks: 0, lmd: 0, exp: 0, chips: 0, chipPacks: 0, seconds: 0 },
     skins: { owned: {}, equipped: {} },
     gacha: {
       standard: defaultBannerState(), limited: defaultBannerState(), collab: defaultBannerState(),
@@ -110,6 +107,18 @@ export function loadGame() {
   if (!STAGE_BY_ID.has(state.stage.selected)) state.stage.selected = 'CE-6';
   state.squad = state.squad.map(id => id && OP_BY_ID.has(id) ? id : null);
   if (!state.deploy || typeof state.deploy !== 'object') state.deploy = {};
+  const chipKeys = ['chip_vanguard', 'chip_guard', 'chip_defender', 'chip_sniper', 'chip_caster', 'chip_medic', 'chip_supporter', 'chip_specialist'];
+  const packKeys = ['pack_vanguard', 'pack_guard', 'pack_defender', 'pack_sniper', 'pack_caster', 'pack_medic', 'pack_supporter', 'pack_specialist'];
+  let chipSum = 0, packSum = 0;
+  for (const k of chipKeys) { chipSum += Number(state.inventory[k]) || 0; delete state.inventory[k]; }
+  for (const k of packKeys) { packSum += Number(state.inventory[k]) || 0; delete state.inventory[k]; }
+  if (chipSum > 0 || packSum > 0) {
+    state.inventory.chip = (state.inventory.chip || 0) + chipSum;
+    state.inventory.chip_pack = (state.inventory.chip_pack || 0) + packSum;
+  }
+  if (!state.idle) state.idle = { orundum: 0, shards: 0, blocks: 0, lmd: 0, exp: 0, chips: 0, chipPacks: 0, seconds: 0 };
+  if (typeof state.idle.chips !== 'number') state.idle.chips = 0;
+  if (typeof state.idle.chipPacks !== 'number') state.idle.chipPacks = 0;
   ensureDaily();
   ensureShop();
   return state;
@@ -297,8 +306,8 @@ export function levelUp(id, times = 1) {
   return gained;
 }
 
-export function classChipKey(cls) { return 'chip_' + CLASS_KEY[cls]; }
-export function classPackKey(cls) { return 'pack_' + CLASS_KEY[cls]; }
+export function classChipKey() { return 'chip'; }
+export function classPackKey() { return 'chip_pack'; }
 
 export function promotionInfo(id) {
   const d = opData(id); const s = opState(id);
@@ -500,6 +509,11 @@ export function isStageUnlocked(stage) {
     const i = mains.findIndex(s => s.id === stage.id);
     return i === 0 || state.stage.cleared.includes(mains[i - 1].id);
   }
+  if (stage.group === 'endless') {
+    const endless = STAGES.filter(s => s.group === 'endless');
+    const i = endless.findIndex(s => s.id === stage.id);
+    return i === 0 || state.stage.cleared.includes(endless[i - 1].id);
+  }
   if (stage.group === 'annihilation') return true;
   return true;
 }
@@ -511,7 +525,7 @@ export function setStage(id) {
   return true;
 }
 export function stageIdleRates(stage = STAGE_BY_ID.get(state.stage.selected)) {
-  if (!stage?.idle) return { orundumPerHour: 0, shardsPerHour: 0, blocksPerHour: 0, lmdPerHour: 0, expPerHour: 0 };
+  if (!stage?.idle) return { orundumPerHour: 0, shardsPerHour: 0, blocksPerHour: 0, lmdPerHour: 0, expPerHour: 0, chipsPerHour: 0, chipPacksPerHour: 0 };
   return stage.idle;
 }
 
@@ -536,6 +550,8 @@ export function tickIdle(dt) {
   state.lmd += (r.lmdPerHour / 3600) * dt;
   state.idle.exp += (r.expPerHour / 3600) * dt;
   state.idle.blocks += (r.blocksPerHour / 3600) * dt;
+  state.idle.chips += ((r.chipsPerHour || 0) / 3600) * dt;
+  state.idle.chipPacks += ((r.chipPacksPerHour || 0) / 3600) * dt;
   while (state.primeShards >= PRIME_SHARD_COST) {
     state.primeShards -= PRIME_SHARD_COST;
     state.primes += 1;
@@ -547,6 +563,14 @@ export function tickIdle(dt) {
   while (state.idle.exp >= 200) {
     state.idle.exp -= 200;
     addItem('record1', 1);
+  }
+  while (state.idle.chips >= 1) {
+    state.idle.chips -= 1;
+    addItem('chip', 1);
+  }
+  while (state.idle.chipPacks >= 1) {
+    state.idle.chipPacks -= 1;
+    addItem('chip_pack', 1);
   }
 }
 
