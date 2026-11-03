@@ -323,7 +323,8 @@
       "remoteMapped": 405,
       "remoteTotal": 531,
       "remoteLoader": true,
-      "localFallback": true
+      "localFallback": true,
+      "scale35": true
     },
     "killLmd": {
       "instant": true,
