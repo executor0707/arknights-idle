@@ -437,6 +437,7 @@ export class Battle {
     if (gain > 0) {
       state.lmd += gain;
       this.killLmdPaid = (this.killLmdPaid || 0) + gain;
+      bus.dispatchEvent(new CustomEvent('lmd-change', { detail: { amount: gain, total: state.lmd } }));
     }
     if (e.boss) this.shake = 0.5;
     for (const a of this.allies) if (!a.dead && a.id === 'kirin_yato') a.sp = Math.min(a.maxSp, a.sp + 20);
