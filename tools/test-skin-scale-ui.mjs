@@ -1,0 +1,10 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable');
+console.log(await evalJS(send, `__RHODES__.setView('skins',true); true`));
+await new Promise(r=>setTimeout(r,700));
+console.log(await evalJS(send, `JSON.stringify({sliders:document.querySelectorAll('[data-skin-scale]').length, labels:document.querySelectorAll('[data-skin-scale-value]').length})`));
+console.log(await evalJS(send, `(()=>{const el=document.querySelector('[data-skin-scale]');if(!el)return 'none';const row=el.closest('.skin-scale-row');const before=row?.querySelector('b')?.textContent;el.value='145';el.dispatchEvent(new Event('input',{bubbles:true}));const after=row?.querySelector('b')?.textContent;const st=__RHODES__.state.skins.scale;return JSON.stringify({before,after,id:el.dataset.skinScale,val:st[el.dataset.skinScale]})})()`));
+await screenshot(send,'.cache/skin-scale-ui.png',1440,1000);
+process.exit(0);

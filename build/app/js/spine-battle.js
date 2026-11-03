@@ -1,7 +1,7 @@
 import { SPINE_ENEMIES } from './spine-index.js';
 import { SPINE38_OPERATORS, SPINE35_ONLY } from './spine38-index.js';
 import { SKIN_SPINE } from './skin-spine-index.js';
-import { state } from './game.js';
+import { state, skinScaleForOp } from './game.js';
 const OPS_DATA = { ...SPINE38_OPERATORS, ...SKIN_SPINE };
 
 const ENEMY_KEY = { soldier: 'soldier', shield: 'shield', caster: 'caster', drone: 'hound', boss: 'boss_skulsr' };
@@ -187,7 +187,7 @@ export function syncSpine(battle) {
       const equipped = state.skins?.equipped?.[a.id];
       const skinKey = equipped ? `${a.id}-${equipped}` : null;
       const key = skinKey && SKIN_SPINE[skinKey] ? skinKey : a.id;
-      post.push({ uid: 'a:' + a.uid, kind: 'op', key, x: a.x, y: a.y, scale: state.settings?.characterScale || 1.2, bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
+      post.push({ uid: 'a:' + a.uid, kind: 'op', key, x: a.x, y: a.y, scale: (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id), bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
       continue;
     }
     if (!SPINE35_ONLY[a.id]) continue;

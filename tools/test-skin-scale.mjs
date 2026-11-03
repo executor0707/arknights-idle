@@ -1,0 +1,27 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=skinscale'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`localStorage.clear();location.reload()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1700));
+await send('Runtime.evaluate',{expression:`document.querySelector('[data-action="tutorial-skip"]')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,600));
+console.log(await evalJS(send,`(()=>{const s=__RHODES__.state;const list=[['char_1001_amiya2','skin1',1.25],['char_4009_irene','skin1',1.0],['char_4132_ascln','skin1',1.1],['char_291_aglina','skin1',0.9],['char_4178_alanna','skin1',1.3]];for(const [id,k,sc] of list){s.operators[id]={level:1,elite:0,potential:1,skill:1,mastery:0,trust:0,module:0,exp:0};s.skins.owned[id+'-'+k]=true;s.skins.equipped[id]=k;s.skins.scale[id+'-'+k]=sc;}s.squad=list.map(x=>x[0]);s.settings.characterScale=1.5;__RHODES__.battle.start('CE-6');return JSON.stringify({squad:s.squad,scales:s.skins.scale,global:s.settings.characterScale})})()`));
+await new Promise(r=>setTimeout(r,2000));
+console.log(await evalJS(send,`(()=>{const f=document.querySelector('iframe.spine38-frame');const fr=f?.contentWindow?.__frame;const arr=[];if(fr?.sprites)for(const [k,v] of fr.sprites)if(k.startsWith('a:'))arr.push({k,h:Math.round(v.height),base:v._baseScale,scaleX:+v.scale.x.toFixed(3),ratio:+(v.scale.x/v._baseScale).toFixed(3)});return JSON.stringify(arr)})()`));
+// UI slider in operator detail
+await evalJS(send,`__RHODES__.openOperator('char_1001_amiya2');true`);
+await new Promise(r=>setTimeout(r,500));
+console.log('ui', await evalJS(send,`JSON.stringify({sliders:document.querySelectorAll('[data-skin-scale]').length,first:document.querySelector('[data-skin-scale]')?.value,label:document.querySelector('[data-skin-scale-value]')?.textContent})`));
+await evalJS(send,`(()=>{const el=document.querySelector('[data-skin-scale]');if(!el)return false;el.value='145';el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));return true})()`);
+await new Promise(r=>setTimeout(r,500));
+console.log('changed', await evalJS(send,`JSON.stringify({value:__RHODES__.state.skins.scale['char_1001_amiya2-skin1'],label:document.querySelector('[data-skin-scale-value]')?.textContent})`));
+await evalJS(send,`document.querySelector('[data-action="close-modal"]')?.click();true`);
+await new Promise(r=>setTimeout(r,700));
+await screenshot(send,'.cache/skin-scale-five.png',1440,1000);
+process.exit(0);

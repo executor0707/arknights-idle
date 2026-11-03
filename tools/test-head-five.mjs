@@ -1,0 +1,22 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=headfive'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`localStorage.clear();location.reload()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1700));
+await send('Runtime.evaluate',{expression:`document.querySelector('[data-action="tutorial-skip"]')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,700));
+const setup = await evalJS(send,`(()=>{const s=__RHODES__.state;const list=[['char_1001_amiya2','skin1'],['char_4009_irene','skin1'],['char_4132_ascln','skin1'],['char_291_aglina','skin1'],['char_4178_alanna','skin1']];for(const [id,k] of list){s.operators[id]={level:1,elite:0,potential:1,skill:1,mastery:0,trust:0,module:0,exp:0};s.skins.owned[id+'-'+k]=true;s.skins.equipped[id]=k;}s.squad=list.map(x=>x[0]);__RHODES__.battle.start('CE-6');return JSON.stringify({squad:s.squad})})()`);
+console.log(setup);
+await new Promise(r=>setTimeout(r,2200));
+console.log(await evalJS(send,`(()=>{const f=document.querySelector('iframe.spine38-frame');const fr=f?.contentWindow?.__frame;const sp=[];if(fr?.sprites)for(const [k,v] of fr.sprites)if(k.startsWith('a:'))sp.push({k,h:Math.round(v.height),w:Math.round(v.width),base:+((v._baseScale||0).toFixed(3)),key:v.__key||''});return JSON.stringify({sp,keys:fr?Object.keys(fr.ops).filter(k=>k.includes('-skin')):[]})})()`));
+await screenshot(send,'.cache/head-five.png',1440,1000);
+// wait a bit for idle pose
+await new Promise(r=>setTimeout(r,800));
+await screenshot(send,'.cache/head-five-2.png',1440,1000);
+process.exit(0);

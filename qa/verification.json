@@ -302,11 +302,21 @@
     "skinSpine": {
       "pilot": [
         "char_1001_amiya2-skin1",
-        "char_1001_amiya2-skin2"
+        "char_4009_irene-skin1",
+        "char_4132_ascln-skin1",
+        "char_291_aglina-skin1",
+        "char_4178_alanna-skin1"
       ],
       "source": "torappu.prts.wiki/assets/char_spine",
       "assetsLocal": true,
       "battleApplied": true,
+      "headNormalization": false,
+      "skinScale": true,
+      "skinScaleRange": [
+        0.5,
+        2
+      ],
+      "globalMultiplier": true,
       "remainingUsesDefault": true
     }
   },
