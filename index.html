@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0c0d" />
+  <meta name="description" content="罗德岛值守协议：明日方舟同人放置游戏。抽卡、养干员、挂机作战、经营基建，并小心维什戴尔。" />
+  <title>罗德岛值守协议 · ARKNIGHTS IDLE</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/large.css" />
+</head>
+<body>
+  <div id="splash" class="splash">
+    <div class="splash-noise"></div>
+    <div class="splash-grid"></div>
+    <div class="splash-orbit orbit-a"></div>
+    <div class="splash-orbit orbit-b"></div>
+    <div class="splash-art">
+      <img src="assets/operators/amiya.webp" alt="阿米娅" />
+      <div class="splash-art-scan"></div>
+    </div>
+    <div class="splash-side-mark">RHODES ISLAND<br />IDLE PROTOCOL<br /><span>PRTS // 07</span></div>
+    <div class="splash-content">
+      <div class="splash-kicker"><span class="pulse-dot"></span> RHODES ISLAND INTERNAL NETWORK</div>
+      <h1 class="splash-title">
+        <span class="title-small">ARKNIGHTS</span>
+        <span class="title-cn">罗德岛</span>
+        <span class="title-cn title-line2">值守协议</span>
+      </h1>
+      <p class="splash-sub">没有理智限制，只有无尽的值班。<br />让干员们替你打完这场战争。</p>
+      <div class="splash-actions">
+        <button id="enterBtn" class="btn btn-primary btn-large" type="button">
+          <span class="btn-ico">▸</span><span id="enterLabel">接入 PRTS</span>
+        </button>
+        <button id="splashReset" class="btn btn-ghost btn-small hidden" type="button">清除档案</button>
+      </div>
+      <div class="splash-meta">
+        <span>v1.0.0</span><span>非官方同人作品</span><span>素材来源 PRTS Wiki</span>
+      </div>
+    </div>
+    <div class="splash-bottom">
+      <span>TERRA LOCAL TIME <b id="splashClock">--:--:--</b></span>
+      <span class="splash-warning">WARNING // 结构应力监测中</span>
+    </div>
+  </div>
+
+  <div id="app" class="app hidden">
+    <div class="app-bg">
+      <div class="bg-grid"></div>
+      <div class="bg-glow glow-orange"></div>
+      <div class="bg-glow glow-cyan"></div>
+      <div class="bg-scanline"></div>
+    </div>
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark"><span>R</span></div>
+        <div class="brand-text">
+          <div class="brand-title">RHODES ISLAND</div>
+          <div class="brand-sub">IDLE PROTOCOL / 值守协议</div>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-level">LV.<b id="doctorLevel">1</b></div>
+        <div class="doctor-info">
+          <div class="doctor-name"><span id="doctorName">博士</span><span class="doctor-tag">DR.</span></div>
+          <div class="doctor-exp"><i id="doctorExpBar"></i></div>
+        </div>
+      </div>
+      <div class="resource-bar">
+        <button class="resource-pill lmd" data-action="view" data-view="inventory" title="龙门币">
+          <span class="res-icon">L</span><span class="res-num" id="resLmd">0</span>
+        </button>
+        <button class="resource-pill orundum" data-action="view" data-view="gacha" title="合成玉">
+          <span class="res-icon">◇</span><span class="res-num" id="resOrundum">0</span>
+        </button>
+        <button class="resource-pill prime" data-action="view" data-view="inventory" title="源石">
+          <span class="res-icon">◆</span><span class="res-num" id="resPrime">0</span>
+        </button>
+        <button class="resource-pill cert" data-action="view" data-view="inventory" title="资质凭证">
+          <span class="res-icon">▤</span><span class="res-num" id="resCert">0</span>
+        </button>
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" data-action="tasks" title="日常任务" aria-label="日常任务">
+          <span class="nav-glyph">✓</span><i id="taskDot" class="dot hidden"></i>
+        </button>
+        <button class="icon-btn" data-action="toggle-sound" title="音效" aria-label="音效"><span id="soundIcon">♪</span></button>
+        <button class="icon-btn" data-action="view" data-view="archive" title="档案" aria-label="档案"><span class="nav-glyph">⌘</span></button>
+      </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar"></aside>
+    <main id="view" class="view" tabindex="-1"></main>
+
+    <div id="toastRoot" class="toast-root" aria-live="polite"></div>
+    <div id="modalRoot" class="modal-root"></div>
+    <div id="tutorialRoot"></div>
+    <div class="corner-mark corner-tl"></div>
+    <div class="corner-mark corner-br"></div>
+  </div>
+
+  <script src="vendor/pixi.min.js"></script>
+  <script src="vendor/pixi-spine.js"></script>
+  <script>window.PIXI_SPINE35 = window.PIXI && window.PIXI.spine;</script>
+  <script src="vendor/SkeletonBinary.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

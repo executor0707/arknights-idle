@@ -1,0 +1,336 @@
+/* PC readability pass: roughly 1.7–1.8x the original text/UI scale. */
+@media (min-width: 1000px) {
+  :root {
+    --ui-gap: 18px;
+  }
+  body { font-size: 18px; }
+  .topbar { height: 112px; padding: 0 24px; gap: 18px; }
+  .brand { min-width: 286px; gap: 15px; }
+  .brand-mark { width: 52px; height: 52px; }
+  .brand-mark span { font-size: 27px; }
+  .brand-title { font-size: 24px; letter-spacing: .16em; }
+  .brand-sub { font-size: 10px; letter-spacing: .14em; margin-top: 5px; }
+  .doctor-card { gap: 12px; padding-left: 18px; }
+  .doctor-level { font-size: 13px; }
+  .doctor-level b { font-size: 23px; }
+  .doctor-info { width: 130px; }
+  .doctor-name { font-size: 17px; }
+  .doctor-tag { font-size: 10px; }
+  .doctor-exp { height: 5px; margin-top: 8px; }
+  .resource-bar { gap: 8px; }
+  .resource-pill { height: 50px; padding: 0 14px 0 8px; gap: 9px; }
+  .res-icon { width: 31px; height: 31px; font-size: 15px; }
+  .res-num { font-size: 21px; min-width: 66px; }
+  .icon-btn { width: 50px; height: 50px; }
+  .top-actions { gap: 8px; }
+  .nav-glyph { font-size: 27px; }
+  .sidebar { top: 112px; width: 132px; padding: 20px 12px; gap: 9px; }
+  .nav-item { padding: 13px 5px 12px; gap: 7px; }
+  .nav-label { font-size: 17px; letter-spacing: .08em; }
+  .nav-sub { font-size: 9px; }
+  .sidebar-foot { font-size: 10px; }
+  .view { margin-left: 132px; padding: 137px 30px 60px; }
+  .corner-tl { left: 147px; top: 126px; }
+
+  .page-head { margin-bottom: 24px; min-height: 72px; }
+  .page-head h2 { font-size: 52px; letter-spacing: .03em; }
+  .eyebrow { font-size: 12px; letter-spacing: .19em; gap: 10px; }
+  .eyebrow::before { width: 26px; }
+  .page-head-right { gap: 28px; font-size: 15px; }
+  .page-head-stat b { font-size: 30px; }
+  .page-head-stat span { font-size: 11px; }
+
+  .panel-head { padding: 17px 19px; }
+  .panel-title { font-size: 21px; gap: 10px; }
+  .panel-title::before { width: 4px; height: 17px; }
+  .panel-meta { font-size: 14px; }
+  .panel-body { padding: 19px; }
+  .tag { height: 27px; padding: 0 9px; font-size: 11px; }
+  .stars { font-size: 15px; }
+  .kv { font-size: 17px; padding: 7px 0; }
+  .small { font-size: 15px; line-height: 1.75; }
+  .divider { margin: 18px 0; }
+  .btn { min-height: 54px; padding: 13px 24px; font-size: 19px; gap: 9px; }
+  .btn-small { min-height: 42px; padding: 8px 14px; font-size: 15px; }
+  .btn-large { min-height: 66px; padding: 0 38px; font-size: 20px; }
+  .filter-btn { min-width: 38px; height: 36px; padding: 0 10px; font-size: 14px; }
+  .filter-label { font-size: 11px; }
+  .input, .skin-search { height: 42px; font-size: 15px; }
+
+  /* battle */
+  .battle-layout { grid-template-columns: 330px minmax(0, 1fr) 330px; gap: 18px; }
+  .stage-panel { height: calc(100vh - 205px); min-height: 660px; }
+  .stage-tabs { gap: 6px; padding: 10px; }
+  .stage-tab { padding: 12px 5px; font-size: 16px; }
+  .stage-chapter-row { display: flex; align-items: center; gap: 10px; padding: 11px 12px; border-bottom: 1px solid var(--line); }
+  .stage-select { flex: 1; min-width: 0; height: 42px; background: #111617; color: var(--text); border: 1px solid var(--line-strong); padding: 0 10px; font-size: 15px; }
+  .stage-chapter-row .mono { font-family: var(--mono); font-size: 11px; color: var(--dim); white-space: nowrap; }
+  .stage-list { gap: 7px; padding: 10px; }
+  .stage-card { padding: 13px 12px 12px; gap: 5px 10px; }
+  .stage-code { font-size: 17px; }
+  .stage-name { font-size: 22px; white-space: normal; line-height: 1.25; }
+  .stage-rec { font-size: 13px; }
+  .stage-card .stage-power { font-size: 13px; gap: 8px; flex-wrap: wrap; }
+  .stage-scroll-note { font-size: 11px; padding: 9px; }
+  .arena { min-height: 440px; }
+  .arena-hud { padding: 15px 17px; }
+  .hud-code { font-size: 22px; }
+  .hud-code small { font-size: 11px; }
+  .hud-stat b { font-size: 18px; }
+  .hud-stat span { font-size: 10px; }
+  .arena-ctl { height: 39px; min-width: 39px; padding: 0 11px; font-size: 12px; }
+  .hp-pips i { width: 16px; height: 6px; }
+  .ally-token { width: 72px; }
+  .ally-token .portrait { width: 66px; height: 66px; border-width: 2px; }
+  .ally-token .hpbar { height: 6px; margin: 4px 3px 0; }
+  .ally-token .spbar { height: 3px; margin: 3px 6px 0; }
+  .ally-token .unit-name { font-size: 10px; margin-top: 3px; }
+  .ally-token .block-badge { min-width: 20px; height: 20px; font-size: 11px; }
+  .enemy-body { width: 31px; height: 31px; }
+  .enemy-body span { font-size: 10px; }
+  .enemy-token.shield .enemy-body { width: 35px; height: 35px; }
+  .enemy-token.caster .enemy-body { width: 28px; height: 28px; }
+  .enemy-token.drone .enemy-body { width: 33px; height: 25px; }
+  .enemy-token.boss .enemy-body { width: 55px; height: 55px; }
+  .enemy-token.boss .enemy-body span { font-size: 11px; }
+  .enemy-token .ehp { width: 36px; height: 3px; }
+  .enemy-token.boss .ehp { width: 70px; height: 6px; }
+  .float-text { font-size: 14px; }
+  .float-text.crit { font-size: 17px; }
+  .cast-banner { font-size: 15px; padding: 9px 26px; }
+  .skill-cutin { padding: 12px 26px 12px 12px; gap: 18px; }
+  .skill-cutin img { width: 92px; height: 118px; }
+  .skill-cutin span { font-size: 10px; }
+  .skill-cutin b { font-size: 23px; }
+  .skill-cutin small { font-size: 13px; }
+  .wave-flash { font-size: 58px; }
+  .arena-result .result-card { min-width: 420px; padding: 45px 52px; }
+  .result-kicker { font-size: 12px; }
+  .result-title { font-size: 50px; }
+  .result-reason { font-size: 15px; }
+  .result-reward { font-size: 16px; }
+  .result-reward small { font-size: 10px; }
+  .stage-brief { grid-template-columns: 1.25fr 1fr; gap: 18px; margin-top: 18px; }
+  .brief-main, .brief-side { padding: 19px 21px; }
+  .brief-title h3 { font-size: 21px; }
+  .brief-desc { font-size: 17px; line-height: 1.8; }
+  .reward-chip { font-size: 13px; padding: 5px 9px; }
+  .power-compare .pc-num { font-size: 32px; }
+  .estimate { font-size: 14px; }
+  .estimate b { font-size: 18px; }
+  .squad-head { padding: 17px 18px; }
+  .squad-head b { font-size: 28px; }
+  .squad-power { margin: 15px 16px 7px; }
+  .squad-power b { font-size: 28px; }
+  .squad-list { grid-template-columns: 1fr 1fr; gap: 6px; padding: 7px 11px 11px; }
+  .squad-slot { min-height: 69px; padding: 6px; gap: 8px; }
+  .squad-slot .sq-img { width: 40px; height: 53px; }
+  .squad-slot .sq-name { font-size: 16px; }
+  .squad-slot .sq-sub { font-size: 12px; }
+  .squad-actions { padding: 0 13px 14px; gap: 7px; }
+  .squad-synergy { margin: 0 13px 13px; padding: 10px; font-size: 11px; line-height: 1.8; }
+  .lower-grid { gap: 18px; margin-top: 20px; }
+  .mini-stat { padding: 12px; }
+  .mini-stat span { font-size: 10px; }
+  .mini-stat b { font-size: 24px; }
+  .task-line { font-size: 14px; }
+  .base-alert { font-size: 14px; }
+
+  /* operators: preserve the original card scale, only enlarge text a little */
+  .operators-toolbar { gap: 14px; padding: 13px; }
+  .op-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 11px; }
+  .op-card { height: 252px; }
+  .op-name { font-size: 18px; }
+  .op-name .stars { font-size: 10px; }
+  .op-sub { font-size: 9px; }
+  .op-level { font-size: 10px; }
+  .op-power { font-size: 11px; }
+  .op-card .class-badge { width: 28px; height: 28px; font-size: 13px; }
+  .op-card .op-id { font-size: 9px; }
+  .op-info { padding: 10px 11px 11px; }
+
+  /* gacha */
+  .banner-tabs { gap: 10px; margin-bottom: 16px; }
+  .banner-tab { min-width: 190px; padding: 13px 18px; }
+  .banner-tab b { font-size: 17px; }
+  .banner-tab span { font-size: 11px; }
+  .banner-hero { height: 600px; }
+  .banner-content { padding: 42px 52px 34px; max-width: 800px; }
+  .banner-tag { font-size: 12px; padding: 6px 11px; }
+  .banner-content h2 { font-size: clamp(42px, 4vw, 68px); margin: 22px 0 8px; }
+  .banner-sub { font-size: 12px; }
+  .banner-desc { font-size: 17px; line-height: 1.85; max-width: 600px; margin: 20px 0 24px; }
+  .featured-op img { width: 50px; height: 50px; }
+  .featured-op b { font-size: 17px; }
+  .featured-op span { font-size: 10px; }
+  .pull-price { font-size: 12px; }
+  .pity-box { gap: 26px; margin-top: 18px; }
+  .pity-item { font-size: 11px; }
+  .pity-item b { font-size: 16px; }
+  .gacha-lower { grid-template-columns: 1.3fr 1fr; gap: 18px; margin-top: 18px; }
+  .rate-legend { font-size: 13px; }
+  .gacha-notes { font-size: 13px; line-height: 1.9; }
+  .history-row { font-size: 13px; padding: 9px 0; }
+  .history-row img { width: 28px; height: 37px; }
+  .shop-row { font-size: 14px; padding: 10px 12px; }
+  .shop-cost { font-size: 12px; }
+  .selector-grid { grid-template-columns: repeat(5, 1fr); gap: 9px; }
+  .selector-card { padding: 9px; }
+  .selector-card img { width: 52px; height: 68px; }
+  .selector-card b { font-size: 15px; }
+  .selector-card span { font-size: 10px; }
+  .selector-info { font-size: 15px; }
+  .selector-info b { font-size: 30px; }
+
+  /* skins */
+  .skin-store-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; border: 1px solid var(--line); background: var(--panel); padding: 14px 16px; margin-bottom: 16px; }
+  .skin-search { width: 280px; background: #111617; border: 1px solid var(--line-strong); color: var(--text); padding: 0 12px; }
+  .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(158px, 1fr)); gap: 11px; }
+  .gallery-card > img { height: 205px; }
+  .gallery-info { padding: 10px; }
+  .gallery-info b { font-size: 17px; }
+  .gallery-info span { font-size: 12px; margin: 4px 0 9px; }
+
+  /* base */
+  .base-summary { grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 18px; }
+  .base-summary-card { padding: 15px 16px; }
+  .base-summary-card span { font-size: 11px; }
+  .base-summary-card b { font-size: 26px; }
+  .rooms-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .room-card { padding: 19px; min-height: 240px; }
+  .room-glyph { width: 50px; height: 50px; font-size: 21px; }
+  .room-name { font-size: 19px; }
+  .room-level i { width: 19px; height: 5px; }
+  .room-level .mono { font-size: 11px !important; }
+  .room-desc { font-size: 13px; line-height: 1.75; min-height: 46px; margin: 12px 0; }
+  .room-output { font-size: 13px; }
+  .room-output b { font-size: 17px; }
+  .room-actions .btn { font-size: 13px; }
+  .base-lower { grid-template-columns: 1.2fr 1fr; gap: 18px; margin-top: 18px; }
+  .sabotage-row { font-size: 14px; padding: 10px 0; }
+  .sabotage-row small { font-size: 10px; }
+  .wisadel-panel img { width: 72px; height: 96px; }
+  .wisadel-panel h4 { font-size: 17px; }
+  .wisadel-panel p { font-size: 13px; line-height: 1.8; }
+
+  /* inventory / archive */
+  .inv-grid { grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 10px; }
+  .item-card { min-height: 148px; padding: 13px; }
+  .item-icon { width: 48px; height: 48px; font-size: 20px; }
+  .item-name { font-size: 14px; min-height: 36px; margin-top: 10px; }
+  .item-count { font-size: 15px; }
+  .item-tier { font-size: 9px; }
+  .shop-section { gap: 18px; margin-top: 18px; }
+  .archive-hero { grid-template-columns: 330px 1fr; gap: 20px; }
+  .id-card { padding: 28px; }
+  .id-mark { width: 96px; height: 96px; font-size: 41px; }
+  .id-name { font-size: 34px; margin-top: 22px; }
+  .id-role { font-size: 10px; }
+  .id-stat span { font-size: 9px; }
+  .id-stat b { font-size: 23px; }
+  .stats-grid { gap: 10px; }
+  .stat-card { padding: 17px; }
+  .stat-card span { font-size: 10px; }
+  .stat-card b { font-size: 29px; }
+  .setting-row { font-size: 15px; padding: 14px 0; }
+  .setting-row small { font-size: 11px; }
+  .switch { width: 48px; height: 26px; }
+  .switch::after { width: 18px; height: 18px; }
+  .switch.on::after { left: 26px; }
+  .credits { font-size: 12px; line-height: 2; }
+  .badge { font-size: 12px; padding: 8px 11px; }
+
+  /* modals */
+  .modal { width: min(1120px, 100%); max-height: min(92vh, 1100px); }
+  .modal.wide { width: min(1320px, 100%); }
+  .modal.narrow { width: min(680px, 100%); }
+  .modal-head { padding: 23px 26px 18px; }
+  .modal-head h3 { font-size: 25px; }
+  .modal-head p { font-size: 11px; }
+  .modal-body { padding: 26px; }
+  .modal-close { width: 42px; height: 42px; font-size: 22px; }
+  .op-detail { grid-template-columns: 380px 1fr; gap: 28px; }
+  .op-detail-hero { min-height: 560px; }
+  .op-detail-hero > img { height: 540px; }
+  .odh-name { font-size: 34px; }
+  .odh-sub { font-size: 11px; }
+  .odh-quote { font-size: 14px; }
+  .detail-top h3 { font-size: 34px; }
+  .detail-lv b { font-size: 38px; }
+  .detail-lv span { font-size: 10px; }
+  .power-badge { font-size: 11px; padding: 5px 10px; }
+  .power-badge b { font-size: 18px; }
+  .stat-grid { gap: 5px; }
+  .stat-box { padding: 10px 11px; }
+  .stat-box span { font-size: 9px; }
+  .stat-box b { font-size: 17px; }
+  .detail-section { margin-top: 16px; }
+  .detail-section-head { padding: 11px 13px; }
+  .detail-section-head b { font-size: 15px; }
+  .detail-section-head span { font-size: 10px; }
+  .detail-section-body { padding: 13px; }
+  .lvl-bar { font-size: 11px; }
+  .lvl-bar b { font-size: 11px; }
+  .cost-item { font-size: 12px; padding: 3px 7px; }
+  .skill-name { font-size: 19px; }
+  .skill-desc { font-size: 14px; line-height: 1.85; }
+  .skill-meta { font-size: 11px; }
+  .pot-node b { font-size: 19px; }
+  .pot-node span { font-size: 9px; }
+  .pot-effect { font-size: 12px; }
+  .detail-note { font-size: 11px; }
+  .skin-strip { grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 8px; }
+  .skin-card img { height: 140px; }
+  .skin-card .skin-meta b { font-size: 12px; }
+  .skin-card .skin-meta span { font-size: 9px; }
+  .task-name { font-size: 16px; }
+  .task-prog { font-size: 11px; }
+  .task-rewards { font-size: 12px; }
+  .supply-card { padding: 16px; }
+  .supply-card b { font-size: 17px; }
+  .supply-card span { font-size: 11px; }
+  .offline-stat span { font-size: 10px; }
+  .offline-stat b { font-size: 25px; }
+  .offline-item { font-size: 11px; padding: 4px 7px; }
+  .warning-box { font-size: 14px; line-height: 1.85; }
+  .squad-editor-slots { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .roster-picker { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; max-height: 430px; }
+  .roster-pick img { width: 38px; height: 52px; }
+  .roster-pick span { font-size: 13px; }
+  .roster-pick small { font-size: 10px; }
+  .item-detail .kv { font-size: 14px; }
+
+  /* pull result overlay */
+  .pull-head h2 { font-size: 44px; }
+  .pull-head p { font-size: 12px; }
+  .pull-grid { grid-template-columns: repeat(5, minmax(180px, 230px)); gap: 12px; max-width: 1250px; }
+  .pull-grid.single { grid-template-columns: minmax(220px, 260px); }
+  .pull-card .pc-stars { font-size: 12px; }
+  .pull-card .pc-name { font-size: 18px; }
+  .pull-card .pc-tag { font-size: 10px; }
+  .pull-card .pc-new { font-size: 10px; padding: 3px 6px; }
+  .pull-card .pc-pot { width: 28px; height: 28px; font-size: 11px; }
+  .pull-summary { font-size: 12px; gap: 24px; }
+}
+
+/* Keep the three-column arena only on genuinely wide desktops. */
+@media (min-width: 1000px) and (max-width: 1799px) {
+  .battle-layout { grid-template-columns: 330px minmax(0, 1fr); }
+  .squad-panel { grid-column: 1 / -1; }
+  .squad-list { grid-template-columns: repeat(6, 1fr); }
+  .stage-panel { height: 650px; }
+  .lower-grid { grid-template-columns: 1fr 1fr; }
+  .lower-grid > :last-child { grid-column: 1 / -1; }
+}
+@media (min-width: 1000px) and (max-width: 1500px) {
+  .brand { min-width: 230px; }
+  .doctor-card { display: none; }
+  .resource-pill.cert { display: none; }
+  .resource-pill { padding-right: 10px; }
+  .res-num { min-width: 54px; }
+  .battle-layout { grid-template-columns: 300px minmax(0, 1fr); gap: 14px; }
+  .stage-panel { height: 610px; }
+  .op-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .op-card { height: 238px; }
+  .rooms-grid { grid-template-columns: repeat(2, 1fr); }
+}
