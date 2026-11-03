@@ -138,5 +138,16 @@
   ],
   "evidence": {
     "launch": "Orundum=60004, squad=8"
+  },
+  "deployment": {
+    "url": "https://executor0707.github.io/arknights-idle/",
+    "httpStatus": 200,
+    "title": "罗德岛值守协议 · ARKNIGHTS IDLE",
+    "booted": true,
+    "arena": true,
+    "allies": 8,
+    "operators": 13,
+    "errors": [],
+    "checkedAt": "2026-11-03T09:28:35.025Z"
   }
 }
