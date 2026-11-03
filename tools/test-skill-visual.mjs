@@ -1,0 +1,10 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await evalJS(send, `__RHODES__.setView('battle', true); true`);
+await new Promise(r => setTimeout(r, 600));
+await evalJS(send, `(()=>{const b=__RHODES__.battle;for(const a of b.allies){a.sp=a.maxSp}b.tick(0.1);return true})()`);
+await new Promise(r => setTimeout(r, 800));
+console.log(await evalJS(send, `JSON.stringify({cut:__RHODES__.battle.cutIn,cast:__RHODES__.battle.cast?.name})`));
+await screenshot(send,'.cache/skill-disabled.png',1440,1000);
+process.exit(0);
