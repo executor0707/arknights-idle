@@ -1683,6 +1683,14 @@ export const SPINE38_OPERATORS = {
   "char_4124_iana": {
     "base": "assets/spine38/operators/char_4124_iana/char_4124_iana",
     "name": "双月"
+  },
+  "char_2012_typhon": {
+    "base": "assets/spine38/operators/char_2012_typhon/char_2012_typhon",
+    "name": "菲亚梅塔"
+  },
+  "shu": {
+    "base": "assets/spine38/operators/shu/char_2025_shu",
+    "name": "黍"
   }
 };
 export const SPINE35_ONLY = {
