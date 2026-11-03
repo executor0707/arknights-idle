@@ -60,7 +60,7 @@ export function createDefaultState() {
     stage: { selected: 'CE-6', cleared: [], firstClear: {}, auto: true, speed: 1, totalRuns: 0 },
     deploy: {},
     idle: { orundum: 0, shards: 0, blocks: 0, lmd: 0, exp: 0, chips: 0, chipPacks: 0, seconds: 0 },
-    skins: { owned: {}, equipped: {} },
+    skins: { owned: {}, equipped: {}, scale: {} },
     gacha: {
       standard: defaultBannerState(), limited: defaultBannerState(), collab: defaultBannerState(),
       history: [], totalPulls: 0, selectorsUsed: 0,
@@ -135,6 +135,7 @@ export function loadGame() {
   if (!Number.isFinite(state.settings.enemyScale)) state.settings.enemyScale = 1;
   state.settings.characterScale = Math.min(2, Math.max(0.5, state.settings.characterScale));
   state.settings.enemyScale = Math.min(2, Math.max(0.5, state.settings.enemyScale));
+  if (!state.skins.scale || typeof state.skins.scale !== 'object') state.skins.scale = {};
   if (!state.randomEvent || typeof state.randomEvent !== 'object') state.randomEvent = { nextAt: 0, log: [] };
   if (!Array.isArray(state.randomEvent.log)) state.randomEvent.log = [];
   unlockAmiyaForms();
@@ -494,6 +495,22 @@ export function skinOwned(id, skinId) { return !!state.skins.owned[skinId]; }
 export function equippedSkin(id) {
   const key = state.skins.equipped[id];
   return key ? SKIN_BY_ID.get(id + '-' + key) : null;
+}
+export function skinScale(skinId) {
+  const v = Number(state.skins.scale?.[skinId]);
+  return Number.isFinite(v) ? Math.min(2, Math.max(0.5, v)) : 1;
+}
+export function skinScaleForOp(opId) {
+  const key = state.skins.equipped[opId];
+  return skinScale(key ? `${opId}-${key}` : `${opId}-default`);
+}
+export function setSkinScale(skinId, value) {
+  const v = Math.min(2, Math.max(0.5, Number(value) || 1));
+  if (!state.skins.scale) state.skins.scale = {};
+  state.skins.scale[skinId] = v;
+  saveNow();
+  bus.dispatchEvent(new CustomEvent('skin-scale', { detail: { skinId, value: v } }));
+  return v;
 }
 export function portraitFor(id) {
   const s = equippedSkin(id);

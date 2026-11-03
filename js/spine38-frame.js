@@ -55,29 +55,6 @@
     });
   }
 
-  function headHeightOf(data) {
-    try {
-      var probe = new PIXI.spine.Spine(data);
-      probe.skeleton.setToSetupPose();
-      probe.update(0);
-      var head = null;
-      for (var i = 0; i < probe.skeleton.slots.length; i++) {
-        var slot = probe.skeleton.slots[i];
-        if (/^F_(Head|head|Face|HeadBack)$/.test(slot.data.name)) { head = slot; break; }
-      }
-      if (!head) return 0;
-      for (var j = 0; j < probe.skeleton.slots.length; j++) {
-        if (probe.skeleton.slots[j] !== head) probe.skeleton.slots[j].setAttachment(null);
-      }
-      probe.skeleton.updateWorldTransform();
-      probe.update(0);
-      var hb = probe.getLocalBounds();
-      var h = hb && hb.height > 4 ? hb.height : 0;
-      probe.destroy({ children: true });
-      return h;
-    } catch (e) { return 0; }
-  }
-
   function sprite(kind, key, unit) {
     var ck = kind + ':' + key;
     var data = dataCache.get(ck);
@@ -90,17 +67,7 @@
     var lb = sp.getLocalBounds();
     var visibleH = lb && lb.height > 4 ? lb.height : data.height;
     var target = kind === 'op' ? 130 : (unit && unit.boss ? 101 : 92);
-    var bodyScale = target / Math.max(1, visibleH);
-    var sc = bodyScale;
-    if (kind === 'op') {
-      var headH = headHeightOf(data);
-      if (headH > 4) {
-        // Normalize the face, but keep the body within a sane range of its
-        // original height-based scale so coats/ears cannot explode the sprite.
-        var faceScale = 30 / headH;
-        sc = Math.min(bodyScale * 1.45, Math.max(bodyScale * 0.72, faceScale));
-      }
-    }
+    var sc = target / Math.max(1, visibleH);
     sp._baseScale = sc;
     sp._dir = kind === 'enemy' ? -1 : 1;
     sp.scale.set(sc * sp._dir, sc);

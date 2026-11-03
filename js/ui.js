@@ -122,6 +122,11 @@ function renderNav() {
 function bindEvents() {
   document.addEventListener('click', onClick);
   document.addEventListener('change', (e) => {
+    const scaleInput = e.target.closest('[data-skin-scale]');
+    if (scaleInput) {
+      battle?.start(state.stage.selected);
+      return;
+    }
     const ef = e.target.closest('[data-event-filter]');
     if (ef) {
       ui.eventFilter[ef.dataset.eventFilter] = ef.value;
@@ -136,6 +141,15 @@ function bindEvents() {
     }
   });
   document.addEventListener('input', (e) => {
+    const skinScaleInput = e.target.closest('[data-skin-scale]');
+    if (skinScaleInput) {
+      const id = skinScaleInput.dataset.skinScale;
+      const pct = Math.round(Number(skinScaleInput.value) || 100);
+      G.setSkinScale(id, pct / 100);
+      const row = skinScaleInput.closest('.skin-scale-row');
+      if (row) { const label = row.querySelector('b'); if (label) label.textContent = pct + '%'; }
+      return;
+    }
     if (e.target.id === 'charScale' || e.target.id === 'enemyScale') {
       const key = e.target.id === 'charScale' ? 'characterScale' : 'enemyScale';
       const fallback = key === 'characterScale' ? 1.2 : 1;
@@ -929,10 +943,14 @@ export function openOperator(id, opts = {}) {
   const skinCards = allSkins.map(sk => {
     const owned = G.skinOwned(id, sk.id);
     const isEq = equipped === sk.key;
-    return `<button class="skin-card ${owned ? 'owned' : ''} ${isEq ? 'equipped' : ''}" data-action="${owned ? 'op-skin' : 'op-buy-skin'}" data-id="${sk.id}" data-op="${id}" style="--skin-color:${sk.color}" title="${esc(sk.series)}">
-      <img src="${sk.img}" alt="${esc(sk.name)}" loading="lazy">
-      <div class="skin-meta"><b>${esc(sk.name)}</b><span>${owned ? (isEq ? '已装备' : '点击装备') : '◆ ' + SKIN_PRICE}</span></div>
-    </button>`;
+    const pct = Math.round(G.skinScale(sk.id) * 100);
+    return `<div class="skin-card-wrap">
+      <button class="skin-card ${owned ? 'owned' : ''} ${isEq ? 'equipped' : ''}" data-action="${owned ? 'op-skin' : 'op-buy-skin'}" data-id="${sk.id}" data-op="${id}" style="--skin-color:${sk.color}" title="${esc(sk.series)}">
+        <img src="${sk.img}" alt="${esc(sk.name)}" loading="lazy">
+        <div class="skin-meta"><b>${esc(sk.name)}</b><span>${owned ? (isEq ? '已装备' : '点击装备') : '◆ ' + SKIN_PRICE}</span></div>
+      </button>
+      <div class="skin-scale-row"><label>皮肤大小 <b data-skin-scale-value="${sk.id}">${pct}%</b></label><input type="range" min="50" max="200" step="1" value="${pct}" data-skin-scale="${sk.id}" aria-label="${esc(sk.name)} 皮肤大小"></div>
+    </div>`;
   }).join('');
 
   const body = `<div class="op-detail">
@@ -1242,6 +1260,7 @@ function renderSkins() {
       <img src="${sk.img}" alt="${esc(sk.name)}" loading="lazy">
       <div class="gallery-info"><b>${esc(sk.name)}</b><span>${esc(op.name)} · ${esc(sk.series || '常驻')}</span>
         <button class="btn btn-small ${eq ? 'btn-cyan' : isOwned ? 'btn-primary' : ''}" data-action="gallery-skin" data-id="${sk.id}" ${!isOwned && state.primes < 18 ? 'disabled' : ''}>${eq ? '已装备' : isOwned ? '装备' : '◆ 18'}</button>
+        <div class="skin-scale-row"><label>大小 <b data-skin-scale-value="${sk.id}">${Math.round(G.skinScale(sk.id) * 100)}%</b></label><input type="range" min="50" max="200" step="1" value="${Math.round(G.skinScale(sk.id) * 100)}" data-skin-scale="${sk.id}" aria-label="${esc(sk.name)} 皮肤大小"></div>
       </div>
     </div>`;
   }).join('');
@@ -1474,7 +1493,7 @@ function renderArchive() {
           <div class="setting-row"><div>自动释放技能<small>干员技力满时自动触发</small></div><button class="switch ${state.settings.autoSkill ? 'on' : ''}" data-action="setting" data-key="autoSkill"></button></div>
           <div class="setting-row"><div>减少动态效果<small>降低扫光与闪烁动画</small></div><button class="switch ${state.settings.reduceMotion ? 'on' : ''}" data-action="setting" data-key="reduceMotion"></button></div>
           <div class="setting-row setting-slider-row">
-            <div>我方角色大小<small>战斗 Spine 缩放 · 50%–200%</small></div>
+            <div>全局角色倍率<small>与皮肤单独大小相乘 · 50%–200%</small></div>
             <div class="setting-slider"><input id="charScale" type="range" min="0.5" max="2" step="0.05" value="${state.settings.characterScale ?? 1.2}"><b id="charScaleValue">${Math.round((state.settings.characterScale ?? 1.2) * 100)}%</b></div>
           </div>
           <div class="setting-row setting-slider-row">
