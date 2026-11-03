@@ -249,6 +249,8 @@
     "healing": {
       "infiniteRange": true,
       "lowestHpPriority": true,
+      "normalHeal": true,
+      "healUsesAttackInterval": true,
       "tested": true
     }
   },
