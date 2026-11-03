@@ -376,9 +376,9 @@ a { color: var(--orange); }
 .squad-slot:hover { border-color: var(--line-strong); }
 .squad-slot.empty { border-style: dashed; color: var(--dim); justify-content: center; font-family: var(--mono); font-size: 8px; letter-spacing: .08em; }
 .squad-slot .sq-img { width: 28px; height: 38px; object-fit: cover; object-position: 50% 7%; background: #101414; border-left: 2px solid var(--rarity); }
-.squad-slot .sq-info { min-width: 0; }
+.squad-slot .sq-info { min-width: 0; flex: 1; }
 .squad-slot .sq-name { font-size: 9px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.squad-slot .sq-sub { font-family: var(--mono); font-size: 7px; color: var(--dim); margin-top: 3px; }
+.squad-slot .sq-sub { font-family: var(--mono); font-size: 7px; color: var(--dim); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .squad-slot .sq-remove { position: absolute; right: 1px; top: 1px; width: 14px; height: 14px; border: none; background: transparent; color: var(--dim); font-size: 9px; line-height: 1; }
 .squad-slot .sq-remove:hover { color: var(--red); }
 .squad-actions { padding: 0 10px 11px; display: flex; gap: 5px; }

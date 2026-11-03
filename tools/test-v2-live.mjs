@@ -1,0 +1,14 @@
+import { connect, screenshot, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1920,height:1080,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'https://executor0707.github.io/arknights-idle/?v=2live'});
+await new Promise(r=>setTimeout(r,3000));
+console.log('title', await evalJS(send,`document.title`));
+await evalJS(send,`document.getElementById('enterBtn').click(); true`);
+await new Promise(r=>setTimeout(r,2000));
+await evalJS(send,`document.querySelector('[data-action="tutorial-skip"]')?.click(); true`);
+await new Promise(r=>setTimeout(r,900));
+console.log('live', await evalJS(send,`JSON.stringify({ops:__RHODES__?.G?.OPERATORS?.length,skins:__RHODES__?.G?.SKINS?.length,stages:__RHODES__?.G?.STAGES?.length,nav:document.querySelectorAll('.nav-item').length,arena:!!document.getElementById('arena'),errs:window.__errs})`));
+await screenshot(send,'qa/v2-live.png',1920,1080);
+process.exit(0);
