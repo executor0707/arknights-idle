@@ -298,6 +298,16 @@
       "clickRosterToFillFirstEmpty": true,
       "xButtonRemoved": true,
       "modalJitterFixed": true
+    },
+    "skinSpine": {
+      "pilot": [
+        "char_1001_amiya2-skin1",
+        "char_1001_amiya2-skin2"
+      ],
+      "source": "torappu.prts.wiki/assets/char_spine",
+      "assetsLocal": true,
+      "battleApplied": true,
+      "remainingUsesDefault": true
     }
   },
   "limitations": [

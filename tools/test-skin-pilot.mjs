@@ -1,0 +1,22 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=skinpilot'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`localStorage.clear();location.reload()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1700));
+await send('Runtime.evaluate',{expression:`document.querySelector('[data-action="tutorial-skip"]')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,600));
+console.log(await evalJS(send,`(()=>{const s=__RHODES__.state;s.operators['char_1001_amiya2']={level:1,elite:0,potential:1,skill:1,mastery:0,trust:0,module:0,exp:0};s.skins.owned['char_1001_amiya2-skin1']=true;s.skins.equipped['char_1001_amiya2']='skin1';s.squad=['char_1001_amiya2','fang','kroos','melantha','beagle'];__RHODES__.battle.start('CE-6');return true})()`));
+await new Promise(r=>setTimeout(r,1800));
+console.log(await evalJS(send,`(()=>{const f=document.querySelector('iframe.spine38-frame');const fr=f?.contentWindow?.__frame;const keys=fr?Object.keys(fr.ops).filter(k=>k.includes('amiya2')):[];const s=fr?.sprites;const arr=[];if(s)for(const [k,sp] of s)if(k.startsWith('a:'))arr.push({k,h:Math.round(sp.height),w:Math.round(sp.width)});return JSON.stringify({keys,sprites:arr})})()`));
+await screenshot(send,'.cache/skin-pilot-1.png',1440,1000);
+// switch skin2
+await evalJS(send,`(()=>{const s=__RHODES__.state;s.skins.owned['char_1001_amiya2-skin2']=true;s.skins.equipped['char_1001_amiya2']='skin2';__RHODES__.battle.start('CE-6');return true})()`);
+await new Promise(r=>setTimeout(r,1800));
+await screenshot(send,'.cache/skin-pilot-2.png',1440,1000);
+process.exit(0);

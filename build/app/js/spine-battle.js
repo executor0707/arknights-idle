@@ -1,6 +1,8 @@
 import { SPINE_ENEMIES } from './spine-index.js';
 import { SPINE38_OPERATORS, SPINE35_ONLY } from './spine38-index.js';
+import { SKIN_SPINE } from './skin-spine-index.js';
 import { state } from './game.js';
+const OPS_DATA = { ...SPINE38_OPERATORS, ...SKIN_SPINE };
 
 const ENEMY_KEY = { soldier: 'soldier', shield: 'shield', caster: 'caster', drone: 'hound', boss: 'boss_skulsr' };
 const cache = new Map();
@@ -27,10 +29,10 @@ export function enemySpineKey(type, bossKey) {
 function postInit() {
   if (!frame || !frameLoaded || !frame.contentWindow) return;
   const f = frame.contentWindow.__frame;
-  if (f?.setData) { f.setData(SPINE38_OPERATORS, SPINE_ENEMIES); return; }
+  if (f?.setData) { f.setData(OPS_DATA, SPINE_ENEMIES); return; }
   frame.contentWindow.postMessage({
     type: 'init',
-    ops: SPINE38_OPERATORS,
+    ops: OPS_DATA,
     enemies: SPINE_ENEMIES,
   }, '*');
 }
@@ -182,7 +184,10 @@ export function syncSpine(battle) {
   const post = [];
   for (const a of battle.allies) {
     if (SPINE38_OPERATORS[a.id]) {
-      post.push({ uid: 'a:' + a.uid, kind: 'op', key: a.id, x: a.x, y: a.y, scale: state.settings?.characterScale || 1.2, bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
+      const equipped = state.skins?.equipped?.[a.id];
+      const skinKey = equipped ? `${a.id}-${equipped}` : null;
+      const key = skinKey && SKIN_SPINE[skinKey] ? skinKey : a.id;
+      post.push({ uid: 'a:' + a.uid, kind: 'op', key, x: a.x, y: a.y, scale: state.settings?.characterScale || 1.2, bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
       continue;
     }
     if (!SPINE35_ONLY[a.id]) continue;
@@ -224,7 +229,7 @@ export function syncSpine(battle) {
     lastPost = now;
     const f = frame.contentWindow?.__frame;
     if (f?.setData) {
-      if (!f.ops || Object.keys(f.ops).length === 0) f.setData(SPINE38_OPERATORS, SPINE_ENEMIES);
+      if (!f.ops || Object.keys(f.ops).length === 0) f.setData(OPS_DATA, SPINE_ENEMIES);
       f.update(post, w, h);
     } else {
       frame.contentWindow?.postMessage({ type: 'units', units: post, w, h }, '*');
