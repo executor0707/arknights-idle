@@ -308,7 +308,7 @@ function renderBattle() {
     const d = G.OP_BY_ID.get(id); const s = state.operators[id];
     return `<div class="squad-slot rarity-${d.rarity}" style="--rarity:${STAR_COLOR[d.rarity]}">
       <img class="sq-img" src="${G.portraitFor(id)}" alt="${esc(d.name)}" loading="lazy">
-      <div class="sq-info"><div class="sq-name">${esc(d.name)}</div><div class="sq-sub">E${s.elite} · L${s.level} · ${d.cls}</div></div>
+      <div class="sq-info"><div class="sq-name">${esc(d.name)}</div><div class="sq-sub">E${s.elite} L${s.level} · ${CLASS_GLYPH[d.cls]}</div></div>
       <button class="sq-remove" data-action="remove-squad" data-id="${id}" title="移出编队">×</button>
     </div>`;
   }).join('');
