@@ -52,6 +52,7 @@ const ui = {
   mainChapter: 0,
   filter: { rarity: 0, cls: 'all', owned: false, sort: 'rarity' },
   eventFilter: { range: 'all', operator: 'all', outcome: 'all' },
+  squadDirty: false,
   skinFilter: { cls: 'all', owned: false, q: '' },
   bannerId: 'limited',
   invTab: 'all',
@@ -288,8 +289,21 @@ function modalShell(title, body, opts = {}) {
 
 function openModal(html, opts = {}) {
   const root = $('#modalRoot');
+  const wasOpen = !!root.children.length;
+  const oldBody = root.querySelector('.modal-body');
+  const scrollTop = oldBody?.scrollTop || 0;
   root.innerHTML = html;
+  if (wasOpen) {
+    root.querySelector('.modal-backdrop')?.classList.add('no-anim');
+    root.querySelector('.modal')?.classList.add('no-anim');
+  }
   document.body.classList.add('modal-open');
+  if (scrollTop) {
+    requestAnimationFrame(() => {
+      const body = root.querySelector('.modal-body');
+      if (body) body.scrollTop = scrollTop;
+    });
+  }
   if (!opts.silent) sfx('open');
 }
 function closeModal(silent = false) {
@@ -299,6 +313,10 @@ function closeModal(silent = false) {
   document.body.classList.remove('modal-open');
   if (!silent) sfx('close');
   if (ui.view) { renderView(); }
+  if (ui.squadDirty) {
+    ui.squadDirty = false;
+    battle?.start(state.stage.selected);
+  }
 }
 
 // ── battle view ───────────────────────────────────────────────────
@@ -1512,7 +1530,7 @@ function openSquadEditor() {
   const slots = state.squad.map((id, i) => {
     if (!id) return `<button class="squad-slot empty" data-action="squad-slot" data-slot="${i}">+ 空位 ${i + 1}</button>`;
     const d = G.OP_BY_ID.get(id); const s = state.operators[id];
-    return `<div class="squad-slot rarity-${d.rarity}" style="--rarity:${STAR_COLOR[d.rarity]}"><img class="sq-img" src="${G.portraitFor(id)}" alt=""><div class="sq-info"><div class="sq-name">${esc(d.name)}</div><div class="sq-sub">E${s.elite} L${s.level}</div></div><button class="sq-remove" data-action="remove-squad" data-id="${id}">×</button></div>`;
+    return `<div class="squad-slot rarity-${d.rarity}" data-action="remove-squad" data-id="${id}" title="点击下阵" style="--rarity:${STAR_COLOR[d.rarity]}"><img class="sq-img" src="${G.portraitFor(id)}" alt=""><div class="sq-info"><div class="sq-name">${esc(d.name)}</div><div class="sq-sub">E${s.elite} L${s.level}</div></div></div>`;
   }).join('');
   const owned = OPERATORS.filter(o => G.owned(o.id)).sort((a, b) => G.opPower(b.id) - G.opPower(a.id));
   const roster = owned.map(d => {
@@ -1682,11 +1700,12 @@ async function onClick(e) {
     case 'auto-squad':
       G.autoSquad(); battle.start(); renderView(); toast('已按战力自动编队。', 'success'); break;
     case 'remove-squad':
-      G.removeFromSquad(id); battle.start();
+      G.removeFromSquad(id);
+      ui.squadDirty = true;
       if ($('#modalRoot').children.length) openSquadEditor(); else renderView();
       break;
     case 'squad-add':
-      if (G.addToSquad(id)) { battle.start(); openSquadEditor(); }
+      if (G.addToSquad(id)) { ui.squadDirty = true; openSquadEditor(); }
       else toast('编队已满或干员已在队伍中。', 'warn');
       break;
     case 'squad-slot':

@@ -201,9 +201,8 @@ export function syncSpine(battle) {
     sp.visible = !a.dead;
     if (a.dead) { play(sp, 'Die'); continue; }
     if (a.castUntil > 0.05) {
-      // Ignore character-specific Skill animations (some contain long effects
-      // that fly to the canvas origin). Use the basic Attack clip instead.
-      if (sp._castMark !== a.sp) { play(sp, 'Attack'); sp._castMark = a.sp; }
+      const name = sp._anims.includes('Skill') ? 'Skill' : 'Attack';
+      if (sp._castMark !== a.sp) { play(sp, name); sp._castMark = a.sp; }
     } else if (a.attackLock > 0.01 || a.attackFlash > 0.06) {
       if (!sp._attackActive) { play(sp, 'Attack'); sp._attackActive = true; }
     } else {

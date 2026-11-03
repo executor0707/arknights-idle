@@ -650,6 +650,7 @@ a { color: var(--orange); }
 .modal-root:empty { display: none; }
 .modal-backdrop { position: fixed; inset: 0; z-index: 140; background: rgba(3,5,5,.78); backdrop-filter: blur(9px); display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn .18s; }
 .modal { width: min(860px, 100%); max-height: min(88vh, 950px); background: #0c1011; border: 1px solid var(--line-strong); box-shadow: 0 30px 100px rgba(0,0,0,.7); display: flex; flex-direction: column; clip-path: var(--clip); animation: modalIn .24s ease both; }
+.modal.no-anim, .modal-backdrop.no-anim { animation: none !important; }
 @keyframes modalIn { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: none; } }
 .modal.wide { width: min(1060px, 100%); }
 .modal.narrow { width: min(520px, 100%); }
