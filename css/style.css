@@ -294,11 +294,6 @@ a { color: var(--orange); }
 .march-speed { position: absolute; inset: 0; background: repeating-linear-gradient(165deg, transparent 0 58px, rgba(255,255,255,.05) 58px 60px, transparent 60px 120px); opacity: .55; animation: marchPan 1.4s linear infinite; pointer-events: none; }
 .march-goal { position: absolute; right: 7%; top: 23%; width: 3px; height: 54%; background: linear-gradient(to bottom, transparent, var(--orange), transparent); box-shadow: 0 0 14px rgba(255,180,58,.4); opacity: .65; }
 .march-goal::after { content: "GOAL"; position: absolute; top: 42%; left: 8px; color: var(--orange); font-family: var(--mono); font-size: 8px; letter-spacing: .18em; transform: rotate(90deg); transform-origin: left top; }
-.march-stage .ally-token .portrait { animation: marchBob 1.3s ease-in-out infinite; }
-.march-stage .ally-token:nth-child(2) .portrait { animation-delay: -.22s; }
-.march-stage .ally-token:nth-child(3) .portrait { animation-delay: -.44s; }
-.march-stage .ally-token:nth-child(4) .portrait { animation-delay: -.66s; }
-.march-stage .ally-token:nth-child(5) .portrait { animation-delay: -.88s; }
 .march-stage .enemy-token { animation: enemyPulse 1.1s ease-in-out infinite; }
 .march-stage .arena-layer.allies, .march-stage .spine38-canvas, .march-stage .spine-canvas { animation: partySway 4.8s ease-in-out infinite; }
 @keyframes partySway { 0%,100% { transform: translateX(0); } 50% { transform: translateX(8px); } }

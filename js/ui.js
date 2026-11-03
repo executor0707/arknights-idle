@@ -379,7 +379,7 @@ function renderBattle() {
           <div class="arena-bottom">
             <div class="arena-status"><i class="status-led ${damaged.length ? 'red' : ''}"></i><span id="arenaStatusText">${battle?.status === 'running' ? 'AUTO OPERATION' : 'STANDBY'} · 目标 ${esc(stage.name)}</span></div>
             <div class="inline" style="gap:8px">
-              <span class="small mono" id="baseHpText">DIST <b id="marchDistance">0</b>m</span>
+              <span class="small mono" id="baseHpText">LEAK <b id="leakCount">0</b>/3 · DIST <b id="marchDistance">0</b>m</span>
               <button class="arena-ctl" data-action="restart" title="重新开始">↻</button>
             </div>
           </div>
@@ -642,8 +642,10 @@ function syncArena(rebuild = false) {
     alive.add(unit.uid);
     let node = a.allies.get(unit.uid);
     if (!node) { node = makeAllyEl(unit); a.layerAllies.appendChild(node); a.allies.set(unit.uid, node); }
-    node.style.left = unit.x + '%';
-    node.style.top = unit.y + '%';
+    const bob = Math.sin(performance.now() / 145 + (unit.bobPhase || 0)) * 4.0;
+    const bobX = Math.sin(performance.now() / 190 + (unit.bobPhase || 0)) * 1.6;
+    node.style.left = `calc(${unit.x}% + ${bobX.toFixed(1)}px)`;
+    node.style.top = `calc(${unit.y}% + ${bob.toFixed(1)}px)`;
     node._refs.hp.style.width = Math.max(0, unit.hp / unit.maxHp * 100) + '%';
     node._refs.sp.style.width = Math.min(100, unit.sp / unit.maxSp * 100) + '%';
     node.classList.toggle('dead', unit.dead);
@@ -727,6 +729,8 @@ function syncArena(rebuild = false) {
   if (basePips) [...basePips.children].forEach((n, i) => n.classList.toggle('lost', i >= battle.baseHp));
   const marchDistance = $('#marchDistance');
   if (marchDistance) marchDistance.textContent = String(Math.floor(battle.time * 14 + battle.kills * 9));
+  const leakCount = $('#leakCount');
+  if (leakCount) { leakCount.textContent = String(battle.leaks || 0); leakCount.classList.toggle('red', (battle.leaks || 0) >= 2); }
   const statusText = $('#arenaStatusText');
   if (statusText) statusText.textContent = battle.status === 'running' ? `AUTO OPERATION · ${state.stage.auto ? '循环中' : '单次'}` : battle.status === 'victory' ? 'OPERATION COMPLETE' : battle.status === 'defeat' ? 'OPERATION FAILED' : 'STANDBY';
   if (a.pause) a.pause.classList.toggle('hidden', !(battle.paused && battle.status === 'running'));
