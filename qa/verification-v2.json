@@ -317,7 +317,9 @@
         2
       ],
       "globalMultiplier": true,
-      "remainingUsesDefault": true
+      "remainingUsesDefault": true,
+      "perSkinReset": true,
+      "resetDefault": 1
     }
   },
   "limitations": [
