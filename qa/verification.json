@@ -171,14 +171,17 @@
   "deployment": {
     "url": "https://executor0707.github.io/arknights-idle/",
     "httpStatus": 200,
-    "testedAt": "2026-11-03T13:39:46.145Z",
+    "testedAt": "2026-11-03T13:55:54.647Z",
     "liveCounts": {
       "operators": 469,
       "skins": 531,
-      "stages": 362,
+      "stages": 358,
       "main": 307,
+      "endless": 12,
       "annihilation": 37
     },
+    "gachaRoster": 12,
+    "poolSixLimited": 26,
     "spine35Canvas": true,
     "spine38Canvas": true,
     "liveOperatorSpineUnits": 8,
