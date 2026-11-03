@@ -1,6 +1,6 @@
 // 60 operator random events. The UI never reveals the 5-7 hour check timer.
 // kind: lmd | primes | item | fine | damage | neutral
-export const RANDOM_EVENTS = [
+const EVENTS = [
   { id: 'r01', title: '训练室加餐', text: '芙蓉端来一锅“营养餐”，全队训练效率意外提升。', kind: 'lmd', amount: 30000, tone: 'good' },
   { id: 'r02', title: '采购中心的折扣', text: '可露希尔清仓时多塞了一箱物资给罗德岛。', kind: 'item', item: 'book2', amount: 4, tone: 'good' },
   { id: 'r03', title: '爆炸实验', text: '维什戴尔在加工站测试新型爆破物，设施需要维修。', kind: 'damage', room: 'workshop', tone: 'bad' },
@@ -62,3 +62,23 @@ export const RANDOM_EVENTS = [
   { id: 'r59', title: '干员互助', text: '干员们自发组织了一次维修，省下了人工费。', kind: 'lmd', amount: 10000, tone: 'good' },
   { id: 'r60', title: '安静的日常', text: '今天罗德岛什么都没发生。', kind: 'neutral', tone: 'neutral' },
 ];
+
+const EVENT_OPERATOR = {
+  r01: '芙蓉', r02: '可露希尔', r03: '维什戴尔', r04: '阿米娅', r05: '医疗部',
+  r06: '阿米娅', r07: '工程部', r08: '工程部', r09: '能天使', r10: '维什戴尔',
+  r11: '训练室', r12: '可露希尔', r13: '角峰', r14: '工程部', r15: '凯尔希',
+  r16: '工程部', r17: '阿米娅', r18: '维什戴尔', r19: '德克萨斯', r20: '工程部',
+  r21: '可露希尔', r22: '工程部', r23: '能天使', r24: '维什戴尔', r25: '档案室',
+  r26: '训练室', r27: '医疗部', r28: '德克萨斯', r29: '角峰', r30: '工程部',
+  r31: '工程部', r32: '宿舍', r33: '阿米娅', r34: '凯尔希', r35: '阿米娅',
+  r36: '训练室', r37: '能天使', r38: '档案室', r39: '训练室', r40: '维什戴尔',
+  r41: '德克萨斯', r42: '医疗部', r43: '工程部', r44: '工程部', r45: '训练室',
+  r46: '匿名资助者', r47: '凯尔希', r48: '宿舍', r49: '训练室', r50: '阿米娅',
+  r51: '工程部', r52: '维什戴尔', r53: '可露希尔', r54: '训练室', r55: '工程部',
+  r56: '工程部', r57: '德克萨斯', r58: '凯尔希', r59: '工程部', r60: '罗德岛',
+};
+
+export const RANDOM_EVENTS = EVENTS.map(e => ({
+  ...e,
+  operator: e.operator || EVENT_OPERATOR[e.id] || '罗德岛',
+}));

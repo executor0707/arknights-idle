@@ -42,6 +42,7 @@ const NAV = [
   { view: 'base', glyph: '▦', label: '基建', sub: 'BASE' },
   { view: 'inventory', glyph: '▤', label: '仓库', sub: 'DEPOT' },
   { view: 'archive', glyph: '⌘', label: '档案', sub: 'ARCHIVE' },
+  { view: 'events', glyph: '▣', label: '事件', sub: 'INCIDENTS' },
 ];
 
 let battle = null;
@@ -50,6 +51,7 @@ const ui = {
   stageGroup: 'resource',
   mainChapter: 0,
   filter: { rarity: 0, cls: 'all', owned: false, sort: 'rarity' },
+  eventFilter: { range: 'all', operator: 'all', outcome: 'all' },
   skinFilter: { cls: 'all', owned: false, q: '' },
   bannerId: 'limited',
   invTab: 'all',
@@ -119,6 +121,12 @@ function renderNav() {
 function bindEvents() {
   document.addEventListener('click', onClick);
   document.addEventListener('change', (e) => {
+    const ef = e.target.closest('[data-event-filter]');
+    if (ef) {
+      ui.eventFilter[ef.dataset.eventFilter] = ef.value;
+      renderView();
+      return;
+    }
     const sel = e.target.closest('[data-action="chapter-select"]');
     if (sel) {
       ui.mainChapter = sel.value;
@@ -248,6 +256,7 @@ function renderView() {
   else if (ui.view === 'base') html = renderBase();
   else if (ui.view === 'inventory') html = renderInventory();
   else if (ui.view === 'archive') html = renderArchive();
+  else if (ui.view === 'events') html = renderEvents();
   main.innerHTML = html;
   if (ui.view === 'battle') setupArena();
   if (ui.view === 'base') updateBaseDynamic();
@@ -1241,6 +1250,20 @@ function renderSkins() {
 }
 
 // ── base ─────────────────────────────────────────────────────────
+function roomCombatRows(r, s) {
+  const labels = { crit: '暴击率', critDmg: '暴击伤害', atk: '全队攻击', aspd: '攻击速度', heal: '治疗量', hp: '生命上限' };
+  return Object.entries(r.combat || {}).filter(([k]) => labels[k]).map(([k, per]) => {
+    const capped = k === 'crit' && s.level >= G.CONTROL_MAX_LEVEL;
+    return { label: labels[k], cur: per * s.level * 100, per: per * 100, capped };
+  });
+}
+
+function roomCombatText(r, s) {
+  const rows = roomCombatRows(r, s);
+  if (!rows.length) return '';
+  return rows.map(x => `<span>${x.label} 当前 <b>+${x.cur.toFixed(2)}%</b><small>${x.capped ? '已封顶' : `每级 +${x.per.toFixed(2)}%`}</small></span>`).join('');
+}
+
 function roomOutputText(r) {
   const s = state.base.rooms[r.id];
   if (s.damaged) return '<b class="red">设施受损 · 产出停止</b>';
@@ -1323,6 +1346,52 @@ function renderInventory() {
 }
 
 // ── archive ───────────────────────────────────────────────────────
+function renderEvents() {
+  const log = (state.randomEvent?.log || []).map(e => ({ ...e, operator: e.operator || '罗德岛', tone: e.tone || 'neutral' }));
+  const f = ui.eventFilter;
+  const rangeMs = { all: Infinity, '1h': 3600e3, '24h': 86400e3, '7d': 604800e3 }[f.range] || Infinity;
+  const now = Date.now();
+  const operators = [...new Set(log.map(e => e.operator))].sort((a, b) => a.localeCompare(b, 'zh-CN'));
+  const filtered = log.filter(e =>
+    (f.operator === 'all' || e.operator === f.operator) &&
+    (f.outcome === 'all' || (f.outcome === 'gain' ? e.tone === 'good' : f.outcome === 'loss' ? e.tone === 'bad' : e.tone === 'neutral')) &&
+    (rangeMs === Infinity || now - e.at <= rangeMs)
+  );
+  const gains = log.filter(e => e.tone === 'good').length;
+  const losses = log.filter(e => e.tone === 'bad').length;
+  const rows = filtered.map(e => `<div class="event-log-row ${e.tone}">
+    <div class="event-log-time">${esc(timeAgo(e.at))}<small>${new Date(e.at).toLocaleString('zh-CN', { hour12: false })}</small></div>
+    <div class="event-log-op">${esc(e.operator)}</div>
+    <div class="event-log-main"><b>${esc(e.title)}</b><span>${esc(e.text || '')}</span></div>
+    <div class="event-log-result ${e.tone}">${esc(e.result)}</div>
+  </div>`).join('');
+  return `<section class="page">
+    ${pageHead('RHODES ISLAND // INCIDENT ARCHIVE', '事件日志', `
+      ${statHead('记录总数', log.length)}
+      ${statHead('收益事件', gains)}
+      ${statHead('损失事件', losses)}
+    `)}
+    <div class="panel">
+      <div class="event-filters">
+        <label>时间<select data-event-filter="range">
+          ${[['all','全部'],['1h','最近 1 小时'],['24h','最近 24 小时'],['7d','最近 7 天']].map(([v,n]) => `<option value="${v}" ${f.range===v?'selected':''}>${n}</option>`).join('')}
+        </select></label>
+        <label>干员<select data-event-filter="operator">
+          <option value="all">全部干员</option>
+          ${operators.map(o => `<option value="${esc(o)}" ${f.operator===o?'selected':''}>${esc(o)}</option>`).join('')}
+        </select></label>
+        <label>结果<select data-event-filter="outcome">
+          ${[['all','全部'],['gain','收益'],['loss','损失'],['neutral','中性']].map(([v,n]) => `<option value="${v}" ${f.outcome===v?'selected':''}>${n}</option>`).join('')}
+        </select></label>
+        <span class="small">当前显示 ${filtered.length} / ${log.length} 条</span>
+      </div>
+    </div>
+    <div class="event-log-list">
+      ${rows || '<div class="empty-state">没有符合筛选条件的事件。</div>'}
+    </div>
+  </section>`;
+}
+
 function renderArchive() {
   const wins = state.stats.wins || 0;
   const achievements = [
@@ -1790,6 +1859,7 @@ export function showOfflineReport(report) { showOffline(report); }
 
 function renderBase() {
   const sum = G.baseSummary();
+  const powerGain = G.baseLevelPowerGain();
   const damaged = ROOMS.filter(r => state.base.rooms[r.id].damaged);
   const rooms = ROOMS.map(r => {
     const s = state.base.rooms[r.id];
@@ -1802,9 +1872,10 @@ function renderBase() {
         <div><div class="room-name">${r.name}</div><div class="room-level">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= Math.min(5, s.level) ? 'on' : ''}"></i>`).join('')}<span class="mono" style="font-size:8px;color:var(--dim);margin-left:3px">LV.${s.level}</span></div></div>
       </div>
       <div class="room-desc">${r.desc}</div>
-      <div class="room-output">${roomOutputText(r)}<br><span style="color:var(--muted)">${r.combatLabel || ''} / 级</span></div>
+      <div class="room-output">${roomOutputText(r)}</div>
+      <div class="room-combat">${roomCombatText(r, s)}</div>
       <div class="room-actions">
-        ${s.damaged ? `<button class="btn btn-small btn-danger" data-action="repair-room" data-id="${r.id}" ${state.lmd >= G.repairCost(r.id) ? '' : 'disabled'}>维修 ${fmt(G.repairCost(r.id))}</button>` : `<button class="btn btn-small" data-action="base-upgrade" data-id="${r.id}" ${G.canPay(cost) ? '' : 'disabled'}>升级 · L${fmt(cost.lmd)} + ${cost.items.base_block} 块</button>`}
+        ${s.damaged ? `<button class="btn btn-small btn-danger" data-action="repair-room" data-id="${r.id}" ${state.lmd >= G.repairCost(r.id) ? '' : 'disabled'}>维修 ${fmt(G.repairCost(r.id))}</button>` : `<button class="btn btn-small" data-action="base-upgrade" data-id="${r.id}" ${G.canPay(cost) && G.canUpgradeRoom(r.id) ? '' : 'disabled'}>${G.canUpgradeRoom(r.id) ? `升级 · L${fmt(cost.lmd)} + ${cost.items.base_block} 块` : '暴击率已封顶'}</button>`}
       </div>
       <div class="room-timer"><i style="width:${Math.min(100, (s.level % 5) * 20 + 10)}%"></i></div>
     </div>`;
@@ -1824,6 +1895,13 @@ function renderBase() {
       <div class="base-summary-card"><span>暴击伤害</span><b>${(sum.bonuses.critDmg * 100).toFixed(0)}%</b></div>
     </div>
     <div class="rooms-grid">${rooms}</div>
+    <div class="panel mt-12">
+      <div class="panel-head"><div class="panel-title">基建加成明细</div><span class="panel-meta">CURRENT / PER LEVEL</span></div>
+      <div class="panel-body base-bonus-table">
+        <div class="base-bonus-row head"><span>设施</span><span>当前加成</span><span>每级提升</span><span>状态</span></div>
+        ${ROOMS.map(r => { const s = state.base.rooms[r.id]; const rows = roomCombatRows(r, s); return rows.map((x, i) => `<div class="base-bonus-row"><span>${i === 0 ? esc(r.name) + ' <small>LV.' + s.level + '</small>' : ''}</span><span>${x.label} <b>+${x.cur.toFixed(2)}%</b></span><span>+${x.per.toFixed(2)}%</span><span>${x.capped ? '暴击已封顶' : '可继续升级'}</span></div>`).join(''); }).join('')}
+      </div>
+    </div>
     <div class="base-lower">
       <div class="panel">
         <div class="panel-head"><div class="panel-title">结构安全监测</div><span class="panel-meta">${damaged.length ? 'ALERT' : 'NOMINAL'}</span></div>
@@ -1848,8 +1926,9 @@ function renderBase() {
           <div class="kv"><span>治疗量</span><b>+${(sum.bonuses.heal * 100).toFixed(2)}%</b></div>
           <div class="kv"><span>暴击率</span><b>${(sum.bonuses.crit * 100).toFixed(2)}%</b></div>
           <div class="kv"><span>暴击伤害</span><b>${(sum.bonuses.critDmg * 100).toFixed(0)}%</b></div>
+          <div class="kv"><span>全基升 1 级战力</span><b>+${fmt(powerGain)}</b></div>
           <div class="divider"></div>
-          <div class="small">设施等级无上限。每级只提供很小的固定加成，升级成本会持续上升。<br>材料块主要来自挂机：前期约 1.2 块/小时，后期约 3.2 块/小时。</div>
+          <div class="small">设施等级无上限；控制中枢在暴击率达到 100% 时封顶。每级只提供很小的固定加成，升级成本会持续上升。<br>材料块主要来自挂机：前期约 1.2 块/小时，后期约 3.2 块/小时。</div>
           <div class="kv mt-12"><span>维修折扣</span><b>${(G.repairDiscount() * 100).toFixed(0)}%</b></div>
         </div>
       </div>
