@@ -1,0 +1,97 @@
+{
+  "targetRuntime": "web-static",
+  "testedRuntime": "Chrome 156.0.8078.80 headless / Windows 10 / PC 1920x1080 + 1440x1000",
+  "build": "v2 full-roster",
+  "checks": {
+    "launch": {
+      "title": "罗德岛值守协议 · ARKNIGHTS IDLE",
+      "app": true,
+      "errors": []
+    },
+    "render": {
+      "operators": 469,
+      "skins": 531,
+      "stages": 362,
+      "main": 307,
+      "annihilation": 37,
+      "arena": true,
+      "allies": 8,
+      "stageCards": 10,
+      "errors": []
+    },
+    "coreLoop": {
+      "status": "victory",
+      "time": 53.9,
+      "kills": 14,
+      "firstClear": true,
+      "primes": 1,
+      "errors": []
+    },
+    "outcome": {
+      "restarted": true,
+      "runId": 2,
+      "errors": []
+    },
+    "mainCatalog": {
+      "chapterOptions": 18,
+      "currentCards": 11,
+      "firstCode": "0-1",
+      "hasChapterSelect": true
+    },
+    "annihilation": {
+      "cards": 37,
+      "first": "阿戈尔 暗流巢窟"
+    },
+    "gacha": {
+      "cards": 10,
+      "overlay": true,
+      "pulls": 10,
+      "errors": []
+    },
+    "selector": {
+      "cards": 150,
+      "available": 1,
+      "errors": []
+    },
+    "skins": {
+      "cards": 531,
+      "primes": 100,
+      "errors": []
+    },
+    "skinPurchase": {
+      "before": 0,
+      "after": 1,
+      "primesAfter": 82
+    },
+    "operator": {
+      "levelBefore": 1,
+      "levelAfter": 11,
+      "skinsInDetail": 3
+    },
+    "restart": {
+      "level": 11,
+      "skins": 1,
+      "battle": "running",
+      "errors": []
+    },
+    "offline": {
+      "orundum": 12219,
+      "pulls": 20.36,
+      "shards": 8.76,
+      "blocks": 6
+    },
+    "desktop1440": {
+      "width": 1440,
+      "scrollWidth": 1432,
+      "col": "300px 926px",
+      "errors": []
+    }
+  },
+  "limitations": [
+    "PRTS 的干员 Spine 是 3.5.51 二进制格式；本次战斗演出使用立绘攻击位移、弹道、受击、技能横幅与技能立绘切入，未启用官方 Spine 骨骼动画。",
+    "307 个主线节点使用章节难度映射，不是逐个复刻原作敌人路径。",
+    "皮肤商店已收录 531 套；3 套 PRTS 缺少半身像时使用对应干员默认立绘。",
+    "无云存档，进度保存在浏览器 localStorage。"
+  ],
+  "exitCode": 0
+}

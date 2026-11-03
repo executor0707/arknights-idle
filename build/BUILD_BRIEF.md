@@ -31,8 +31,8 @@ python -m http.server 8765 --directory build/app
 - 5 potential levels per operator; duplicates, promotion, skill mastery, module, trust.
 - CE-6 / LS-6 / AP-5 chip / PR-D chip pack / annihilation + 17 main stages.
 - First clear gives Originite Prime.
-- Idle income independent of win/loss: 10 pulls/h early to 30 pulls/h at 15-3; 5→29 primes/day; base blocks for unlimited base levels.
-- 124 skins at 88 primes.
+- Idle income independent of win/loss: 10 pulls/h early to 30 pulls/h at chapter 15; 5→29 primes/day; base blocks for unlimited base levels.
+- 531 skins at 18 primes.
 - Wis'adel sabotage with LMD repair.
 - Offline settlement capped at 8 h, localStorage save, export/import/reset.
 
@@ -46,9 +46,10 @@ python -m http.server 8765 --directory build/app
 
 ## Known limitations
 
-- 86 operators, not the full in-game roster.
-- 17 main stages; story is represented by stage names/flavor, not cutscenes.
+- 469 operators from PRTS; alternate forms included, but not a guarantee of future roster additions.
+- 307 main stages (0–17), 37 annihilation maps; story is represented by stage names/flavor, not cutscenes.
 - No cloud save, account, or cross-device sync.
 - Idle simulation is time-rate based while closed; active battle is a simplified three-lane model, not exact Arknights combat.
+- PRTS Spine is 3.5.51 binary; official skeletal battle animation is not enabled. Battle uses portrait cut-ins and procedural hit/attack effects.
 - Base levels are uncapped by design; fixed stage content can eventually be overpowered. 15-3 is the current terminal challenge.
 - All art is PRTS Wiki half-body art; no custom illustrations.

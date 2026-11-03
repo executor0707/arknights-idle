@@ -1,0 +1,15 @@
+import { connect, screenshot, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=cutin'});
+await new Promise(r=>setTimeout(r,900));
+await evalJS(send, `document.getElementById('enterBtn').click(); true`);
+await new Promise(r=>setTimeout(r,1600));
+await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click(); true`);
+await new Promise(r=>setTimeout(r,300));
+await evalJS(send, `document.querySelector('[data-action="speed"][data-speed="2"]').click(); true`);
+await new Promise(r=>setTimeout(r,22000));
+console.log('cut', await evalJS(send, `JSON.stringify({cut:!document.getElementById('skillCutin')?.classList.contains('hidden'),battle:__RHODES__.battle.cutIn?.name,time:__RHODES__.battle.time})`));
+await screenshot(send,'.cache/v2-cutin.png',1440,1000);
+process.exit(0);

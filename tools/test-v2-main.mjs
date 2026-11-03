@@ -1,0 +1,14 @@
+import { connect, screenshot, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Runtime.enable');
+await evalJS(send, `document.querySelector('[data-nav="battle"]').click(); true`);
+await new Promise(r=>setTimeout(r,500));
+await evalJS(send, `document.querySelector('[data-action="stage-group"][data-group="main"]').click(); true`);
+await new Promise(r=>setTimeout(r,500));
+console.log('main', await evalJS(send, `JSON.stringify({cards:document.querySelectorAll('.stage-card').length,chapter:document.getElementById('stageChapterSelect')?.value,options:document.querySelectorAll('#stageChapterSelect option').length,first:document.querySelector('.stage-card')?.innerText})`));
+await screenshot(send,'.cache/v2-main.png',1920,1080);
+await evalJS(send, `document.querySelector('[data-nav="gacha"]').click(); true`);
+await new Promise(r=>setTimeout(r,600));
+console.log('gacha', await evalJS(send, `JSON.stringify({errs:window.__errs,pity:document.querySelector('.pity-box')?.innerText.slice(0,100)})`));
+await screenshot(send,'.cache/v2-gacha.png',1920,1080);
+process.exit(0);

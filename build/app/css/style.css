@@ -702,6 +702,18 @@ a { color: var(--orange); }
 .small { font-size: 9px; color: var(--dim); line-height: 1.7; }
 .hide-scroll::-webkit-scrollbar { display: none; }
 
+/* battle performance */
+.ally-token.attacking .portrait { transform: translateX(5px) scale(1.08); filter: brightness(1.18); }
+.ally-token .portrait { transition: transform .09s ease, filter .09s ease; }
+.enemy-token.attacking .enemy-body { transform: translateX(-4px) scale(1.14); filter: brightness(1.4); }
+.enemy-token .enemy-body { transition: transform .09s ease, filter .09s ease; }
+.skill-cutin { position: absolute; z-index: 10; right: 3%; top: 13%; display: flex; align-items: center; gap: 13px; padding: 8px 18px 8px 8px; background: linear-gradient(90deg, rgba(6,9,9,.92), rgba(6,9,9,.45)); border-left: 2px solid var(--orange); pointer-events: none; animation: cutinIn .22s ease-out both; }
+.skill-cutin img { width: 64px; height: 82px; object-fit: cover; object-position: 50% 4%; border: 1px solid rgba(255,180,58,.5); }
+.skill-cutin span { display: block; font-family: var(--mono); font-size: 7px; color: var(--orange); letter-spacing: .18em; }
+.skill-cutin b { display: block; margin-top: 3px; font-size: 15px; letter-spacing: .06em; }
+.skill-cutin small { display: block; margin-top: 2px; font-size: 9px; color: var(--muted); }
+@keyframes cutinIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: none; } }
+
 /* ── extra systems: skins / selector / squad editor ─────────── */
 .modal-open { overflow: hidden; }
 #arenaOverlay { position: absolute; inset: 0; z-index: 12; pointer-events: none; }

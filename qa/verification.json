@@ -1,153 +1,97 @@
 {
   "targetRuntime": "web-static",
-  "testedRuntime": "Chrome 156.0.8078.80 headless (Windows 10), 1440x1000 + 390x844",
-  "command": "node tools/qa-run.mjs",
-  "exitCode": 0,
+  "testedRuntime": "Chrome 156.0.8078.80 headless / Windows 10 / PC 1920x1080 + 1440x1000",
+  "build": "v2 full-roster",
   "checks": {
     "launch": {
       "title": "罗德岛值守协议 · ARKNIGHTS IDLE",
-      "splashGone": true,
-      "appVisible": true,
+      "app": true,
       "errors": []
     },
     "render": {
+      "operators": 469,
+      "skins": 531,
+      "stages": 362,
+      "main": 307,
+      "annihilation": 37,
       "arena": true,
       "allies": 8,
-      "stages": 10,
-      "resources": true,
+      "stageCards": 10,
       "errors": []
     },
     "coreLoop": {
       "status": "victory",
-      "time": 52.8,
+      "time": 53.9,
       "kills": 14,
       "firstClear": true,
       "primes": 1,
-      "reward": {
-        "lmd": 8368,
-        "orundum": 12,
-        "first": {
-          "primes": 1,
-          "blocks": 3
-        }
-      },
       "errors": []
     },
     "outcome": {
-      "autoRestarted": true,
+      "restarted": true,
       "runId": 2,
-      "totalRuns": 1,
       "errors": []
     },
-    "input": {
-      "levelBefore": 1,
-      "levelAfter": 11,
-      "detailOpen": true,
-      "skinsVisible": 3,
-      "errors": []
+    "mainCatalog": {
+      "chapterOptions": 18,
+      "currentCards": 11,
+      "firstCode": "0-1",
+      "hasChapterSelect": true
+    },
+    "annihilation": {
+      "cards": 37,
+      "first": "阿戈尔 暗流巢窟"
     },
     "gacha": {
-      "pullsBefore": 0,
-      "pullsAfter": 10,
-      "overlay": true,
       "cards": 10,
+      "overlay": true,
+      "pulls": 10,
       "errors": []
-    },
-    "base": {
-      "before": {
-        "level": 1,
-        "crit": 0.0505,
-        "blocks": 23
-      },
-      "after": {
-        "level": 2,
-        "crit": 0.051000000000000004,
-        "blocks": 22
-      }
-    },
-    "skin": {
-      "before": 0,
-      "after": 1,
-      "price": 88
     },
     "selector": {
+      "cards": 150,
       "available": 1,
-      "opsBefore": 19,
-      "opsAfter": 20,
-      "used": 1,
-      "chosen": "ela",
-      "chosenWasOwned": false,
-      "potentialBefore": 0,
-      "potentialAfter": 1
+      "errors": []
     },
-    "offline": {
-      "before": {
-        "o": 54124.75436892841,
-        "sh": 0.08100417044228626,
-        "p": 0
-      },
-      "after": {
-        "o": 66357.76407766627,
-        "sh": 8.869353685005393,
-        "p": 0
-      },
-      "report": {
-        "orundum": 12233.009708737867,
-        "pulls": 20.39,
-        "primes": 0,
-        "shards": 8.79,
-        "blocks": 6
-      }
+    "skins": {
+      "cards": 531,
+      "primes": 100,
+      "errors": []
+    },
+    "skinPurchase": {
+      "before": 0,
+      "after": 1,
+      "primesAfter": 82
+    },
+    "operator": {
+      "levelBefore": 1,
+      "levelAfter": 11,
+      "skinsInDetail": 3
     },
     "restart": {
-      "savedLevel": 11,
-      "restoredLevel": 11,
-      "restoredControl": 2,
-      "battleRunning": "running",
+      "level": 11,
+      "skins": 1,
+      "battle": "running",
       "errors": []
     },
-    "mobile": {
-      "width": 390,
-      "height": 844,
-      "bottomNav": true,
-      "arenaVisible": true,
+    "offline": {
+      "orundum": 12219,
+      "pulls": 20.36,
+      "shards": 8.76,
+      "blocks": 6
+    },
+    "desktop1440": {
+      "width": 1440,
+      "scrollWidth": 1432,
+      "col": "300px 926px",
       "errors": []
-    },
-    "numeric": {
-      "earlyPulls": 10.19,
-      "latePulls": 30,
-      "earlyPrimes": 5.27,
-      "latePrimes": 29.04,
-      "earlyBlocks": 1.22,
-      "lateBlocks": 3.2,
-      "startingPulls": 100
-    },
-    "failureLoop": {
-      "first": "defeat",
-      "reason": "防线崩溃",
-      "autoRestarted": true,
-      "runBefore": 2,
-      "runAfter": 3
     }
   },
   "limitations": [
-    "86 operators and 17 main stages, not the complete live roster or story.",
-    "Idle/offline income is rate-based, while active combat uses a simplified three-lane simulation.",
-    "No cloud save or account sync; progress is localStorage only.",
-    "Uncapped base levels can eventually overpower fixed stage content; 15-3 is the terminal tuned challenge."
+    "PRTS 的干员 Spine 是 3.5.51 二进制格式；本次战斗演出使用立绘攻击位移、弹道、受击、技能横幅与技能立绘切入，未启用官方 Spine 骨骼动画。",
+    "307 个主线节点使用章节难度映射，不是逐个复刻原作敌人路径。",
+    "皮肤商店已收录 531 套；3 套 PRTS 缺少半身像时使用对应干员默认立绘。",
+    "无云存档，进度保存在浏览器 localStorage。"
   ],
-  "evidence": {
-    "launch": "Orundum=60004, squad=8"
-  },
-  "deployment": {
-    "url": "https://executor0707.github.io/arknights-idle/",
-    "httpStatus": 200,
-    "title": "罗德岛值守协议 · ARKNIGHTS IDLE",
-    "booted": true,
-    "arena": true,
-    "allies": 8,
-    "operators": 13,
-    "errors": [],
-    "checkedAt": "2026-11-03T09:28:35.025Z"
-  }
+  "exitCode": 0
 }

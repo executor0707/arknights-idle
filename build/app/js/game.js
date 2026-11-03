@@ -6,7 +6,7 @@ import {
 } from './data.js';
 import { SKINS, SKIN_BY_ID, SKINS_BY_OP } from './skins.js';
 
-export { STAGES };
+export { STAGES, OPERATORS, SKINS };
 export const OP_BY_ID = new Map(OPERATORS.map(o => [o.id, o]));
 export const STAGE_BY_ID = new Map(STAGES.map(s => [s.id, s]));
 export const bus = new EventTarget();
@@ -106,6 +106,8 @@ export function loadGame() {
     console.warn('存档读取失败，使用新存档', e);
     state = createDefaultState();
   }
+  if (!STAGE_BY_ID.has(state.stage.selected)) state.stage.selected = 'CE-6';
+  state.squad = state.squad.map(id => id && OP_BY_ID.has(id) ? id : null);
   ensureDaily();
   ensureShop();
   return state;
@@ -610,29 +612,40 @@ export function bannerState(id) { return state.gacha[id]; }
 export function bannerPool(banner) {
   const six = OPERATORS.filter(o => o.rarity === 6);
   const standard6 = six.filter(o => !o.limited && !o.collab);
-  if (banner.pool === 'limited') return { featured: six.find(o => o.id === banner.featured6), otherFeatured: six.filter(o => o.limited && o.id !== banner.featured6), standard: standard6, six };
-  if (banner.pool === 'collab') return { featured: six.find(o => o.id === banner.featured6), otherFeatured: six.filter(o => o.collab && o.id !== banner.featured6), standard: standard6, six };
+  if (banner.pool === 'limited') return { featured: six.find(o => o.id === banner.featured6), otherFeatured: six.filter(o => o.limited && o.id !== banner.featured6), standard: six.filter(o => o.limited), six };
+  if (banner.pool === 'collab') return { featured: six.find(o => o.id === banner.featured6), otherFeatured: six.filter(o => o.collab && o.id !== banner.featured6), standard: six.filter(o => o.collab), six };
   return { featured: six.find(o => o.id === banner.featured6), otherFeatured: [], standard: standard6, six };
 }
 
-function pickFrom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function pickFrom(arr) { return arr.length ? arr[Math.floor(Math.random() * arr.length)] : null; }
+
+function poolFor(rarity, banner) {
+  const tagged = (o) => banner.pool === 'limited' ? o.limited : banner.pool === 'collab' ? o.collab : true;
+  const standard = OPERATORS.filter(o => o.rarity === rarity && !o.limited && !o.collab);
+  if (banner.pool === 'standard') {
+    if (rarity === 3) {
+      const pool = [...standard, ...OPERATORS.filter(o => o.rarity === 2 && !o.limited && !o.collab)];
+      return pool;
+    }
+    return standard;
+  }
+  const special = OPERATORS.filter(o => o.rarity === rarity && tagged(o));
+  if (special.length) return special;
+  if (rarity === 3) {
+    const lowSpecial = OPERATORS.filter(o => o.rarity === 2 && tagged(o));
+    return [...special, ...lowSpecial, ...standard, ...OPERATORS.filter(o => o.rarity === 2 && !o.limited && !o.collab)];
+  }
+  return standard;
+}
 
 function pickOperator(rarity, banner) {
   const pool = bannerPool(banner);
   if (rarity === 6) {
-    const roll = Math.random();
-    if (banner.pool === 'standard') return roll < 0.5 ? pool.featured : pickFrom(pool.standard);
-    if (roll < 0.35) return pool.featured;
-    if (roll < 0.60 && pool.otherFeatured.length) return pickFrom(pool.otherFeatured);
+    if (banner.pool === 'standard') return Math.random() < 0.5 ? pool.featured : pickFrom(pool.standard);
     return pickFrom(pool.standard);
   }
-  if (rarity === 5) {
-    const all5 = OPERATORS.filter(o => o.rarity === 5);
-    if (Math.random() < 0.5) return OP_BY_ID.get(banner.featured5) || pickFrom(all5);
-    return pickFrom(all5);
-  }
-  const all = OPERATORS.filter(o => o.rarity === rarity);
-  return pickFrom(all);
+  const candidates = poolFor(rarity, banner);
+  return pickFrom(candidates) || pickFrom(OPERATORS.filter(o => o.rarity === Math.max(2, rarity - 1)));
 }
 
 function rollRarity(banner, pity) {

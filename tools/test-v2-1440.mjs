@@ -1,0 +1,15 @@
+import { connect, screenshot, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Runtime.enable');
+await send('Network.enable');
+await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=1440'});
+await new Promise(r=>setTimeout(r,900));
+await evalJS(send, `document.getElementById('enterBtn').click(); true`);
+await new Promise(r=>setTimeout(r,1600));
+await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click(); true`);
+await new Promise(r=>setTimeout(r,700));
+console.log('info', await evalJS(send, `JSON.stringify({w:innerWidth,h:innerHeight,errs:window.__errs,battleCols:getComputedStyle(document.querySelector('.battle-layout')).gridTemplateColumns,topbar:document.querySelector('.topbar').scrollWidth,body:document.body.scrollWidth})`));
+await screenshot(send,'.cache/v2-1440.png',1440,1000);
+process.exit(0);

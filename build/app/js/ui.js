@@ -2,7 +2,7 @@ import { OPERATORS } from './operators.js';
 import {
   STAGES, STAGE_GROUPS, BANNERS, MATERIALS, CLASSES, CLASS_GLYPH, CLASS_COLOR,
   STAR_COLOR, ROOMS, DAILY_TASKS, SHOP_ITEMS, SKIN_PRICE, PRIME_SHARD_COST,
-  SELECTOR_COST, PULL_COST, OFFLINE_CAP_HOURS, SAVE_KEY,
+  SELECTOR_COST, PULL_COST, OFFLINE_CAP_HOURS, SAVE_KEY, MAIN_CHAPTERS,
 } from './data.js';
 import { SKINS, SKINS_BY_OP, SKIN_BY_ID } from './skins.js';
 import * as G from './game.js';
@@ -37,6 +37,7 @@ const NAV = [
   { view: 'battle', glyph: '⌖', label: '作战', sub: 'OPERATION' },
   { view: 'operators', glyph: '◈', label: '干员', sub: 'OPERATORS' },
   { view: 'gacha', glyph: '✦', label: '寻访', sub: 'HEADHUNT' },
+  { view: 'skins', glyph: '◇', label: '时装', sub: 'SKINS' },
   { view: 'base', glyph: '▦', label: '基建', sub: 'BASE' },
   { view: 'inventory', glyph: '▤', label: '仓库', sub: 'DEPOT' },
   { view: 'archive', glyph: '⌘', label: '档案', sub: 'ARCHIVE' },
@@ -46,7 +47,9 @@ let battle = null;
 const ui = {
   view: 'battle',
   stageGroup: 'resource',
+  mainChapter: 0,
   filter: { rarity: 0, cls: 'all', owned: false, sort: 'rarity' },
+  skinFilter: { cls: 'all', owned: false, q: '' },
   bannerId: 'limited',
   invTab: 'all',
   galleryOwned: false,
@@ -102,6 +105,24 @@ function renderNav() {
 
 function bindEvents() {
   document.addEventListener('click', onClick);
+  document.addEventListener('change', (e) => {
+    const sel = e.target.closest('[data-action="chapter-select"]');
+    if (sel) {
+      ui.mainChapter = sel.value;
+      renderView();
+      requestAnimationFrame(() => document.querySelector('.stage-card.active')?.scrollIntoView({ block: 'nearest' }));
+    }
+  });
+  document.addEventListener('input', (e) => {
+    if (e.target.id === 'skinSearch') {
+      ui.skinFilter.q = e.target.value;
+      renderView();
+      requestAnimationFrame(() => {
+        const input = document.getElementById('skinSearch');
+        if (input) { input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+      });
+    }
+  });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       if (ui.pullOverlay) closePullOverlay();
@@ -132,7 +153,11 @@ export function setView(view, force = false) {
   if (!force && ui.view === view) { refreshView(); return; }
   closeModal(true);
   ui.view = view;
-  if (view === 'battle') ui.stageGroup = G.STAGE_BY_ID.get(state.stage.selected)?.group || ui.stageGroup;
+  if (view === 'battle') {
+    const cur = G.STAGE_BY_ID.get(state.stage.selected);
+    ui.stageGroup = cur?.group || ui.stageGroup;
+    if (cur?.group === 'main') ui.mainChapter = cur.chapterKey;
+  }
   renderView();
   updateNav();
   updateChrome();
@@ -195,6 +220,7 @@ function renderView() {
   if (ui.view === 'battle') html = renderBattle();
   else if (ui.view === 'operators') html = renderOperators();
   else if (ui.view === 'gacha') html = renderGacha();
+  else if (ui.view === 'skins') html = renderSkins();
   else if (ui.view === 'base') html = renderBase();
   else if (ui.view === 'inventory') html = renderInventory();
   else if (ui.view === 'archive') html = renderArchive();
@@ -248,7 +274,12 @@ function renderBattle() {
   if (!ui.stageGroup) ui.stageGroup = stage.group;
   const power = G.squadPower();
   const idle = G.idleSummary(stage);
-  const stages = STAGES.filter(s => s.group === ui.stageGroup);
+  const allGroupStages = STAGES.filter(s => s.group === ui.stageGroup);
+  if (ui.stageGroup === 'main' && !allGroupStages.some(s => String(s.chapterKey) === String(ui.mainChapter))) {
+    ui.mainChapter = stage.group === 'main' ? stage.chapterKey : allGroupStages[0]?.chapterKey || 0;
+  }
+  const stages = ui.stageGroup === 'main' ? allGroupStages.filter(s => String(s.chapterKey) === String(ui.mainChapter)) : allGroupStages;
+  const chapters = [...new Map(STAGES.filter(s => s.group === 'main').map(s => [String(s.chapterKey), s])).values()];
   const selectedGroup = STAGE_GROUPS.find(g => g.id === ui.stageGroup);
   const ratio = power / stage.rec;
   const estimate = ratio >= 1.22 ? ['优', 'green'] : ratio >= 0.98 ? ['稳', 'green'] : ratio >= 0.82 ? ['险', 'warn'] : ['危', 'bad'];
@@ -290,6 +321,7 @@ function renderBattle() {
     <div class="battle-layout">
       <aside class="stage-panel">
         <div class="stage-tabs">${STAGE_GROUPS.map(g => `<button class="stage-tab ${g.id === ui.stageGroup ? 'active' : ''}" data-action="stage-group" data-group="${g.id}">${g.name}</button>`).join('')}</div>
+        ${ui.stageGroup === 'main' ? `<div class="stage-chapter-row"><span class="filter-label">章节</span><select id="stageChapterSelect" class="stage-select" data-action="chapter-select">${chapters.map(s => `<option value="${s.chapterKey}" ${String(s.chapterKey) === String(ui.mainChapter) ? 'selected' : ''}>第${s.chapterKey === '0' ? '0' : s.chapterKey}章 · ${esc(s.chapter)}</option>`).join('')}</select><span class="mono">${stages.length} 关</span></div>` : ''}
         <div class="stage-list">${stageCards || '<div class="empty-state">暂无可用关卡</div>'}</div>
         <div class="stage-scroll-note">无理智限制 · 失败仍持续挂机 · 首通奖励源石</div>
       </aside>
@@ -323,6 +355,7 @@ function renderBattle() {
             <div class="arena-layer floats" id="layerFloats"></div>
             <div id="arenaOverlay"></div>
             <div id="arenaCast" class="cast-banner hidden"></div>
+            <div id="skillCutin" class="skill-cutin hidden"></div>
             <div id="arenaWave" class="wave-flash hidden"></div>
             <div id="arenaPause" class="arena-paused hidden">PAUSED</div>
           </div>
@@ -502,6 +535,7 @@ function syncArena(rebuild = false) {
     node.classList.toggle('dead', unit.dead);
     node.classList.toggle('hit', unit.hitFlash > 0.04);
     node.classList.toggle('casting', unit.castUntil > 0);
+    node.classList.toggle('attacking', (unit.attackFlash || 0) > 0.04);
     node.classList.toggle('healed', unit.healFlash > 0.05);
     if (node._refs.badge) {
       node._refs.badge.textContent = unit.blockCount > 0 ? unit.blockCount : '';
@@ -521,6 +555,7 @@ function syncArena(rebuild = false) {
     node.style.top = e.y + '%';
     node._refs.hp.style.width = Math.max(0, e.hp / e.maxHp * 100) + '%';
     node.classList.toggle('hit', e.hitFlash > 0.04);
+    node.classList.toggle('attacking', (e.attackFlash || 0) > 0.04);
     node.classList.toggle('stunned', e.stun > 0);
   }
   for (const [uid, node] of a.enemies) if (!eAlive.has(uid)) { node.remove(); a.enemies.delete(uid); }
@@ -579,6 +614,20 @@ function syncArena(rebuild = false) {
   if (a.wave) {
     if (battle.waveFlash > 0 && battle.status === 'running') { a.wave.textContent = 'WAVE ' + String(battle.wave).padStart(2, '0'); a.wave.classList.remove('hidden'); }
     else a.wave.classList.add('hidden');
+  }
+  const cut = $('#skillCutin');
+  if (cut) {
+    if (battle.cutIn && battle.cutIn.life > 0) {
+      if (cut.dataset.key !== battle.cutIn.key) {
+        cut.dataset.key = battle.cutIn.key;
+        cut.innerHTML = `<img src="${G.portraitFor(battle.cutIn.id)}" alt=""><div><span>SKILL ACTIVATED</span><b>${esc(battle.cutIn.skill)}</b><small>${esc(battle.cutIn.name)}</small></div>`;
+      }
+      cut.classList.remove('hidden');
+      cut.style.opacity = Math.min(1, battle.cutIn.life * 4);
+    } else {
+      cut.classList.add('hidden');
+      cut.dataset.key = '';
+    }
   }
 
   // result
@@ -851,8 +900,8 @@ function renderGacha() {
         <div class="banner-sub">RATE UP // ${banner.featured6.toUpperCase()}</div>
         <p class="banner-desc">${esc(banner.desc)}</p>
         <div class="banner-featured">
-          <div class="featured-op"><img src="${featured?.img || ''}" alt=""><div><b>${esc(featured?.name || '')}</b><span>6★ · 概率提升 35%</span></div></div>
-          <div class="featured-op"><img src="${featured5?.img || ''}" alt=""><div><b>${esc(featured5?.name || '')}</b><span>5★ · 概率提升 50%</span></div></div>
+          <div class="featured-op"><img src="${featured?.img || ''}" alt=""><div><b>${esc(featured?.name || '')}</b><span>6★ · ${banner.pool === 'limited' ? '全部限定混合' : banner.pool === 'collab' ? '全部联动混合' : '常驻混合'}</span></div></div>
+          <div class="featured-op"><img src="${featured5?.img || ''}" alt=""><div><b>${esc(featured5?.name || '')}</b><span>5★ · ${banner.pool === 'standard' ? '常驻混合' : '对应池混合'}</span></div></div>
         </div>
         <div class="banner-pull-row">
           <button class="btn btn-primary btn-large" data-action="pull" data-banner="${banner.id}" data-count="10" ${state.orundum >= PULL_COST * 10 ? '' : 'disabled'}>十连寻访 <span class="mono" style="font-size:10px;opacity:.8">${fmt(PULL_COST * 10)} ◇</span></button>
@@ -947,6 +996,51 @@ function openSelector() {
   }).join('');
   const progress = G.selectorProgress();
   openModal(modalShell('六星自选兑换', `<div class="selector-info"><b>${available}</b> 次可兑换 · 本轮进度 ${Math.min(progress.current, SELECTOR_COST)} / ${SELECTOR_COST}</div><div class="progress"><i style="width:${Math.min(100, progress.current / SELECTOR_COST * 100)}%"></i></div><div class="selector-grid">${cards}</div>`, { wide: true, kicker: 'SELECTOR // 300 PULLS', sub: available ? '选择任意一名 6★ 干员。已拥有则提升 1 点潜能。' : '每累计 300 抽获得一次自选机会。' }), {});
+}
+
+// ── skins ────────────────────────────────────────────────────────
+function renderSkins() {
+  const q = ui.skinFilter.q.trim().toLowerCase();
+  const list = SKINS.filter(s => {
+    const op = G.OP_BY_ID.get(s.opId);
+    if (!op) return false;
+    if (ui.skinFilter.cls !== 'all' && op.cls !== ui.skinFilter.cls) return false;
+    if (ui.skinFilter.owned && !state.skins.owned[s.id]) return false;
+    if (q && !(`${s.name} ${op.name} ${s.series}`.toLowerCase().includes(q))) return false;
+    return true;
+  });
+  const owned = Object.keys(state.skins.owned).length;
+  const cards = list.map(sk => {
+    const op = G.OP_BY_ID.get(sk.opId);
+    const isOwned = !!state.skins.owned[sk.id];
+    const eq = state.skins.equipped[sk.opId] === sk.key;
+    return `<div class="gallery-card ${isOwned ? 'owned' : ''}" style="--skin-color:${sk.color}">
+      <img src="${sk.img}" alt="${esc(sk.name)}" loading="lazy">
+      <div class="gallery-info"><b>${esc(sk.name)}</b><span>${esc(op.name)} · ${esc(sk.series || '常驻')}</span>
+        <button class="btn btn-small ${eq ? 'btn-cyan' : isOwned ? 'btn-primary' : ''}" data-action="gallery-skin" data-id="${sk.id}" ${!isOwned && state.primes < 18 ? 'disabled' : ''}>${eq ? '已装备' : isOwned ? '装备' : '◆ 18'}</button>
+      </div>
+    </div>`;
+  }).join('');
+  return `<section class="page">
+    ${pageHead('SKIN ARCHIVE // ' + SKINS.length, '时装商店', `
+      ${statHead('全部时装', SKINS.length)}
+      ${statHead('已拥有', owned)}
+      ${statHead('当前源石', fmt(state.primes), ' ◆')}
+    `)}
+    <div class="skin-store-head">
+      <div class="page-head-right" style="gap:14px">
+        <span class="small">全量时装 · 统一售价 <b class="orange">18 源石</b></span>
+        <button class="filter-btn ${ui.skinFilter.owned ? 'active' : ''}" data-action="skin-owned">仅看已拥有</button>
+      </div>
+      <div class="filter-group" style="margin-top:10px">
+        <span class="filter-label">职业</span>
+        <button class="filter-btn ${ui.skinFilter.cls === 'all' ? 'active' : ''}" data-action="skin-class" data-value="all">全</button>
+        ${CLASSES.map(c => `<button class="filter-btn ${ui.skinFilter.cls === c ? 'active' : ''}" data-action="skin-class" data-value="${c}" style="color:${CLASS_COLOR[c]}">${CLASS_GLYPH[c]}</button>`).join('')}
+        <input id="skinSearch" class="skin-search" placeholder="搜索干员或时装…" value="${esc(ui.skinFilter.q)}">
+      </div>
+    </div>
+    <div class="gallery-grid skin-store-grid">${cards || '<div class="empty-state">没有匹配的时装。</div>'}</div>
+  </section>`;
 }
 
 // ── base ─────────────────────────────────────────────────────────
@@ -1230,7 +1324,9 @@ async function onClick(e) {
     case 'view':
       e.preventDefault(); setView(target.dataset.view); break;
     case 'stage-group':
-      ui.stageGroup = target.dataset.group; renderView(); break;
+      ui.stageGroup = target.dataset.group;
+      if (ui.stageGroup === 'main') ui.mainChapter = G.STAGE_BY_ID.get(state.stage.selected)?.chapterKey ?? 0;
+      renderView(); break;
     case 'select-stage': {
       if (!G.setStage(id)) { toast('该关卡尚未解锁，请先通关前置关卡。', 'warn'); break; }
       battle.start(id); ui.stageGroup = G.STAGE_BY_ID.get(id).group; renderView(); toast(`已切换至 ${G.STAGE_BY_ID.get(id).code} · ${G.STAGE_BY_ID.get(id).name}`, 'success'); break;
@@ -1362,13 +1458,18 @@ async function onClick(e) {
       openSkinGallery(); break;
     case 'gallery-owned':
       ui.galleryOwned = !ui.galleryOwned; openSkinGallery(); break;
+    case 'skin-owned':
+      ui.skinFilter.owned = !ui.skinFilter.owned; renderView(); break;
+    case 'skin-class':
+      ui.skinFilter.cls = target.dataset.value; renderView(); break;
     case 'gallery-skin': {
       const sk = SKINS.find(s => s.id === id);
       if (!sk) break;
       if (G.skinOwned(sk.opId, sk.id)) { G.equipSkin(sk.opId, sk.key); toast('已装备时装。', 'success'); }
-      else if (G.buySkin(sk.id)) { toast('时装已购买并装备。', 'success'); sfx('gold'); }
+      else if (G.buySkin(sk.id)) { toast(`时装已购买并装备（18 源石）。`, 'success'); sfx('gold'); }
       else toast(`源石不足，需要 ${SKIN_PRICE} 枚。`, 'warn');
-      openSkinGallery(); updateChrome(); break;
+      if (ui.view === 'skins') renderView(); else openSkinGallery();
+      updateChrome(); break;
     }
     case 'setting': {
       const key = target.dataset.key;

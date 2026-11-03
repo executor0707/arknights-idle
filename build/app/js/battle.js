@@ -39,6 +39,7 @@ export class Battle {
     this.paused = false;
     this.timeout = 150;
     this.cast = null;
+    this.cutIn = null;
     this.waveFlash = 0;
     this.shake = 0;
     this.totalSpawned = 0;
@@ -72,6 +73,7 @@ export class Battle {
     this.floats = [];
     this.effects = [];
     this.cast = null;
+    this.cutIn = null;
     this.kills = 0;
     this.totalSpawned = 0;
     this.stats = { damage: 0, healing: 0, leaks: 0 };
@@ -172,6 +174,7 @@ export class Battle {
     this.waveFlash = Math.max(0, this.waveFlash - dt);
     this.shake = Math.max(0, this.shake - dt);
     if (this.cast) { this.cast.life -= dt; if (this.cast.life <= 0) this.cast = null; }
+    if (this.cutIn) { this.cutIn.life -= dt; if (this.cutIn.life <= 0) this.cutIn = null; }
 
     while (this.spawnQueue.length && this.spawnQueue[0].at <= this.time) {
       const item = this.spawnQueue.shift();
@@ -195,6 +198,7 @@ export class Battle {
     for (const e of this.enemies) {
       if (e.dead) continue;
       e.hitFlash = Math.max(0, e.hitFlash - dt);
+      e.attackFlash = Math.max(0, (e.attackFlash || 0) - dt);
       if (e.burnT > 0) {
         e.burnT -= dt;
         e.hp -= e.burnDmg * dt;
@@ -208,6 +212,7 @@ export class Battle {
         e.attackCd -= dt;
         if (e.attackCd <= 0) {
           e.attackCd = e.boss ? 1.8 : 1.35;
+          e.attackFlash = 0.18;
           this._damageAlly(blocker, Math.max(e.atk - blocker.def * 0.65, e.atk * 0.22), e);
         }
         continue;
@@ -261,6 +266,7 @@ export class Battle {
       a.hitFlash = Math.max(0, a.hitFlash - dt);
       a.healFlash = Math.max(0, a.healFlash - dt);
       a.castUntil = Math.max(0, a.castUntil - dt);
+      a.attackFlash = Math.max(0, (a.attackFlash || 0) - dt);
       if (a.buffUntil > 0) { a.buffUntil -= dt; if (a.buffUntil <= 0) a.buffAtk = 0; }
       if (a.shieldT > 0) { a.shieldT -= dt; if (a.shieldT <= 0) a.shield = 0; }
       const regen = this.buffs.regen * a.maxHp * dt;
@@ -333,6 +339,7 @@ export class Battle {
       damage *= (this.baseBonuses?.critDmg || 1.5);
     }
     this._damageEnemy(target, damage, { arts: a.arts, source: a, crit });
+    a.attackFlash = 0.18;
     this._projectile(a, target);
     if (a.id === 'chen_alter' && Math.random() < 0.2) {
       for (const e of this.enemies) if (!e.dead && e !== target && Math.abs(e.x - target.x) < 10) this._damageEnemy(e, damage * 0.4, { arts: false, source: a });
@@ -412,6 +419,7 @@ export class Battle {
     a.sp = 0;
     a.castUntil = 0.7;
     this.cast = { name: `${op.name} · ${skill.name}`, life: 1.35, color: a.arts ? '#67d9ff' : '#ffb544' };
+    this.cutIn = { id: a.id, name: op.name, skill: skill.name, life: 1.15, key: `${a.id}-${this.time.toFixed(2)}` };
     bus.dispatchEvent(new CustomEvent('battle-sfx', { detail: { sound: 'skill' } }));
     if (skill.type === 'aoe') {
       const targets = enemiesInRange.length ? enemiesInRange : this.enemies;

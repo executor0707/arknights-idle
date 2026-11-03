@@ -1,7 +1,7 @@
 import { writeFile } from 'node:fs/promises';
 
 export async function connect() {
-  const pages = await (await fetch('http://127.0.0.1:9222/json/list')).json();
+  const pages = await (await fetch(`http://127.0.0.1:${process.env.CDP_PORT || 9222}/json/list`)).json();
   const page = pages.find(p => p.type === 'page');
   const ws = new WebSocket(page.webSocketDebuggerUrl);
   await new Promise((res, rej) => { ws.onopen = res; ws.onerror = rej; });

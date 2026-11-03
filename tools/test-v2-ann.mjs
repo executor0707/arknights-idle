@@ -1,0 +1,15 @@
+import { connect, screenshot, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1920,height:1080,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=ann'});
+await new Promise(r=>setTimeout(r,900));
+await evalJS(send, `document.getElementById('enterBtn').click(); true`);
+await new Promise(r=>setTimeout(r,1600));
+await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click(); true`);
+await new Promise(r=>setTimeout(r,400));
+await evalJS(send, `document.querySelector('[data-action="stage-group"][data-group="annihilation"]').click(); true`);
+await new Promise(r=>setTimeout(r,600));
+console.log(await evalJS(send, `JSON.stringify({cards:document.querySelectorAll('.stage-card').length,first:document.querySelector('.stage-card')?.innerText,errs:window.__errs})`));
+await screenshot(send,'.cache/v2-ann.png',1920,1080);
+process.exit(0);

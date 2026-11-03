@@ -1,3 +1,5 @@
+import { STAGES as V2_STAGES, STAGE_GROUPS as V2_STAGE_GROUPS, MAIN_CHAPTERS } from './stages-v2.js';
+
 export const SAVE_KEY = 'rhodes_island_idle_save_v1';
 export const SAVE_VERSION = 1;
 export const MAX_SQUAD = 12;
@@ -64,7 +66,7 @@ export const MATERIALS = {
   base_block: { name: '基建材料块', glyph: '块', tier: 3, kind: 'base', color: '#ffb544', desc: '从战场回收的标准化建材。用于无限升级基建设施。' },
 };
 
-export const SKIN_PRICE = 88;
+export const SKIN_PRICE = 18;
 export const PRIME_SHARD_COST = 20;
 export const SELECTOR_COST = 300;
 
@@ -90,7 +92,7 @@ const main = [
   ['15-3', '离解复合', 66000, 5, '源石与文明的边界，在第十五章彻底溶解。', ['gel', 'crystal', 'alloy']],
 ];
 
-export const STAGES = [
+const LEGACY_STAGES = [
   ...main.map(([code, name, rec, waves, desc, drops], i) => ({
     id: 'main-' + code,
     group: 'main',
@@ -149,11 +151,13 @@ export const STAGES = [
   })),
 ];
 
-
+export const STAGES = V2_STAGES;
+export { MAIN_CHAPTERS };
 
 const MIN_REC = 4200;
 const MAX_REC = Math.max(...STAGES.map(s => s.rec));
 for (const s of STAGES) {
+  if (s.idle) continue;
   const t = Math.max(0, Math.min(1, (s.rec - MIN_REC) / (MAX_REC - MIN_REC)));
   s.idle = {
     orundumPerHour: 6000 + 12000 * t,
@@ -165,33 +169,34 @@ for (const s of STAGES) {
   s.firstClearPrime = s.group === 'annihilation' ? 2 : 1;
 }
 
-export const STAGE_GROUPS = [
+const LEGACY_STAGE_GROUPS = [
   { id: 'main', name: '主线作战', desc: '推进章节，解锁更高效率的素材关。' },
   { id: 'resource', name: '资源筹备', desc: '龙门币与作战记录，挂机经济的基础。' },
   { id: 'chip', name: '芯片搜索', desc: '定向获取精英化芯片与芯片组。' },
   { id: 'annihilation', name: '长期剿灭', desc: '高难连续作战，产出大量合成玉。' },
 ];
+export const STAGE_GROUPS = V2_STAGE_GROUPS;
 
 export const BANNERS = [
   {
     id: 'standard', name: '标准寻访', subtitle: '常驻寻访 · 战术协同',
     tag: '标准', featured6: 'logos', featured5: 'lappland', pool: 'standard',
     image: 'logos', accent: '#ffb544',
-    desc: '标准干员寻访。6★干员逻各斯、5★干员拉普兰德概率提升。',
+    desc: '全部常驻干员混合寻访，包含活动赠送干员。不含限定与联动干员。',
     spark: 0,
   },
   {
     id: 'limited', name: '限定寻访', subtitle: '死魂灵 · 维什戴尔',
     tag: '限定', featured6: 'wisadel', featured5: 'ptilopsis', pool: 'limited',
     image: 'wisadel', accent: '#ff5c4d',
-    desc: '限定干员维什戴尔概率提升。限定池拥有独立保底，不与标准寻访共享。',
+    desc: '全部限定干员混合寻访。限定池拥有独立保底，不与标准寻访共享。',
     spark: 0,
   },
   {
     id: 'collab', name: '联动寻访', subtitle: '源石尘行动 · 灰烬',
     tag: '联动', featured6: 'ash', featured5: 'executor', pool: 'collab',
     image: 'ash', accent: '#67d9ff',
-    desc: '联动干员灰烬概率提升。联动池拥有独立保底，不与限定池共享。',
+    desc: '全部联动干员混合寻访，包含迷宫饭、彩虹六号、怪物猎人等联动干员。联动池拥有独立保底。',
     spark: 0,
   },
 ];
