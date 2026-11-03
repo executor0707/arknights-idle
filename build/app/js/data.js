@@ -21,7 +21,9 @@ export const MATERIALS = {
   book2: { name: '技巧概要·卷二', glyph: '技', tier: 2, kind: 'book', color: '#6bd8d0', desc: '进阶技能训练教材。' },
   book3: { name: '技巧概要·卷三', glyph: '技', tier: 3, kind: 'book', color: '#ffc857', desc: '高阶技能与专精训练教材。' },
 
-  chip_vanguard: { name: '先锋芯片', glyph: '锋', tier: 3, kind: 'chip', cls: '先锋', color: CLASS_COLOR['先锋'], desc: '先锋干员精英化所需的芯片。' },
+  chip: { name: '通用芯片', glyph: '芯', tier: 3, kind: 'chip', color: '#9ad6c8', desc: '不分职业的精英化芯片，由挂机产出。' },
+  chip_pack: { name: '通用芯片组', glyph: '组', tier: 4, kind: 'chip_pack', color: '#ffb544', desc: '不分职业的精二芯片组，由挂机产出。' },
+  chip_vanguard: { name: '先锋芯片', glyph: '锋', tier: 3, kind: 'chip', cls: '先锋', color: CLASS_COLOR['先锋'], desc: '旧版职业芯片，首次读取存档时会转换为通用芯片。' },
   chip_guard: { name: '近卫芯片', glyph: '卫', tier: 3, kind: 'chip', cls: '近卫', color: CLASS_COLOR['近卫'], desc: '近卫干员精英化所需的芯片。' },
   chip_defender: { name: '重装芯片', glyph: '重', tier: 3, kind: 'chip', cls: '重装', color: CLASS_COLOR['重装'], desc: '重装干员精英化所需的芯片。' },
   chip_sniper: { name: '狙击芯片', glyph: '狙', tier: 3, kind: 'chip', cls: '狙击', color: CLASS_COLOR['狙击'], desc: '狙击干员精英化所需的芯片。' },
@@ -151,31 +153,60 @@ const LEGACY_STAGES = [
   })),
 ];
 
-export const STAGES = V2_STAGES;
+const ENDLESS_BOSSES = ['boss_skulsr', 'boss_frstar', 'boss_faust', 'boss_mephi', 'boss_sfsui', 'boss_blksnk'];
+const ENDLESS_STAGES = Array.from({ length: 12 }, (_, i) => {
+  const rec = Math.round(16000 * Math.pow(1.36, i));
+  const t = i / 11;
+  return {
+    id: 'endless-' + (i + 1),
+    group: 'endless',
+    code: 'END-' + String(i + 1).padStart(2, '0'),
+    chapter: '无尽战斗',
+    name: '无尽战线 ' + String(i + 1).padStart(2, '0'),
+    rec,
+    waves: 3 + Math.floor(i / 3),
+    desc: `无尽战线第 ${i + 1} 层。敌人强度与规模逐层上升；失败会留在当前层继续挂机，直到练度足够。`,
+    color: '#c58cff',
+    drops: [],
+    firstClearPrime: 1,
+    bossKey: ENDLESS_BOSSES[i % ENDLESS_BOSSES.length],
+    rewards: { lmd: 1200 + rec * 0.18, orundum: 20 + i * 9, doctorExp: 18 + i * 4, items: {} },
+    idle: {
+      orundumPerHour: 18000 + i * 900,
+      shardsPerHour: 22 + i * 0.8,
+      blocksPerHour: 2.8 + i * 0.12,
+      lmdPerHour: 8000 + i * 500,
+      expPerHour: 3200 + i * 180,
+    },
+  };
+});
+
+const CORE_STAGES = V2_STAGES.filter(s => s.group !== 'chip' && !(s.group === 'resource' && s.code === 'PR-D'));
+export const STAGES = [...CORE_STAGES, ...ENDLESS_STAGES];
 export { MAIN_CHAPTERS };
 
 const MIN_REC = 4200;
 const MAX_REC = Math.max(...STAGES.map(s => s.rec));
 for (const s of STAGES) {
-  if (s.idle) continue;
   const t = Math.max(0, Math.min(1, (s.rec - MIN_REC) / (MAX_REC - MIN_REC)));
-  s.idle = {
-    orundumPerHour: 6000 + 12000 * t,
-    shardsPerHour: 4.2 + 20 * t,
-    blocksPerHour: 1.2 + 2 * t,
-    lmdPerHour: 3000 + 9000 * t,
-    expPerHour: 1200 + 4800 * t,
-  };
-  s.firstClearPrime = s.group === 'annihilation' ? 2 : 1;
+  if (!s.idle) {
+    s.idle = {
+      orundumPerHour: 6000 + 12000 * t,
+      shardsPerHour: 4.2 + 20 * t,
+      blocksPerHour: 1.2 + 2 * t,
+      lmdPerHour: 3000 + 9000 * t,
+      expPerHour: 1200 + 4800 * t,
+    };
+  }
+  // Universal chips are idle output, not a separate farming stage.
+  s.idle.chipsPerHour = 20 + 24 * t;
+  s.idle.chipPacksPerHour = 16 + 20 * t;
+  s.firstClearPrime = s.firstClearPrime || (s.group === 'annihilation' ? 2 : 1);
 }
 
-const LEGACY_STAGE_GROUPS = [
-  { id: 'main', name: '主线作战', desc: '推进章节，解锁更高效率的素材关。' },
-  { id: 'resource', name: '资源筹备', desc: '龙门币与作战记录，挂机经济的基础。' },
-  { id: 'chip', name: '芯片搜索', desc: '定向获取精英化芯片与芯片组。' },
-  { id: 'annihilation', name: '长期剿灭', desc: '高难连续作战，产出大量合成玉。' },
-];
-export const STAGE_GROUPS = V2_STAGE_GROUPS;
+export const STAGE_GROUPS = V2_STAGE_GROUPS.map(g => g.id === 'chip'
+  ? { id: 'endless', name: '无尽战斗', desc: '逐层提升难度，失败后留在本层挂机。' }
+  : g);
 
 export const BANNERS = [
   {

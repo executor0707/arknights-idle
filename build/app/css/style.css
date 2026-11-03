@@ -437,7 +437,19 @@ a { color: var(--orange); }
 .banner-tab b { font-size: 12px; }
 .banner-tab span { font-family: var(--mono); font-size: 8px; color: var(--dim); }
 .banner-hero { position: relative; height: 452px; border: 1px solid var(--line-strong); overflow: hidden; background: #0b0e0f; }
-.banner-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(6,8,9,.98) 0%, rgba(6,8,9,.88) 36%, rgba(6,8,9,.28) 70%, rgba(6,8,9,.45) 100%); }
+.banner-hero::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(6,8,9,.98) 0%, rgba(6,8,9,.88) 36%, rgba(6,8,9,.18) 70%, rgba(6,8,9,.55) 100%); }
+.banner-roster { position: absolute; z-index: 2; right: 26px; top: 26px; bottom: 26px; width: 51%; display: flex; flex-direction: column; gap: 12px; justify-content: center; }
+.roster-head { display: flex; align-items: baseline; gap: 8px; font-family: var(--mono); color: var(--banner-accent, var(--orange)); }
+.roster-head span { font-size: 10px; letter-spacing: .12em; }
+.roster-head b { font-size: 20px; }
+.roster-head em { margin-left: auto; font-style: normal; font-size: 8px; color: var(--dim); letter-spacing: .15em; }
+.roster-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 7px; }
+.roster-op { position: relative; border: 1px solid rgba(255,255,255,.1); background: #0b0e0f; overflow: hidden; }
+.roster-op img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 4%; display: block; opacity: .86; }
+.roster-op span { display: block; padding: 4px 5px; font-size: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: rgba(5,8,9,.9); }
+.roster-op.featured { border-color: var(--banner-accent, var(--orange)); box-shadow: 0 0 18px rgba(255,180,58,.16); }
+.roster-op.featured img { opacity: 1; }
+
 .banner-portrait { position: absolute; right: 3%; bottom: -18%; height: 135%; width: 48%; object-fit: contain; object-position: bottom center; filter: drop-shadow(0 0 60px rgba(255,140,50,.14)); opacity: .95; }
 .banner-portrait.ash { filter: drop-shadow(0 0 60px rgba(104,217,242,.16)) saturate(.9); }
 .banner-content { position: relative; z-index: 3; padding: 30px 42px 26px; max-width: 600px; height: 100%; display: flex; flex-direction: column; }
@@ -702,6 +714,15 @@ a { color: var(--orange); }
 .small { font-size: 9px; color: var(--dim); line-height: 1.7; }
 .hide-scroll::-webkit-scrollbar { display: none; }
 
+/* gacha pool window */
+.pool-six-head { display: flex; gap: 28px; margin-bottom: 14px; }
+.pool-six-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; max-height: 62vh; overflow-y: auto; padding-right: 4px; }
+.pool-six-card { display: flex; gap: 8px; align-items: center; padding: 7px; border: 1px solid var(--line); background: rgba(255,255,255,.018); text-align: left; }
+.pool-six-card:hover { border-color: var(--orange); background: rgba(255,180,58,.06); }
+.pool-six-card img { width: 42px; height: 56px; object-fit: cover; object-position: 50% 4%; border: 1px solid rgba(255,255,255,.12); }
+.pool-six-card b { display: block; font-size: 12px; }
+.pool-six-card span { display: block; margin-top: 2px; font-size: 9px; color: var(--dim); }
+
 /* deployment ranges */
 .range-overlay { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
 .range-ring { position: absolute; border: 1px solid rgba(255,180,58,.55); border-radius: 50%; background: radial-gradient(ellipse at center, rgba(255,180,58,.12), rgba(255,180,58,.02) 68%, transparent 70%); box-shadow: 0 0 18px rgba(255,180,58,.10); opacity: .32; }
@@ -866,6 +887,10 @@ a { color: var(--orange); }
   .filter-btn { min-width: 24px; height: 23px; font-size: 9px; }
   .banner-hero { height: 420px; }
   .banner-content { padding: 22px; max-width: 100%; background: linear-gradient(to bottom, rgba(6,8,9,.3), rgba(6,8,9,.94) 62%); }
+  .banner-roster { position: relative; inset: auto; width: auto; padding: 16px; order: -1; }
+  .roster-grid { grid-template-columns: repeat(6, 1fr); }
+  .roster-op span { font-size: 8px; }
+  .banner-hero { display: flex; flex-direction: column; height: auto; min-height: 420px; }
   .banner-portrait { right: -8%; width: 85%; opacity: .55; }
   .banner-content h2 { font-size: 32px; margin-top: 12px; }
   .banner-desc { font-size: 10px; }

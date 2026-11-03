@@ -92,6 +92,13 @@ export function initUI(battleInstance) {
   G.bus.addEventListener('battle-end', e => {
     if (e.detail.win) updateChrome();
   });
+  G.bus.addEventListener('battle-start', e => {
+    const s = e.detail?.stage;
+    if (!s) return;
+    ui.stageGroup = s.group;
+    if (s.group === 'main') ui.mainChapter = s.chapterKey;
+    if (ui.view === 'battle') setTimeout(() => { if (ui.view === 'battle') renderView(); }, 0);
+  });
   G.bus.addEventListener('sabotage', e => showSabotage(e.detail));
   window.addEventListener('unhandledrejection', e => console.error(e.reason));
 }
@@ -390,6 +397,8 @@ function renderBattle() {
             <div class="kv mt-8"><span>挂机合成玉</span><b class="orange">${idle.pullsPerHour.toFixed(1)} 抽/h</b></div>
             <div class="kv"><span>源石碎片</span><b>${idle.shardsPerHour.toFixed(1)}/h</b></div>
             <div class="kv"><span>基建材料块</span><b>${idle.blocksPerHour.toFixed(1)}/h</b></div>
+            <div class="kv"><span>通用芯片</span><b class="orange">${idle.chipsPerHour.toFixed(0)}/h</b></div>
+            <div class="kv"><span>通用芯片组</span><b class="orange">${idle.chipPacksPerHour.toFixed(0)}/h</b></div>
           </div>
         </div>
       </div>
@@ -634,7 +643,7 @@ function syncArena(rebuild = false) {
     node.style.top = e.y + '%';
     node._refs.hp.style.width = Math.max(0, e.hp / e.maxHp * 100) + '%';
     node.classList.toggle('hit', e.hitFlash > 0.04);
-    node.classList.toggle('spine-unit', isEnemySpineReady(e.type));
+    node.classList.toggle('spine-unit', isEnemySpineReady(e.type, e.bossKey));
     node.classList.toggle('attacking', (e.attackFlash || 0) > 0.04);
     node.classList.toggle('stunned', e.stun > 0);
   }
@@ -967,6 +976,9 @@ function renderGacha() {
   const banner = BANNERS.find(b => b.id === ui.bannerId) || BANNERS[0];
   const featured = G.OP_BY_ID.get(banner.featured6);
   const featured5 = G.OP_BY_ID.get(banner.featured5);
+  const pool = G.bannerPool(banner);
+  const sixPool = pool.standard || pool.six || [];
+  const roster = [...sixPool].sort((a, b) => (a.id === banner.featured6 ? -1 : b.id === banner.featured6 ? 1 : 0)).slice(0, 12);
   const pity = state.gacha[banner.id];
   const sel = G.selectorProgress();
   const rates = [['6★', 2, '#ff9b3d'], ['5★', 8, '#ffd166'], ['4★', 50, '#c58cff'], ['3★', 40, '#67a7e8']];
@@ -990,7 +1002,15 @@ function renderGacha() {
       }).join('')}
     </div>
     <div class="banner-hero" style="--banner-accent:${banner.accent}">
-      <img class="banner-portrait ${banner.pool === 'collab' ? 'ash' : ''}" src="${featured?.img || ''}" alt="${esc(featured?.name || '')}">
+      <div class="banner-roster">
+        <div class="roster-head"><span>可抽出 6★</span><b>${sixPool.length}</b><em>POOL WINDOW</em></div>
+        <div class="roster-grid">
+          ${roster.map(o => `<div class="roster-op ${o.id === banner.featured6 ? 'featured' : ''}" title="${esc(o.name)}">
+            <img src="${G.portraitFor(o.id)}" alt="${esc(o.name)}" loading="lazy">
+            <span>${esc(o.name)}</span>
+          </div>`).join('')}
+        </div>
+      </div>
       <div class="banner-content">
         <span class="banner-tag">${banner.tag} · ${banner.subtitle}</span>
         <h2>${esc(featured?.name || '')}<br><em>${esc(banner.name)}</em></h2>
@@ -1021,6 +1041,7 @@ function renderGacha() {
           <div class="rate-legend">${rates.map(([n, v, c]) => `<span>${n}<b style="color:${c}">${v}%</b></span>`).join('')}</div>
           <div class="divider"></div>
           <div class="gacha-notes">• 6★ 基础概率 2%；连续 50 抽未获得 6★ 后，每抽概率 +2%。<br>• 标准、限定、联动卡池分别计算保底，不共享水位。<br>• 每累计 300 抽，可获得 1 次任意 6★ 自选兑换。<br>• 重复干员转化为潜能；满潜后转化为资质凭证。</div>
+          <div class="action-row mt-12"><button class="btn btn-small" data-action="pool-six">查看本池全部 6★（${sixPool.length}）</button></div>
         </div>
       </div>
       <div class="panel">
@@ -1040,6 +1061,18 @@ function renderGacha() {
       </div>
     </div>
   </section>`;
+}
+
+function openPoolSix() {
+  const banner = BANNERS.find(b => b.id === ui.bannerId) || BANNERS[0];
+  const pool = G.bannerPool(banner);
+  const six = pool.standard || pool.six || [];
+  const body = `<div class="pool-six-head"><div class="kv"><span>当前卡池</span><b>${esc(banner.name)}</b></div><div class="kv"><span>可抽出 6★</span><b class="orange">${six.length}</b></div></div>
+    <div class="pool-six-grid">${six.map(o => `<button class="pool-six-card rarity-${o.rarity}" data-action="operator" data-id="${o.id}">
+      <img src="${G.portraitFor(o.id)}" alt="${esc(o.name)}" loading="lazy">
+      <div><b>${esc(o.name)}</b><span>${esc(o.cls)} · ${o.limited ? '限定' : o.collab ? '联动' : '常驻'}</span></div>
+    </button>`).join('')}</div>`;
+  openModal(modalShell(`卡池六星 · ${banner.name}`, body, { kicker: 'HEADHUNT // POOL WINDOW', wide: true, sub: '当前概率与卡池规则下可抽出的全部六星干员。' }));
 }
 
 function openPullOverlay(result) {
@@ -1531,6 +1564,8 @@ async function onClick(e) {
     }
     case 'banner':
       ui.bannerId = id; renderView(); break;
+    case 'pool-six':
+      openPoolSix(); break;
     case 'pull': {
       const r = G.pull(target.dataset.banner, Number(target.dataset.count));
       if (r.error) { toast(r.error + (r.need ? `（需要 ${fmt(r.need)}）` : ''), 'warn'); break; }

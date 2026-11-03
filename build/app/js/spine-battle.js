@@ -18,7 +18,10 @@ function ready() {
   return !!(window.PIXI && s35() && window.SkeletonBinary);
 }
 
-export function enemySpineKey(type) { return ENEMY_KEY[type] || null; }
+export function enemySpineKey(type, bossKey) {
+  if (type === 'boss' && bossKey) return bossKey;
+  return ENEMY_KEY[type] || null;
+}
 
 function postInit() {
   if (!frame || !frameLoaded || !frame.contentWindow) return;
@@ -87,8 +90,8 @@ export function destroySpine() {
 export function isOperatorSpineReady(id) {
   return !!SPINE38_OPERATORS[id] || !!cache.get('op:' + id)?.data;
 }
-export function isEnemySpineReady(type) {
-  const key = enemySpineKey(type);
+export function isEnemySpineReady(type, bossKey) {
+  const key = enemySpineKey(type, bossKey);
   return !!(key && SPINE_ENEMIES[key]);
 }
 
@@ -207,7 +210,7 @@ export function syncSpine(battle) {
     }
   }
   for (const e of battle.enemies) {
-    const key = enemySpineKey(e.type);
+    const key = enemySpineKey(e.type, e.bossKey);
     if (!key || !SPINE_ENEMIES[key]) continue;
     post.push({ uid: 'e:' + e.uid, kind: 'enemy', key, x: e.x, y: e.y, dead: e.dead, attackFlash: e.attackFlash, castUntil: 0, sp: 0, boss: !!e.boss });
   }

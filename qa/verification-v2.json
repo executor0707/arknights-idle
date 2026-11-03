@@ -11,9 +11,11 @@
     "render": {
       "operators": 469,
       "skins": 531,
-      "stages": 362,
+      "stages": 358,
       "main": 307,
+      "endless": 12,
       "annihilation": 37,
+      "resource": 2,
       "arena": true,
       "allies": 8,
       "stageCards": 10,
@@ -129,7 +131,34 @@
     "stageList": {
       "flexShrinkFixed": true,
       "annihilationUnlocked": true,
-      "annihilationCards": 37
+      "annihilationCards": 37,
+      "endlessCards": 12,
+      "lockedEndless": 11
+    },
+    "autoProgress": {
+      "mainNext": "main-0-1 -> main-0-2",
+      "endlessNext": "endless-1 -> endless-2",
+      "defeatLoopsCurrent": true
+    },
+    "chips": {
+      "universal": true,
+      "chipPerDayAtCE6": 480,
+      "packPerDayAtCE6": 384,
+      "e2CharsPerDayReference": 30,
+      "chipStagesRemoved": true
+    },
+    "gachaRoster": {
+      "portraits": 12,
+      "poolSixLimited": 26,
+      "poolModal": "all current-pool 6-star",
+      "heroHeight": 480
+    },
+    "bossSpine": {
+      "chapter4": "boss_frstar",
+      "chapter11": "boss_blksnk",
+      "chapter17": "boss_sfsui",
+      "endless5": "boss_sfsui",
+      "annihilation": "boss_blksnk"
     }
   },
   "limitations": [
