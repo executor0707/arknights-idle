@@ -189,7 +189,7 @@ export function syncSpine(battle) {
     }
     const s = sp._baseScale;
     sp.scale.set(s, s);
-    sp.x = (a.x / 100) * width;
+    sp.x = Math.min(width - 26, Math.max(26, (a.x / 100) * width));
     sp.y = (a.y / 100) * height + 18;
     sp.visible = !a.dead;
     if (a.dead) { play(sp, 'Die'); continue; }
