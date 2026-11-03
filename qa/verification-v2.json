@@ -85,13 +85,37 @@
       "scrollWidth": 1432,
       "col": "300px 926px",
       "errors": []
+    },
+    "spine": {
+      "canvas": true,
+      "operatorSpineUnitsOnStarterBattle": 8,
+      "operatorSpineCoverage": "287/469",
+      "enemySpineAssetsDownloaded": 10,
+      "enemySpineEnabled": false,
+      "enemyFallback": "procedural attack lunge + hit flash",
+      "errors": []
     }
   },
   "limitations": [
-    "PRTS 的干员 Spine 是 3.5.51 二进制格式；本次战斗演出使用立绘攻击位移、弹道、受击、技能横幅与技能立绘切入，未启用官方 Spine 骨骼动画。",
-    "307 个主线节点使用章节难度映射，不是逐个复刻原作敌人路径。",
-    "皮肤商店已收录 531 套；3 套 PRTS 缺少半身像时使用对应干员默认立绘。",
-    "无云存档，进度保存在浏览器 localStorage。"
+    "287/469 operators have PRTS Spine 3.5 assets; the other 182 fall back to portrait animation.",
+    "Enemy Spine is downloaded but not enabled because the enemy assets are Spine 3.8 and conflict with the 3.5 operator runtime; enemies use procedural attack lunge/hit feedback.",
+    "307 main stages use chapter-based difficulty mapping, not exact per-stage enemy paths.",
+    "3 skins lack a PRTS half-body image and fall back to the operator portrait.",
+    "No cloud save; localStorage only."
   ],
-  "exitCode": 0
+  "exitCode": 0,
+  "deployment": {
+    "url": "https://executor0707.github.io/arknights-idle/",
+    "httpStatus": 200,
+    "testedAt": "2026-11-03T12:32:09.604Z",
+    "liveCounts": {
+      "operators": 469,
+      "skins": 531,
+      "stages": 362,
+      "main": 307,
+      "annihilation": 37
+    },
+    "spineCanvas": true,
+    "errors": []
+  }
 }
