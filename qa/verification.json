@@ -93,5 +93,19 @@
     "皮肤商店已收录 531 套；3 套 PRTS 缺少半身像时使用对应干员默认立绘。",
     "无云存档，进度保存在浏览器 localStorage。"
   ],
-  "exitCode": 0
+  "exitCode": 0,
+  "deployment": {
+    "url": "https://executor0707.github.io/arknights-idle/",
+    "httpStatus": 200,
+    "title": "罗德岛值守协议 · ARKNIGHTS IDLE",
+    "testedAt": "2026-11-03T12:14:14.276Z",
+    "liveCounts": {
+      "operators": 469,
+      "skins": 531,
+      "stages": 362,
+      "main": 307,
+      "annihilation": 37
+    },
+    "errors": []
+  }
 }
