@@ -19,12 +19,12 @@
     },
     "coreLoop": {
       "status": "victory",
-      "time": 52.3,
-      "kills": 15,
+      "time": 52.8,
+      "kills": 14,
       "firstClear": true,
       "primes": 1,
       "reward": {
-        "lmd": 7819,
+        "lmd": 8368,
         "orundum": 12,
         "first": {
           "primes": 1,
@@ -72,19 +72,23 @@
     },
     "selector": {
       "available": 1,
-      "opsBefore": 21,
-      "opsAfter": 21,
-      "used": 1
+      "opsBefore": 19,
+      "opsAfter": 20,
+      "used": 1,
+      "chosen": "ela",
+      "chosenWasOwned": false,
+      "potentialBefore": 0,
+      "potentialAfter": 1
     },
     "offline": {
       "before": {
-        "o": 54123.735046598405,
-        "sh": 0.08027187633656868,
+        "o": 54124.75436892841,
+        "sh": 0.08100417044228626,
         "p": 0
       },
       "after": {
-        "o": 66356.74475533627,
-        "sh": 8.868621390899676,
+        "o": 66357.76407766627,
+        "sh": 8.869353685005393,
         "p": 0
       },
       "report": {
@@ -103,11 +107,27 @@
       "errors": []
     },
     "mobile": {
-      "width": 443,
-      "height": 959,
+      "width": 390,
+      "height": 844,
       "bottomNav": true,
       "arenaVisible": true,
       "errors": []
+    },
+    "numeric": {
+      "earlyPulls": 10.19,
+      "latePulls": 30,
+      "earlyPrimes": 5.27,
+      "latePrimes": 29.04,
+      "earlyBlocks": 1.22,
+      "lateBlocks": 3.2,
+      "startingPulls": 100
+    },
+    "failureLoop": {
+      "first": "defeat",
+      "reason": "防线崩溃",
+      "autoRestarted": true,
+      "runBefore": 2,
+      "runAfter": 3
     }
   },
   "limitations": [

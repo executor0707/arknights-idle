@@ -138,9 +138,12 @@ await new Promise(r => setTimeout(r, 500));
 await evalJS(send, `document.querySelector('[data-action="selector"]').click(); true`);
 await new Promise(r => setTimeout(r, 500));
 const sixBefore = await evalJS(send, `Object.keys(__RHODES__.state.operators).length`);
+const firstSix = await evalJS(send, `document.querySelector('.selector-card').dataset.id`);
+const firstSixOwned = await evalJS(send, `__RHODES__.G.owned('${firstSix}')`);
+const potBefore = await evalJS(send, `__RHODES__.state.operators['${firstSix}']?.potential || 0`);
 await evalJS(send, `document.querySelector('.selector-card').click(); true`);
 await new Promise(r => setTimeout(r, 500));
-result.checks.selector = { available: 1, opsBefore: sixBefore, opsAfter: await evalJS(send, `Object.keys(__RHODES__.state.operators).length`), used: await evalJS(send, `__RHODES__.state.gacha.selectorsUsed`) };
+result.checks.selector = { available: 1, opsBefore: sixBefore, opsAfter: await evalJS(send, `Object.keys(__RHODES__.state.operators).length`), used: await evalJS(send, `__RHODES__.state.gacha.selectorsUsed`), chosen: firstSix, chosenWasOwned: firstSixOwned, potentialBefore: potBefore, potentialAfter: await evalJS(send, `__RHODES__.state.operators['${firstSix}']?.potential || 0`) };
 await evalJS(send, `document.querySelector('[data-action="modal-close"]').click(); true`);
 
 // offline settlement
@@ -163,7 +166,7 @@ result.checks.restart = await evalJS(send, `(()=>({
 await screenshot(send, 'qa/desktop-restart.png', 1440, 1000);
 
 // mobile render
-await send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
+await send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: false });
 await send('Page.navigate', { url: 'http://127.0.0.1:8765/index.html' });
 await new Promise(r => setTimeout(r, 900));
 await evalJS(send, `document.getElementById('enterBtn').click(); true`);
@@ -178,6 +181,21 @@ result.checks.mobile = await evalJS(send, `(()=>({
   errors: window.__errs || []
 }))()`);
 await screenshot(send, 'qa/mobile-battle.png', 390, 844);
+
+result.checks.numeric = JSON.parse(await evalJS(send, `(()=>{const G=__RHODES__.G;const e=G.idleSummary(G.STAGE_BY_ID.get('CE-6'));const l=G.idleSummary(G.STAGE_BY_ID.get('main-15-3'));return JSON.stringify({earlyPulls:+e.pullsPerHour.toFixed(2),latePulls:+l.pullsPerHour.toFixed(2),earlyPrimes:+e.primesPerDay.toFixed(2),latePrimes:+l.primesPerDay.toFixed(2),earlyBlocks:+e.blocksPerHour.toFixed(2),lateBlocks:+l.blocksPerHour.toFixed(2),startingPulls:100})})()`));
+
+// 失败仍循环，且挂机收益独立于胜负
+result.checks.failureLoop = JSON.parse(await evalJS(send, `(()=>{
+ const G=__RHODES__.G,b=__RHODES__.battle,s=__RHODES__.state;
+ s.stage.auto=true; s.stage.cleared=G.STAGES.filter(x=>x.group==='main').map(x=>x.id);
+ const low=['amiya','fang','kroos','melantha','beagle','ansel','hibiscus','popukar'];
+ s.operators={}; for(const id of low){const o=G.ensureOp(id);o.level=1;o.elite=0;o.potential=1;o.skill=1;o.mastery=0;o.trust=0;o.module=0;}
+ s.squad=low.slice(); while(s.squad.length<12)s.squad.push(null);
+ b.start('main-15-3'); let n=0; while(b.status==='running'&&n++<2400)b.tick(0.1);
+ const first=b.status, reason=b.reason, run=b.runId;
+ b.tick(4);
+ return JSON.stringify({first,reason,autoRestarted:b.runId>run&&b.status==='running',runBefore:run,runAfter:b.runId});
+})()`));
 
 result.exitCode = 0;
 result.limitations = [
