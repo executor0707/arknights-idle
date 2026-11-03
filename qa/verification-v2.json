@@ -87,11 +87,12 @@
       "errors": []
     },
     "spine": {
-      "canvas": true,
+      "canvas35": true,
+      "canvas38": true,
       "operatorSpineUnitsOnStarterBattle": 8,
-      "operatorSpineCoverage": "443/469",
-      "operator3_5Sets": 44,
-      "operator3_8Sets": 401,
+      "operatorSpineCoverage": "462/469",
+      "operator3_5Sets": 42,
+      "operator3_8Sets": 420,
       "enemySpineAssets": 5,
       "enemySpineEnabled": true,
       "enemyClasses": [
@@ -105,7 +106,7 @@
     }
   },
   "limitations": [
-    "443/469 operators have usable PRTS Spine assets; 26 fall back to portrait animation because no matching 3.5/3.8 public set was found.",
+    "462/469 operators have usable PRTS Spine assets; 7 fall back to portrait animation because no matching 3.5/3.8 public set was found.",
     "307 main stages use chapter-based difficulty mapping, not exact per-stage enemy paths.",
     "3 skins lack a PRTS half-body image and fall back to the operator portrait.",
     "No cloud save; localStorage only."
@@ -114,7 +115,7 @@
   "deployment": {
     "url": "https://executor0707.github.io/arknights-idle/",
     "httpStatus": 200,
-    "testedAt": "2026-11-03T13:04:38.338Z",
+    "testedAt": "2026-11-03T13:10:24.928Z",
     "liveCounts": {
       "operators": 469,
       "skins": 531,
@@ -122,7 +123,9 @@
       "main": 307,
       "annihilation": 37
     },
-    "spineCanvas": true,
+    "spine35Canvas": true,
+    "spine38Canvas": true,
+    "liveOperatorSpineUnits": 8,
     "errors": []
   }
 }

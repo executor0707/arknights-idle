@@ -1,0 +1,13 @@
+import { connect, screenshot, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1920,height:1080,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'https://executor0707.github.io/arknights-idle/?v=38live'});
+await new Promise(r=>setTimeout(r,3500));
+await evalJS(send,`document.getElementById('enterBtn').click(); true`);
+await new Promise(r=>setTimeout(r,2000));
+await evalJS(send,`document.querySelector('[data-action="tutorial-skip"]')?.click(); true`);
+await new Promise(r=>setTimeout(r,8000));
+console.log('live', await evalJS(send,`JSON.stringify({ops:__RHODES__?.G?.OPERATORS?.length,skins:__RHODES__?.G?.SKINS?.length,stages:__RHODES__?.G?.STAGES?.length,canvas35:!!document.querySelector('.spine-canvas'),canvas38:!!document.querySelector('.spine38-canvas'),spineUnits:document.querySelectorAll('.ally-token.spine-unit').length,enemySpine:document.querySelectorAll('.enemy-token.spine-unit').length,errs:window.__errs,frameErr:document.querySelector('.spine38-frame')?.contentWindow.__frameErr})`));
+await screenshot(send,'qa/v2-live-38.png',1920,1080);
+process.exit(0);

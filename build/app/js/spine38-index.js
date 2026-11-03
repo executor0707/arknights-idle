@@ -1603,6 +1603,82 @@ export const SPINE38_OPERATORS = {
   "char_1038_whitw2": {
     "base": "assets/spine38/operators/char_1038_whitw2/char_1038_whitw2",
     "name": "荒芜拉普兰德"
+  },
+  "char_4177_brigid": {
+    "base": "assets/spine38/operators/char_4177_brigid/char_4177_brigid",
+    "name": "char_4177_brigid"
+  },
+  "char_450_necras": {
+    "base": "assets/spine38/operators/char_450_necras/char_450_necras",
+    "name": "char_450_necras"
+  },
+  "char_1043_leizi2": {
+    "base": "assets/spine38/operators/char_1043_leizi2/char_1043_leizi2",
+    "name": "char_1043_leizi2"
+  },
+  "char_4199_makiri": {
+    "base": "assets/spine38/operators/char_4199_makiri/char_4199_makiri",
+    "name": "char_4199_makiri"
+  },
+  "char_611_acnipe": {
+    "base": "assets/spine38/operators/char_611_acnipe/char_611_acnipe",
+    "name": "char_611_acnipe"
+  },
+  "char_1047_halo2": {
+    "base": "assets/spine38/operators/char_1047_halo2/char_1047_halo2",
+    "name": "char_1047_halo2"
+  },
+  "char_245_cello": {
+    "base": "assets/spine38/operators/char_245_cello/char_245_cello",
+    "name": "char_245_cello"
+  },
+  "char_4247_oxi": {
+    "base": "assets/spine38/operators/char_4247_oxi/char_4247_oxi",
+    "name": "char_4247_oxi"
+  },
+  "char_4164_tecno": {
+    "base": "assets/spine38/operators/char_4164_tecno/char_4164_tecno",
+    "name": "char_4164_tecno"
+  },
+  "char_4056_titi": {
+    "base": "assets/spine38/operators/char_4056_titi/char_4056_titi",
+    "name": "char_4056_titi"
+  },
+  "char_4213_skybx": {
+    "base": "assets/spine38/operators/char_4213_skybx/char_4213_skybx",
+    "name": "char_4213_skybx"
+  },
+  "char_613_acmedc": {
+    "base": "assets/spine38/operators/char_613_acmedc/char_613_acmedc",
+    "name": "char_613_acmedc"
+  },
+  "char_4119_wanqin": {
+    "base": "assets/spine38/operators/char_4119_wanqin/char_4119_wanqin",
+    "name": "char_4119_wanqin"
+  },
+  "char_2027_wang": {
+    "base": "assets/spine38/operators/char_2027_wang/char_2027_wang",
+    "name": "char_2027_wang"
+  },
+  "char_4107_vrdant": {
+    "base": "assets/spine38/operators/char_4107_vrdant/char_4107_vrdant",
+    "name": "char_4107_vrdant"
+  },
+  "char_1019_siege2": {
+    "base": "assets/spine38/operators/char_1019_siege2/char_1019_siege2",
+    "name": "char_1019_siege2"
+  },
+  "char_4226_veen": {
+    "base": "assets/spine38/operators/char_4226_veen/char_4226_veen",
+    "name": "char_4226_veen"
+  },
+  "char_4098_vvana": {
+    "base": "assets/spine38/operators/char_4098_vvana/char_4098_vvana",
+    "name": "char_4098_vvana"
+  },
+  "ling": {
+    "base": "assets/spine38/operators/ling/char_2023_ling",
+    "name": "ling"
   }
 };
 export const SPINE35_ONLY = {
@@ -1674,10 +1750,6 @@ export const SPINE35_ONLY = {
     "base": "assets/spine/operators/char_101_sora/char_101_sora",
     "name": "空"
   },
-  "liskarm": {
-    "base": "assets/spine/operators/liskarm/char_107_liskarm",
-    "name": "雷蛇"
-  },
   "char_469_indigo": {
     "base": "assets/spine/operators/char_469_indigo/char_469_indigo",
     "name": "深靛"
@@ -1737,10 +1809,6 @@ export const SPINE35_ONLY = {
   "char_411_tomimi": {
     "base": "assets/spine/operators/char_411_tomimi/char_411_tomimi",
     "name": "特米米"
-  },
-  "char_2012_typhon": {
-    "base": "assets/spine/operators/char_2012_typhon/char_2012_typhon",
-    "name": "提丰"
   },
   "skyfire": {
     "base": "assets/spine/operators/skyfire/char_166_skfire",
