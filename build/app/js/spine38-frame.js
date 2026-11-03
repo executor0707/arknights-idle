@@ -107,7 +107,7 @@
       var sp = sprites.get(ck);
       if (!sp) { sp = sprite(u.kind, u.key, u); if (sp) sprites.set(ck, sp); if (!sp) continue; }
       var factor = u.kind === 'enemy' && u.boss ? 1.35 : 1;
-      var sc = sp._baseScale * factor * (u.scale || 1.2);
+      var sc = sp._baseScale * factor * (u.scale || 1);
       sp.scale.set(sc * sp._dir, sc);
       sp.x = Math.min(w - 26, Math.max(26, (u.x / 100) * w + (u.bobX || 0)));
       sp.y = (u.y / 100) * h + 18 + (u.bob || 0);
@@ -115,7 +115,7 @@
       if (u.dead) { play(sp, 'Die'); continue; }
       if (u.castUntil > 0.05) {
         if (sp._castMark !== u.sp) { play(sp, sp._anims.indexOf('Skill') >= 0 ? 'Skill' : 'Attack'); sp._castMark = u.sp; }
-      } else if (u.attackFlash > 0.06) {
+      } else if (u.attackLock > 0.01 || u.attackFlash > 0.06) {
         if (!sp._attackActive) { play(sp, 'Attack'); sp._attackActive = true; }
       } else {
         sp._attackActive = false;

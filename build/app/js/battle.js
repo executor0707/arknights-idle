@@ -94,9 +94,8 @@ export class Battle {
     this.buffs = getSquadBuffs(ids);
     this.baseBonuses = getBaseBonuses();
 
-    const melee = ids.filter(id => MELEE.has(getOpStats(id)?.role));
-    const ranged = ids.filter(id => !MELEE.has(getOpStats(id)?.role));
-    const placed = [...melee, ...ranged].slice(0, 5);
+    // Squad slot order is the battle order: slot 1 is the front-most unit.
+    const placed = ids.slice(0, 5);
     placed.forEach((id, i) => {
       const pos = MARCH_SLOTS[i];
       const op = this._makeAlly(id, pos[0], pos[1], 0);
@@ -120,7 +119,7 @@ export class Battle {
       res: st.res, interval: st.interval / (1 + bb.aspd), range: st.range, block: st.block,
       cooldown: rand(0.1, 0.6), sp: id === 'amiya' ? 5 : 0, maxSp: id === 'amiya' ? 27 : 30,
       spRate: 1 + b.spRegen, dead: false, heal: st.heal, arts: st.arts,
-      skillPower: st.skillPower, buffAtk: 0, buffUntil: 0, castUntil: 0,
+      skillPower: st.skillPower, buffAtk: 0, buffUntil: 0, castUntil: 0, attackLock: 0,
       combo: 0, lastTarget: null, atkStacks: 0, mlynarTimer: 0, phantoms: [],
       hitFlash: 0, healFlash: 0,
     };
@@ -316,6 +315,7 @@ export class Battle {
       a.healFlash = Math.max(0, a.healFlash - dt);
       a.castUntil = Math.max(0, a.castUntil - dt);
       a.attackFlash = Math.max(0, (a.attackFlash || 0) - dt);
+      a.attackLock = Math.max(0, (a.attackLock || 0) - dt);
       if (a.buffUntil > 0) { a.buffUntil -= dt; if (a.buffUntil <= 0) a.buffAtk = 0; }
       if (a.shieldT > 0) { a.shieldT -= dt; if (a.shieldT <= 0) a.shield = 0; }
       const regen = this.buffs.regen * a.maxHp * dt;
@@ -335,7 +335,7 @@ export class Battle {
           a.cooldown = a.interval;
         }
       } else {
-        if (a.cooldown <= 0) {
+        if (a.cooldown <= 0 && a.attackLock <= 0) {
           const target = this._targetFor(a);
           if (target) {
             this._attack(a, target);
@@ -356,7 +356,7 @@ export class Battle {
         .sort((x, y) => x.hp - y.hp)[0] || null;
     }
     return this.enemies.filter(e => !e.dead && Math.abs(e.x - a.x) <= a.range && (a.range > 40 || e.lane === a.lane))
-      .sort((x, y) => x.x - y.x)[0] || null;
+      .sort((x, y) => x.hp - y.hp)[0] || null;
   }
 
   _lowestAlly(a) {
@@ -388,6 +388,7 @@ export class Battle {
     }
     this._damageEnemy(target, damage, { arts: a.arts, source: a, crit });
     a.attackFlash = 0.18;
+    a.attackLock = Math.max(a.attackLock || 0, 0.8);
     this._projectile(a, target);
     if (a.id === 'chen_alter' && Math.random() < 0.2) {
       for (const e of this.enemies) if (!e.dead && e !== target && Math.abs(e.x - target.x) < 10) this._damageEnemy(e, damage * 0.4, { arts: false, source: a });

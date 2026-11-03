@@ -219,15 +219,30 @@
     },
     "characterScale": {
       "default": 1.2,
-      "min": 0.8,
-      "max": 1.8,
+      "min": 0.5,
+      "max": 2,
       "slider": true,
-      "persisted": true
+      "persisted": true,
+      "enemyDefault": 1,
+      "enemyMin": 0.5,
+      "enemyMax": 2,
+      "enemySlider": true
     },
     "attackTiming": {
       "source": "role baseline",
       "compression": 0.82,
-      "perOperatorWiki": false
+      "perOperatorWiki": false,
+      "attackLockSeconds": 0.8,
+      "targetPriority": "lowest HP"
+    },
+    "squadEditor": {
+      "slots": 5,
+      "oneRow": true,
+      "portraitHeight": 218
+    },
+    "deployOrder": {
+      "source": "squad slot order",
+      "frontSlot": 1
     }
   },
   "limitations": [

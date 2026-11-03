@@ -70,7 +70,7 @@ export function createDefaultState() {
     stats: { runs: 0, wins: 0, losses: 0, kills: 0, battleSeconds: 0, pulls: 0, levels: 0, promotions: 0, repairs: 0, offlineSec: 0 },
     daily: { date: dateKey(), runs: 0, pulls: 0, levels: 0, repairs: 0, annihilation: 0, claimed: [], supplyClaimed: false },
     shop: { date: dateKey(), stock: Object.fromEntries(SHOP_ITEMS.map(i => [i.id, i.stock])) },
-    settings: { sound: true, reduceMotion: false, autoSkill: true, characterScale: 1.2 },
+    settings: { sound: true, reduceMotion: false, autoSkill: true, characterScale: 1.2, enemyScale: 1 },
     randomEvent: { nextAt: 0, log: [] },
     tutorialDone: localStorage.getItem(TUTORIAL_FLAG) === '1',
     seenOffline: 0,
@@ -125,7 +125,9 @@ export function loadGame() {
   if (typeof state.idle.chipPacks !== 'number') state.idle.chipPacks = 0;
   if (!state.settings || typeof state.settings !== 'object') state.settings = {};
   if (!Number.isFinite(state.settings.characterScale)) state.settings.characterScale = 1.2;
-  state.settings.characterScale = Math.min(1.8, Math.max(0.8, state.settings.characterScale));
+  if (!Number.isFinite(state.settings.enemyScale)) state.settings.enemyScale = 1;
+  state.settings.characterScale = Math.min(2, Math.max(0.5, state.settings.characterScale));
+  state.settings.enemyScale = Math.min(2, Math.max(0.5, state.settings.enemyScale));
   if (!state.randomEvent || typeof state.randomEvent !== 'object') state.randomEvent = { nextAt: 0, log: [] };
   if (!Array.isArray(state.randomEvent.log)) state.randomEvent.log = [];
   unlockAmiyaForms();

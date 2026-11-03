@@ -182,7 +182,7 @@ export function syncSpine(battle) {
   const post = [];
   for (const a of battle.allies) {
     if (SPINE38_OPERATORS[a.id]) {
-      post.push({ uid: 'a:' + a.uid, kind: 'op', key: a.id, x: a.x, y: a.y, scale: state.settings?.characterScale || 1.2, bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, castUntil: a.castUntil, sp: a.sp });
+      post.push({ uid: 'a:' + a.uid, kind: 'op', key: a.id, x: a.x, y: a.y, scale: state.settings?.characterScale || 1.2, bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
       continue;
     }
     if (!SPINE35_ONLY[a.id]) continue;
@@ -203,7 +203,7 @@ export function syncSpine(battle) {
     if (a.castUntil > 0.05) {
       const name = sp._anims.includes('Skill') ? 'Skill' : 'Attack';
       if (sp._castMark !== a.sp) { play(sp, name); sp._castMark = a.sp; }
-    } else if (a.attackFlash > 0.06) {
+    } else if (a.attackLock > 0.01 || a.attackFlash > 0.06) {
       if (!sp._attackActive) { play(sp, 'Attack'); sp._attackActive = true; }
     } else {
       sp._attackActive = false;
@@ -213,7 +213,7 @@ export function syncSpine(battle) {
   for (const e of battle.enemies) {
     const key = enemySpineKey(e.type, e.bossKey);
     if (!key || !SPINE_ENEMIES[key]) continue;
-    post.push({ uid: 'e:' + e.uid, kind: 'enemy', key, x: e.x, y: e.y, dead: e.dead, attackFlash: e.attackFlash, castUntil: 0, sp: 0, boss: !!e.boss });
+    post.push({ uid: 'e:' + e.uid, kind: 'enemy', key, x: e.x, y: e.y, scale: state.settings?.enemyScale || 1, dead: e.dead, attackFlash: e.attackFlash, castUntil: 0, sp: 0, boss: !!e.boss });
   }
   for (const [uid, sp] of sprites) {
     if (!wanted.has(uid)) { sp.destroy(); sprites.delete(uid); }

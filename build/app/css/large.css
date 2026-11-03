@@ -293,7 +293,7 @@
   .offline-stat b { font-size: 25px; }
   .offline-item { font-size: 11px; padding: 4px 7px; }
   .warning-box { font-size: 14px; line-height: 1.85; }
-  .squad-editor-slots { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .squad-editor-slots { grid-template-columns: repeat(5, 132px); justify-content: center; gap: 8px; }
   .roster-picker { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; max-height: 430px; }
   .roster-pick img { width: 38px; height: 52px; }
   .roster-pick span { font-size: 13px; }
