@@ -90,9 +90,9 @@
       "canvas35": true,
       "canvas38": true,
       "operatorSpineUnitsOnStarterBattle": 8,
-      "operatorSpineCoverage": "465/469",
+      "operatorSpineCoverage": "468/469",
       "operator3_5Sets": 42,
-      "operator3_8Sets": 423,
+      "operator3_8Sets": 426,
       "enemySpineAssets": 5,
       "enemySpineEnabled": true,
       "enemyClasses": [
@@ -106,7 +106,7 @@
     }
   },
   "limitations": [
-    "465/469 operators have usable PRTS Spine assets; 4 fall back to portrait animation because no matching 3.5/3.8 public set was found.",
+    "468/469 operators have usable PRTS Spine assets; Liskarm has no public 3.5/3.8 set and falls back to portrait animation.",
     "307 main stages use chapter-based difficulty mapping, not exact per-stage enemy paths.",
     "3 skins lack a PRTS half-body image and fall back to the operator portrait.",
     "No cloud save; localStorage only."

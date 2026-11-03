@@ -50,6 +50,6 @@ python -m http.server 8765 --directory build/app
 - 307 main stages (0–17), 37 annihilation maps; story is represented by stage names/flavor, not cutscenes.
 - No cloud save, account, or cross-device sync.
 - Idle simulation is time-rate based while closed; active battle is a simplified three-lane model, not exact Arknights combat.
-- PRTS operator Spine is rendered with two isolated runtimes: 3.5.51 via legacy pixi-spine + SkeletonBinary, and 3.8 via an isolated iframe renderer. 465/469 operators are covered; the remaining 4 fall back to portrait effects. Enemy Spine 3.8 is enabled for five enemy classes with attack/idle animations.
+- PRTS operator Spine is rendered with two isolated runtimes: 3.5.51 via legacy pixi-spine + SkeletonBinary, and 3.8 via an isolated iframe renderer. 468/469 operators are covered; the remaining 1 fall back to portrait effects. Enemy Spine 3.8 is enabled for five enemy classes with attack/idle animations.
 - Base levels are uncapped by design; fixed stage content can eventually be overpowered. Chapter 17 is the current terminal challenge.
 - All art is PRTS Wiki half-body art; no custom illustrations.
