@@ -1,0 +1,16 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=amiya'});
+await new Promise(r=>setTimeout(r,900));
+await evalJS(send,`document.getElementById('enterBtn').click();true`);
+await new Promise(r=>setTimeout(r,1600));
+await evalJS(send,`document.querySelector('[data-action="tutorial-skip"]')?.click();true`);
+await new Promise(r=>setTimeout(r,400));
+console.log(await evalJS(send,`(()=>{const st=__RHODES__.state;st.stage.cleared.push('main-R8-11','main-14-23');__RHODES__.G.unlockAmiyaForms();__RHODES__.G.saveNow();__RHODES__.setView('operators',true);return JSON.stringify({guard:!!st.operators['char_1001_amiya2'],medic:!!st.operators['char_1037_amiya3']})})()`));
+await evalJS(send,`document.querySelector('.op-card[data-id="amiya"]')?.click();true`);
+await new Promise(r=>setTimeout(r,400));
+console.log(await evalJS(send,`JSON.stringify({forms:document.querySelectorAll('.amiya-form').length,texts:[...document.querySelectorAll('.amiya-form')].map(x=>x.innerText)})`));
+console.log(await evalJS(send,`JSON.stringify({gachaGuard:__RHODES__.G.bannerPool(__RHODES__.G.BANNERS?.find?.(b=>b.id==='standard')||{pool:'standard'})?.standard?.some?.(o=>o.id==='char_1001_amiya2')})`));
+process.exit(0);

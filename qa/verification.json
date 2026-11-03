@@ -11,11 +11,11 @@
     "render": {
       "operators": 469,
       "skins": 531,
-      "stages": 358,
+      "stages": 359,
       "main": 307,
       "endless": 12,
       "annihilation": 37,
-      "resource": 2,
+      "resource": 3,
       "arena": true,
       "allies": 8,
       "stageCards": 10,
@@ -77,10 +77,7 @@
       "errors": []
     },
     "offline": {
-      "orundum": 12219,
-      "pulls": 20.36,
-      "shards": 8.76,
-      "blocks": 6
+      "onlyOnBoot": true
     },
     "desktop1440": {
       "width": 1440,
@@ -95,17 +92,24 @@
       "operatorSpineCoverage": "469/469",
       "operator3_5Sets": 42,
       "operator3_8Sets": 427,
-      "enemySpineAssets": 5,
+      "enemySpineAssets": 12,
+      "enemyNormalClasses": 5,
+      "enemyBossModels": 6,
       "enemySpineEnabled": true,
       "enemyClasses": [
         "soldier",
         "shield",
         "caster",
         "hound",
-        "boss"
+        "boss_skulsr",
+        "boss_frstar",
+        "boss_faust",
+        "boss_mephi",
+        "boss_sfsui",
+        "boss_blksnk"
       ],
-      "errors": [],
-      "liskarmVerified": true
+      "liskarmVerified": true,
+      "errors": []
     },
     "doctor": {
       "unlimitedLevel": true,
@@ -150,9 +154,7 @@
     },
     "gachaRoster": {
       "portraits": 12,
-      "poolSixLimited": 26,
-      "poolModal": "all current-pool 6-star",
-      "heroHeight": 480
+      "poolSixLimited": 26
     },
     "bossSpine": {
       "chapter4": "boss_frstar",
@@ -160,11 +162,54 @@
       "chapter17": "boss_sfsui",
       "endless5": "boss_sfsui",
       "annihilation": "boss_blksnk"
+    },
+    "endless": {
+      "floorCap": 325,
+      "maxFloor": 325,
+      "maxPower": 71009,
+      "floor1PullsPerHour": 15,
+      "floor325PullsPerHour": 120,
+      "bossPool": 6,
+      "autoNext": true
+    },
+    "materials": {
+      "promotion": "chip + LMD only",
+      "skills": "technique summaries + LMD only",
+      "module": "module block + LMD only",
+      "stageDropsRemoved": true,
+      "ca5": true,
+      "baseWorkshop": "technique summaries"
+    },
+    "randomEvents": {
+      "count": 60,
+      "checkHours": [
+        5,
+        7
+      ],
+      "chance": 0.15,
+      "timerVisible": false
+    },
+    "gridDeployment": {
+      "cells": 18,
+      "rangeCells": true,
+      "swap": true,
+      "buttonNextToSquad": true
+    },
+    "amiya": {
+      "guard": "R8-11",
+      "medic": "14-23",
+      "forms": 3,
+      "skinPortraits": true
+    },
+    "pause": {
+      "resumeButton": true,
+      "escResume": true
     }
   },
   "limitations": [
-    "307 main stages use chapter-based difficulty mapping, not exact per-stage enemy paths.",
-    "3 skins lack a PRTS half-body image and fall back to the operator portrait.",
+    "Boss models are mapped by chapter and the endless pool currently has 6 boss assets, not one unique boss per stage.",
+    "Skin-specific Spine is not implemented; equipped skins only affect portraits, archive art and skill cut-ins; battle uses the default operator Spine.",
+    "1 skin (Alanna) lacks a PRTS half-body image and falls back to the operator portrait.",
     "No cloud save; localStorage only."
   ],
   "exitCode": 0,
@@ -175,10 +220,11 @@
     "liveCounts": {
       "operators": 469,
       "skins": 531,
-      "stages": 358,
+      "stages": 359,
       "main": 307,
       "endless": 12,
-      "annihilation": 37
+      "annihilation": 37,
+      "resource": 3
     },
     "gachaRoster": 12,
     "poolSixLimited": 26,

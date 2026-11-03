@@ -1,0 +1,16 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=mats'});
+await new Promise(r=>setTimeout(r,900));
+await evalJS(send,`localStorage.clear();location.reload();true`);
+await new Promise(r=>setTimeout(r,1000));
+await evalJS(send,`document.getElementById('enterBtn').click();true`);
+await new Promise(r=>setTimeout(r,1600));
+await evalJS(send,`document.querySelector('[data-action="tutorial-skip"]')?.click();true`);
+await new Promise(r=>setTimeout(r,500));
+console.log('stages', await evalJS(send,`JSON.stringify({total:__RHODES__.G.STAGES.length,ca:__RHODES__.G.STAGE_BY_ID.get('CA-5')?.rewards,resource:__RHODES__.G.STAGES.filter(s=>s.group==='resource').map(s=>s.id)})`));
+console.log('costs', await evalJS(send,`JSON.stringify({promo:__RHODES__.G.promotionInfo('amiya').cost,skill:__RHODES__.G.skillReqInfo('amiya').cost,module:__RHODES__.G.moduleReqInfo('amiya')})`));
+console.log('endless', await evalJS(send,`JSON.stringify({e1:__RHODES__.G.STAGE_BY_ID.get('endless-1')?.idle?.orundumPerHour,e12:__RHODES__.G.STAGE_BY_ID.get('endless-12')?.rec,cap:__RHODES__.G.maxEndlessPower(),max:__RHODES__.G.STAGE_BY_ID.get('endless-325')})`));
+process.exit(0);

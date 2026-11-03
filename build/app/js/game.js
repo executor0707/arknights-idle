@@ -3,8 +3,10 @@ import {
   SAVE_KEY, SAVE_VERSION, MAX_SQUAD, PULL_COST, OFFLINE_CAP_HOURS,
   MATERIALS, STAGES, BANNERS, ROOMS, DAILY_TASKS, SHOP_ITEMS,
   RARITY_BASE, ROLE_MODS, RECORD_ORDER, SKIN_PRICE, PRIME_SHARD_COST, SELECTOR_COST,
+  makeEndlessStage, MAX_ENDLESS_FLOOR,
 } from './data.js';
 import { SKINS, SKIN_BY_ID, SKINS_BY_OP } from './skins.js';
+import { RANDOM_EVENTS } from './events.js';
 
 export { STAGES, OPERATORS, SKINS };
 export const OP_BY_ID = new Map(OPERATORS.map(o => [o.id, o]));
@@ -69,6 +71,7 @@ export function createDefaultState() {
     daily: { date: dateKey(), runs: 0, pulls: 0, levels: 0, repairs: 0, annihilation: 0, claimed: [], supplyClaimed: false },
     shop: { date: dateKey(), stock: Object.fromEntries(SHOP_ITEMS.map(i => [i.id, i.stock])) },
     settings: { sound: true, reduceMotion: false, autoSkill: true },
+    randomEvent: { nextAt: 0, log: [] },
     tutorialDone: localStorage.getItem(TUTORIAL_FLAG) === '1',
     seenOffline: 0,
   };
@@ -119,8 +122,13 @@ export function loadGame() {
   if (!state.idle) state.idle = { orundum: 0, shards: 0, blocks: 0, lmd: 0, exp: 0, chips: 0, chipPacks: 0, seconds: 0 };
   if (typeof state.idle.chips !== 'number') state.idle.chips = 0;
   if (typeof state.idle.chipPacks !== 'number') state.idle.chipPacks = 0;
+  if (!state.randomEvent || typeof state.randomEvent !== 'object') state.randomEvent = { nextAt: 0, log: [] };
+  if (!Array.isArray(state.randomEvent.log)) state.randomEvent.log = [];
+  unlockAmiyaForms();
   ensureDaily();
   ensureShop();
+  const endlessCap = maxEndlessPower();
+  for (const s of STAGES) if (s.group === 'endless') s.rec = Math.min(s.rec, endlessCap);
   return state;
 }
 
@@ -179,6 +187,19 @@ export function opState(id) { return state.operators[id]; }
 export function ensureOp(id) {
   if (!state.operators[id]) state.operators[id] = { level: 1, elite: 0, potential: 1, skill: 1, mastery: 0, trust: 0, module: 0, exp: 0 };
   return state.operators[id];
+}
+
+export const AMIYA_GUARD_ID = 'char_1001_amiya2';
+export const AMIYA_MEDIC_ID = 'char_1037_amiya3';
+export const AMIYA_FORM_IDS = new Set([AMIYA_GUARD_ID, AMIYA_MEDIC_ID]);
+export function amiyaFormUnlocked(formId) {
+  if (formId === AMIYA_GUARD_ID) return state.stage.cleared.includes('main-R8-11');
+  if (formId === AMIYA_MEDIC_ID) return state.stage.cleared.includes('main-14-23');
+  return true;
+}
+export function unlockAmiyaForms() {
+  if (amiyaFormUnlocked(AMIYA_GUARD_ID)) ensureOp(AMIYA_GUARD_ID);
+  if (amiyaFormUnlocked(AMIYA_MEDIC_ID)) ensureOp(AMIYA_MEDIC_ID);
 }
 export function maxElite(rarity) { return MAX_ELITE[rarity] ?? 2; }
 export function levelCap(rarity, elite) { return (CAPS[rarity] || CAPS[6])[Math.min(elite, maxElite(rarity))]; }
@@ -250,6 +271,36 @@ export function squadPower() {
   return Math.round(raw * (1 + b.atk * 0.55 + b.hp * 0.2 + b.def * 0.15));
 }
 
+export function maxEndlessPower() {
+  const six = OPERATORS.filter(o => o.rarity === 6).slice(0, MAX_SQUAD);
+  if (!six.length) return 0;
+  const prevSquad = state.squad.slice();
+  const prevOps = new Map();
+  for (const o of six) {
+    prevOps.set(o.id, state.operators[o.id]);
+    state.operators[o.id] = { level: 90, elite: 2, potential: 5, skill: 7, mastery: 3, trust: 100, module: 3, exp: 0 };
+  }
+  state.squad = six.map(o => o.id);
+  const power = squadPower();
+  state.squad = prevSquad;
+  for (const [id, prev] of prevOps) {
+    if (prev) state.operators[id] = prev;
+    else delete state.operators[id];
+  }
+  return power;
+}
+
+export function ensureEndlessFloor(n) {
+  const floor = Math.max(1, Math.min(MAX_ENDLESS_FLOOR, Math.floor(n)));
+  const id = 'endless-' + floor;
+  if (STAGE_BY_ID.has(id)) return STAGE_BY_ID.get(id);
+  const stage = makeEndlessStage(floor);
+  stage.rec = Math.min(stage.rec, maxEndlessPower());
+  STAGES.push(stage);
+  STAGE_BY_ID.set(stage.id, stage);
+  return stage;
+}
+
 export function nextLevelInfo(id) {
   const d = opData(id); const s = opState(id);
   if (!d || !s) return null;
@@ -318,8 +369,8 @@ export function promotionInfo(id) {
   if (s.level < cap) return { locked: true, needLevel: cap };
   const next = s.elite + 1;
   const cost = next === 1
-    ? { lmd: 7000 + d.rarity * 1800, items: { [classChipKey(d.cls)]: 3, rock2: 4 } }
-    : { lmd: 22000 + d.rarity * 5000, items: { [classPackKey(d.cls)]: 4, device2: 4, grindstone: 3 } };
+    ? { lmd: 7000 + d.rarity * 1800, items: { [classChipKey(d.cls)]: 3 } }
+    : { lmd: 22000 + d.rarity * 5000, items: { [classPackKey(d.cls)]: 4 } };
   return { maxed: false, next, cost, cap };
 }
 
@@ -346,9 +397,9 @@ const SKILL_REQS = [
 ];
 const MASTERY_REQS = [
   null,
-  { lmd: 26000, items: { book3: 3, grindstone: 3 } },
-  { lmd: 42000, items: { book3: 5, alloy: 3 } },
-  { lmd: 68000, items: { book3: 7, crystal: 4 } },
+  { lmd: 26000, items: { book3: 3 } },
+  { lmd: 42000, items: { book3: 5 } },
+  { lmd: 68000, items: { book3: 7 } },
 ];
 
 export function skillReqInfo(id) {
@@ -379,7 +430,7 @@ export function moduleReqInfo(id) {
   if (s.elite < 2) return { locked: true, needElite: 2 };
   if ((s.module || 0) >= 3) return { maxed: true };
   const next = (s.module || 0) + 1;
-  return { next, cost: { lmd: 9000 * next, items: { module: next + 1, crystal: next } } };
+  return { next, cost: { lmd: 9000 * next, items: { module: next + 1 } } };
 }
 
 export function upgradeModule(id) {
@@ -625,12 +676,17 @@ export function grantStageRewards(stage, opts = {}) {
   const orundum = Math.round((r.orundum || 0) * multiplier);
   const items = {};
   const add = (id, n) => { if (id && n > 0) items[id] = (items[id] || 0) + n; };
-  for (const [id, n] of Object.entries(r.items || {})) add(id, n * multiplier);
-  if (stage.drops?.length) {
-    if (Math.random() < 0.88) add(randomOf(stage.drops), 1 + Math.floor(Math.random() * 2));
-    if (stage.drops.length > 1 && Math.random() < 0.34) add(randomOf(stage.drops), 1);
+  // Only resource stages provide items now. Main/annihilation/endless do not
+  // drop promotion or skill materials; their rewards are LMD/EXP/prime only.
+  if (stage.group === 'resource') {
+    for (const [id, n] of Object.entries(r.items || {})) add(id, n * multiplier);
+    if (stage.drops?.length) {
+      if (Math.random() < 0.88) add(randomOf(stage.drops), 1 + Math.floor(Math.random() * 2));
+      if (stage.drops.length > 1 && Math.random() < 0.34) add(randomOf(stage.drops), 1);
+    }
   }
   const first = firstClearReward(stage);
+  if (stage.id === 'main-R8-11' || stage.id === 'main-14-23') unlockAmiyaForms();
   state.lmd += lmd;
   state.orundum += orundum;
   for (const [id, n] of Object.entries(items)) addItem(id, n);
@@ -663,7 +719,7 @@ function pickFrom(arr) { return arr.length ? arr[Math.floor(Math.random() * arr.
 
 function poolFor(rarity, banner) {
   const tagged = (o) => banner.pool === 'limited' ? o.limited : banner.pool === 'collab' ? o.collab : true;
-  const standard = OPERATORS.filter(o => o.rarity === rarity && !o.limited && !o.collab);
+  const standard = OPERATORS.filter(o => o.rarity === rarity && !o.limited && !o.collab && !AMIYA_FORM_IDS.has(o.id));
   if (banner.pool === 'standard') {
     if (rarity === 3) {
       const pool = [...standard, ...OPERATORS.filter(o => o.rarity === 2 && !o.limited && !o.collab)];
@@ -905,8 +961,7 @@ export function tickBase(dt, opts = {}) {
   s.materialProgress += roomRate('workshop') * dt;
   while (s.materialProgress >= 1) {
     s.materialProgress -= 1;
-    const pool = ['rock1', 'sugar1', 'ester1', 'iron1', 'ketone1', 'device1'];
-    addItem(pool[Math.floor(Math.random() * pool.length)], 1);
+    addItem(Math.random() < 0.25 ? 'book2' : 'book1', 1);
   }
   s.bookProgress += roomRate('training') * dt;
   while (s.bookProgress >= 1) {
@@ -941,6 +996,64 @@ export function ensureDaily() {
     state.doctor.todayLevels = 0;
   }
 }
+function ensureRandomEvent(now = Date.now()) {
+  if (!state.randomEvent || typeof state.randomEvent !== 'object') state.randomEvent = { nextAt: 0, log: [] };
+  if (!Array.isArray(state.randomEvent.log)) state.randomEvent.log = [];
+  if (!state.randomEvent.nextAt) state.randomEvent.nextAt = now + (5 + Math.random() * 2) * 3600e3;
+}
+
+function randomEventResult(event) {
+  const n = event.amount || 0;
+  if (event.kind === 'lmd') {
+    state.lmd += n;
+    return `获得 ${n.toLocaleString('zh-CN')} 龙门币`;
+  }
+  if (event.kind === 'primes') {
+    state.primes += n;
+    return `获得 ${n} 源石`;
+  }
+  if (event.kind === 'item') {
+    addItem(event.item, n);
+    return `获得 ${MATERIALS[event.item]?.name || event.item} ×${n}`;
+  }
+  if (event.kind === 'fine') {
+    const paid = Math.min(state.lmd, n);
+    state.lmd -= paid;
+    return `支出 ${paid.toLocaleString('zh-CN')} 龙门币`;
+  }
+  if (event.kind === 'damage') {
+    const rooms = ROOMS.filter(r => !state.base.rooms[r.id].damaged);
+    if (!rooms.length) {
+      const paid = Math.min(state.lmd, 15000);
+      state.lmd -= paid;
+      return `设施已全部受损，紧急处理支出 ${paid.toLocaleString('zh-CN')} 龙门币`;
+    }
+    const room = rooms.find(r => r.id === event.room) || rooms[Math.floor(Math.random() * rooms.length)];
+    state.base.rooms[room.id].damaged = true;
+    state.base.sabotageCount += 1;
+    const entry = { id: room.id, name: room.name, at: Date.now(), cost: repairCost(room.id), source: `随机事件：${event.title}` };
+    state.base.sabotageLog.unshift(entry);
+    state.base.sabotageLog = state.base.sabotageLog.slice(0, 12);
+    return `${room.name} 受损，维修预计 ${repairCost(room.id).toLocaleString('zh-CN')} 龙门币`;
+  }
+  return '没有发生额外变化';
+}
+
+export function checkRandomEvent(now = Date.now()) {
+  ensureRandomEvent(now);
+  if (now < state.randomEvent.nextAt) return null;
+  state.randomEvent.nextAt = now + (5 + Math.random() * 2) * 3600e3;
+  if (Math.random() >= 0.15) { saveNow(); return null; }
+  const event = RANDOM_EVENTS[Math.floor(Math.random() * RANDOM_EVENTS.length)];
+  const result = randomEventResult(event);
+  const entry = { id: event.id, title: event.title, text: event.text, tone: event.tone, result, at: now };
+  state.randomEvent.log.unshift(entry);
+  state.randomEvent.log = state.randomEvent.log.slice(0, 30);
+  saveNow();
+  bus.dispatchEvent(new CustomEvent('random-event', { detail: { event, result, entry } }));
+  return { event, result, entry };
+}
+
 export function ensureShop() {
   const today = dateKey();
   if (state.shop.date !== today) {

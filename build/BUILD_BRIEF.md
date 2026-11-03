@@ -29,7 +29,7 @@ python -m http.server 8765 --directory build/app
 - Auto-battle with three lanes, block, ranged, healing, auto skills, crit.
 - Original gacha rates, three independent banners, 100 starting pulls, 300-pull any-6★ selector.
 - 5 potential levels per operator; duplicates, promotion, skill mastery, module, trust.
-- CE-6 / LS-6 / AP-5 chip / PR-D chip pack / 37 annihilation maps + 307 main stages across chapters 0–17.
+- CE-6 / LS-6 / CA-5 technique summaries / 325 endless floors / 37 annihilation maps + 307 main stages across chapters 0–17. Main and annihilation no longer drop materials.
 - First clear gives Originite Prime.
 - Idle income independent of win/loss: 10 pulls/h early to 30 pulls/h at chapter 15; 5→29 primes/day; base blocks for unlimited base levels.
 - 531 skins at 18 primes.
