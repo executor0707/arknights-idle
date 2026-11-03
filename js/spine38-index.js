@@ -1691,6 +1691,18 @@ export const SPINE38_OPERATORS = {
   "shu": {
     "base": "assets/spine38/operators/shu/char_2025_shu",
     "name": "黍"
+  },
+  "wisadel": {
+    "base": "assets/spine38/operators/wisadel/char_1035_wisdel",
+    "name": "维什戴尔"
+  },
+  "logos": {
+    "base": "assets/spine38/operators/logos/char_4133_logos",
+    "name": "逻各斯"
+  },
+  "jian": {
+    "base": "assets/spine38/operators/jian/char_4116_blkkgt",
+    "name": "锏"
   }
 };
 export const SPINE35_ONLY = {
