@@ -92,6 +92,7 @@ export function initUI(battleInstance) {
     }
   });
   G.bus.addEventListener('notice', e => toast(e.detail.text, e.detail.tone));
+  G.bus.addEventListener('lmd-change', () => updateChrome());
   G.bus.addEventListener('battle-sfx', e => sfx(e.detail.sound));
   G.bus.addEventListener('battle-end', e => {
     if (e.detail.win) updateChrome();
