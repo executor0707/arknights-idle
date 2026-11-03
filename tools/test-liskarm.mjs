@@ -1,0 +1,15 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=lisk'});
+await new Promise(r=>setTimeout(r,900));
+await evalJS(send,`document.getElementById('enterBtn').click();true`);
+await new Promise(r=>setTimeout(r,1500));
+await evalJS(send,`document.querySelector('[data-action="tutorial-skip"]')?.click();true`);
+await new Promise(r=>setTimeout(r,500));
+console.log(await evalJS(send,`(()=>{const s=__RHODES__.state;s.operators.liskarm={level:1,elite:0,potential:1,skill:1,mastery:0,trust:0,module:0,exp:0};s.squad=['liskarm',...s.squad.filter(x=>x&&x!=='liskarm')].slice(0,12);__RHODES__.battle.start();return JSON.stringify({op:!!__RHODES__.G.SPINE38_OPERATORS?.liskarm,ready:!!__RHODES__.G.OPERATORS.find(o=>o.id==='liskarm')})})()`));
+await new Promise(r=>setTimeout(r,3000));
+console.log(await evalJS(send,`JSON.stringify({allies:__RHODES__.battle.allies.map(a=>a.id),spine:[...document.querySelectorAll('.ally-token.spine-unit')].map(x=>x.dataset.id),errs:window.__errs})`));
+await screenshot(send,'.cache/liskarm.png',1440,1000);
+process.exit(0);

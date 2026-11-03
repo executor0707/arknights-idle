@@ -1703,6 +1703,10 @@ export const SPINE38_OPERATORS = {
   "jian": {
     "base": "assets/spine38/operators/jian/char_4116_blkkgt",
     "name": "锏"
+  },
+  "liskarm": {
+    "base": "assets/spine38/operators/liskarm/char_107_liskarm",
+    "name": "雷蛇"
   }
 };
 export const SPINE35_ONLY = {
