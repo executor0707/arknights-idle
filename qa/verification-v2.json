@@ -210,7 +210,8 @@
       "oldGridRemoved": true,
       "modelBase": 130,
       "defaultScale": 1.2,
-      "bobAmplitude": 1.6
+      "bobAmplitude": 1.6,
+      "skillAnimations": false
     },
     "battleRules": {
       "leakFailAt": 3,
@@ -233,7 +234,8 @@
       "compression": 0.82,
       "perOperatorWiki": false,
       "attackLockSeconds": 0.8,
-      "targetPriority": "lowest HP"
+      "targetPriority": "lowest HP",
+      "skillAnimations": false
     },
     "squadEditor": {
       "slots": 5,

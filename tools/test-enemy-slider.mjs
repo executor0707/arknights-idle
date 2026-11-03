@@ -1,0 +1,11 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await evalJS(send, `__RHODES__.setView('archive', true); true`);
+await new Promise(r => setTimeout(r, 500));
+await evalJS(send, `(()=>{const el=document.getElementById('enemyScale');el.value='2';el.dispatchEvent(new Event('input',{bubbles:true}));return true})()`);
+await new Promise(r => setTimeout(r, 300));
+await evalJS(send, `__RHODES__.setView('battle', true); true`);
+await new Promise(r => setTimeout(r, 1000));
+console.log(await evalJS(send, `(()=>{const f=document.querySelector('iframe.spine38-frame');const s=f?.contentWindow?.__frame?.sprites;const out=[];for(const [k,sp] of s){if(k.startsWith('e:'))out.push({h:Math.round(sp.height)})}return JSON.stringify({enemy:__RHODES__.state.settings.enemyScale,char:__RHODES__.state.settings.characterScale,enemies:out.slice(0,3)})})()`));
+process.exit(0);
