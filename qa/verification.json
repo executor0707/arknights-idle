@@ -319,7 +319,18 @@
       "globalMultiplier": true,
       "remainingUsesDefault": true,
       "perSkinReset": true,
-      "resetDefault": 1
+      "resetDefault": 1,
+      "remoteMapped": 405,
+      "remoteTotal": 531,
+      "remoteLoader": true,
+      "localFallback": true
+    },
+    "killLmd": {
+      "instant": true,
+      "share": 0.35,
+      "bossMultiplier": 6,
+      "creditedAtClear": true,
+      "lossKeeps": true
     }
   },
   "limitations": [

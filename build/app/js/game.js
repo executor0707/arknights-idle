@@ -714,7 +714,8 @@ export function grantStageRewards(stage, opts = {}) {
   const r = stage.rewards;
   const multiplier = opts.multiplier || 1;
   const variance = opts.offline ? 1 : 0.9 + Math.random() * 0.2;
-  const lmd = Math.floor(r.lmd * variance * multiplier);
+  const grossLmd = Math.floor(r.lmd * variance * multiplier);
+  const lmd = Math.max(0, grossLmd - (opts.lmdCredit || 0));
   const orundum = Math.round((r.orundum || 0) * multiplier);
   const items = {};
   const add = (id, n) => { if (id && n > 0) items[id] = (items[id] || 0) + n; };

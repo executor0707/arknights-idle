@@ -31,10 +31,10 @@
     Promise.all([
       fetch(base + '.atlas').then(function (r) { if (!r.ok) throw new Error('atlas ' + r.status); return r.text(); }),
       fetch(base + '.skel').then(function (r) { if (!r.ok) throw new Error('skel ' + r.status); return r.arrayBuffer(); }),
-      new Promise(function (res, rej) { var img = new Image(); img.onload = function () { res(); }; img.onerror = function () { rej(new Error('png')); }; img.src = base + '.png'; })
+      new Promise(function (res, rej) { var img = new Image(); img.crossOrigin = 'anonymous'; img.onload = function () { res(); }; img.onerror = function () { rej(new Error('png')); }; img.src = base + '.png'; })
     ]).then(function (vals) {
       try {
-        var btex = PIXI.BaseTexture.fromImage(base + '.png');
+        var btex = PIXI.BaseTexture.fromImage(base + '.png', true);
         var atlas = new PIXI.spine.core.TextureAtlas(vals[0], function (line, cb2) { cb2(btex); });
         var bin = new PIXI.spine.core.SkeletonBinary(new PIXI.spine.core.AtlasAttachmentLoader(atlas));
         var data = bin.readSkeletonData(new Uint8Array(vals[1]));
