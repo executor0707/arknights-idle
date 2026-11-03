@@ -702,6 +702,13 @@ a { color: var(--orange); }
 .small { font-size: 9px; color: var(--dim); line-height: 1.7; }
 .hide-scroll::-webkit-scrollbar { display: none; }
 
+/* Spine battle layer */
+.spine-canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; z-index: 3; pointer-events: none; }
+.ally-token.spine-unit .portrait { opacity: 0; }
+.ally-token.spine-unit .unit-name { margin-top: 3px; }
+.enemy-token.spine-unit .enemy-body { opacity: 0; }
+.enemy-token.spine-unit .ehp { margin-top: 2px; }
+
 /* battle performance */
 .ally-token.attacking .portrait { transform: translateX(5px) scale(1.08); filter: brightness(1.18); }
 .ally-token .portrait { transition: transform .09s ease, filter .09s ease; }

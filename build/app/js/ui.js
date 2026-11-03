@@ -8,6 +8,7 @@ import { SKINS, SKINS_BY_OP, SKIN_BY_ID } from './skins.js';
 import * as G from './game.js';
 import { state } from './game.js';
 import { sfx, initAudio } from './audio.js';
+import { initSpineArena, syncSpine, isOperatorSpineReady, isEnemySpineReady } from './spine-battle.js';
 
 const $ = (sel) => document.querySelector(sel);
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
@@ -481,6 +482,7 @@ function setupArena() {
   };
   ui.renderedRun = -1;
   ui.resultKey = '';
+  initSpineArena(arena);
   syncArena(true);
 }
 
@@ -533,6 +535,7 @@ function syncArena(rebuild = false) {
     node._refs.hp.style.width = Math.max(0, unit.hp / unit.maxHp * 100) + '%';
     node._refs.sp.style.width = Math.min(100, unit.sp / unit.maxSp * 100) + '%';
     node.classList.toggle('dead', unit.dead);
+    node.classList.toggle('spine-unit', isOperatorSpineReady(unit.id));
     node.classList.toggle('hit', unit.hitFlash > 0.04);
     node.classList.toggle('casting', unit.castUntil > 0);
     node.classList.toggle('attacking', (unit.attackFlash || 0) > 0.04);
@@ -555,6 +558,7 @@ function syncArena(rebuild = false) {
     node.style.top = e.y + '%';
     node._refs.hp.style.width = Math.max(0, e.hp / e.maxHp * 100) + '%';
     node.classList.toggle('hit', e.hitFlash > 0.04);
+    node.classList.toggle('spine-unit', isEnemySpineReady(e.type));
     node.classList.toggle('attacking', (e.attackFlash || 0) > 0.04);
     node.classList.toggle('stunned', e.stun > 0);
   }
@@ -593,6 +597,8 @@ function syncArena(rebuild = false) {
     node.style.top = x.y + '%';
   }
   for (const [id, node] of a.effects) if (!xAlive.has(id)) { node.remove(); a.effects.delete(id); }
+
+  syncSpine(battle);
 
   // HUD
   const hudWave = $('#hudWave'); if (hudWave) hudWave.textContent = `WAVE ${battle.wave}/${battle.totalWaves}`;

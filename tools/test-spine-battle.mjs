@@ -1,0 +1,13 @@
+import { connect, screenshot, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=spine1'});
+await new Promise(r=>setTimeout(r,900));
+await evalJS(send, `document.getElementById('enterBtn').click(); true`);
+await new Promise(r=>setTimeout(r,1600));
+await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click(); true`);
+await new Promise(r=>setTimeout(r,4500));
+console.log(await evalJS(send, `JSON.stringify({canvas:!!document.querySelector('.spine-canvas'),size:document.querySelector('.spine-canvas')?[document.querySelector('.spine-canvas').width,document.querySelector('.spine-canvas').height]:null,spineUnits:document.querySelectorAll('.ally-token.spine-unit').length,enemySpine:document.querySelectorAll('.enemy-token.spine-unit').length,errs:window.__errs})`));
+await screenshot(send,'.cache/spine-battle.png',1440,1000);
+process.exit(0);

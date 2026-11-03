@@ -1,0 +1,14 @@
+const fs = require('fs');
+const vm = require('vm');
+const code = fs.readFileSync('.cache/ak-sd/SkeletonBinary.js', 'utf8');
+const ctx = { console, TextDecoder };
+vm.createContext(ctx);
+vm.runInContext(code, ctx);
+const b = new ctx.SkeletonBinary();
+b.data = new Uint8Array(fs.readFileSync('build/app/assets/spine/operators/amiya/char_002_amiya.skel'));
+b.initJson();
+console.log('skeleton', b.json.skeleton);
+console.log('bones', b.json.bones?.length, 'slots', b.json.slots?.length, 'skins', b.json.skins?.length);
+const anims = b.json.animations || {};
+console.log('anims', Object.keys(anims));
+console.log('first anim keys', Object.keys(anims[Object.keys(anims)[0]] || {}));
