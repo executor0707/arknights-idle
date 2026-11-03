@@ -1,25 +1,40 @@
-import { SPINE_OPERATORS, SPINE_ENEMIES } from './spine-index.js';
+import { SPINE_ENEMIES } from './spine-index.js';
+import { SPINE38_OPERATORS, SPINE35_ONLY } from './spine38-index.js';
 
-const ENEMY_KEY = {};
+const ENEMY_KEY = { soldier: 'soldier', shield: 'shield', caster: 'caster', drone: 'hound', boss: 'boss_skulsr' };
 const cache = new Map();
 const loading = new Set();
 let app = null;
+let frame = null;
+let frameLoaded = false;
 let arenaEl = null;
 let width = 0, height = 0;
 let sprites = new Map();
 let mounted = false;
+let lastPost = 0;
 
 function s35() { return window.PIXI_SPINE35 || window.PIXI.spine; }
 function ready() {
-  return !!(window.PIXI && window.PIXI.spine && s35() && window.SkeletonBinary);
+  return !!(window.PIXI && s35() && window.SkeletonBinary);
 }
 
 export function enemySpineKey(type) { return ENEMY_KEY[type] || null; }
 
+function postInit() {
+  if (!frame || !frameLoaded || !frame.contentWindow) return;
+  const f = frame.contentWindow.__frame;
+  if (f?.setData) { f.setData(SPINE38_OPERATORS, SPINE_ENEMIES); return; }
+  frame.contentWindow.postMessage({
+    type: 'init',
+    ops: SPINE38_OPERATORS,
+    enemies: SPINE_ENEMIES,
+  }, '*');
+}
+
 export function initSpineArena(arena) {
   arenaEl = arena;
-  if (!ready()) return;
   destroySpine();
+  if (!ready()) return;
   width = arena.clientWidth;
   height = arena.clientHeight;
   app = new PIXI.Application({ width, height, transparent: true, antialias: true, resolution: 1 });
@@ -27,12 +42,34 @@ export function initSpineArena(arena) {
   app.view.style.width = '100%';
   app.view.style.height = '100%';
   arena.prepend(app.view);
+
+  frame = document.createElement('iframe');
+  frame.className = 'spine38-frame';
+  frame.src = 'spine38-frame.html';
+  frame.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;z-index:3;pointer-events:none;';
+  frame.setAttribute('allowtransparency', 'true');
+  frame.addEventListener('load', () => {
+    frameLoaded = true;
+    postInit();
+    setTimeout(() => {
+      try {
+        const cv = frame.contentDocument?.querySelector('canvas');
+        if (cv) {
+          cv.className = 'spine38-canvas';
+          cv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;background:transparent;';
+          arena.appendChild(cv);
+          frame.style.display = 'none';
+        }
+      } catch (e) {}
+    }, 120);
+  });
+  arena.prepend(frame);
+
   sprites = new Map();
   mounted = true;
-  // 预载当前编队和本关常见敌人
   if (window.__RHODES__?.state) {
     const squad = window.__RHODES__.state.squad.filter(Boolean);
-    for (const id of squad) loadOperator(id);
+    for (const id of squad) if (SPINE35_ONLY[id]) load35(id);
   }
 }
 
@@ -40,56 +77,50 @@ export function destroySpine() {
   if (app) {
     try { app.destroy(true, { children: true, texture: false, baseTexture: false }); } catch (e) {}
   }
-  app = null;
+  if (frame) { try { frame.remove(); } catch (e) {} }
+  arenaEl?.querySelector('.spine38-canvas')?.remove();
+  app = null; frame = null; frameLoaded = false;
   sprites = new Map();
   mounted = false;
 }
 
 export function isOperatorSpineReady(id) {
-  return !!cache.get('op:' + id)?.data;
+  return !!SPINE38_OPERATORS[id] || !!cache.get('op:' + id)?.data;
 }
 export function isEnemySpineReady(type) {
   const key = enemySpineKey(type);
-  return !!(key && cache.get('enemy:' + key)?.data);
+  return !!(key && SPINE_ENEMIES[key]);
 }
 
-async function loadAsset(kind, key) {
+async function load35(id) {
   if (!ready()) return null;
-  const cacheKey = kind + ':' + key;
+  const cacheKey = 'op:' + id;
   if (cache.has(cacheKey)) return cache.get(cacheKey);
   if (loading.has(cacheKey)) return null;
-  const entry = kind === 'op' ? SPINE_OPERATORS[key] : SPINE_ENEMIES[key];
-  if (!entry?.base) { cache.set(cacheKey, null); return null; }
+  const entry = SPINE35_ONLY[id];
+  if (!entry?.base) return null;
   loading.add(cacheKey);
   const base = entry.base;
   const loader = new PIXI.loaders.Loader();
-  const p = new Promise((resolve) => {
+  return new Promise((resolve) => {
     loader
       .add(cacheKey + '_atlas', base + '.atlas', { xhrType: PIXI.loaders.Resource.XHR_RESPONSE_TYPE.TEXT })
       .add(cacheKey + '_skel', base + '.skel', { xhrType: PIXI.loaders.Resource.XHR_RESPONSE_TYPE.BUFFER })
       .add(cacheKey + '_tex', base + '.png')
       .load((l, res) => {
         try {
+          const bin = new SkeletonBinary();
+          bin.data = new Uint8Array(res[cacheKey + '_skel'].data);
+          bin.initJson();
+          const s = s35();
           const btex = PIXI.BaseTexture.fromImage(base + '.png');
-          let data;
-          if (kind === 'op') {
-            const bin = new SkeletonBinary();
-            bin.data = new Uint8Array(res[cacheKey + '_skel'].data);
-            bin.initJson();
-            const s = s35();
-            const atlas = new s.core.TextureAtlas(res[cacheKey + '_atlas'].data, (line, cb) => cb(btex));
-            data = new s.core.SkeletonJson(new s.core.AtlasAttachmentLoader(atlas)).readSkeletonData(bin.json);
-          } else {
-            const s = PIXI.spine;
-            const atlas = new s.core.TextureAtlas(res[cacheKey + '_atlas'].data, (line, cb) => cb(btex));
-            const bin = new s.core.SkeletonBinary(new s.core.AtlasAttachmentLoader(atlas));
-            data = bin.readSkeletonData(new Uint8Array(res[cacheKey + '_skel'].data));
-          }
+          const atlas = new s.core.TextureAtlas(res[cacheKey + '_atlas'].data, (line, cb) => cb(btex));
+          const data = new s.core.SkeletonJson(new s.core.AtlasAttachmentLoader(atlas)).readSkeletonData(bin.json);
           cache.set(cacheKey, { data });
           resolve({ data });
         } catch (e) {
-          console.warn('Spine load failed', key, e);
-          (window.__SPINE_LOG__ ||= []).push({ key, error: String(e) });
+          console.warn('Spine 3.5 load failed', id, e);
+          (window.__SPINE_LOG__ ||= []).push({ key: id, error: String(e) });
           cache.set(cacheKey, null);
           resolve(null);
         } finally {
@@ -97,37 +128,27 @@ async function loadAsset(kind, key) {
         }
       });
   });
-  return p;
 }
 
 export function loadOperator(id) {
-  if (!SPINE_OPERATORS[id]) return;
-  loadAsset('op', id);
+  if (SPINE35_ONLY[id]) load35(id);
 }
-export function loadEnemy(type) {
-  const key = enemySpineKey(type);
-  if (key) loadAsset('enemy', key);
-}
+export function loadEnemy() {}
 
-function makeSprite(kind, key, unit) {
-  const cacheKey = kind + ':' + key;
-  const data = cache.get(cacheKey)?.data;
+function make35(unit) {
+  const data = cache.get('op:' + unit.id)?.data;
   if (!data) return null;
-  const runtime = kind === 'op' ? s35() : PIXI.spine;
-  const sp = new runtime.Spine(data);
+  const s = s35();
+  const sp = new s.Spine(data);
   sp.autoUpdate = true;
-  const anims = data.animations.map(a => a.name);
-  sp._anims = anims;
-  sp._kind = kind;
-  sp._key = cacheKey;
-  const target = kind === 'op' ? 66 : (unit?.boss ? 96 : 50);
-  const scale = target / Math.max(1, data.height);
+  sp._anims = data.animations.map(a => a.name);
+  const scale = 66 / Math.max(1, data.height);
   sp._baseScale = scale;
-  sp._dir = kind === 'enemy' ? -1 : 1;
-  sp.scale.set(scale * sp._dir, scale);
-  sp.state.setAnimation(0, anims.includes('Idle') ? 'Idle' : anims[0], true);
+  sp._dir = 1;
+  sp.scale.set(scale, scale);
+  sp.state.setAnimation(0, sp._anims.includes('Idle') ? 'Idle' : sp._anims[0], true);
   sp._anim = 'Idle';
-  sp._attackMark = -1;
+  sp._attackActive = false;
   sp._castMark = -1;
   app.stage.addChild(sp);
   return sp;
@@ -151,51 +172,56 @@ export function syncSpine(battle) {
     app.renderer.resize(w, h);
   }
   const wanted = new Set();
-  const all = [];
-  for (const a of battle.allies) all.push({ unit: a, kind: 'op', key: a.id, uid: 'a:' + a.uid });
-  for (const e of battle.enemies) {
-    const key = enemySpineKey(e.type);
-    if (key) all.push({ unit: e, kind: 'enemy', key, uid: 'e:' + e.uid });
-  }
-  for (const item of all) {
-    wanted.add(item.uid);
-    const data = cache.get(item.kind + ':' + item.key)?.data;
-    if (!data) {
-      if (item.kind === 'op') loadOperator(item.key); else loadEnemy(item.unit.type);
+  const post = [];
+  for (const a of battle.allies) {
+    if (SPINE38_OPERATORS[a.id]) {
+      post.push({ uid: 'a:' + a.uid, kind: 'op', key: a.id, x: a.x, y: a.y, dead: a.dead, attackFlash: a.attackFlash, castUntil: a.castUntil, sp: a.sp });
       continue;
     }
-    let sp = sprites.get(item.uid);
+    if (!SPINE35_ONLY[a.id]) continue;
+    wanted.add('a:' + a.uid);
+    let sp = sprites.get('a:' + a.uid);
     if (!sp) {
-      sp = makeSprite(item.kind, item.key, item.unit);
-      if (sp) sprites.set(item.uid, sp);
+      load35(a.id);
+      sp = make35(a);
+      if (sp) sprites.set('a:' + a.uid, sp);
       if (!sp) continue;
     }
-    const u = item.unit;
-    const factor = item.kind === 'enemy' && u.boss ? 1.35 : 1;
-    const s = sp._baseScale * factor;
-    sp.scale.set(s * sp._dir, s);
-    sp.x = (u.x / 100) * width;
-    sp.y = (u.y / 100) * height + (item.kind === 'enemy' ? 10 : 18);
-    sp.visible = !u.dead;
-    if (u.dead) {
-      play(sp, 'Die');
-      continue;
-    }
-    if (u.castUntil > 0.05) {
+    const s = sp._baseScale;
+    sp.scale.set(s, s);
+    sp.x = (a.x / 100) * width;
+    sp.y = (a.y / 100) * height + 18;
+    sp.visible = !a.dead;
+    if (a.dead) { play(sp, 'Die'); continue; }
+    if (a.castUntil > 0.05) {
       const name = sp._anims.includes('Skill') ? 'Skill' : 'Attack';
-      if (sp._castMark !== u.sp) { play(sp, name); sp._castMark = u.sp; }
-    } else if (u.attackFlash > 0.06) {
-      if (!sp._attackActive) {
-        play(sp, 'Attack');
-        sp._attackActive = true;
-      }
+      if (sp._castMark !== a.sp) { play(sp, name); sp._castMark = a.sp; }
+    } else if (a.attackFlash > 0.06) {
+      if (!sp._attackActive) { play(sp, 'Attack'); sp._attackActive = true; }
     } else {
       sp._attackActive = false;
       play(sp, 'Idle', true);
     }
   }
+  for (const e of battle.enemies) {
+    const key = enemySpineKey(e.type);
+    if (!key || !SPINE_ENEMIES[key]) continue;
+    post.push({ uid: 'e:' + e.uid, kind: 'enemy', key, x: e.x, y: e.y, dead: e.dead, attackFlash: e.attackFlash, castUntil: 0, sp: 0, boss: !!e.boss });
+  }
   for (const [uid, sp] of sprites) {
     if (!wanted.has(uid)) { sp.destroy(); sprites.delete(uid); }
+  }
+  const now = performance.now();
+  if (window.__SPINE_DEBUG__) window.__SPINE_DEBUG__.last = { post: post.length, frameLoaded, now, lastPost, mounted };
+  if (frame && frameLoaded && now - lastPost > 33) {
+    lastPost = now;
+    const f = frame.contentWindow?.__frame;
+    if (f?.setData) {
+      if (!f.ops || Object.keys(f.ops).length === 0) f.setData(SPINE38_OPERATORS, SPINE_ENEMIES);
+      f.update(post, w, h);
+    } else {
+      frame.contentWindow?.postMessage({ type: 'units', units: post, w, h }, '*');
+    }
   }
 }
 
@@ -206,5 +232,6 @@ if (typeof window !== 'undefined') {
     cache, loading,
     keys: () => [...cache.keys()],
     log: () => window.__SPINE_LOG__ || [],
+    frame: () => frame,
   };
 }
