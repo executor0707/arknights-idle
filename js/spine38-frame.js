@@ -114,7 +114,8 @@
       sp.visible = !u.dead;
       if (u.dead) { play(sp, 'Die'); continue; }
       if (u.castUntil > 0.05) {
-        if (sp._castMark !== u.sp) { play(sp, sp._anims.indexOf('Skill') >= 0 ? 'Skill' : 'Attack'); sp._castMark = u.sp; }
+        // Basic attack clip only; never play character-specific Skill clips.
+        if (sp._castMark !== u.sp) { play(sp, 'Attack'); sp._castMark = u.sp; }
       } else if (u.attackLock > 0.01 || u.attackFlash > 0.06) {
         if (!sp._attackActive) { play(sp, 'Attack'); sp._attackActive = true; }
       } else {
