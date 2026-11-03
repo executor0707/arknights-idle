@@ -949,7 +949,7 @@ export function openOperator(id, opts = {}) {
         <img src="${sk.img}" alt="${esc(sk.name)}" loading="lazy">
         <div class="skin-meta"><b>${esc(sk.name)}</b><span>${owned ? (isEq ? '已装备' : '点击装备') : '◆ ' + SKIN_PRICE}</span></div>
       </button>
-      <div class="skin-scale-row"><label>皮肤大小 <b data-skin-scale-value="${sk.id}">${pct}%</b></label><input type="range" min="50" max="200" step="1" value="${pct}" data-skin-scale="${sk.id}" aria-label="${esc(sk.name)} 皮肤大小"></div>
+      <div class="skin-scale-row"><div class="skin-scale-head"><label>皮肤大小 <b data-skin-scale-value="${sk.id}">${pct}%</b></label><button class="skin-scale-reset" data-action="reset-skin-scale" data-id="${sk.id}" title="重置为 100%">↺</button></div><input type="range" min="50" max="200" step="1" value="${pct}" data-skin-scale="${sk.id}" aria-label="${esc(sk.name)} 皮肤大小"></div>
     </div>`;
   }).join('');
 
@@ -1260,7 +1260,7 @@ function renderSkins() {
       <img src="${sk.img}" alt="${esc(sk.name)}" loading="lazy">
       <div class="gallery-info"><b>${esc(sk.name)}</b><span>${esc(op.name)} · ${esc(sk.series || '常驻')}</span>
         <button class="btn btn-small ${eq ? 'btn-cyan' : isOwned ? 'btn-primary' : ''}" data-action="gallery-skin" data-id="${sk.id}" ${!isOwned && state.primes < 18 ? 'disabled' : ''}>${eq ? '已装备' : isOwned ? '装备' : '◆ 18'}</button>
-        <div class="skin-scale-row"><label>大小 <b data-skin-scale-value="${sk.id}">${Math.round(G.skinScale(sk.id) * 100)}%</b></label><input type="range" min="50" max="200" step="1" value="${Math.round(G.skinScale(sk.id) * 100)}" data-skin-scale="${sk.id}" aria-label="${esc(sk.name)} 皮肤大小"></div>
+        <div class="skin-scale-row"><div class="skin-scale-head"><label>大小 <b data-skin-scale-value="${sk.id}">${Math.round(G.skinScale(sk.id) * 100)}%</b></label><button class="skin-scale-reset" data-action="reset-skin-scale" data-id="${sk.id}" title="重置为 100%">↺</button></div><input type="range" min="50" max="200" step="1" value="${Math.round(G.skinScale(sk.id) * 100)}" data-skin-scale="${sk.id}" aria-label="${esc(sk.name)} 皮肤大小"></div>
       </div>
     </div>`;
   }).join('');
@@ -1777,6 +1777,16 @@ async function onClick(e) {
       if (G.buySkin(id)) { toast('时装已购买并装备。', 'success'); sfx('gold'); openOperator(target.dataset.op, { silent: true }); updateChrome(); }
       else toast(`源石不足，需要 ${SKIN_PRICE} 枚。`, 'warn');
       break;
+    case 'reset-skin-scale': {
+      G.setSkinScale(id, 1);
+      const row = target.closest('.skin-scale-row');
+      const input = row?.querySelector('[data-skin-scale]');
+      const label = row?.querySelector('b');
+      if (input) input.value = '100';
+      if (label) label.textContent = '100%';
+      if (ui.view === 'battle') battle?.start(state.stage.selected);
+      break;
+    }
     case 'op-skin': {
       const sk = SKIN_BY_ID.get(id);
       if (sk && G.equipSkin(sk.opId, sk.key)) { toast('已更换时装。', 'success'); openOperator(sk.opId, { silent: true }); }
