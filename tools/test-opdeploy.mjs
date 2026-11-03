@@ -1,0 +1,18 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=opdeploy'});
+await new Promise(r=>setTimeout(r,900));
+await evalJS(send,`document.getElementById('enterBtn').click();true`);
+await new Promise(r=>setTimeout(r,1500));
+await evalJS(send,`document.querySelector('[data-action="tutorial-skip"]')?.click();true`);
+await new Promise(r=>setTimeout(r,500));
+await evalJS(send,`document.querySelector('[data-nav="operators"]').click();true`);
+await new Promise(r=>setTimeout(r,400));
+await evalJS(send,`document.querySelector('.op-card[data-id="amiya"]')?.click();true`);
+await new Promise(r=>setTimeout(r,400));
+await evalJS(send,`document.querySelector('[data-action="op-deploy"]')?.click();true`);
+await new Promise(r=>setTimeout(r,900));
+console.log(await evalJS(send,`JSON.stringify({view:document.querySelector('.nav-item.active')?.dataset.nav,selected:!!document.querySelector('.range-ring.selected'),rings:document.querySelectorAll('.range-ring').length,errs:window.__errs})`));
+process.exit(0);

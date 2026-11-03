@@ -35,7 +35,7 @@ export function createDefaultState() {
     version: SAVE_VERSION,
     createdAt: now,
     lastSeen: now,
-    doctor: { name: '博士', level: 1, exp: 0 },
+    doctor: { name: '博士', level: 1, exp: 0, todayLevels: 0, todayDate: dateKey() },
     lmd: 36000,
     orundum: 60000,
     primes: 0,
@@ -56,6 +56,7 @@ export function createDefaultState() {
       alloy: 0, crystal: 0, gel: 0, module: 0, token: 0, base_block: 20,
     },
     stage: { selected: 'CE-6', cleared: [], firstClear: {}, auto: true, speed: 1, totalRuns: 0 },
+    deploy: {},
     idle: { orundum: 0, shards: 0, blocks: 0, lmd: 0, exp: 0, seconds: 0 },
     skins: { owned: {}, equipped: {} },
     gacha: {
@@ -108,6 +109,7 @@ export function loadGame() {
   }
   if (!STAGE_BY_ID.has(state.stage.selected)) state.stage.selected = 'CE-6';
   state.squad = state.squad.map(id => id && OP_BY_ID.has(id) ? id : null);
+  if (!state.deploy || typeof state.deploy !== 'object') state.deploy = {};
   ensureDaily();
   ensureShop();
   return state;
@@ -498,7 +500,7 @@ export function isStageUnlocked(stage) {
     const i = mains.findIndex(s => s.id === stage.id);
     return i === 0 || state.stage.cleared.includes(mains[i - 1].id);
   }
-  if (stage.group === 'annihilation') return state.stage.cleared.filter(id => id.startsWith('main-')).length >= 3;
+  if (stage.group === 'annihilation') return true;
   return true;
 }
 export function setStage(id) {
@@ -548,16 +550,32 @@ export function tickIdle(dt) {
   }
 }
 
-export function doctorExpNeeded(level) { return 80 + level * 70; }
+export const DOCTOR_DAILY_LEVELS = 5;
+export function doctorExpNeeded(level) {
+  return Math.round(110 + level * 120 + Math.pow(level, 1.45) * 18);
+}
+export function doctorTodayLevels() {
+  ensureDaily();
+  return state.doctor.todayLevels || 0;
+}
 export function addDoctorExp(n) {
+  ensureDaily();
   let ups = 0;
-  state.doctor.exp += n;
-  while (state.doctor.level < 60 && state.doctor.exp >= doctorExpNeeded(state.doctor.level)) {
-    state.doctor.exp -= doctorExpNeeded(state.doctor.level);
+  state.doctor.exp += Math.max(0, n);
+  while (state.doctor.todayLevels < DOCTOR_DAILY_LEVELS) {
+    const need = doctorExpNeeded(state.doctor.level);
+    if (state.doctor.exp < need) break;
+    state.doctor.exp -= need;
     state.doctor.level += 1;
+    state.doctor.todayLevels += 1;
     ups += 1;
-    state.orundum += 300;
+    state.primes += 5;
     state.lmd += 5000;
+    state.orundum += 300;
+  }
+  if (state.doctor.todayLevels >= DOCTOR_DAILY_LEVELS) {
+    // Do not bank an unbounded amount of XP past the daily cap.
+    state.doctor.exp = Math.min(state.doctor.exp, Math.max(0, doctorExpNeeded(state.doctor.level) - 1));
   }
   return ups;
 }
@@ -891,6 +909,12 @@ export function ensureDaily() {
   const today = dateKey();
   if (state.daily.date !== today) {
     state.daily = { date: today, runs: 0, pulls: 0, levels: 0, repairs: 0, annihilation: 0, claimed: [], supplyClaimed: false };
+  }
+  if (!state.doctor) state.doctor = { name: '博士', level: 1, exp: 0, todayLevels: 0, todayDate: today };
+  if (typeof state.doctor.todayLevels !== 'number') state.doctor.todayLevels = 0;
+  if (state.doctor.todayDate !== today) {
+    state.doctor.todayDate = today;
+    state.doctor.todayLevels = 0;
   }
 }
 export function ensureShop() {

@@ -322,6 +322,22 @@
   .lower-grid { grid-template-columns: 1fr 1fr; }
   .lower-grid > :last-child { grid-column: 1 / -1; }
 }
+/* Gacha hero is deliberately 80% of the previous oversized layout. */
+@media (min-width: 1000px) {
+  .gacha-page .banner-tabs { gap: 8px; margin-bottom: 12px; }
+  .gacha-page .banner-tab { min-width: 158px; padding: 10px 13px; }
+  .gacha-page .banner-hero { height: 480px; }
+  .gacha-page .banner-content { max-width: 660px; padding: 34px 44px 28px; }
+  .gacha-page .banner-content h2 { font-size: clamp(34px, 3.2vw, 54px); margin: 18px 0 6px; }
+  .gacha-page .banner-desc { font-size: 15px; line-height: 1.75; max-width: 520px; margin: 16px 0 18px; }
+  .gacha-page .banner-portrait { height: 100%; width: 42%; right: 4%; bottom: 0; }
+  .gacha-page .banner-featured { margin-bottom: 12px; }
+  .gacha-page .pity-box { margin-top: 12px; }
+  .stage-chapter-row { gap: 8px; padding: 6px 10px; }
+  .stage-select { height: 36px; font-size: 14px; padding: 0 9px; }
+  .stage-chapter-row .mono { font-size: 10px; }
+}
+
 @media (min-width: 1000px) and (max-width: 1500px) {
   .brand { min-width: 230px; }
   .doctor-card { display: none; }

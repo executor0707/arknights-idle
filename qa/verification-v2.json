@@ -21,8 +21,8 @@
     },
     "coreLoop": {
       "status": "victory",
-      "time": 53.9,
-      "kills": 14,
+      "time": 51.8,
+      "kills": 15,
       "firstClear": true,
       "primes": 1,
       "errors": []
@@ -103,6 +103,33 @@
         "boss"
       ],
       "errors": []
+    },
+    "doctor": {
+      "unlimitedLevel": true,
+      "maxLevelsPerDay": 5,
+      "primesPerLevel": 5,
+      "testedLevelsGained": 5,
+      "testedPrimesGained": 25
+    },
+    "deployment": {
+      "savedPosition": true,
+      "rangeOverlay": true,
+      "selectedRingCount": 1
+    },
+    "combat": {
+      "meleeOnlyBlockedTargets": true,
+      "starterBattleVictory": true,
+      "starterBattleSeconds": 51.8
+    },
+    "gachaLayout": {
+      "heroHeight": 480,
+      "previousHeroHeight": 600,
+      "scale": "80%"
+    },
+    "stageList": {
+      "flexShrinkFixed": true,
+      "annihilationUnlocked": true,
+      "annihilationCards": 37
     }
   },
   "limitations": [
@@ -115,7 +142,7 @@
   "deployment": {
     "url": "https://executor0707.github.io/arknights-idle/",
     "httpStatus": 200,
-    "testedAt": "2026-11-03T13:10:24.928Z",
+    "testedAt": "2026-11-03T13:39:46.148Z",
     "liveCounts": {
       "operators": 469,
       "skins": 531,

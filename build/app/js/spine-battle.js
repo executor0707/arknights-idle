@@ -142,11 +142,14 @@ function make35(unit) {
   const sp = new s.Spine(data);
   sp.autoUpdate = true;
   sp._anims = data.animations.map(a => a.name);
-  const scale = 66 / Math.max(1, data.height);
+  sp.state.setAnimation(0, sp._anims.includes('Idle') ? 'Idle' : sp._anims[0], true);
+  sp.update(0);
+  const lb = sp.getLocalBounds();
+  const visibleH = lb && lb.height > 4 ? lb.height : data.height;
+  const scale = 54 / Math.max(1, visibleH);
   sp._baseScale = scale;
   sp._dir = 1;
   sp.scale.set(scale, scale);
-  sp.state.setAnimation(0, sp._anims.includes('Idle') ? 'Idle' : sp._anims[0], true);
   sp._anim = 'Idle';
   sp._attackActive = false;
   sp._castMark = -1;
