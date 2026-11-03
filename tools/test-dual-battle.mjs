@@ -1,0 +1,15 @@
+import { connect, screenshot, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=dual1'});
+await new Promise(r=>setTimeout(r,1000));
+await evalJS(send, `localStorage.clear(); location.reload(); true`);
+await new Promise(r=>setTimeout(r,1000));
+await evalJS(send, `document.getElementById('enterBtn').click(); true`);
+await new Promise(r=>setTimeout(r,1700));
+await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click(); true`);
+await new Promise(r=>setTimeout(r,6000));
+console.log(await evalJS(send, `JSON.stringify({offline:!!document.querySelector('.offline-modal'),canvas:!!document.querySelector('.spine-canvas'),frame:!!document.querySelector('.spine38-frame'),spineUnits:document.querySelectorAll('.ally-token.spine-unit').length,enemySpine:document.querySelectorAll('.enemy-token.spine-unit').length,errs:window.__errs})`));
+await screenshot(send,'.cache/dual-battle.png',1440,1000);
+process.exit(0);

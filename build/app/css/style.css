@@ -703,7 +703,7 @@ a { color: var(--orange); }
 .hide-scroll::-webkit-scrollbar { display: none; }
 
 /* Spine battle layer */
-.spine-canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; z-index: 3; pointer-events: none; }
+.spine-canvas, .spine38-canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; z-index: 3; pointer-events: none; }
 .ally-token.spine-unit .portrait { opacity: 0; }
 .ally-token.spine-unit .unit-name { margin-top: 3px; }
 .enemy-token.spine-unit .enemy-body { opacity: 0; }
