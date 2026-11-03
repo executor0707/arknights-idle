@@ -31,7 +31,7 @@ export function createDefaultState() {
   const ops = {};
   const initial = [...STARTERS, ...OPERATORS.filter(o => o.rarity === 2).map(o => o.id)];
   for (const id of initial) ops[id] = { level: 1, elite: 0, potential: 1, skill: 1, mastery: 0, trust: 0, module: 0, exp: 0 };
-  const squad = [...STARTERS];
+  const squad = [...STARTERS].slice(0, MAX_SQUAD);
   while (squad.length < MAX_SQUAD) squad.push(null);
   return {
     version: SAVE_VERSION,
@@ -108,7 +108,8 @@ export function loadGame() {
     state = createDefaultState();
   }
   if (!STAGE_BY_ID.has(state.stage.selected)) state.stage.selected = 'CE-6';
-  state.squad = state.squad.map(id => id && OP_BY_ID.has(id) ? id : null);
+  state.squad = state.squad.map(id => id && OP_BY_ID.has(id) ? id : null).slice(0, MAX_SQUAD);
+  while (state.squad.length < MAX_SQUAD) state.squad.push(null);
   if (!state.deploy || typeof state.deploy !== 'object') state.deploy = {};
   const chipKeys = ['chip_vanguard', 'chip_guard', 'chip_defender', 'chip_sniper', 'chip_caster', 'chip_medic', 'chip_supporter', 'chip_specialist'];
   const packKeys = ['pack_vanguard', 'pack_guard', 'pack_defender', 'pack_sniper', 'pack_caster', 'pack_medic', 'pack_supporter', 'pack_specialist'];

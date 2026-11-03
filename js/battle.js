@@ -2,9 +2,10 @@ import { state, getOpStats, getSquadBuffs, getBaseBonuses, grantStageRewards, sa
 import { OPERATORS } from './operators.js';
 
 const MELEE = new Set(['vanguard', 'guard', 'defender', 'specialist']);
-const LANES = [21, 50, 79];
-const FRONT_SLOTS = [[40, 0], [40, 1], [40, 2], [31, 0], [31, 1], [31, 2]];
-const BACK_SLOTS = [[23, 0], [23, 1], [23, 2], [14, 0], [14, 1], [14, 2]];
+// Merc Storia-like single horizontal marching line. Positions are still
+// percentages of the arena; the renderer turns them into a side-scroller.
+const LANES = [58];
+const MARCH_SLOTS = [[54, 60], [47, 63], [40, 66], [33, 69], [26, 72]];
 const BOSS_BY_CHAPTER = {
   0: 'boss_skulsr', 1: 'boss_skulsr', 2: 'boss_skulsr', 3: 'boss_skulsr',
   4: 'boss_frstar', 5: 'boss_faust', 6: 'boss_mephi', 7: 'boss_mephi',
@@ -93,25 +94,12 @@ export class Battle {
 
     const melee = ids.filter(id => MELEE.has(getOpStats(id)?.role));
     const ranged = ids.filter(id => !MELEE.has(getOpStats(id)?.role));
-    const usedMelee = [];
-    const usedRanged = [];
-    for (const id of melee) {
-      const pos = FRONT_SLOTS[usedMelee.length] || BACK_SLOTS[usedMelee.length - 6];
-      if (pos) usedMelee.push({ id, pos });
-    }
-    for (const id of ranged) {
-      const pos = BACK_SLOTS[usedRanged.length] || FRONT_SLOTS[usedRanged.length - 6];
-      if (pos) usedRanged.push({ id, pos });
-    }
-    const placed = [...usedMelee, ...usedRanged];
-    for (const { id, pos } of placed) {
-      const custom = state.deploy?.[id];
-      const x = custom && Number.isFinite(custom.x) ? clamp(custom.x, 8, 92) : pos[0];
-      const y = custom && Number.isFinite(custom.y) ? clamp(custom.y, 8, 92) : LANES[pos[1]];
-      const lane = custom && Number.isFinite(custom.lane) ? custom.lane : pos[1];
-      const op = this._makeAlly(id, x, y, lane);
+    const placed = [...melee, ...ranged].slice(0, 5);
+    placed.forEach((id, i) => {
+      const pos = MARCH_SLOTS[i];
+      const op = this._makeAlly(id, pos[0], pos[1], 0);
       if (op) this.allies.push(op);
-    }
+    });
     this._buildSpawnQueue();
     bus.dispatchEvent(new CustomEvent('battle-start', { detail: { stage } }));
     saveNow();
@@ -158,7 +146,7 @@ export class Battle {
         else if (w === 0) type = Math.random() < 0.2 ? 'shield' : 'soldier';
         else if (w === 1) type = Math.random() < 0.45 ? 'shield' : Math.random() < 0.3 ? 'caster' : 'soldier';
         else type = Math.random() < 0.3 ? 'drone' : Math.random() < 0.45 ? 'caster' : Math.random() < 0.4 ? 'shield' : 'soldier';
-        this.spawnQueue.push({ at, wave: w + 1, type, lane: Math.floor(Math.random() * 3), boss: isBoss, bossKey: isBoss ? bossKey : null });
+        this.spawnQueue.push({ at, wave: w + 1, type, lane: 0, boss: isBoss, bossKey: isBoss ? bossKey : null });
         at += isBoss ? 1.6 : rand(0.75, 1.22);
       }
       at += 2.2;
@@ -421,6 +409,7 @@ export class Battle {
     e.dead = true;
     this.kills++;
     this._effect(e.x, e.y, e.boss ? 'bossdown' : 'down', e.boss ? 1.2 : 0.45);
+    this._effect(e.x, e.y - 3, 'loot', e.boss ? 0.9 : 0.55);
     if (e.boss) this.shake = 0.5;
     for (const a of this.allies) if (!a.dead && a.id === 'kirin_yato') a.sp = Math.min(a.maxSp, a.sp + 20);
   }
