@@ -104,7 +104,8 @@
         "hound",
         "boss"
       ],
-      "errors": []
+      "errors": [],
+      "liskarmVerified": true
     },
     "doctor": {
       "unlimitedLevel": true,
@@ -170,7 +171,7 @@
   "deployment": {
     "url": "https://executor0707.github.io/arknights-idle/",
     "httpStatus": 200,
-    "testedAt": "2026-11-03T13:55:54.652Z",
+    "testedAt": "2026-11-03T14:02:49.171Z",
     "liveCounts": {
       "operators": 469,
       "skins": 531,
@@ -183,7 +184,8 @@
     "poolSixLimited": 26,
     "spine35Canvas": true,
     "spine38Canvas": true,
-    "liveOperatorSpineUnits": 8,
+    "liveOperatorSpineUnits": 9,
+    "liskarmSpine": true,
     "errors": []
   }
 }

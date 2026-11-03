@@ -1,0 +1,18 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'https://executor0707.github.io/arknights-idle/?v=469live'});
+await new Promise(r=>setTimeout(r,3000));
+await evalJS(send,`localStorage.clear();location.reload();true`);
+await new Promise(r=>setTimeout(r,3000));
+await evalJS(send,`document.getElementById('enterBtn').click();true`);
+await new Promise(r=>setTimeout(r,1800));
+await evalJS(send,`document.querySelector('[data-action="tutorial-skip"]')?.click();true`);
+await new Promise(r=>setTimeout(r,500));
+console.log('base', await evalJS(send,`JSON.stringify({stages:__RHODES__?.G?.STAGES?.length,ops:__RHODES__?.G?.OPERATORS?.length,spine:document.querySelectorAll('.ally-token.spine-unit').length})`));
+await evalJS(send,`(()=>{const s=__RHODES__.state;s.operators.liskarm={level:1,elite:0,potential:1,skill:1,mastery:0,trust:0,module:0,exp:0};s.squad=['liskarm',...s.squad.filter(x=>x&&x!=='liskarm')].slice(0,12);__RHODES__.battle.start();return true})()`);
+await new Promise(r=>setTimeout(r,3500));
+console.log('liskarm', await evalJS(send,`JSON.stringify({ids:[...document.querySelectorAll('.ally-token.spine-unit')].map(x=>x.dataset.id),errs:window.__errs})`));
+await screenshot(send,'qa/v2-live-469.png',1440,1000);
+process.exit(0);
