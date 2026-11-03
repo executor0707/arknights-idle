@@ -127,10 +127,12 @@ function bindEvents() {
     }
   });
   document.addEventListener('input', (e) => {
-    if (e.target.id === 'charScale') {
-      const v = Math.min(1.8, Math.max(0.8, Number(e.target.value) || 1.2));
-      state.settings.characterScale = v;
-      const label = $('#charScaleValue');
+    if (e.target.id === 'charScale' || e.target.id === 'enemyScale') {
+      const key = e.target.id === 'charScale' ? 'characterScale' : 'enemyScale';
+      const fallback = key === 'characterScale' ? 1.2 : 1;
+      const v = Math.min(2, Math.max(0.5, Number(e.target.value) || fallback));
+      state.settings[key] = v;
+      const label = e.target.id === 'charScale' ? $('#charScaleValue') : $('#enemyScaleValue');
       if (label) label.textContent = Math.round(v * 100) + '%';
       G.saveNow();
       return;
@@ -660,7 +662,7 @@ function syncArena(rebuild = false) {
     node.classList.toggle('spine-unit', isOperatorSpineReady(unit.id));
     node.classList.toggle('hit', unit.hitFlash > 0.04);
     node.classList.toggle('casting', unit.castUntil > 0);
-    node.classList.toggle('attacking', (unit.attackFlash || 0) > 0.04);
+    node.classList.toggle('attacking', (unit.attackLock || 0) > 0.01 || (unit.attackFlash || 0) > 0.04);
     node.classList.toggle('healed', unit.healFlash > 0.05);
     delete node.dataset.action;
     delete node.dataset.id;
@@ -1381,8 +1383,12 @@ function renderArchive() {
           <div class="setting-row"><div>自动释放技能<small>干员技力满时自动触发</small></div><button class="switch ${state.settings.autoSkill ? 'on' : ''}" data-action="setting" data-key="autoSkill"></button></div>
           <div class="setting-row"><div>减少动态效果<small>降低扫光与闪烁动画</small></div><button class="switch ${state.settings.reduceMotion ? 'on' : ''}" data-action="setting" data-key="reduceMotion"></button></div>
           <div class="setting-row setting-slider-row">
-            <div>角色大小<small>战斗 Spine 缩放 · 默认 120%</small></div>
-            <div class="setting-slider"><input id="charScale" type="range" min="0.8" max="1.8" step="0.05" value="${state.settings.characterScale ?? 1.2}"><b id="charScaleValue">${Math.round((state.settings.characterScale ?? 1.2) * 100)}%</b></div>
+            <div>我方角色大小<small>战斗 Spine 缩放 · 50%–200%</small></div>
+            <div class="setting-slider"><input id="charScale" type="range" min="0.5" max="2" step="0.05" value="${state.settings.characterScale ?? 1.2}"><b id="charScaleValue">${Math.round((state.settings.characterScale ?? 1.2) * 100)}%</b></div>
+          </div>
+          <div class="setting-row setting-slider-row">
+            <div>敌方单位大小<small>小兵与 Boss 同步缩放 · 50%–200%</small></div>
+            <div class="setting-slider"><input id="enemyScale" type="range" min="0.5" max="2" step="0.05" value="${state.settings.enemyScale ?? 1}"><b id="enemyScaleValue">${Math.round((state.settings.enemyScale ?? 1) * 100)}%</b></div>
           </div>
           <div class="setting-row"><div>新手提示<small>重新查看三页上手说明</small></div><button class="btn btn-small" data-action="tutorial">查看</button></div>
         </div>

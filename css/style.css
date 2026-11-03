@@ -859,7 +859,13 @@ a { color: var(--orange); }
 .selector-card b { display: block; font-size: 11px; }
 .selector-card span { display: block; font-family: var(--mono); font-size: 7px; color: var(--dim); margin-top: 2px; }
 .selector-card.owned span { color: var(--cyan); }
-.squad-editor-slots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+.squad-editor-slots { display: grid; grid-template-columns: repeat(5, 132px); justify-content: center; gap: 8px; }
+.squad-editor-slots .squad-slot { flex-direction: column; align-items: stretch; min-height: 264px; padding: 0; }
+.squad-editor-slots .squad-slot .sq-img { width: 100%; height: 218px; object-fit: cover; object-position: 50% 5%; border-left: none; border-bottom: 2px solid var(--rarity); }
+.squad-editor-slots .squad-slot .sq-info { padding: 7px 8px; }
+.squad-editor-slots .squad-slot .sq-name { font-size: 11px; }
+.squad-editor-slots .squad-slot .sq-remove { right: 2px; top: 2px; width: 18px; height: 18px; background: rgba(0,0,0,.55); }
+.squad-editor-slots .squad-slot.empty { min-height: 188px; }
 .roster-picker { display: grid; grid-template-columns: repeat(auto-fill, minmax(116px, 1fr)); gap: 5px; max-height: 330px; overflow-y: auto; margin-top: 10px; padding-right: 3px; }
 .roster-pick { display: flex; gap: 6px; align-items: center; text-align: left; border: 1px solid var(--line); background: rgba(255,255,255,.018); padding: 4px; }
 .roster-pick img { width: 28px; height: 38px; object-fit: cover; object-position: 50% 5%; border-left: 2px solid var(--rarity); }
