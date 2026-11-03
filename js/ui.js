@@ -1254,14 +1254,14 @@ function roomCombatRows(r, s) {
   const labels = { crit: '暴击率', critDmg: '暴击伤害', atk: '全队攻击', aspd: '攻击速度', heal: '治疗量', hp: '生命上限' };
   return Object.entries(r.combat || {}).filter(([k]) => labels[k]).map(([k, per]) => {
     const capped = k === 'crit' && s.level >= G.CONTROL_MAX_LEVEL;
-    return { label: labels[k], cur: per * s.level * 100, per: per * 100, capped };
+    return { label: labels[k], cur: s.damaged ? 0 : per * s.level * 100, per: per * 100, capped, damaged: !!s.damaged };
   });
 }
 
 function roomCombatText(r, s) {
   const rows = roomCombatRows(r, s);
   if (!rows.length) return '';
-  return rows.map(x => `<span>${x.label} 当前 <b>+${x.cur.toFixed(2)}%</b><small>${x.capped ? '已封顶' : `每级 +${x.per.toFixed(2)}%`}</small></span>`).join('');
+  return rows.map(x => `<span>${x.label} 当前 <b>+${x.cur.toFixed(2)}%</b><small>${x.damaged ? '设施受损 · 加成归零' : x.capped ? '已封顶' : `每级 +${x.per.toFixed(2)}%`}</small></span>`).join('');
 }
 
 function roomOutputText(r) {
@@ -1274,7 +1274,7 @@ function roomOutputText(r) {
     case 'material': return `技巧概要 <b>+${(G.roomRate(r.id) * 3600).toFixed(1)}/h</b>`;
     case 'book': return `技巧概要 <b>+${(G.roomRate(r.id) * 3600).toFixed(1)}/h</b>`;
     case 'global': return `全舰产出 <b>+${((r.rate * (s.level - 1)) * 100).toFixed(1)}%</b>`;
-    case 'repair': return `维修折扣 <b>${(G.repairDiscount() * 100).toFixed(0)}%</b>`;
+    case 'repair': return `固定维修 <b>3.00万</b>`;
     default: return '';
   }
 }
@@ -1899,7 +1899,7 @@ function renderBase() {
       <div class="panel-head"><div class="panel-title">基建加成明细</div><span class="panel-meta">CURRENT / PER LEVEL</span></div>
       <div class="panel-body base-bonus-table">
         <div class="base-bonus-row head"><span>设施</span><span>当前加成</span><span>每级提升</span><span>状态</span></div>
-        ${ROOMS.map(r => { const s = state.base.rooms[r.id]; const rows = roomCombatRows(r, s); return rows.map((x, i) => `<div class="base-bonus-row"><span>${i === 0 ? esc(r.name) + ' <small>LV.' + s.level + '</small>' : ''}</span><span>${x.label} <b>+${x.cur.toFixed(2)}%</b></span><span>+${x.per.toFixed(2)}%</span><span>${x.capped ? '暴击已封顶' : '可继续升级'}</span></div>`).join(''); }).join('')}
+        ${ROOMS.map(r => { const s = state.base.rooms[r.id]; const rows = roomCombatRows(r, s); return rows.map((x, i) => `<div class="base-bonus-row"><span>${i === 0 ? esc(r.name) + ' <small>LV.' + s.level + '</small>' : ''}</span><span>${x.label} <b>+${x.cur.toFixed(2)}%</b></span><span>+${x.per.toFixed(2)}%</span><span>${x.damaged ? '设施受损 · 加成归零' : x.capped ? '暴击已封顶' : '可继续升级'}</span></div>`).join(''); }).join('')}
       </div>
     </div>
     <div class="base-lower">
@@ -1929,7 +1929,7 @@ function renderBase() {
           <div class="kv"><span>全基升 1 级战力</span><b>+${fmt(powerGain)}</b></div>
           <div class="divider"></div>
           <div class="small">设施等级无上限；控制中枢在暴击率达到 100% 时封顶。每级只提供很小的固定加成，升级成本会持续上升。<br>材料块主要来自挂机：前期约 1.2 块/小时，后期约 3.2 块/小时。</div>
-          <div class="kv mt-12"><span>维修折扣</span><b>${(G.repairDiscount() * 100).toFixed(0)}%</b></div>
+          <div class="kv mt-12"><span>受损维修费</span><b>30,000 / 设施</b></div>
         </div>
       </div>
     </div>
