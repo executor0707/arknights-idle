@@ -328,11 +328,16 @@ export class Battle {
       }
       if (a.heal) {
         const target = this._lowestAlly(a);
-        if (target && target.hp < target.maxHp && a.cooldown <= 0) {
+        // Healing uses the same cadence as a normal attack. It is not gated
+        // on the skill gauge; the skill is only an additional AoE heal.
+        if (target && target.hp < target.maxHp && a.cooldown <= 0 && a.attackLock <= 0) {
           const amount = a.atk * (1 + this.buffs.heal) * (1 + (this.baseBonuses?.heal || 0));
           this._healAlly(target, amount, a);
+          this._effect(target.x, target.y, 'heal', 0.55);
           a.sp = Math.min(a.maxSp, a.sp + 4);
           a.cooldown = a.interval;
+          a.attackFlash = 0.18;
+          a.attackLock = Math.max(a.attackLock || 0, 0.8);
         }
       } else {
         if (a.cooldown <= 0 && a.attackLock <= 0) {
