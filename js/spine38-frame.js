@@ -107,7 +107,7 @@
       var sp = sprites.get(ck);
       if (!sp) { sp = sprite(u.kind, u.key, u); if (sp) sprites.set(ck, sp); if (!sp) continue; }
       var factor = u.kind === 'enemy' && u.boss ? 1.35 : 1;
-      var sc = sp._baseScale * factor;
+      var sc = sp._baseScale * factor * (u.scale || 1.2);
       sp.scale.set(sc * sp._dir, sc);
       sp.x = Math.min(w - 26, Math.max(26, (u.x / 100) * w + (u.bobX || 0)));
       sp.y = (u.y / 100) * h + 18 + (u.bob || 0);

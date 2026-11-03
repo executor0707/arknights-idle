@@ -1,5 +1,6 @@
 import { SPINE_ENEMIES } from './spine-index.js';
 import { SPINE38_OPERATORS, SPINE35_ONLY } from './spine38-index.js';
+import { state } from './game.js';
 
 const ENEMY_KEY = { soldier: 'soldier', shield: 'shield', caster: 'caster', drone: 'hound', boss: 'boss_skulsr' };
 const cache = new Map();
@@ -181,7 +182,7 @@ export function syncSpine(battle) {
   const post = [];
   for (const a of battle.allies) {
     if (SPINE38_OPERATORS[a.id]) {
-      post.push({ uid: 'a:' + a.uid, kind: 'op', key: a.id, x: a.x, y: a.y, bob: Math.sin(performance.now() / 145 + (a.bobPhase || 0)) * 4.0, bobX: Math.sin(performance.now() / 190 + (a.bobPhase || 0)) * 1.6, dead: a.dead, attackFlash: a.attackFlash, castUntil: a.castUntil, sp: a.sp });
+      post.push({ uid: 'a:' + a.uid, kind: 'op', key: a.id, x: a.x, y: a.y, scale: state.settings?.characterScale || 1.2, bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, castUntil: a.castUntil, sp: a.sp });
       continue;
     }
     if (!SPINE35_ONLY[a.id]) continue;
@@ -193,10 +194,10 @@ export function syncSpine(battle) {
       if (sp) sprites.set('a:' + a.uid, sp);
       if (!sp) continue;
     }
-    const s = sp._baseScale;
+    const s = sp._baseScale * (state.settings?.characterScale || 1.2);
     sp.scale.set(s, s);
-    sp.x = Math.min(width - 26, Math.max(26, (a.x / 100) * width + Math.sin(performance.now() / 190 + (a.bobPhase || 0)) * 1.6));
-    sp.y = (a.y / 100) * height + 18 + Math.sin(performance.now() / 145 + (a.bobPhase || 0)) * 4.0;
+    sp.x = Math.min(width - 26, Math.max(26, (a.x / 100) * width + Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7));
+    sp.y = (a.y / 100) * height + 18 + Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6;
     sp.visible = !a.dead;
     if (a.dead) { play(sp, 'Die'); continue; }
     if (a.castUntil > 0.05) {

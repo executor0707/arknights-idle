@@ -623,6 +623,10 @@ a { color: var(--orange); }
 .setting-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 11px; }
 .setting-row:last-child { border-bottom: none; }
 .setting-row small { display: block; color: var(--dim); font-size: 8px; margin-top: 3px; }
+.setting-slider-row { align-items: flex-start; }
+.setting-slider { display: flex; align-items: center; gap: 8px; min-width: 150px; }
+.setting-slider input[type="range"] { width: 120px; accent-color: var(--orange); }
+.setting-slider b { min-width: 38px; text-align: right; font-family: var(--mono); font-size: 9px; color: var(--orange); }
 .switch { width: 34px; height: 18px; border: 1px solid var(--line-strong); background: rgba(255,255,255,.05); position: relative; cursor: pointer; }
 .switch::after { content: ""; position: absolute; width: 12px; height: 12px; top: 2px; left: 2px; background: var(--dim); transition: all .2s; }
 .switch.on { border-color: rgba(255,180,58,.45); background: rgba(255,180,58,.1); }
