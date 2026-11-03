@@ -60,6 +60,8 @@ const ui = {
   chromeTimer: 0,
   tutorialStep: 0,
   pullOverlay: null,
+  deploying: null,
+  showRanges: false,
   log: [],
 };
 
@@ -77,6 +79,7 @@ export function initUI(battleInstance) {
       sfx('gold');
     }
     if (!res.win && !res.retreat) ui.log.unshift({ tone: 'bad', text: `${res.stage.code} 作战失败 · ${res.reason}` });
+    if (res.reward?.doctorUps) toast(`博士等级 +${res.reward.doctorUps}，源石 +${res.reward.doctorUps * 5}`, 'success');
     if (res.win) ui.log.unshift({ tone: 'good', text: `${res.stage.code} 作战完成 · 合成玉 +${res.reward?.orundum || 0}` });
     ui.log = ui.log.slice(0, 8);
     updateChrome();
@@ -354,6 +357,7 @@ function renderBattle() {
             <div class="arena-layer fx" id="layerFx"></div>
             <div class="arena-layer allies" id="layerAllies"></div>
             <div class="arena-layer floats" id="layerFloats"></div>
+            <div id="rangeOverlay" class="range-overlay hidden"></div>
             <div id="arenaOverlay"></div>
             <div id="arenaCast" class="cast-banner hidden"></div>
             <div id="skillCutin" class="skill-cutin hidden"></div>
@@ -397,6 +401,7 @@ function renderBattle() {
         <div class="squad-actions">
           <button class="btn btn-small btn-primary" data-action="open-squad">编成</button>
           <button class="btn btn-small" data-action="auto-squad">自动编队</button>
+          <button class="btn btn-small ${ui.showRanges ? 'btn-primary' : ''}" data-action="toggle-ranges">范围</button>
           <button class="btn btn-small btn-ghost" data-action="refresh-battle">↻</button>
         </div>
         <div class="squad-synergy">${synergyText()}</div>
@@ -486,6 +491,74 @@ function setupArena() {
   syncArena(true);
 }
 
+function renderRangeOverlay() {
+  const overlay = $('#rangeOverlay');
+  if (!overlay) return;
+  if (!battle || (!ui.showRanges && !ui.deploying)) {
+    overlay.classList.add('hidden');
+    overlay.innerHTML = '';
+    return;
+  }
+  let units = battle.allies.filter(a => !a.dead);
+  if (ui.deploying) units = units.filter(a => a.id === ui.deploying);
+  if (!units.length) { overlay.classList.add('hidden'); return; }
+  overlay.classList.remove('hidden');
+  overlay.innerHTML = units.map(a => {
+    const st = G.getOpStats(a.id);
+    const d = G.OP_BY_ID.get(a.id);
+    if (!st || !d) return '';
+    const r = Math.max(7, Math.min(74, Number(st.range) || 12));
+    const w = r * 1.45, h = r * 0.86;
+    const selected = ui.deploying === a.id;
+    return `<div class="range-ring ${selected ? 'selected' : ''} ${r > 40 ? 'ranged' : 'melee'}" style="left:${a.x - w / 2}%;top:${a.y - h / 2}%;width:${w}%;height:${h}%">
+      <span>${esc(CLASS_GLYPH[d.cls] || '')}${selected ? ' · 点击战场放置' : ''}</span>
+    </div>`;
+  }).join('');
+}
+
+function startDeploy(id) {
+  if (!battle?.allies.some(a => a.id === id)) {
+    toast('该干员不在当前编队。先编入队伍，再调整站位。', 'warn');
+    return;
+  }
+  ui.deploying = id;
+  ui.showRanges = true;
+  if (ui.view !== 'battle') setView('battle');
+  requestAnimationFrame(() => { renderRangeOverlay(); });
+  const d = G.OP_BY_ID.get(id);
+  toast(`调整 ${d?.name || id} 的部署位置：点击战场空地。`, 'success');
+}
+
+function placeDeployment(clientX, clientY) {
+  const arena = $('#arena');
+  if (!arena || !ui.deploying) return;
+  const r = arena.getBoundingClientRect();
+  const x = (clientX - r.left) / r.width * 100;
+  const y = (clientY - r.top) / r.height * 100;
+  const d = G.OP_BY_ID.get(ui.deploying);
+  if (battle?.setDeployment(ui.deploying, x, y)) {
+    toast(`${d?.name || ui.deploying} 已移动到新位置。`, 'success');
+    ui.deploying = null;
+    ui.showRanges = false;
+    renderRangeOverlay();
+    syncArena();
+  }
+}
+
+function rangePreview(d) {
+  const st = G.getOpStats(d.id);
+  const reach = (st?.range || 12) > 40 ? 2 : 1;
+  const cells = [];
+  for (let y = 0; y < 3; y++) {
+    for (let x = 0; x < 5; x++) {
+      const center = y === 1 && x === 2;
+      const inRange = y === 1 ? (x > 2 && x <= 2 + reach) || x === 2 : Math.abs(y - 1) === 1 && x > 2 && reach > 1;
+      cells.push(`<i class="${center ? 'self' : inRange ? 'inrange' : ''}"></i>`);
+    }
+  }
+  return `<div class="range-preview"><div class="range-grid">${cells.join('')}</div><span>${esc(d.cls)} · 射程 ${st?.range ? Math.round(st.range) : 12}</span></div>`;
+}
+
 function makeAllyEl(a) {
   const d = G.OP_BY_ID.get(a.id);
   const node = el('div', `ally-token rarity-${d?.rarity || 3} ${a.phantom ? 'phantom' : ''}`);
@@ -540,6 +613,9 @@ function syncArena(rebuild = false) {
     node.classList.toggle('casting', unit.castUntil > 0);
     node.classList.toggle('attacking', (unit.attackFlash || 0) > 0.04);
     node.classList.toggle('healed', unit.healFlash > 0.05);
+    node.dataset.action = 'deploy-select';
+    node.dataset.id = unit.id;
+    node.title = '点击调整部署位置';
     if (node._refs.badge) {
       node._refs.badge.textContent = unit.blockCount > 0 ? unit.blockCount : '';
       node._refs.badge.style.display = unit.blockCount > 0 ? 'grid' : 'none';
@@ -563,6 +639,7 @@ function syncArena(rebuild = false) {
     node.classList.toggle('stunned', e.stun > 0);
   }
   for (const [uid, node] of a.enemies) if (!eAlive.has(uid)) { node.remove(); a.enemies.delete(uid); }
+  renderRangeOverlay();
 
   // projectiles
   const pAlive = new Set();
@@ -798,6 +875,20 @@ export function openOperator(id, opts = {}) {
         <div class="stat-box"><span>阻挡</span><b>${st.block}</b></div>
         <div class="stat-box"><span>攻击范围</span><b>${st.range > 40 ? '远程' : '近战'}</b></div>
         <div class="stat-box"><span>信赖加成</span><b>+${(s.trust / 100 * 8).toFixed(1)}%</b></div>
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-section-head"><b>战斗部署</b><span>点击战场调整站位 · 展示攻击范围</span></div>
+        <div class="detail-section-body">
+          <div class="deploy-row">
+            ${rangePreview(d)}
+            <div class="deploy-copy">
+              <b>${st.range > 40 ? '远程位' : '近战位'} · 阻挡 ${st.block}</b>
+              <span>近战只攻击自己阻挡的敌人；远程按射程攻击。部署位置会写进当前存档。</span>
+              <button class="btn btn-small btn-primary" data-action="op-deploy" data-id="${id}">调整部署位置</button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="detail-section">
@@ -1153,6 +1244,7 @@ function renderArchive() {
         <div class="id-role">RHODES ISLAND // COMMANDER</div>
         <div class="id-stats">
           <div class="id-stat"><span>LEVEL</span><b>${state.doctor.level}</b></div>
+          <div class="id-stat"><span>今日升级</span><b>${G.doctorTodayLevels()} / 5</b></div>
           <div class="id-stat"><span>WINS</span><b>${fmt(wins)}</b></div>
           <div class="id-stat"><span>PULLS</span><b>${fmt(state.gacha.totalPulls)}</b></div>
           <div class="id-stat"><span>SKINS</span><b>${Object.keys(state.skins.owned).length}</b></div>
@@ -1319,6 +1411,17 @@ function endTutorial() {
 
 // ── actions ───────────────────────────────────────────────────────
 async function onClick(e) {
+  const deployToken = e.target.closest('.ally-token[data-action="deploy-select"]');
+  if (ui.deploying && deployToken) {
+    e.preventDefault();
+    startDeploy(deployToken.dataset.id);
+    return;
+  }
+  if (ui.deploying && e.target.closest('#arena') && !e.target.closest('button, .arena-hud, .arena-bottom, .arena-result')) {
+    e.preventDefault();
+    placeDeployment(e.clientX, e.clientY);
+    return;
+  }
   const target = e.target.closest('[data-action]');
   if (!target) return;
   if (target.disabled) return;
@@ -1349,6 +1452,18 @@ async function onClick(e) {
       battle.start(); renderView(); break;
     case 'open-squad':
       openSquadEditor(); break;
+    case 'deploy-select':
+      startDeploy(id); break;
+    case 'toggle-ranges':
+      ui.showRanges = !ui.showRanges;
+      renderRangeOverlay();
+      renderView();
+      break;
+    case 'op-deploy':
+      closeModal(true);
+      setView('battle');
+      setTimeout(() => startDeploy(id), 80);
+      break;
     case 'auto-squad':
       G.autoSquad(); battle.start(); renderView(); toast('已按战力自动编队。', 'success'); break;
     case 'remove-squad':

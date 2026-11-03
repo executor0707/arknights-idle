@@ -96,7 +96,11 @@ export class Battle {
     }
     const placed = [...usedMelee, ...usedRanged];
     for (const { id, pos } of placed) {
-      const op = this._makeAlly(id, pos[0], LANES[pos[1]], pos[1]);
+      const custom = state.deploy?.[id];
+      const x = custom && Number.isFinite(custom.x) ? clamp(custom.x, 8, 92) : pos[0];
+      const y = custom && Number.isFinite(custom.y) ? clamp(custom.y, 8, 92) : LANES[pos[1]];
+      const lane = custom && Number.isFinite(custom.lane) ? custom.lane : pos[1];
+      const op = this._makeAlly(id, x, y, lane);
       if (op) this.allies.push(op);
     }
     this._buildSpawnQueue();
@@ -256,6 +260,20 @@ export class Battle {
     }
   }
 
+  setDeployment(id, x, y) {
+    const a = this.allies.find(u => u.id === id && !u.dead);
+    if (!a) return false;
+    const nx = clamp(Number(x) || a.x, 8, 92);
+    const ny = clamp(Number(y) || a.y, 8, 92);
+    const lane = LANES.reduce((best, ly, i) => Math.abs(ly - ny) < Math.abs(LANES[best] - ny) ? i : best, 0);
+    a.x = nx; a.y = LANES[lane]; a.lane = lane;
+    if (!state.deploy) state.deploy = {};
+    state.deploy[id] = { x: nx, y: LANES[lane], lane };
+    this._assignBlocks();
+    saveNow();
+    return true;
+  }
+
   _updateAllies(dt) {
     for (const a of this.allies) {
       if (a.dead) continue;
@@ -302,10 +320,9 @@ export class Battle {
 
   _targetFor(a) {
     if (MELEE.has(a.role)) {
-      const blocked = this.enemies.filter(e => e.blockedBy === a.uid && !e.dead);
-      if (blocked.length) return blocked.sort((x, y) => x.hp - y.hp)[0];
-      return this.enemies.filter(e => !e.dead && e.lane === a.lane && Math.abs(e.x - a.x) <= a.range)
-        .sort((x, y) => x.x - y.x)[0] || null;
+      // 近战只打自己拦住的敌人；不能隔空攻击远程/无人机。
+      return this.enemies.filter(e => e.blockedBy === a.uid && !e.dead)
+        .sort((x, y) => x.hp - y.hp)[0] || null;
     }
     return this.enemies.filter(e => !e.dead && Math.abs(e.x - a.x) <= a.range && (a.range > 40 || e.lane === a.lane))
       .sort((x, y) => x.x - y.x)[0] || null;

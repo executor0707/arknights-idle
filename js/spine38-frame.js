@@ -62,12 +62,15 @@
     var sp = new PIXI.spine.Spine(data);
     sp.autoUpdate = true;
     sp._anims = data.animations.map(function (a) { return a.name; });
-    var target = kind === 'op' ? 66 : (unit && unit.boss ? 96 : 50);
-    var sc = target / Math.max(1, data.height);
+    sp.state.setAnimation(0, sp._anims.indexOf('Idle') >= 0 ? 'Idle' : sp._anims[0], true);
+    sp.update(0);
+    var lb = sp.getLocalBounds();
+    var visibleH = lb && lb.height > 4 ? lb.height : data.height;
+    var target = kind === 'op' ? 54 : (unit && unit.boss ? 82 : 44);
+    var sc = target / Math.max(1, visibleH);
     sp._baseScale = sc;
     sp._dir = kind === 'enemy' ? -1 : 1;
     sp.scale.set(sc * sp._dir, sc);
-    sp.state.setAnimation(0, sp._anims.indexOf('Idle') >= 0 ? 'Idle' : sp._anims[0], true);
     sp._anim = 'Idle';
     app.stage.addChild(sp);
     return sp;
