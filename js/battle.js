@@ -468,8 +468,8 @@ export class Battle {
     const power = a.skillPower * (a.id === 'dusk' ? 1.2 : 1);
     a.sp = 0;
     a.castUntil = 0.7;
-    this.cast = { name: `${op.name} · ${skill.name}`, life: 1.35, color: a.arts ? '#67d9ff' : '#ffb544' };
-    // Only the basic attack animation is shown. Skill cut-ins are disabled.
+    // Only the basic attack animation is shown. Skill banners and cut-ins are disabled.
+    this.cast = null;
     this.cutIn = null;
     bus.dispatchEvent(new CustomEvent('battle-sfx', { detail: { sound: 'skill' } }));
     if (skill.type === 'aoe') {
