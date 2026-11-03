@@ -1292,15 +1292,19 @@ function itemCard(id, m) {
 
 function renderInventory() {
   const tabs = [
-    ['all', '全部'], ['record', '作战记录'], ['book', '技巧概要'], ['chip', '芯片'], ['material', '材料'], ['special', '特殊'],
+    ['all', '全部'], ['record', '作战记录'], ['book', '技巧概要'], ['chip', '芯片'], ['special', '特殊'],
   ];
-  const counts = { all: 0, record: 0, book: 0, chip: 0, material: 0, special: 0 };
+  if (!tabs.some(([id]) => id === ui.invTab)) ui.invTab = 'all';
+  const useful = (id) => G.USEFUL_ITEM_IDS.has(id);
+  const counts = { all: 0, record: 0, book: 0, chip: 0, special: 0 };
   for (const [id, m] of Object.entries(MATERIALS)) {
+    if (!useful(id)) continue;
     if (!G.itemCount(id) && !['base_block', 'module', 'token'].includes(id)) continue;
     const k = m.kind === 'chip' || m.kind === 'chip_pack' ? 'chip' : m.kind === 'module' || m.kind === 'token' || m.kind === 'base' ? 'special' : m.kind;
     counts.all++; counts[k] = (counts[k] || 0) + 1;
   }
   const items = Object.entries(MATERIALS).filter(([id, m]) => {
+    if (!useful(id)) return false;
     if (ui.invTab === 'all') return G.itemCount(id) > 0 || ['base_block', 'module', 'token'].includes(id);
     if (ui.invTab === 'chip') return (m.kind === 'chip' || m.kind === 'chip_pack') && G.itemCount(id) > 0;
     if (ui.invTab === 'special') return ['module', 'token', 'base'].includes(m.kind) && (G.itemCount(id) > 0 || id === 'base_block');

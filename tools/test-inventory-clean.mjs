@@ -1,0 +1,18 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=inventoryclean'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`localStorage.clear();location.reload()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1700));
+await send('Runtime.evaluate',{expression:`document.querySelector('[data-action="tutorial-skip"]')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,500));
+await evalJS(send,`__RHODES__.setView('inventory',true);true`);
+await new Promise(r=>setTimeout(r,500));
+console.log(await evalJS(send,`JSON.stringify({keys:Object.keys(__RHODES__.state.inventory),tabs:[...document.querySelectorAll('.inv-tabs .filter-btn')].map(x=>x.textContent),cards:[...document.querySelectorAll('.item-card .item-name')].map(x=>x.textContent)})`));
+await screenshot(send,'.cache/inventory-clean.png',1440,1000);
+process.exit(0);

@@ -278,6 +278,17 @@
     "repair": {
       "fixedCost": 30000,
       "damagedBonusZero": true
+    },
+    "inventory": {
+      "usefulOnly": true,
+      "removedLegacyMaterials": true,
+      "visibleTabs": [
+        "all",
+        "record",
+        "book",
+        "chip",
+        "special"
+      ]
     }
   },
   "limitations": [
