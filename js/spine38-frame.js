@@ -66,7 +66,7 @@
     sp.update(0);
     var lb = sp.getLocalBounds();
     var visibleH = lb && lb.height > 4 ? lb.height : data.height;
-    var target = kind === 'op' ? 54 : (unit && unit.boss ? 82 : 44);
+    var target = kind === 'op' ? 130 : (unit && unit.boss ? 160 : 92);
     var sc = target / Math.max(1, visibleH);
     sp._baseScale = sc;
     sp._dir = kind === 'enemy' ? -1 : 1;

@@ -306,6 +306,10 @@ a { color: var(--orange); }
 .arena-layer.floats { z-index: 8; }
 .arena-layer.projectiles { z-index: 6; }
 .ally-token { position: absolute; width: 52px; transform: translate(-50%, -50%); transition: filter .2s; }
+.ally-token.spine-unit { width: 96px; }
+.ally-token.spine-unit .unit-name { font-size: 8px; }
+.ally-token.spine-unit .hpbar { margin-left: 8px; margin-right: 8px; }
+.ally-token.spine-unit .spbar { margin-left: 12px; margin-right: 12px; }
 .ally-token .portrait { position: relative; width: 50px; height: 50px; margin: 0 auto; border-radius: 50%; border: 2px solid var(--rarity, var(--orange)); background: #111; overflow: hidden; box-shadow: 0 0 0 2px rgba(0,0,0,.45), 0 3px 12px rgba(0,0,0,.6); }
 .ally-token .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; transform: scale(1.35); }
 .ally-token .hpbar { height: 4px; margin: 3px 3px 0; background: rgba(0,0,0,.72); border: 1px solid rgba(0,0,0,.4); overflow: hidden; }
