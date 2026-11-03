@@ -4,8 +4,9 @@ import { OPERATORS } from './operators.js';
 const MELEE = new Set(['vanguard', 'guard', 'defender', 'specialist']);
 // Merc Storia-like single horizontal marching line. Positions are still
 // percentages of the arena; the renderer turns them into a side-scroller.
-const LANES = [58];
-const MARCH_SLOTS = [[54, 60], [47, 63], [40, 66], [33, 69], [26, 72]];
+const LANES = [64];
+// Same road line; only the horizontal spacing is staggered front-to-back.
+const MARCH_SLOTS = [[58, 64], [48, 64], [38, 64], [28, 64], [18, 64]];
 const BOSS_BY_CHAPTER = {
   0: 'boss_skulsr', 1: 'boss_skulsr', 2: 'boss_skulsr', 3: 'boss_skulsr',
   4: 'boss_frstar', 5: 'boss_faust', 6: 'boss_mephi', 7: 'boss_mephi',
@@ -160,7 +161,7 @@ export class Battle {
     const hp = baseHp * info.hp * rand(0.9, 1.1);
     const enemy = {
       uid: uid('e'), type: item.type, glyph: info.glyph, boss: item.boss, bossKey: item.bossKey || null,
-      x: 105 + rand(0, 6), y: LANES[item.lane] + rand(-3.4, 3.4), lane: item.lane,
+      x: 105 + rand(0, 6), y: LANES[item.lane] + rand(-1.4, 1.4), lane: item.lane,
       hp, maxHp: hp, atk: stage.rec * 0.0105 * info.atk * rand(0.9, 1.1),
       def: stage.rec * 0.0011 * (item.boss ? 1.8 : 1), res: 5 + item.wave * 2 + (item.type === 'caster' ? 15 : 0),
       speed: 6.2 * info.speed, blockable: info.block, size: info.size,
