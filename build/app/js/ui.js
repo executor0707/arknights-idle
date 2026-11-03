@@ -356,19 +356,20 @@ function renderBattle() {
               <button class="arena-ctl ${state.stage.auto ? 'active' : ''}" data-action="toggle-auto" id="autoBtn">AUTO</button>
             </div>
           </div>
-          <div class="arena" id="arena">
-            <div class="arena-road"></div>
-            <div class="arena-lane-line a"></div><div class="arena-lane-line b"></div><div class="arena-lane-line c"></div>
-            <div class="arena-base"><div class="base-ring"></div><div class="base-core"><span>RHODES</span></div></div>
-            <div class="spawn-gate"></div>
-            ${arenaGhosts()}
+          <div class="arena march-stage" id="arena">
+            <div class="march-sky"></div>
+            <div class="march-sun"></div>
+            <div class="march-far"></div>
+            <div class="march-mid"></div>
+            <div class="march-ground"></div>
+            <div class="march-speed"></div>
+            <div class="march-goal"></div>
             <div class="arena-layer enemies" id="layerEnemies"></div>
             <div class="arena-layer projectiles" id="layerProjectiles"></div>
             <div class="arena-layer fx" id="layerFx"></div>
             <div class="arena-layer allies" id="layerAllies"></div>
             <div class="arena-layer floats" id="layerFloats"></div>
-            <div id="deployGrid" class="deploy-grid hidden">${Array.from({ length: 18 }, (_, i) => `<i class="deploy-cell" data-col="${i % 6}" data-row="${Math.floor(i / 6)}"></i>`).join('')}</div>
-            <div id="rangeOverlay" class="range-overlay hidden"></div>
+
             <div id="arenaOverlay"></div>
             <div id="arenaCast" class="cast-banner hidden"></div>
             <div id="skillCutin" class="skill-cutin hidden"></div>
@@ -378,12 +379,9 @@ function renderBattle() {
           <div class="arena-bottom">
             <div class="arena-status"><i class="status-led ${damaged.length ? 'red' : ''}"></i><span id="arenaStatusText">${battle?.status === 'running' ? 'AUTO OPERATION' : 'STANDBY'} · 目标 ${esc(stage.name)}</span></div>
             <div class="inline" style="gap:8px">
-              <span class="small mono" id="baseHpText">BASE 12/12</span>
+              <span class="small mono" id="baseHpText">DIST <b id="marchDistance">0</b>m</span>
               <button class="arena-ctl" data-action="restart" title="重新开始">↻</button>
             </div>
-          </div>
-          <div class="arena-hud" style="top:auto;bottom:0;background:linear-gradient(to top,rgba(5,8,8,.8),transparent);padding:0 14px 48px;justify-content:flex-start;pointer-events:none">
-            <div class="hp-pips" id="basePips">${Array.from({ length: 12 }, (_, i) => `<i class="${i < (battle?.baseHp ?? 12) ? '' : 'lost'}"></i>`).join('')}</div>
           </div>
         </div>
 
@@ -408,13 +406,12 @@ function renderBattle() {
       </div>
 
       <aside class="squad-panel">
-        <div class="squad-head"><div class="panel-title">编队</div><div class="squad-head"><button class="btn btn-small ${ui.gridVisible ? 'btn-primary' : ''}" data-action="toggle-deploy">部署</button><b>${squadCount}<span class="dim" style="font-size:11px">/12</span></b></div></div>
+        <div class="squad-head"><div class="panel-title">编队</div><div class="squad-head"><b>${squadCount}<span class="dim" style="font-size:11px">/5</span></b></div></div>
         <div class="squad-power"><span>TOTAL POWER</span><b>${fmt(power)}</b></div>
         <div class="squad-list">${squad}</div>
         <div class="squad-actions">
           <button class="btn btn-small btn-primary" data-action="open-squad">编成</button>
           <button class="btn btn-small" data-action="auto-squad">自动编队</button>
-          <button class="btn btn-small ${ui.showRanges ? 'btn-primary' : ''}" data-action="toggle-ranges">范围</button>
           <button class="btn btn-small btn-ghost" data-action="refresh-battle">↻</button>
         </div>
         <div class="squad-synergy">${synergyText()}</div>
@@ -655,9 +652,9 @@ function syncArena(rebuild = false) {
     node.classList.toggle('casting', unit.castUntil > 0);
     node.classList.toggle('attacking', (unit.attackFlash || 0) > 0.04);
     node.classList.toggle('healed', unit.healFlash > 0.05);
-    node.dataset.action = 'deploy-select';
-    node.dataset.id = unit.id;
-    node.title = '点击调整部署位置';
+    delete node.dataset.action;
+    delete node.dataset.id;
+    node.title = `${G.OP_BY_ID.get(unit.id)?.name || unit.id} · 编队成员`;
     if (node._refs.badge) {
       node._refs.badge.textContent = unit.blockCount > 0 ? unit.blockCount : '';
       node._refs.badge.style.display = unit.blockCount > 0 ? 'grid' : 'none';
@@ -728,7 +725,8 @@ function syncArena(rebuild = false) {
   const hudPower = $('#hudPower'); if (hudPower) hudPower.textContent = fmt(G.squadPower());
   const basePips = $('#basePips');
   if (basePips) [...basePips.children].forEach((n, i) => n.classList.toggle('lost', i >= battle.baseHp));
-  const baseHpText = $('#baseHpText'); if (baseHpText) baseHpText.textContent = `BASE ${Math.max(0, battle.baseHp)}/${battle.maxBaseHp}`;
+  const marchDistance = $('#marchDistance');
+  if (marchDistance) marchDistance.textContent = String(Math.floor(battle.time * 14 + battle.kills * 9));
   const statusText = $('#arenaStatusText');
   if (statusText) statusText.textContent = battle.status === 'running' ? `AUTO OPERATION · ${state.stage.auto ? '循环中' : '单次'}` : battle.status === 'victory' ? 'OPERATION COMPLETE' : battle.status === 'defeat' ? 'OPERATION FAILED' : 'STANDBY';
   if (a.pause) a.pause.classList.toggle('hidden', !(battle.paused && battle.status === 'running'));
@@ -942,14 +940,14 @@ export function openOperator(id, opts = {}) {
       </div>` : ''}
 
       <div class="detail-section">
-        <div class="detail-section-head"><b>战斗部署</b><span>点击战场调整站位 · 展示攻击范围</span></div>
+        <div class="detail-section-head"><b>横版编队</b><span>5 人队伍 · 前后排自动站位</span></div>
         <div class="detail-section-body">
           <div class="deploy-row">
             ${rangePreview(d)}
             <div class="deploy-copy">
-              <b>${st.range > 40 ? '远程位' : '近战位'} · 阻挡 ${st.block}</b>
-              <span>近战只攻击自己阻挡的敌人；远程按射程攻击。部署位置会写进当前存档。</span>
-              <span class="small">在战斗页「编队」旁的「部署」中调整站位。</span>
+              <b>${st.range > 40 ? '后排' : '前排'} · 阻挡 ${st.block}</b>
+              <span>战斗改为横版推进：近战在前排阻挡，远程与医疗在后排输出。</span>
+              <span class="small">队伍会在战场中向前奔跑，遇敌停战、清波继续；不再使用格子部署。</span>
             </div>
           </div>
         </div>
@@ -1426,7 +1424,7 @@ function openSquadEditor() {
     const inSquad = state.squad.includes(d.id);
     return `<button class="roster-pick ${inSquad ? 'in' : ''}" data-action="squad-add" data-id="${d.id}" ${inSquad ? 'disabled' : ''} style="--rarity:${STAR_COLOR[d.rarity]}"><img src="${G.portraitFor(d.id)}" alt="" loading="lazy"><span>${esc(d.name)}</span><small>PWR ${fmt(G.opPower(d.id))}</small></button>`;
   }).join('');
-  openModal(modalShell('编队配置', `<div class="squad-editor-slots">${slots}</div><div class="divider"></div><div class="flex-between"><div class="panel-title">可用干员</div><span class="small">点击加入编队 · 总战力 ${fmt(G.squadPower())}</span></div><div class="roster-picker">${roster}</div>`, { wide: true, kicker: 'FORMATION // 12 SLOTS', sub: '职业协同：同职业 2 人起获得攻击加成。' }));
+  openModal(modalShell('编队配置', `<div class="squad-editor-slots">${slots}</div><div class="divider"></div><div class="flex-between"><div class="panel-title">可用干员</div><span class="small">点击加入编队 · 总战力 ${fmt(G.squadPower())}</span></div><div class="roster-picker">${roster}</div>`, { wide: true, kicker: 'FORMATION // 5 SLOTS', sub: '5 人横版编队：近战靠前，远程与医疗在后。' }));
 }
 
 function openItem(id) {
@@ -1495,7 +1493,7 @@ export function showSabotage({ room, entry }) {
 
 // ── tutorial ──────────────────────────────────────────────────────
 const TUTORIAL = [
-  { title: '编队与职业协同', body: '一个编队可以放 12 名干员。近战干员会阻挡敌人，远程干员在后方输出，医疗干员负责维持战线。同职业上阵 2 人以上会激活攻击加成。', hint: '点击“编成”调整队伍，或使用“自动编队”。' },
+  { title: '编队与职业协同', body: '一个编队可以放 5 名干员。近战干员在前排阻挡敌人，远程与医疗在后排输出；队伍会在横版战场中向前推进。同职业上阵 2 人以上会激活攻击加成。', hint: '点击“编成”调整队伍，或使用“自动编队”。' },
   { title: '无理智自动作战', body: '选关后会自动部署并循环作战。战斗失败不会停止挂机，合成玉、源石碎片与基建材料仍会按关卡速率持续积累。', hint: '前期一小时约 10 抽，十五章一小时约 30 抽。' },
   { title: '抽卡、养成与罗德岛', body: '初始拥有 100 抽。每 300 抽可自选任意 6★。干员有 5 点潜能、精英化、技能专精与模组。基建无限升级，但每级只加很小的暴击、暴伤与治疗。', hint: '小心维什戴尔。她真的会炸。' },
 ];

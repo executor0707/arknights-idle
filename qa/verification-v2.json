@@ -17,9 +17,10 @@
       "annihilation": 37,
       "resource": 3,
       "arena": true,
-      "allies": 8,
+      "allies": 5,
       "stageCards": 10,
-      "errors": []
+      "errors": [],
+      "squadSlots": 5
     },
     "coreLoop": {
       "status": "victory",
@@ -88,7 +89,7 @@
     "spine": {
       "canvas35": true,
       "canvas38": true,
-      "operatorSpineUnitsOnStarterBattle": 8,
+      "operatorSpineUnitsOnStarterBattle": 5,
       "operatorSpineCoverage": "469/469",
       "operator3_5Sets": 42,
       "operator3_8Sets": 427,
@@ -166,11 +167,12 @@
     "endless": {
       "floorCap": 325,
       "maxFloor": 325,
-      "maxPower": 71009,
+      "maxPower": "pending 5-person recalc",
       "floor1PullsPerHour": 15,
       "floor325PullsPerHour": 120,
       "bossPool": 6,
-      "autoNext": true
+      "autoNext": true,
+      "maxPowerOld": 71009
     },
     "materials": {
       "promotion": "chip + LMD only",
@@ -189,12 +191,6 @@
       "chance": 0.15,
       "timerVisible": false
     },
-    "gridDeployment": {
-      "cells": 18,
-      "rangeCells": true,
-      "swap": true,
-      "buttonNextToSquad": true
-    },
     "amiya": {
       "guard": "R8-11",
       "medic": "14-23",
@@ -204,11 +200,19 @@
     "pause": {
       "resumeButton": true,
       "escResume": true
+    },
+    "marchBattle": {
+      "squad": 5,
+      "horizontal": true,
+      "characterColumn": true,
+      "oldGridRemoved": true,
+      "spineUnits": 5
     }
   },
   "limitations": [
-    "Boss models are mapped by chapter and the endless pool currently has 6 boss assets, not one unique boss per stage.",
-    "Skin-specific Spine is not implemented; equipped skins only affect portraits, archive art and skill cut-ins; battle uses the default operator Spine.",
+    "Combat is now a 5-person horizontal march; damage/leak/Boss balance is pending the next numeric pass.",
+    "Boss models are mapped by chapter and the endless pool currently has 6 boss assets.",
+    "Skin-specific Spine is not implemented; PRTS skin Spine asset files return 404.",
     "1 skin (Alanna) lacks a PRTS half-body image and falls back to the operator portrait.",
     "No cloud save; localStorage only."
   ],
