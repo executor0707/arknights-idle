@@ -1,0 +1,25 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Network.enable');
+await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=healtest'});
+await new Promise(r => setTimeout(r, 1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r => setTimeout(r, 1600));
+const result = await evalJS(send, `(()=>{
+ const s=__RHODES__.state;
+ s.operators.ansel ||= {level:1,elite:0,potential:1,skill:1,mastery:0,trust:0,module:0,exp:0};
+ s.squad=[s.squad.filter(Boolean).slice(0,4), 'ansel'].flat().slice(0,5);
+ const b=__RHODES__.battle; b.start('CE-6');
+ const medic=b.allies.find(a=>a.heal);
+ if(!medic) return JSON.stringify({error:'no medic',allies:b.allies.map(a=>a.role)});
+ const target=b.allies.find(a=>a!==medic && !a.dead);
+ target.hp=Math.max(1,target.maxHp*0.2);
+ target.x=90; medic.x=28; medic.cooldown=0;
+ const before=target.hp;
+ b._updateAllies(0.1);
+ return JSON.stringify({medic:medic.id,range:medic.range,before:Math.round(before),after:Math.round(target.hp),healed:target.hp>before,allyRatio:+(target.hp/target.maxHp).toFixed(2)});
+})()`);
+console.log(result);
+process.exit(0);

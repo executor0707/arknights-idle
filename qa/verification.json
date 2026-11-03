@@ -245,6 +245,11 @@
     "deployOrder": {
       "source": "squad slot order",
       "frontSlot": 1
+    },
+    "healing": {
+      "infiniteRange": true,
+      "lowestHpPriority": true,
+      "tested": true
     }
   },
   "limitations": [

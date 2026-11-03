@@ -360,7 +360,9 @@ export class Battle {
   }
 
   _lowestAlly(a) {
-    return this.allies.filter(x => !x.dead && Math.abs(x.x - a.x) <= a.range)
+    // Medics have unlimited healing range in this mode: every living ally on
+    // the battlefield is a valid target. Lowest HP percentage wins.
+    return this.allies.filter(x => !x.dead)
       .sort((x, y) => (x.hp / x.maxHp) - (y.hp / y.maxHp))[0];
   }
 
