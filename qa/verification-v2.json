@@ -261,7 +261,9 @@
       "critCap": 1,
       "controlMaxLevel": 1900,
       "basePowerGain": 16,
-      "perRoomValues": true
+      "perRoomValues": true,
+      "damagedBonusZero": true,
+      "repairCost": 30000
     },
     "eventLog": {
       "page": "events",
@@ -272,6 +274,10 @@
       ],
       "logCap": 120,
       "operatorNames": true
+    },
+    "repair": {
+      "fixedCost": 30000,
+      "damagedBonusZero": true
     }
   },
   "limitations": [

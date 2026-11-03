@@ -932,7 +932,8 @@ export function upgradeRoom(id) {
 export function repairCost(id) {
   const r = roomDef(id); const s = state.base.rooms[id];
   if (!r || !s) return 0;
-  return Math.floor(r.baseCost * (0.34 + s.level * 0.18) * (1 - repairDiscount()));
+  // Fixed emergency repair fee for a W-sabotaged facility.
+  return 30000;
 }
 export function repairRoom(id) {
   const s = state.base.rooms[id];
