@@ -200,7 +200,7 @@ export function syncSpine(battle) {
       if (sp) sprites.set('a:' + a.uid, sp);
       if (!sp) continue;
     }
-    const s = sp._baseScale * (state.settings?.characterScale || 1.2);
+    const s = sp._baseScale * (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id);
     sp.scale.set(s, s);
     sp.x = Math.min(width - 26, Math.max(26, (a.x / 100) * width + Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7));
     sp.y = (a.y / 100) * height + 18 + Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6;
