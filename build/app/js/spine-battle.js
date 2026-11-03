@@ -149,7 +149,7 @@ function make35(unit) {
   sp.update(0);
   const lb = sp.getLocalBounds();
   const visibleH = lb && lb.height > 4 ? lb.height : data.height;
-  const scale = 54 / Math.max(1, visibleH);
+  const scale = 130 / Math.max(1, visibleH);
   sp._baseScale = scale;
   sp._dir = 1;
   sp.scale.set(scale, scale);

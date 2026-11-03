@@ -1,0 +1,13 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=frontscale'});
+await new Promise(r=>setTimeout(r,1200));
+await evalJS(send,`document.getElementById('enterBtn').click();true`);
+await new Promise(r=>setTimeout(r,2200));
+await evalJS(send,`document.querySelector('[data-action="tutorial-skip"]')?.click();true`);
+await new Promise(r=>setTimeout(r,3000));
+console.log(await evalJS(send,`JSON.stringify({time:__RHODES__.battle.time,wave:__RHODES__.battle.wave,allies:__RHODES__.battle.allies.length,sprites:(()=>{const f=document.querySelector('iframe.spine38-frame');const s=f?.contentWindow?.__frame?.sprites;return s?[...s.keys()].length:0})(),errs:window.__errs||null})`));
+await screenshot(send,'.cache/scale-front.png',1440,1000);
+process.exit(0);

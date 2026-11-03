@@ -1,0 +1,22 @@
+import { connect } from './cdp.mjs';
+const { ws, send } = await connect();
+const errors = [];
+ws.addEventListener('message', (ev) => {
+  const m = JSON.parse(ev.data);
+  if (m.method === 'Runtime.exceptionThrown') errors.push(m.params.exceptionDetails?.exception?.description || m.params.exceptionDetails?.text);
+  if (m.method === 'Log.entryAdded' && m.params.entry.level === 'error') errors.push(m.params.entry.text);
+});
+await send('Runtime.enable');
+await send('Log.enable');
+await send('Page.enable');
+await send('Network.enable');
+await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=errdiag'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,3000));
+await send('Runtime.evaluate',{expression:`document.querySelector('[data-action="tutorial-skip"]')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,2500));
+console.log('errors', JSON.stringify(errors.slice(0,20)));
+console.log('state', await send('Runtime.evaluate',{expression:`JSON.stringify({errs:window.__errs||null,time:__RHODES__?.battle?.time,wave:__RHODES__?.battle?.wave,status:__RHODES__?.battle?.status})`,returnByValue:true}));
+process.exit(0);
