@@ -102,6 +102,9 @@ export class Battle {
       if (op) this.allies.push(op);
     });
     this._buildSpawnQueue();
+    this.killLmdBudget = Math.max(0, Math.floor((stage.rewards?.lmd || 0) * 0.35));
+    this.killLmdPaid = 0;
+    this.killLmdPerKill = Math.max(1, Math.floor(this.killLmdBudget / Math.max(1, this.spawnQueue.length)));
     bus.dispatchEvent(new CustomEvent('battle-start', { detail: { stage } }));
     saveNow();
     return true;
@@ -429,6 +432,12 @@ export class Battle {
     e.dead = true;
     this.kills++;
     this._effect(e.x, e.y, e.boss ? 'bossdown' : 'down', e.boss ? 1.2 : 0.45);
+    const payable = Math.max(0, (this.killLmdBudget || 0) - (this.killLmdPaid || 0));
+    const gain = Math.min(payable, (this.killLmdPerKill || 0) * (e.boss ? 6 : 1));
+    if (gain > 0) {
+      state.lmd += gain;
+      this.killLmdPaid = (this.killLmdPaid || 0) + gain;
+    }
     if (e.boss) this.shake = 0.5;
     for (const a of this.allies) if (!a.dead && a.id === 'kirin_yato') a.sp = Math.min(a.maxSp, a.sp + 20);
   }
@@ -623,7 +632,8 @@ export class Battle {
     if ((this.stage.group === 'main' || this.stage.group === 'endless') && !state.stage.cleared.includes(this.stage.id)) state.stage.cleared.push(this.stage.id);
     this.nextStageId = this._nextStageAfterWin();
     state.stage.totalRuns = (state.stage.totalRuns || 0) + 1;
-    const reward = grantStageRewards(this.stage);
+    const reward = grantStageRewards(this.stage, { lmdCredit: this.killLmdPaid || 0 });
+    if (reward) reward.killLmd = this.killLmdPaid || 0;
     this.lastReward = reward;
     this.lastWin = true;
     bus.dispatchEvent(new CustomEvent('battle-end', { detail: { win: true, stage: this.stage, reward } }));
