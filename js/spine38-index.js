@@ -1679,6 +1679,10 @@ export const SPINE38_OPERATORS = {
   "ling": {
     "base": "assets/spine38/operators/ling/char_2023_ling",
     "name": "ling"
+  },
+  "char_4124_iana": {
+    "base": "assets/spine38/operators/char_4124_iana/char_4124_iana",
+    "name": "双月"
   }
 };
 export const SPINE35_ONLY = {
