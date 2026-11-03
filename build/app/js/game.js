@@ -70,7 +70,7 @@ export function createDefaultState() {
     stats: { runs: 0, wins: 0, losses: 0, kills: 0, battleSeconds: 0, pulls: 0, levels: 0, promotions: 0, repairs: 0, offlineSec: 0 },
     daily: { date: dateKey(), runs: 0, pulls: 0, levels: 0, repairs: 0, annihilation: 0, claimed: [], supplyClaimed: false },
     shop: { date: dateKey(), stock: Object.fromEntries(SHOP_ITEMS.map(i => [i.id, i.stock])) },
-    settings: { sound: true, reduceMotion: false, autoSkill: true },
+    settings: { sound: true, reduceMotion: false, autoSkill: true, characterScale: 1.2 },
     randomEvent: { nextAt: 0, log: [] },
     tutorialDone: localStorage.getItem(TUTORIAL_FLAG) === '1',
     seenOffline: 0,
@@ -123,6 +123,9 @@ export function loadGame() {
   if (!state.idle) state.idle = { orundum: 0, shards: 0, blocks: 0, lmd: 0, exp: 0, chips: 0, chipPacks: 0, seconds: 0 };
   if (typeof state.idle.chips !== 'number') state.idle.chips = 0;
   if (typeof state.idle.chipPacks !== 'number') state.idle.chipPacks = 0;
+  if (!state.settings || typeof state.settings !== 'object') state.settings = {};
+  if (!Number.isFinite(state.settings.characterScale)) state.settings.characterScale = 1.2;
+  state.settings.characterScale = Math.min(1.8, Math.max(0.8, state.settings.characterScale));
   if (!state.randomEvent || typeof state.randomEvent !== 'object') state.randomEvent = { nextAt: 0, log: [] };
   if (!Array.isArray(state.randomEvent.log)) state.randomEvent.log = [];
   unlockAmiyaForms();
@@ -224,7 +227,8 @@ export function getOpStats(id) {
   let atk = base.atk * mod.atk * levelMul * eliteMul * potMul * trustMul * moduleMul;
   let def = base.def * mod.def * levelMul * eliteMul * potMul * trustMul * moduleMul;
   let res = base.res * mod.res * (1 + s.elite * 0.12) * (1 + (s.module || 0) * 0.05);
-  let interval = mod.interval;
+  // Role-level PRTS cadence, compressed slightly for readable idle combat.
+  let interval = mod.interval * 0.82;
   if (data.rarity === 5) atk *= 1.06;
   if (data.rarity === 4) hp *= 1.05;
   if (data.rarity === 3) def *= 1.04;

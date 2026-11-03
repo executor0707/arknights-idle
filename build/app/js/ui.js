@@ -127,6 +127,14 @@ function bindEvents() {
     }
   });
   document.addEventListener('input', (e) => {
+    if (e.target.id === 'charScale') {
+      const v = Math.min(1.8, Math.max(0.8, Number(e.target.value) || 1.2));
+      state.settings.characterScale = v;
+      const label = $('#charScaleValue');
+      if (label) label.textContent = Math.round(v * 100) + '%';
+      G.saveNow();
+      return;
+    }
     if (e.target.id === 'skinSearch') {
       ui.skinFilter.q = e.target.value;
       renderView();
@@ -642,8 +650,8 @@ function syncArena(rebuild = false) {
     alive.add(unit.uid);
     let node = a.allies.get(unit.uid);
     if (!node) { node = makeAllyEl(unit); a.layerAllies.appendChild(node); a.allies.set(unit.uid, node); }
-    const bob = Math.sin(performance.now() / 145 + (unit.bobPhase || 0)) * 4.0;
-    const bobX = Math.sin(performance.now() / 190 + (unit.bobPhase || 0)) * 1.6;
+    const bob = Math.sin(performance.now() / 170 + (unit.bobPhase || 0)) * 1.6;
+    const bobX = Math.sin(performance.now() / 220 + (unit.bobPhase || 0)) * 0.7;
     node.style.left = `calc(${unit.x}% + ${bobX.toFixed(1)}px)`;
     node.style.top = `calc(${unit.y}% + ${bob.toFixed(1)}px)`;
     node._refs.hp.style.width = Math.max(0, unit.hp / unit.maxHp * 100) + '%';
@@ -1372,6 +1380,10 @@ function renderArchive() {
           <div class="setting-row"><div>音效<small>战斗、抽卡与界面反馈</small></div><button class="switch ${state.settings.sound ? 'on' : ''}" data-action="setting" data-key="sound"></button></div>
           <div class="setting-row"><div>自动释放技能<small>干员技力满时自动触发</small></div><button class="switch ${state.settings.autoSkill ? 'on' : ''}" data-action="setting" data-key="autoSkill"></button></div>
           <div class="setting-row"><div>减少动态效果<small>降低扫光与闪烁动画</small></div><button class="switch ${state.settings.reduceMotion ? 'on' : ''}" data-action="setting" data-key="reduceMotion"></button></div>
+          <div class="setting-row setting-slider-row">
+            <div>角色大小<small>战斗 Spine 缩放 · 默认 120%</small></div>
+            <div class="setting-slider"><input id="charScale" type="range" min="0.8" max="1.8" step="0.05" value="${state.settings.characterScale ?? 1.2}"><b id="charScaleValue">${Math.round((state.settings.characterScale ?? 1.2) * 100)}%</b></div>
+          </div>
           <div class="setting-row"><div>新手提示<small>重新查看三页上手说明</small></div><button class="btn btn-small" data-action="tutorial">查看</button></div>
         </div>
       </div>

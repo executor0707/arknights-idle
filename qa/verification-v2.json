@@ -207,12 +207,27 @@
       "sameRoad": true,
       "spineBob": true,
       "enemyAligned": true,
-      "oldGridRemoved": true
+      "oldGridRemoved": true,
+      "modelBase": 130,
+      "defaultScale": 1.2,
+      "bobAmplitude": 1.6
     },
     "battleRules": {
       "leakFailAt": 3,
       "bossLeakCount": 3,
       "bossPowerMultiplier": 1.75
+    },
+    "characterScale": {
+      "default": 1.2,
+      "min": 0.8,
+      "max": 1.8,
+      "slider": true,
+      "persisted": true
+    },
+    "attackTiming": {
+      "source": "role baseline",
+      "compression": 0.82,
+      "perOperatorWiki": false
     }
   },
   "limitations": [
