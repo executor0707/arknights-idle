@@ -883,7 +883,8 @@ a { color: var(--orange); }
 .skin-card-wrap .skin-card { width: 100%; }
 .skin-scale-row { padding: 5px 6px 6px; border: 1px solid var(--line); border-top: 0; background: rgba(255,255,255,.018); }
 .skin-scale-head { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
-.skin-scale-row label { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 8px; color: var(--dim); }
+.skin-scale-row label { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; font-family: var(--mono); font-size: 7px; line-height: 1.1; color: var(--dim); white-space: nowrap; }
+.skin-scale-row label span { letter-spacing: -.02em; }
 .skin-scale-reset { padding: 0 4px; border: 1px solid var(--line); background: transparent; color: var(--muted); font-family: var(--mono); font-size: 9px; line-height: 14px; cursor: pointer; }
 .skin-scale-reset:hover { color: var(--orange); border-color: var(--orange); }
 .skin-scale-row label b { color: var(--orange); font-weight: 500; }

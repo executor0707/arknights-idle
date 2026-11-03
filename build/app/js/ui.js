@@ -949,7 +949,7 @@ export function openOperator(id, opts = {}) {
         <img src="${sk.img}" alt="${esc(sk.name)}" loading="lazy">
         <div class="skin-meta"><b>${esc(sk.name)}</b><span>${owned ? (isEq ? '已装备' : '点击装备') : '◆ ' + SKIN_PRICE}</span></div>
       </button>
-      <div class="skin-scale-row"><div class="skin-scale-head"><label>皮肤大小 <b data-skin-scale-value="${sk.id}">${pct}%</b></label><button class="skin-scale-reset" data-action="reset-skin-scale" data-id="${sk.id}" title="重置为 100%">↺</button></div><input type="range" min="50" max="200" step="1" value="${pct}" data-skin-scale="${sk.id}" aria-label="${esc(sk.name)} 皮肤大小"></div>
+      <div class="skin-scale-row"><div class="skin-scale-head"><label><span>战斗小人缩放</span><b data-skin-scale-value="${sk.id}">${pct}%</b></label><button class="skin-scale-reset" data-action="reset-skin-scale" data-id="${sk.id}" title="重置为 100%">↺</button></div><input type="range" min="50" max="200" step="1" value="${pct}" data-skin-scale="${sk.id}" aria-label="${esc(sk.name)} 战斗小人缩放"></div>
     </div>`;
   }).join('');
 
@@ -1260,7 +1260,7 @@ function renderSkins() {
       <img src="${sk.img}" alt="${esc(sk.name)}" loading="lazy">
       <div class="gallery-info"><b>${esc(sk.name)}</b><span>${esc(op.name)} · ${esc(sk.series || '常驻')}</span>
         <button class="btn btn-small ${eq ? 'btn-cyan' : isOwned ? 'btn-primary' : ''}" data-action="gallery-skin" data-id="${sk.id}" ${!isOwned && state.primes < 18 ? 'disabled' : ''}>${eq ? '已装备' : isOwned ? '装备' : '◆ 18'}</button>
-        <div class="skin-scale-row"><div class="skin-scale-head"><label>大小 <b data-skin-scale-value="${sk.id}">${Math.round(G.skinScale(sk.id) * 100)}%</b></label><button class="skin-scale-reset" data-action="reset-skin-scale" data-id="${sk.id}" title="重置为 100%">↺</button></div><input type="range" min="50" max="200" step="1" value="${Math.round(G.skinScale(sk.id) * 100)}" data-skin-scale="${sk.id}" aria-label="${esc(sk.name)} 皮肤大小"></div>
+        <div class="skin-scale-row"><div class="skin-scale-head"><label><span>战斗小人缩放</span><b data-skin-scale-value="${sk.id}">${Math.round(G.skinScale(sk.id) * 100)}%</b></label><button class="skin-scale-reset" data-action="reset-skin-scale" data-id="${sk.id}" title="重置为 100%">↺</button></div><input type="range" min="50" max="200" step="1" value="${Math.round(G.skinScale(sk.id) * 100)}" data-skin-scale="${sk.id}" aria-label="${esc(sk.name)} 战斗小人缩放"></div>
       </div>
     </div>`;
   }).join('');
@@ -1493,7 +1493,7 @@ function renderArchive() {
           <div class="setting-row"><div>自动释放技能<small>干员技力满时自动触发</small></div><button class="switch ${state.settings.autoSkill ? 'on' : ''}" data-action="setting" data-key="autoSkill"></button></div>
           <div class="setting-row"><div>减少动态效果<small>降低扫光与闪烁动画</small></div><button class="switch ${state.settings.reduceMotion ? 'on' : ''}" data-action="setting" data-key="reduceMotion"></button></div>
           <div class="setting-row setting-slider-row">
-            <div>全局角色倍率<small>与皮肤单独大小相乘 · 50%–200%</small></div>
+            <div>战斗小人缩放（全局）<small>与皮肤单独缩放相乘 · 50%–200%</small></div>
             <div class="setting-slider"><input id="charScale" type="range" min="0.5" max="2" step="0.05" value="${state.settings.characterScale ?? 1.2}"><b id="charScaleValue">${Math.round((state.settings.characterScale ?? 1.2) * 100)}%</b></div>
           </div>
           <div class="setting-row setting-slider-row">
