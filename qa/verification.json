@@ -1,0 +1,122 @@
+{
+  "targetRuntime": "web-static",
+  "testedRuntime": "Chrome 156.0.8078.80 headless (Windows 10), 1440x1000 + 390x844",
+  "command": "node tools/qa-run.mjs",
+  "exitCode": 0,
+  "checks": {
+    "launch": {
+      "title": "罗德岛值守协议 · ARKNIGHTS IDLE",
+      "splashGone": true,
+      "appVisible": true,
+      "errors": []
+    },
+    "render": {
+      "arena": true,
+      "allies": 8,
+      "stages": 10,
+      "resources": true,
+      "errors": []
+    },
+    "coreLoop": {
+      "status": "victory",
+      "time": 52.3,
+      "kills": 15,
+      "firstClear": true,
+      "primes": 1,
+      "reward": {
+        "lmd": 7819,
+        "orundum": 12,
+        "first": {
+          "primes": 1,
+          "blocks": 3
+        }
+      },
+      "errors": []
+    },
+    "outcome": {
+      "autoRestarted": true,
+      "runId": 2,
+      "totalRuns": 1,
+      "errors": []
+    },
+    "input": {
+      "levelBefore": 1,
+      "levelAfter": 11,
+      "detailOpen": true,
+      "skinsVisible": 3,
+      "errors": []
+    },
+    "gacha": {
+      "pullsBefore": 0,
+      "pullsAfter": 10,
+      "overlay": true,
+      "cards": 10,
+      "errors": []
+    },
+    "base": {
+      "before": {
+        "level": 1,
+        "crit": 0.0505,
+        "blocks": 23
+      },
+      "after": {
+        "level": 2,
+        "crit": 0.051000000000000004,
+        "blocks": 22
+      }
+    },
+    "skin": {
+      "before": 0,
+      "after": 1,
+      "price": 88
+    },
+    "selector": {
+      "available": 1,
+      "opsBefore": 21,
+      "opsAfter": 21,
+      "used": 1
+    },
+    "offline": {
+      "before": {
+        "o": 54123.735046598405,
+        "sh": 0.08027187633656868,
+        "p": 0
+      },
+      "after": {
+        "o": 66356.74475533627,
+        "sh": 8.868621390899676,
+        "p": 0
+      },
+      "report": {
+        "orundum": 12233.009708737867,
+        "pulls": 20.39,
+        "primes": 0,
+        "shards": 8.79,
+        "blocks": 6
+      }
+    },
+    "restart": {
+      "savedLevel": 11,
+      "restoredLevel": 11,
+      "restoredControl": 2,
+      "battleRunning": "running",
+      "errors": []
+    },
+    "mobile": {
+      "width": 443,
+      "height": 959,
+      "bottomNav": true,
+      "arenaVisible": true,
+      "errors": []
+    }
+  },
+  "limitations": [
+    "86 operators and 17 main stages, not the complete live roster or story.",
+    "Idle/offline income is rate-based, while active combat uses a simplified three-lane simulation.",
+    "No cloud save or account sync; progress is localStorage only.",
+    "Uncapped base levels can eventually overpower fixed stage content; 15-3 is the terminal tuned challenge."
+  ],
+  "evidence": {
+    "launch": "Orundum=60004, squad=8"
+  }
+}

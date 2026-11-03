@@ -1,0 +1,7 @@
+.cache/
+node_modules/
+qa/*.png
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
