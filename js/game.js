@@ -32,7 +32,7 @@ export const USEFUL_ITEM_IDS = new Set([
 // Control room gives 0.05% crit per level on top of the 5% base crit.
 export const CONTROL_MAX_LEVEL = 1900;
 const MAX_ELITE = { 2: 0, 3: 1, 4: 2, 5: 2, 6: 2 };
-const TUTORIAL_FLAG = 'rhodes_idle_tutorial_v2';
+const TUTORIAL_FLAG = 'rhodes_idle_tutorial_v3';
 const REMOVED_OPERATOR_IDS = new Set([
   'char_610_acfend', 'char_615_acspec', 'char_612_accast', 'char_614_acsupo',
   'char_609_acguad', 'char_611_acnipe', 'char_613_acmedc', 'char_606_csuppo',

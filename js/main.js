@@ -33,8 +33,11 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-// v2 storage generation: the previous save key and tutorial flag are retired.
-for (const legacy of ['rhodes_island_idle_save_v1', 'rhodes_idle_tutorial_v1']) {
+// v3 storage generation: every previous save key and tutorial flag is retired.
+for (const legacy of [
+  'rhodes_island_idle_save_v1', 'rhodes_island_idle_save_v2',
+  'rhodes_idle_tutorial_v1', 'rhodes_idle_tutorial_v2',
+]) {
   localStorage.removeItem(legacy);
 }
 const hasSave = !!localStorage.getItem(SAVE_KEY);
@@ -44,7 +47,7 @@ if (splashReset) splashReset.classList.toggle('hidden', !hasSave);
 splashReset?.addEventListener('click', () => {
   if (confirm('清除当前存档并重新开始？此操作不可撤销。')) {
     localStorage.removeItem(SAVE_KEY);
-    localStorage.removeItem('rhodes_idle_tutorial_v2');
+    localStorage.removeItem('rhodes_idle_tutorial_v3');
     location.reload();
   }
 });
@@ -93,6 +96,9 @@ function boot() {
   initAudio();
   sfx('open');
   loadGame();
+  // The imported state is already in localStorage by this point. Clearing the
+  // guard here lets every later normal unload persist the played state.
+  window.__RHODES_IMPORTING__ = false;
   offlineReport = applyOffline();
   if (state.settings.reduceMotion) document.documentElement.classList.add('reduce-motion');
 
