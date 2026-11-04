@@ -102,7 +102,9 @@ function uiView() {
   return active?.dataset.nav || 'battle';
 }
 
-window.addEventListener('beforeunload', () => saveNow());
+window.addEventListener('beforeunload', () => {
+  if (!window.__RHODES_IMPORTING__) saveNow();
+});
 
 // 调试入口：仅用于本机验证与自动化 QA。
 window.__RHODES__ = {
