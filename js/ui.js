@@ -336,15 +336,17 @@ function closeModal(silent = false) {
 
 // ── battle view ───────────────────────────────────────────────────
 function renderBattle() {
-  const stage = G.STAGE_BY_ID.get(state.stage.selected) || STAGES[0];
+  let stage = G.STAGE_BY_ID.get(state.stage.selected) || STAGES[0];
   if (!ui.stageGroup) ui.stageGroup = stage.group;
+  const allGroupStages = STAGES.filter(s => s.group === ui.stageGroup);
+  const endlessCurrent = allGroupStages.reduce((a, b) => !a || b.floor > a.floor ? b : a, null);
+  if (ui.stageGroup === 'endless' && endlessCurrent) stage = endlessCurrent;
   const power = G.squadPower();
   const idle = G.idleSummary(stage);
-  const allGroupStages = STAGES.filter(s => s.group === ui.stageGroup);
   if (ui.stageGroup === 'main' && !allGroupStages.some(s => String(s.chapterKey) === String(ui.mainChapter))) {
     ui.mainChapter = stage.group === 'main' ? stage.chapterKey : allGroupStages[0]?.chapterKey || 0;
   }
-  const stages = ui.stageGroup === 'main' ? allGroupStages.filter(s => String(s.chapterKey) === String(ui.mainChapter)) : allGroupStages;
+  const stages = ui.stageGroup === 'endless' ? [endlessCurrent].filter(Boolean) : ui.stageGroup === 'main' ? allGroupStages.filter(s => String(s.chapterKey) === String(ui.mainChapter)) : allGroupStages;
   const chapters = [...new Map(STAGES.filter(s => s.group === 'main').map(s => [String(s.chapterKey), s])).values()];
   const selectedGroup = STAGE_GROUPS.find(g => g.id === ui.stageGroup);
   const ratio = power / stage.rec;

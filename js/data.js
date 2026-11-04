@@ -165,9 +165,9 @@ export function makeEndlessStage(n) {
   return {
     id: 'endless-' + floor,
     group: 'endless',
-    code: 'END-' + String(floor).padStart(3, '0'),
+    code: 'END-' + String(floor - 1).padStart(3, '0'),
     chapter: '无尽战斗',
-    name: '无尽战线 ' + String(floor).padStart(2, '0'),
+    name: '无尽战线-' + String(floor - 1),
     floor,
     rec,
     waves: Math.min(8, 3 + Math.floor(i / 3)),
@@ -186,7 +186,7 @@ export function makeEndlessStage(n) {
     },
   };
 }
-const ENDLESS_STAGES = Array.from({ length: 12 }, (_, i) => makeEndlessStage(i + 1));
+const ENDLESS_STAGES = [makeEndlessStage(1)];
 
 const CORE_STAGES = V2_STAGES.filter(s => s.group !== 'chip' && !(s.group === 'resource' && s.code === 'PR-D'));
 const CA_STAGE = {
