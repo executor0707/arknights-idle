@@ -3,6 +3,7 @@ import {
 } from './game.js';
 import * as G from './game.js';
 import { SAVE_KEY } from './data.js';
+import { decodeSaveFile } from './save-codec.js';
 import { Battle } from './battle.js';
 import { initUI, setView, tick, showOfflineReport, startTutorial, updateChrome } from './ui.js';
 import { initAudio, sfx } from './audio.js';
@@ -12,6 +13,9 @@ const app = document.getElementById('app');
 const enterBtn = document.getElementById('enterBtn');
 const enterLabel = document.getElementById('enterLabel');
 const splashReset = document.getElementById('splashReset');
+const splashImport = document.getElementById('splashImport');
+const splashImportFile = document.getElementById('splashImportFile');
+const splashImportStatus = document.getElementById('splashImportStatus');
 const clockEl = document.getElementById('splashClock');
 
 let battle = null;
@@ -38,6 +42,42 @@ splashReset?.addEventListener('click', () => {
     localStorage.removeItem(SAVE_KEY);
     localStorage.removeItem('rhodes_idle_tutorial_v1');
     location.reload();
+  }
+});
+
+splashImport?.addEventListener('click', () => splashImportFile?.click());
+
+splashImportFile?.addEventListener('change', async () => {
+  const file = splashImportFile.files?.[0];
+  if (!file) return;
+  if (hasSave && !confirm('导入存档会覆盖当前进度，继续吗？')) {
+    splashImportFile.value = '';
+    return;
+  }
+  if (splashImport) splashImport.disabled = true;
+  if (splashImportStatus) {
+    splashImportStatus.className = 'splash-import-status';
+    splashImportStatus.textContent = '正在读取存档…';
+  }
+  try {
+    const parsed = JSON.parse(await file.text());
+    const data = await decodeSaveFile(parsed);
+    if (!data || !data.operators) throw new Error('存档中没有干员数据');
+    window.__RHODES_IMPORTING__ = true;
+    localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+    if (splashImportStatus) {
+      splashImportStatus.className = 'splash-import-status ok';
+      splashImportStatus.textContent = `存档已读取：${Object.keys(data.operators).length} 名干员，正在开局…`;
+    }
+    setTimeout(boot, 350);
+  } catch (e) {
+    if (splashImportStatus) {
+      splashImportStatus.className = 'splash-import-status bad';
+      splashImportStatus.textContent = `导入失败：${e?.message || '文件格式错误或已损坏'}`;
+    }
+    splashImportFile.value = '';
+  } finally {
+    if (splashImport) splashImport.disabled = false;
   }
 });
 
