@@ -770,6 +770,13 @@
         "lmd": 26000,
         "book3": 3
       }
+    },
+    "homeIdleStats": {
+      "lmdPerHour": 3082,
+      "orundumPerHour": 6109,
+      "pullsPerHour": 10.2,
+      "primesPerDay": 5.3,
+      "columns": 4
     }
   },
   "limitations": [

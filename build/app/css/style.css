@@ -445,7 +445,8 @@ a { color: var(--orange); }
 .squad-synergy b { color: var(--orange); }
 
 .lower-grid { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 12px; margin-top: 14px; }
-.mini-stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+.mini-stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+@media (max-width: 760px) { .mini-stat-row { grid-template-columns: repeat(2, 1fr); } }
 .mini-stat { border: 1px solid var(--line); background: rgba(255,255,255,.018); padding: 8px; }
 .mini-stat span { display: block; font-family: var(--mono); font-size: 7px; color: var(--dim); letter-spacing: .08em; }
 .mini-stat b { display: block; font-family: var(--display); font-size: 14px; font-weight: 500; margin-top: 4px; color: var(--orange); }
