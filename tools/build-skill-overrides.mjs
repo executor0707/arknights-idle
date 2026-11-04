@@ -4,6 +4,21 @@ import { OPERATORS } from '../build/app/js/operators.js';
 const chars = JSON.parse(fs.readFileSync('.cache/character_table.json', 'utf8'));
 const skillTable = JSON.parse(fs.readFileSync('.cache/skill_table.json', 'utf8'));
 
+const SUMMON_NAMES = {
+  char_393_toledo: '征服者传说',
+  char_4195_radian: '戴乌',
+  char_4016_kazema: '纸偶',
+  char_391_rosmon: '迷迭香的战术装备',
+  char_344_beewax: '沙之碑',
+  wisadel: '魂灵之影',
+  dusk: '小自在',
+  char_1019_siege2: '黄金盟誓',
+};
+const SUMMON_COUNTS = {
+  char_391_rosmon: 2,
+  wisadel: 2,
+};
+
 const CUSTOM = {
   '12f': { type: 'shield', power: 0.28, duration: 6, desc: '12F 展开闪避姿态，短时间降低受到的伤害，并在下一次攻击中附加法术伤害。' },
   'char_1001_amiya2': { type: 'multi', power: 2.6, hits: 4, duration: 4, desc: '阿米娅挥出影霄连斩，连续攻击最多 4 名敌人，最后一击造成更高的法术伤害。' },
@@ -29,6 +44,9 @@ const CUSTOM = {
   'char_505_rcast': { type: 'aoe', power: 1.8, duration: 4, desc: '预备干员-术师引导源石技艺，对范围内敌人造成法术伤害。' },
   'char_514_rdfend': { type: 'shield', power: 0.28, duration: 7, desc: '预备干员-重装架起防盾，为自身与周围友军提供护盾。' },
   'char_4000_jnight': { type: 'multi', power: 1.8, hits: 3, duration: 4, desc: '正义骑士号锁定目标连射，对最近的敌人造成多段物理伤害。' },
+  'char_4117_ray': { type: 'control', power: 2.8, duration: 4, desc: '莱伊蓄力射出贯穿光束，对直线上所有敌人造成物理伤害并使其束缚 2 秒。' },
+  'char_4193_lemuen': { type: 'aoe', power: 3.0, duration: 5, desc: '蕾缪安标记多名敌人，在技能结束时对每个标记位置进行炮击，对范围内敌人造成物理伤害。' },
+  'char_4125_rdoc': { type: 'heal', power: 2.0, duration: 6, desc: '医生向生命最低的友军发射激素针，立即治疗并短时间提升其攻击力。' },
 };
 
 function cleanText(text, blackboard = []) {
@@ -53,6 +71,15 @@ function cleanText(text, blackboard = []) {
   return s.replace(/\s+([，。；、])/g, '$1').replace(/\s+/g, ' ').trim();
 }
 
+function isAmmoText(text) { return /弹药|子弹|装填/.test(text); }
+function stripAmmoText(text) {
+  return text
+    .replace(/(?:攻击|技能)装有[^。；]*?(?:。|；|$)/g, '')
+    .replace(/[^。；]*?(?:弹药|子弹|装填)[^。；]*?(?:。|；|$)/g, '')
+    .replace(/\s+/g, ' ')
+    .replace(/\s+([，。；、])/g, '$1')
+    .trim();
+}
 function classify(text) {
   if (/治疗|恢复.*生命|回复.*生命|愈合/.test(text)) return 'heal';
   if (/屏障|护盾|庇护|获得.*防御|防御力.*(提升|提高|[+＋])|法抗.*(提升|提高|[+＋])/.test(text)) return 'shield';
@@ -81,7 +108,7 @@ function chooseSkill(op) {
   if (!list.length) return null;
   let chosen = list.find(s => s.levels?.[0]?.name === op.skill?.name);
   if (!chosen) chosen = list[list.length - 1];
-  return { cid, chosen };
+  return { cid, chosen, list };
 }
 
 const overrides = {};
@@ -90,11 +117,23 @@ for (const op of OPERATORS) {
   const picked = chooseSkill(op);
   let entry = null;
   if (picked) {
-    const level = picked.chosen.levels[picked.chosen.levels.length - 1];
+    let chosen = picked.chosen;
+    const levelOf = s => s.levels[s.levels.length - 1];
+    // Ammo skills cannot be represented by the idle battle HUD. Prefer a
+    // different non-ammo skill for the same operator; summoners keep their
+    // signature summon and just lose the ammo clause.
+    if (isAmmoText(cleanText(levelOf(chosen).description, levelOf(chosen).blackboard)) && !SUMMON_NAMES[op.id]) {
+      const alt = picked.list.find(s => s !== chosen && !isAmmoText(cleanText(levelOf(s).description, levelOf(s).blackboard)));
+      if (alt) chosen = alt;
+    }
+    const level = levelOf(chosen);
     const bb = level.blackboard || [];
-    const desc = cleanText(level.description, bb);
+    let desc = cleanText(level.description, bb);
+    if (isAmmoText(desc)) desc = stripAmmoText(desc);
     if (desc && !/职业模板|自动释放.*对战场产生效果/.test(desc)) {
-      const type = classify(desc);
+      let type = classify(desc);
+      if (SUMMON_NAMES[op.id]) type = 'summon';
+      else if (type === 'summon') type = 'aoe';
       const atkBuff = numFrom(bb, ['atk']);
       const atkScale = numFrom(bb, ['atk_scale', 'attack@atk_scale', 'atk_scale_2', 'attack@append_atk_scale', 'damage_scale']);
       let power;
@@ -102,13 +141,20 @@ for (const op of OPERATORS) {
       else if (type === 'shield') power = Math.max(0.2, numFrom(bb, ['hp_ratio', 'shield_scale', 'damage_resistance', 'def']) || 0.25);
       else if (type === 'summon') power = Math.max(0.4, 1 + atkScale);
       else power = Math.max(0.9, Math.min(5.5, 1 + atkBuff + atkScale));
-      const duration = Math.max(2, Math.min(18, Number(level.duration) || (type === 'buff' ? 8 : type === 'shield' ? 6 : 4)));
+      let duration = Math.max(2, Math.min(18, Number(level.duration) || (type === 'buff' ? 8 : type === 'shield' ? 6 : 4)));
+      if (type === 'summon') duration = Math.max(12, duration);
       const hits = Math.max(1, Math.min(8, Math.round(numFrom(bb, ['attack@max_target', 'max_target', 'times', 'hit', 'attack_times']) || (type === 'multi' ? 3 : 1))));
-      const count = Math.max(1, Math.min(4, Math.round(numFrom(bb, ['cnt', 'count', 'summon_cnt', 'token_cnt']) || 1)));
+      let count = Math.max(1, Math.min(4, Math.round(numFrom(bb, ['cnt', 'count', 'summon_cnt', 'token_cnt']) || 1)));
+      if (SUMMON_COUNTS[op.id]) count = SUMMON_COUNTS[op.id];
+      if (type === 'summon') {
+        if (op.id === 'char_344_beewax') desc = desc.replace(/方尖塔/g, '沙之碑');
+        const sn = SUMMON_NAMES[op.id];
+        if (sn && !desc.includes(sn)) desc += ` 召唤物：${sn}。`;
+      }
       entry = {
-        name: level.name || op.skill?.name || picked.chosen.skillId,
+        name: level.name || op.skill?.name || chosen.skillId,
         type, power: Number(power.toFixed(2)), duration: Number(duration.toFixed(1)),
-        ...(hits > 1 ? { hits } : {}), ...(type === 'summon' ? { count } : {}), desc,
+        ...(hits > 1 ? { hits } : {}), ...(type === 'summon' ? { count, summonName: SUMMON_NAMES[op.id] || '召唤物' } : {}), desc,
       };
     }
   }
@@ -127,10 +173,12 @@ for (const op of OPERATORS) {
   overrides[op.id] = entry;
 }
 const genericLeft = Object.values(overrides).filter(s => /职业模板|自动释放.*对战场产生效果/.test(s.desc)).length;
-if (unresolved.length || genericLeft) console.log({ unresolved, genericLeft });
+const ammoLeft = Object.values(overrides).filter(s => isAmmoText(s.desc)).map(s => s.name);
+if (unresolved.length || genericLeft || ammoLeft.length) console.log({ unresolved, genericLeft, ammoLeft });
 fs.writeFileSync('build/app/js/skill-overrides.js',
   '// Generated from Arknights zh_CN character/skill tables (Kengxxiao/ArknightsGameData).\n// One thematic signature skill per operator; descriptions are adapted for this battle system.\nexport const SKILL_OVERRIDES = ' + JSON.stringify(overrides, null, 2) + ';\n');
 console.log(JSON.stringify({
-  total: OPERATORS.length, overrides: Object.keys(overrides).length, unresolved, genericLeft,
+  total: OPERATORS.length, overrides: Object.keys(overrides).length, unresolved, genericLeft, ammoLeft,
+  summons: Object.entries(overrides).filter(([, s]) => s.type === 'summon').map(([id, s]) => [id, s.summonName, s.count]),
   types: Object.values(overrides).reduce((a, s) => (a[s.type] = (a[s.type] || 0) + 1, a), {}),
 }, null, 2));

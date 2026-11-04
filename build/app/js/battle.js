@@ -574,7 +574,8 @@ export class Battle {
       for (let i = 0; i < count; i++) {
         const hp = a.atk * (skill.power || 0.6) * (a.id === 'ling' ? 1.3 : 1);
         this.allies.push({
-          uid: uid('p'), id: 'phantom', phantom: true, phantomT: skill.duration || 12, x: a.x + rand(-3, 3), y: a.y + rand(-5, 5),
+          uid: uid('p'), id: 'phantom', name: skill.summonName || '召唤物', summonName: skill.summonName || '召唤物',
+          phantom: true, phantomT: skill.duration || 12, x: a.x + rand(-3, 3), y: a.y + rand(-5, 5),
           lane: a.lane, role: 'guard', hp: Math.max(120, hp), maxHp: Math.max(120, hp), shield: 0,
           atk: a.atk * (skill.power || 0.6) * (a.id === 'ling' ? 1.3 : 1), def: 20, res: 0,
           interval: 1.1, range: 14, block: 1, cooldown: 0.2, sp: 0, maxSp: 999, spRate: 0,

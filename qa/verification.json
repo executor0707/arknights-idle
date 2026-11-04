@@ -710,6 +710,23 @@
       "minAllyHp": 0.02,
       "maxPower": 37016,
       "resultMax": "victory"
+    },
+    "summonNames": {
+      "operators": 8,
+      "names": [
+        "迷迭香的战术装备",
+        "沙之碑",
+        "戴乌",
+        "纸偶",
+        "魂灵之影",
+        "小自在",
+        "黄金盟誓",
+        "征服者传说"
+      ]
+    },
+    "ammoSkills": {
+      "remaining": 0,
+      "handling": "non-ammo alternative or idle adaptation"
     }
   },
   "limitations": [

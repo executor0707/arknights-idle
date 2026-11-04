@@ -697,7 +697,7 @@ function makeAllyEl(a) {
   node.dataset.uid = a.uid;
   node.style.setProperty('--rarity', STAR_COLOR[d?.rarity || 3]);
   if (a.phantom) {
-    node.innerHTML = `<div class="portrait"><span class="phantom-mark">影</span></div><div class="hpbar"><i></i></div><div class="spbar"><i></i></div><div class="unit-name">逍遥影卫</div>`;
+    node.innerHTML = `<div class="portrait"><span class="phantom-mark">影</span></div><div class="hpbar"><i></i></div><div class="spbar"><i></i></div><div class="unit-name">${esc(a.summonName || '召唤物')}</div>`;
   } else {
     node.innerHTML = `<div class="portrait"><img src="${G.portraitFor(a.id)}" alt="${esc(d.name)}" loading="lazy"><span class="block-badge"></span></div><div class="hpbar"><i></i></div><div class="spbar"><i></i></div><div class="unit-name">${esc(d.name)}</div>`;
   }
