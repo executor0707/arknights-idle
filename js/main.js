@@ -41,7 +41,7 @@ for (const legacy of [
   localStorage.removeItem(legacy);
 }
 const hasSave = !!localStorage.getItem(SAVE_KEY);
-if (enterLabel) enterLabel.textContent = hasSave ? '继续接入' : '建立博士档案';
+if (enterLabel) enterLabel.textContent = hasSave ? '继续值守' : '建立博士档案';
 if (splashReset) splashReset.classList.toggle('hidden', !hasSave);
 
 splashReset?.addEventListener('click', () => {
