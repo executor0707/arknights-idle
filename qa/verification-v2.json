@@ -409,6 +409,31 @@
       "meleeNotBlockedOnly": true,
       "healInfinite": true,
       "healFarDistance": 72
+    },
+    "stageDots": {
+      "clearedAlwaysGreen": true,
+      "audit": {
+        "resource": {
+          "green": 3,
+          "warn": 0,
+          "bad": 0
+        },
+        "main": {
+          "green": 11,
+          "warn": 0,
+          "bad": 0
+        },
+        "annihilation": {
+          "green": 37,
+          "warn": 0,
+          "bad": 0
+        },
+        "endless": {
+          "green": 1,
+          "warn": 0,
+          "bad": 0
+        }
+      }
     }
   },
   "limitations": [
