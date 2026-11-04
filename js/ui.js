@@ -340,13 +340,18 @@ function renderBattle() {
   if (!ui.stageGroup) ui.stageGroup = stage.group;
   const allGroupStages = STAGES.filter(s => s.group === ui.stageGroup);
   const endlessCurrent = allGroupStages.reduce((a, b) => !a || b.floor > a.floor ? b : a, null);
-  if (ui.stageGroup === 'endless' && endlessCurrent) stage = endlessCurrent;
+  if (ui.stageGroup === 'endless') {
+    // Prefer the stage the battle is actually on. ensureEndlessFloor() creates
+    // the next stage before the result overlay closes, so max(floor) would
+    // spoil the next label while the current result is still on screen.
+    stage = battle?.stage?.group === 'endless' ? battle.stage : endlessCurrent || stage;
+  }
   const power = G.squadPower();
   const idle = G.idleSummary(stage);
   if (ui.stageGroup === 'main' && !allGroupStages.some(s => String(s.chapterKey) === String(ui.mainChapter))) {
     ui.mainChapter = stage.group === 'main' ? stage.chapterKey : allGroupStages[0]?.chapterKey || 0;
   }
-  const stages = ui.stageGroup === 'endless' ? [endlessCurrent].filter(Boolean) : ui.stageGroup === 'main' ? allGroupStages.filter(s => String(s.chapterKey) === String(ui.mainChapter)) : allGroupStages;
+  const stages = ui.stageGroup === 'endless' ? [stage].filter(Boolean) : ui.stageGroup === 'main' ? allGroupStages.filter(s => String(s.chapterKey) === String(ui.mainChapter)) : allGroupStages;
   const chapters = [...new Map(STAGES.filter(s => s.group === 'main').map(s => [String(s.chapterKey), s])).values()];
   const selectedGroup = STAGE_GROUPS.find(g => g.id === ui.stageGroup);
   const ratio = power / stage.rec;
@@ -832,8 +837,10 @@ function syncArena(rebuild = false) {
           ${first ? `<div class="result-reward" style="color:#ff8b84"><small>首通源石</small>+${first.primes} ◆</div>` : ''}
         </div>` : `<div class="result-rewards"><div class="result-reward"><small>挂机</small>继续积累中</div></div>`}
         <div class="result-actions">
-          <button class="btn btn-primary btn-small" data-action="restart">再次作战</button>
-          <button class="btn btn-small" data-action="toggle-auto">${state.stage.auto ? '关闭自动' : '开启自动'}</button>
+          ${win && battle.nextStageId && battle.nextStageId !== battle.stage.id
+            ? `<button class="btn btn-primary btn-small" data-action="next-stage">下一关</button>`
+            : `<button class="btn btn-primary btn-small" data-action="restart">再次作战</button>`}
+          <button class="btn btn-small" data-action="exit-battle">退出作战</button>
         </div>
       </div>
     </div>`;
@@ -1704,6 +1711,14 @@ async function onClick(e) {
       battle.togglePause(); syncArena(); break;
     case 'toggle-auto':
       battle.setAuto(!state.stage.auto); toast(state.stage.auto ? '自动循环开启。失败也会继续挂机。' : '自动循环关闭。', state.stage.auto ? 'success' : 'warn'); syncArena(); break;
+    case 'next-stage':
+      if (battle.nextStageId && battle.nextStageId !== battle.stage.id) battle.start(battle.nextStageId);
+      else battle.start();
+      renderView(); break;
+    case 'exit-battle':
+      state.stage.auto = false;
+      battle.exit();
+      renderView(); break;
     case 'restart':
       battle.start(); renderView(); break;
     case 'refresh-battle':
