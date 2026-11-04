@@ -181,7 +181,8 @@
       "displayStart": 0,
       "displayFloorOffset": -1,
       "labelTemplate": "无尽战线-{n}",
-      "initialStages": 1
+      "initialStages": 1,
+      "migrationPreservesFloor": true
     },
     "materials": {
       "promotion": "chip + LMD only",
