@@ -121,7 +121,7 @@ export class Battle {
       hp, maxHp: hp, shield: 0, atk: st.atk * (1 + b.atk) * (1 + bb.atk), def: st.def * (1 + b.def),
       res: st.res, interval: st.interval / (1 + bb.aspd), range: st.range, block: st.block,
       cooldown: rand(0.1, 0.6), sp: id === 'amiya' ? 5 : 0, maxSp: id === 'amiya' ? 27 : 30,
-      spRate: 1 + b.spRegen, dead: false, heal: st.heal, arts: st.arts,
+      spRate: 1 + b.spRegen, dead: false, heal: st.heal, bard: !!st.bard, arts: st.arts,
       skillPower: st.skillPower, buffAtk: 0, buffUntil: 0, castUntil: 0, attackLock: 0,
       combo: 0, lastTarget: null, atkStacks: 0, mlynarTimer: 0, phantoms: [],
       hitFlash: 0, healFlash: 0,
@@ -329,7 +329,24 @@ export class Battle {
         a.mlynarTimer += dt;
         if (a.mlynarTimer >= 15) { a.mlynarReady = true; a.mlynarTimer = 0; }
       }
-      if (a.heal) {
+      if (a.bard) {
+        // Bards never attack. Their song heals every living ally for a small
+        // portion of ATK, with unlimited range. No attackFlash/Lock is set so
+        // the Spine stays on Idle instead of playing an attack clip.
+        if (a.cooldown <= 0 && a.attackLock <= 0) {
+          const amount = a.atk * 0.18 * (1 + (this.baseBonuses?.heal || 0));
+          let healedAny = false;
+          for (const al of this.allies) {
+            if (!al.dead && al.hp < al.maxHp) {
+              this._healAlly(al, amount, a);
+              healedAny = true;
+            }
+          }
+          if (healedAny) this._effect(a.x, a.y, 'heal', 0.55);
+          a.sp = Math.min(a.maxSp, a.sp + 2.5);
+          a.cooldown = a.interval * 1.35;
+        }
+      } else if (a.heal) {
         const target = this._lowestAlly(a);
         // Healing uses the same cadence as a normal attack. It is not gated
         // on the skill gauge; the skill is only an additional AoE heal.

@@ -273,11 +273,12 @@ export function getOpStats(id) {
   if (s.potential >= 3) atk *= 1.02;
   if (s.potential >= 5) { atk *= 1.03; hp *= 1.03; interval *= 0.94; }
   const skillPower = 1 + (s.skill - 1) * 0.055 + (s.mastery || 0) * 0.075 + (s.potential >= 5 ? 0.1 : 0);
+  const bard = data.role === 'supporter' && data.sub === '吟游者';
   return {
     id, hp, atk, def, res, interval,
-    range: (data.role === 'specialist' && RANGED_SPECIALIST_RANGE.get(data.sub)) || (MELEE_ROLES.has(data.role) ? MELEE_RANGE : mod.range),
-    block: data.role === 'specialist' && RANGED_SPECIALIST_RANGE.has(data.sub) ? 0 : mod.block,
-    role: data.role, arts: !!mod.arts, heal: !!mod.heal, skillPower,
+    range: bard ? 999 : ((data.role === 'specialist' && RANGED_SPECIALIST_RANGE.get(data.sub)) || (MELEE_ROLES.has(data.role) ? MELEE_RANGE : mod.range)),
+    block: bard || (data.role === 'specialist' && RANGED_SPECIALIST_RANGE.has(data.sub)) ? 0 : mod.block,
+    role: data.role, arts: !!mod.arts, heal: !!mod.heal, bard, skillPower,
   };
 }
 
