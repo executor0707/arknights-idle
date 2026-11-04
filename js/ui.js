@@ -344,18 +344,27 @@ function renderBattle() {
   if (!ui.stageGroup) ui.stageGroup = stage.group;
   const allGroupStages = STAGES.filter(s => s.group === ui.stageGroup);
   const endlessCurrent = allGroupStages.reduce((a, b) => !a || b.floor > a.floor ? b : a, null);
+  const endlessRetry = state.stage.endlessRetry ? G.STAGE_BY_ID.get(state.stage.endlessRetry) : null;
+  const endlessFallback = endlessRetry && endlessRetry.floor > 1
+    ? G.STAGE_BY_ID.get('endless-' + (endlessRetry.floor - 1))
+    : null;
   if (ui.stageGroup === 'endless') {
     // Prefer the stage the battle is actually on. ensureEndlessFloor() creates
     // the next stage before the result overlay closes, so max(floor) would
     // spoil the next label while the current result is still on screen.
-    stage = battle?.stage?.group === 'endless' ? battle.stage : endlessCurrent || stage;
+    stage = battle?.stage?.group === 'endless'
+      ? battle.stage
+      : endlessFallback || endlessCurrent || stage;
   }
   const power = G.squadPower();
   const idle = G.idleSummary(stage);
   if (ui.stageGroup === 'main' && !allGroupStages.some(s => String(s.chapterKey) === String(ui.mainChapter))) {
     ui.mainChapter = stage.group === 'main' ? stage.chapterKey : allGroupStages[0]?.chapterKey || 0;
   }
-  const stages = ui.stageGroup === 'endless' ? [stage].filter(Boolean) : ui.stageGroup === 'main' ? allGroupStages.filter(s => String(s.chapterKey) === String(ui.mainChapter)) : allGroupStages;
+  const endlessCards = endlessRetry
+    ? [endlessFallback, endlessRetry].filter(Boolean)
+    : [stage].filter(Boolean);
+  const stages = ui.stageGroup === 'endless' ? endlessCards : ui.stageGroup === 'main' ? allGroupStages.filter(s => String(s.chapterKey) === String(ui.mainChapter)) : allGroupStages;
   const chapters = [...new Map(STAGES.filter(s => s.group === 'main').map(s => [String(s.chapterKey), s])).values()];
   const selectedGroup = STAGE_GROUPS.find(g => g.id === ui.stageGroup);
   const ratio = power / stage.rec;
@@ -1706,8 +1715,10 @@ async function onClick(e) {
       ui.stageGroup = target.dataset.group;
       if (ui.stageGroup === 'main') ui.mainChapter = G.STAGE_BY_ID.get(state.stage.selected)?.chapterKey ?? 0;
       if (ui.stageGroup === 'endless') {
+        const retry = state.stage.endlessRetry ? G.STAGE_BY_ID.get(state.stage.endlessRetry) : null;
+        const fallback = retry && retry.floor > 1 ? G.STAGE_BY_ID.get('endless-' + (retry.floor - 1)) : null;
         const endless = STAGES.filter(s => s.group === 'endless');
-        const current = endless.reduce((a, b) => !a || b.floor > a.floor ? b : a, null);
+        const current = fallback || endless.reduce((a, b) => !a || b.floor > a.floor ? b : a, null);
         if (current) { G.setStage(current.id); battle.start(current.id); }
       }
       renderView(); break;
