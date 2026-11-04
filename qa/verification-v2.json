@@ -381,6 +381,12 @@
     "skinStore": {
       "unownedSliderCollapsed": true,
       "ownedSlider": true
+    },
+    "settingsPage": {
+      "navLabel": "设置",
+      "title": "设置",
+      "settingsFirst": true,
+      "defaultSkinLabel": true
     }
   },
   "limitations": [

@@ -42,7 +42,7 @@ const NAV = [
   { view: 'skins', glyph: '◇', label: '时装', sub: 'SKINS' },
   { view: 'base', glyph: '▦', label: '基建', sub: 'BASE' },
   { view: 'inventory', glyph: '▤', label: '仓库', sub: 'DEPOT' },
-  { view: 'archive', glyph: '⌘', label: '档案', sub: 'ARCHIVE' },
+  { view: 'archive', glyph: '⚙', label: '设置', sub: 'SETTINGS' },
   { view: 'events', glyph: '▣', label: '事件', sub: 'INCIDENTS' },
 ];
 
@@ -1473,7 +1473,44 @@ function renderArchive() {
     ['时装收藏', Object.keys(state.skins.owned).length >= 1, '购买 1 套时装'],
   ];
   return `<section class="page">
-    ${pageHead('PERSONNEL // ARCHIVE', '博士档案', `${statHead('累计作战', fmt(state.stats.runs))}${statHead('源石', fmt(state.primes))}${statHead('值守时长', (state.stats.offlineSec / 3600).toFixed(1), ' h')}`)}
+    ${pageHead('RHODES ISLAND // SETTINGS', '设置', `${statHead('累计作战', fmt(state.stats.runs))}${statHead('源石', fmt(state.primes))}${statHead('值守时长', (state.stats.offlineSec / 3600).toFixed(1), ' h')}`)}
+    <div class="archive-grid">
+      <div class="panel">
+        <div class="panel-head"><div class="panel-title">系统设置</div><span class="panel-meta">PRTS CONFIG</span></div>
+        <div class="panel-body">
+          <div class="setting-row"><div>音效<small>战斗、抽卡与界面反馈</small></div><button class="switch ${state.settings.sound ? 'on' : ''}" data-action="setting" data-key="sound"></button></div>
+          <div class="setting-row"><div>自动释放技能<small>干员技力满时自动触发</small></div><button class="switch ${state.settings.autoSkill ? 'on' : ''}" data-action="setting" data-key="autoSkill"></button></div>
+          <div class="setting-row"><div>减少动态效果<small>降低扫光与闪烁动画</small></div><button class="switch ${state.settings.reduceMotion ? 'on' : ''}" data-action="setting" data-key="reduceMotion"></button></div>
+          <div class="setting-row setting-slider-row">
+            <div>战斗小人缩放（全局）<small>与皮肤单独缩放相乘 · 50%–200%</small></div>
+            <div class="setting-slider"><input id="charScale" type="range" min="0.5" max="2" step="0.05" value="${state.settings.characterScale ?? 1.2}"><b id="charScaleValue">${Math.round((state.settings.characterScale ?? 1.2) * 100)}%</b></div>
+          </div>
+          <div class="setting-row setting-slider-row">
+            <div>敌方单位大小<small>小兵与 Boss 同步缩放 · 50%–200%</small></div>
+            <div class="setting-slider"><input id="enemyScale" type="range" min="0.5" max="2" step="0.05" value="${state.settings.enemyScale ?? 1}"><b id="enemyScaleValue">${Math.round((state.settings.enemyScale ?? 1) * 100)}%</b></div>
+          </div>
+          <div class="setting-row"><div>新手提示<small>重新查看三页上手说明</small></div><button class="btn btn-small" data-action="tutorial">查看</button></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div class="panel-title">存档管理</div><span class="panel-meta">SAVE DATA</span></div>
+        <div class="panel-body">
+          <div class="small">存档保存在当前浏览器 localStorage。更换浏览器或清理缓存会丢失进度，建议定期导出。</div>
+          <div class="action-row">
+            <button class="btn btn-small" data-action="export-save">导出加密存档</button>
+            <button class="btn btn-small" data-action="import-save">导入存档</button>
+            <button class="btn btn-small btn-danger" data-action="reset-save">重置档案</button>
+          </div>
+          <div class="divider"></div>
+          <div class="credits">
+            <b>罗德岛值守协议</b> · 非官方同人放置游戏 v1.0.0<br>
+            干员、皮肤与设定素材来自 <a href="https://prts.wiki/" target="_blank" rel="noopener">PRTS Wiki</a>，版权归上海鹰角网络科技有限公司所有。<br>
+            本作不进行任何商业销售，仅用于学习与同人展示。UI、玩法改编与代码为同人创作。<br>
+            特别鸣谢：PRTS Wiki 编辑组、所有在罗德岛值班的博士。
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="archive-hero">
       <div class="id-card">
         <div class="id-mark">R</div>
@@ -1508,43 +1545,6 @@ function renderArchive() {
             ${(state.randomEvent?.log || []).length
               ? `<div class="event-log">${state.randomEvent.log.slice(0, 8).map(e => `<div class="event-row"><b>${esc(e.title)}</b><span class="${e.tone === 'bad' ? 'red' : e.tone === 'good' ? 'green' : 'orange'}">${esc(e.result)}</span></div>`).join('')}</div>`
               : '<div class="small">暂无记录。干员们目前都很安静。</div>'}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="archive-grid">
-      <div class="panel">
-        <div class="panel-head"><div class="panel-title">系统设置</div><span class="panel-meta">PRTS CONFIG</span></div>
-        <div class="panel-body">
-          <div class="setting-row"><div>音效<small>战斗、抽卡与界面反馈</small></div><button class="switch ${state.settings.sound ? 'on' : ''}" data-action="setting" data-key="sound"></button></div>
-          <div class="setting-row"><div>自动释放技能<small>干员技力满时自动触发</small></div><button class="switch ${state.settings.autoSkill ? 'on' : ''}" data-action="setting" data-key="autoSkill"></button></div>
-          <div class="setting-row"><div>减少动态效果<small>降低扫光与闪烁动画</small></div><button class="switch ${state.settings.reduceMotion ? 'on' : ''}" data-action="setting" data-key="reduceMotion"></button></div>
-          <div class="setting-row setting-slider-row">
-            <div>战斗小人缩放（全局）<small>与皮肤单独缩放相乘 · 50%–200%</small></div>
-            <div class="setting-slider"><input id="charScale" type="range" min="0.5" max="2" step="0.05" value="${state.settings.characterScale ?? 1.2}"><b id="charScaleValue">${Math.round((state.settings.characterScale ?? 1.2) * 100)}%</b></div>
-          </div>
-          <div class="setting-row setting-slider-row">
-            <div>敌方单位大小<small>小兵与 Boss 同步缩放 · 50%–200%</small></div>
-            <div class="setting-slider"><input id="enemyScale" type="range" min="0.5" max="2" step="0.05" value="${state.settings.enemyScale ?? 1}"><b id="enemyScaleValue">${Math.round((state.settings.enemyScale ?? 1) * 100)}%</b></div>
-          </div>
-          <div class="setting-row"><div>新手提示<small>重新查看三页上手说明</small></div><button class="btn btn-small" data-action="tutorial">查看</button></div>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="panel-head"><div class="panel-title">档案管理</div><span class="panel-meta">SAVE DATA</span></div>
-        <div class="panel-body">
-          <div class="small">存档保存在当前浏览器 localStorage。更换浏览器或清理缓存会丢失进度，建议定期导出。</div>
-          <div class="action-row">
-            <button class="btn btn-small" data-action="export-save">导出加密存档</button>
-            <button class="btn btn-small" data-action="import-save">导入存档</button>
-            <button class="btn btn-small btn-danger" data-action="reset-save">重置档案</button>
-          </div>
-          <div class="divider"></div>
-          <div class="credits">
-            <b>罗德岛值守协议</b> · 非官方同人放置游戏 v1.0.0<br>
-            干员、皮肤与设定素材来自 <a href="https://prts.wiki/" target="_blank" rel="noopener">PRTS Wiki</a>，版权归上海鹰角网络科技有限公司所有。<br>
-            本作不进行任何商业销售，仅用于学习与同人展示。UI、玩法改编与代码为同人创作。<br>
-            特别鸣谢：PRTS Wiki 编辑组、所有在罗德岛值班的博士。
           </div>
         </div>
       </div>

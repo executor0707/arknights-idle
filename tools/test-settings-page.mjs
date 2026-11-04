@@ -1,0 +1,24 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=settingspage'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`localStorage.clear();location.reload()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1500));
+await send('Runtime.evaluate',{expression:`document.querySelector('[data-action="tutorial-skip"]')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,500));
+await evalJS(send, `document.querySelector('[data-action="view"][data-view="archive"]')?.click();true`);
+await new Promise(r=>setTimeout(r,500));
+console.log('settings', await evalJS(send, `JSON.stringify({title:document.querySelector('.page-head h2')?.textContent,nav:[...document.querySelectorAll('.nav-item')].map(n=>n.textContent.replace(/\\s+/g,' ').trim()),firstPanel:document.querySelector('.panel-title')?.textContent,hasExport:!!document.querySelector('[data-action="export-save"]')})`));
+await screenshot(send,'.cache/settings-page.png',1440,1000);
+// open operator default skin
+await evalJS(send, `document.querySelector('[data-action="view"][data-view="operators"]')?.click();true`);
+await new Promise(r=>setTimeout(r,500));
+await evalJS(send, `document.querySelector('.op-card:not(.unowned)')?.click();true`);
+await new Promise(r=>setTimeout(r,500));
+console.log('font', await evalJS(send, `(()=>{const el=document.querySelector('.default-skin-scale label');const b=document.querySelector('.default-skin-scale label b');return JSON.stringify({text:el?.textContent,size:el?getComputedStyle(el).fontSize:null,bSize:b?getComputedStyle(b).fontSize:null,sliders:document.querySelectorAll('.default-skin-scale [data-skin-scale]').length})})()`));
+process.exit(0);
