@@ -104,14 +104,6 @@ export const SKIN_SPINE_REMOTE = {
     "name": "糖果暴击",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_4131_odda/char_4131_odda_whirlwind_8/front/char_4131_odda_whirlwind_8"
   },
-  "char_388_mint-skin1": {
-    "name": "月宵",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_388_mint/char_388_mint_epoque_22/front/char_388_mint_epoque_22"
-  },
-  "char_388_mint-skin2": {
-    "name": "私人书房",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_388_mint/char_388_mint_epoque_30/front/char_388_mint_epoque_30"
-  },
   "char_230_savage-skin1": {
     "name": "地底三百米",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_230_savage/char_230_savage_boc_8/front/char_230_savage_boc_8"
@@ -183,10 +175,6 @@ export const SKIN_SPINE_REMOTE = {
   "char_010_chen-skin2": {
     "name": "初晴",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_010_chen/char_010_chen_sale_10/front/char_010_chen_sale_10"
-  },
-  "char_445_wscoot-skin1": {
-    "name": "异乡的云",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_445_wscoot/char_445_wscoot_epoque_49/front/char_445_wscoot_epoque_49"
   },
   "char_475_akafyu-skin1": {
     "name": "心性",
@@ -359,10 +347,6 @@ export const SKIN_SPINE_REMOTE = {
   "char_4114_harold-skin1": {
     "name": "邀雪",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_4114_harold/char_4114_harold_snow_7/front/char_4114_harold_snow_7"
-  },
-  "char_4045_heidi-skin1": {
-    "name": "书信零落",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_4045_heidi/char_4045_heidi_epoque_24/front/char_4045_heidi_epoque_24"
   },
   "char_300_phenxi-skin1": {
     "name": "至圣誓言",
@@ -588,14 +572,6 @@ export const SKIN_SPINE_REMOTE = {
     "name": "时遗",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_003_kalts/char_003_kalts_sale_14/front/char_003_kalts_sale_14"
   },
-  "char_426_billro-skin1": {
-    "name": "霍恩洛厄的寒沙",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_426_billro/char_426_billro_snow_3/front/char_426_billro_snow_3"
-  },
-  "char_426_billro-skin2": {
-    "name": "灿阳朝露 SD08",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_426_billro/char_426_billro_summer_8/front/char_426_billro_summer_8"
-  },
   "char_306_leizi-skin1": {
     "name": "遗迹游学者",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_306_leizi/char_306_leizi_game_3/front/char_306_leizi_game_3"
@@ -744,14 +720,6 @@ export const SKIN_SPINE_REMOTE = {
     "name": "从容时刻",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_192_falco/char_192_falco_marthe_6/front/char_192_falco_marthe_6"
   },
-  "char_486_takila-skin1": {
-    "name": "开牌制胜",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_486_takila/char_486_takila_ambiencesynesthesia_2/front/char_486_takila_ambienceSynesthesia_2"
-  },
-  "char_486_takila-skin2": {
-    "name": "巅峰现场",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_486_takila/char_486_takila_shining_2/front/char_486_takila_shining_2"
-  },
   "char_4196_reckpr-skin1": {
     "name": "照寰瀛",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_4196_reckpr/char_4196_reckpr_yun_12/front/char_4196_reckpr_yun_12"
@@ -816,14 +784,6 @@ export const SKIN_SPINE_REMOTE = {
     "name": "洇灵雨",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_449_glider/char_449_glider_nian_10/front/char_449_glider_nian_10"
   },
-  "char_344_beewax-skin1": {
-    "name": "白沙",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_344_beewax/char_344_beewax_epoque_9/front/char_344_beewax_epoque_9"
-  },
-  "char_344_beewax-skin2": {
-    "name": "悠然假日 HD61",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_344_beewax/char_344_beewax_summer_11/front/char_344_beewax_summer_11"
-  },
   "char_4017_puzzle-skin1": {
     "name": "碎片之间",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_4017_puzzle/char_4017_puzzle_epoque_29/front/char_4017_puzzle_epoque_29"
@@ -847,10 +807,6 @@ export const SKIN_SPINE_REMOTE = {
   "char_213_mostma-skin2": {
     "name": "幻语乐痕",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_213_mostma/char_213_mostma_ambiencesynesthesia_6/front/char_213_mostma_ambienceSynesthesia_6"
-  },
-  "char_4134_cetsyr-skin1": {
-    "name": "追悼",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_4134_cetsyr/char_4134_cetsyr_epoque_50/front/char_4134_cetsyr_epoque_50"
   },
   "char_4025_aprot2-skin1": {
     "name": "结果",
@@ -979,10 +935,6 @@ export const SKIN_SPINE_REMOTE = {
   "char_473_mberry-skin2": {
     "name": "照冰轮",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_473_mberry/char_473_mberry_nian_9/front/char_473_mberry_nian_9"
-  },
-  "char_4184_dolris-skin1": {
-    "name": "笼中歌者",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_4184_dolris/char_4184_dolris_avemujica_1/front/char_4184_dolris_avemujica_1"
   },
   "char_202_demkni-skin1": {
     "name": "坚城",
@@ -1136,10 +1088,6 @@ export const SKIN_SPINE_REMOTE = {
     "name": "远行的季节",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_440_pinecn/char_440_pinecn_epoque_31/front/char_440_pinecn_epoque_31"
   },
-  "char_1043_leizi2-skin1": {
-    "name": "血翼蔷薇",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_1043_leizi2/char_1043_leizi2_game_8/front/char_1043_leizi2_game_8"
-  },
   "char_4199_makiri-skin1": {
     "name": "暮时宝光",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_4199_makiri/char_4199_makiri_sale_19/front/char_4199_makiri_sale_19"
@@ -1159,10 +1107,6 @@ export const SKIN_SPINE_REMOTE = {
   "char_415_flint-skin1": {
     "name": "绚烂夏花",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_415_flint/char_415_flint_boc_3/front/char_415_flint_boc_3"
-  },
-  "char_376_therex-skin1": {
-    "name": "双料四分卫",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_376_therex/char_376_therex_marthe_7/front/char_376_therex_marthe_7"
   },
   "char_411_tomimi-skin1": {
     "name": "静谧午夜 DN04",
@@ -1191,10 +1135,6 @@ export const SKIN_SPINE_REMOTE = {
   "char_112_siege-skin2": {
     "name": "摧城",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_112_siege/char_112_siege_striker_2/front/char_112_siege_striker_2"
-  },
-  "char_4091_ulika-skin1": {
-    "name": "云上直播间",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_4091_ulika/char_4091_ulika_sanrio_1/front/char_4091_ulika_sanrio_1"
   },
   "char_113_cqbw-skin1": {
     "name": "恍惚",
@@ -1880,14 +1820,6 @@ export const SKIN_SPINE_REMOTE = {
     "name": "辉煌的静谧",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_4133_logos/char_4133_logos_ambiencesynesthesia_6/front/char_4133_logos_ambienceSynesthesia_6"
   },
-  "mlynar-skin1": {
-    "name": "远路",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_4064_mlynar/char_4064_mlynar_epoque_28/front/char_4064_mlynar_epoque_28"
-  },
-  "mlynar-skin2": {
-    "name": "苍茫怒号",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_4064_mlynar/char_4064_mlynar_iteration_3/front/char_4064_mlynar_iteration_3"
-  },
   "melantha-skin1": {
     "name": "威塞克斯的信件",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_208_melan/char_208_melan_epoque_1/front/char_208_melan_epoque_1"
@@ -2099,21 +2031,5 @@ export const SKIN_SPINE_REMOTE = {
   "ela-skin1": {
     "name": "镜廊",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_4124_iana/char_4124_iana_rainbow6_2/front/char_4124_iana_rainbow6_2"
-  },
-  "char_101_sora-skin1": {
-    "name": "夏卉 FA361",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_101_sora/char_101_sora_summer_1/spine/char_101_sora"
-  },
-  "char_101_sora-skin2": {
-    "name": "如歌",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_101_sora/char_101_sora_epoque_17/spine/char_101_sora_epoque_17"
-  },
-  "skadi_alter-skin1": {
-    "name": "升华",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_1012_skadi2/char_1012_skadi2_boc_4/spine/char_1012_skadi2_boc_4"
-  },
-  "skadi_alter-skin2": {
-    "name": "红女爵",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_1012_skadi2/char_1012_skadi2_iteration_2/spine/char_1012_skadi2_iteration_2"
   }
 };

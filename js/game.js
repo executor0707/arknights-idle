@@ -39,6 +39,23 @@ const REMOVED_OPERATOR_IDS = new Set([
   'char_601_cguard', 'char_603_csnipe', 'char_604_ccast', 'char_607_cspec',
   'char_600_cpione', 'char_605_cmedic', 'char_602_cdfend', 'char_608_acpion',
 ]);
+const REMOVED_SKIN_IDS = new Set([
+  'char_388_mint-skin1', 'char_388_mint-skin2',
+  'char_445_wscoot-skin1',
+  'char_4045_heidi-skin1',
+  'char_426_billro-skin1', 'char_426_billro-skin2',
+  'char_101_sora-skin1', 'char_101_sora-skin2',
+  'char_486_takila-skin1', 'char_486_takila-skin2',
+  'mlynar-skin1', 'mlynar-skin2',
+  'char_344_beewax-skin1', 'char_344_beewax-skin2',
+  'char_4134_cetsyr-skin1',
+  'char_4184_dolris-skin1',
+  'char_1043_leizi2-skin1',
+  'char_376_therex-skin1',
+  'char_4091_ulika-skin1',
+  'skadi_alter-skin1', 'skadi_alter-skin2',
+  'liskarm-skin1', 'liskarm-skin2',
+]);
 
 function dateKey(d = new Date()) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -124,6 +141,13 @@ export function loadGame() {
       state.version = SAVE_VERSION;
       for (const id of REMOVED_OPERATOR_IDS) delete state.operators[id];
       state.squad = state.squad.map(id => REMOVED_OPERATOR_IDS.has(id) ? null : id);
+      for (const id of REMOVED_SKIN_IDS) {
+        delete state.skins.owned[id];
+        delete state.skins.scale[id];
+      }
+      for (const [opId, key] of Object.entries(state.skins.equipped)) {
+        if (REMOVED_SKIN_IDS.has(`${opId}-${key}`)) delete state.skins.equipped[opId];
+      }
     }
   } catch (e) {
     console.warn('存档读取失败，使用新存档', e);
