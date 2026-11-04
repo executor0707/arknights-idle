@@ -187,8 +187,16 @@ function make35(unit) {
   return sp;
 }
 
+function attackClip35(sp) {
+  const a = sp._anims || [];
+  const pref = ['Attack', 'Attack_Loop', 'Attack_Begin', 'Attack_1_A', 'Attack_1_B', 'Attack_2_A', 'Attack_2_B', 'Doll_Attack_Loop', 'Doll_Attack_Begin'];
+  for (const name of pref) if (a.includes(name)) return name;
+  return a.find(name => /attack/i.test(name) && !/down|end/i.test(name)) || null;
+}
+
 function play(sp, name, loop = false) {
   if (!sp || sp._anim === name) return;
+  if (name === 'Attack') name = attackClip35(sp) || name;
   if (!sp._anims.includes(name)) {
     if (!sp._anims.includes('Idle')) return;
     name = 'Idle'; loop = true;
