@@ -55,7 +55,7 @@ export function initSpineArena(arena) {
 
   frame = document.createElement('iframe');
   frame.className = 'spine38-frame';
-  frame.src = 'spine38-frame.html';
+  frame.src = 'spine38-frame.html?v=7';
   frame.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;z-index:3;pointer-events:none;opacity:0;';
   frame.setAttribute('allowtransparency', 'true');
   frame.addEventListener('load', () => {
@@ -230,7 +230,7 @@ export function syncSpine(battle) {
     // the default 3.5 model.
     if (SPINE38_OPERATORS[a.id] || skinEntry) {
       const key = skinEntry ? skinKey : a.id;
-      post.push({ uid: 'a:' + a.uid, kind: 'op', key, x: a.x, y: a.y, scale: (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id) * mobileBattleScale(), bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
+      post.push({ uid: 'a:' + a.uid, kind: 'op', key, fallback: SPINE38_OPERATORS[a.id] ? a.id : null, x: a.x, y: a.y, scale: (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id) * mobileBattleScale(), bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
       continue;
     }
     if (!SPINE35_ONLY[a.id]) continue;
