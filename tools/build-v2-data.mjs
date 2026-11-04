@@ -3,8 +3,11 @@ import { existsSync } from 'node:fs';
 import { OPERATORS as OLD, STARTERS as OLD_STARTERS } from './operators.mjs';
 import { STAGES as OLD_STAGES } from '../build/app/js/data.js';
 
-const ops = JSON.parse(await readFile('.cache/all-operators.json', 'utf8'));
-const skins = JSON.parse(await readFile('.cache/all-skins.json', 'utf8'));
+const ops = JSON.parse(await readFile('.cache/all-operators.json', 'utf8'))
+  .filter(o => !/卫戍协议/.test(o.name));
+const opIds = new Set(ops.map(o => o.id));
+const skins = JSON.parse(await readFile('.cache/all-skins.json', 'utf8'))
+  .filter(s => opIds.has(s.opId));
 const stageTitles = JSON.parse(await readFile('.cache/stage-titles.json', 'utf8'));
 
 const skillTypes = { 先锋: 'buff', 近卫: 'aoe', 重装: 'shield', 狙击: 'multi', 术师: 'aoe', 医疗: 'heal', 辅助: 'buff', 特种: 'control' };

@@ -1,0 +1,22 @@
+import fs from 'node:fs';
+import { connect, evalJS } from './cdp.mjs';
+const oldMax=fs.readFileSync('C:/Users/21023/Desktop/rhodes-idle-max-no-stages-v3-2026-11-04.json','utf8');
+const {send}=await connect();
+await send('Page.bringToFront'); await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=removegarrison'});
+await new Promise(r=>setTimeout(r,1200));
+await evalJS(send, `window.__RHODES_IMPORTING__=true;localStorage.clear();location.reload();true`);
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1400));
+await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`);
+await new Promise(r=>setTimeout(r,400));
+console.log('fresh', await evalJS(send, `(()=>{const a=__RHODES__.G.OPERATORS;return JSON.stringify({operators:a.length,garrison:a.filter(o=>/卫戍协议/.test(o.name)).length,spine38:Object.keys(__RHODES__.G.SPINE38_OPERATORS||{}).length,skins:__RHODES__.G.SKINS?.length})})()`));
+// Import the previous 469-op v3 save directly and verify pruning.
+await evalJS(send, `(async()=>{const m=await import('./js/save-codec.js');const data=await m.decodeSaveFile(JSON.parse(${JSON.stringify(oldMax)}));localStorage.setItem('rhodes_island_idle_save_v2',JSON.stringify(data));__RHODES_GLOBAL_TEST=1;return true})()`, true);
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=prunegarrison'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1400));
+console.log('pruned', await evalJS(send, `(()=>{const s=__RHODES__.state;return JSON.stringify({operators:Object.keys(s.operators).length,squad:s.squad,removedLeft:Object.keys(s.operators).filter(x=>/acfend|acspec|accast|acsupo|acguad|acnipe|acmedc|csuppo|cguard|csnipe|ccast|cspec|cpione|cmedic|cdfend|acpion/.test(x))})})()`));
+process.exit(0);

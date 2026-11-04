@@ -561,6 +561,24 @@
       "plainError": "存档不符合读取要求",
       "oldError": "旧版存档已失效",
       "newV3": "OK"
+    },
+    "operatorRemoval": {
+      "removed": 16,
+      "operators": 453,
+      "skins": 531,
+      "spine38": 411,
+      "spine35": 42,
+      "names": [
+        "Mechanist(卫戍协议)",
+        "Misery(卫戍协议)",
+        "Pith(卫戍协议)",
+        "Raidian(卫戍协议)",
+        "Sharp(卫戍协议)",
+        "Stormeye(卫戍协议)",
+        "Touch(卫戍协议)",
+        "预备干员-*(卫戍协议)",
+        "郁金香(卫戍协议)"
+      ]
     }
   },
   "limitations": [
