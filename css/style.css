@@ -752,8 +752,8 @@ a { color: var(--orange); }
 .offline-time { color: var(--dim); font-family: var(--mono); font-size: 9px; line-height: 1.8; }
 
 /* toast */
-.toast-root { position: fixed; right: 18px; bottom: 18px; z-index: 160; display: flex; flex-direction: column; gap: 6px; align-items: flex-end; pointer-events: none; }
-.toast { min-width: 220px; max-width: 390px; background: rgba(12,16,17,.96); border: 1px solid var(--line-strong); border-left: 2px solid var(--orange); padding: 10px 13px; font-size: 10px; line-height: 1.6; box-shadow: var(--shadow); animation: toastIn .28s ease both; }
+.toast-root { position: fixed; right: 18px; bottom: 18px; z-index: 160; display: flex; flex-direction: column; gap: 12px; align-items: flex-end; pointer-events: none; }
+.toast { min-width: 440px; max-width: 780px; background: rgba(12,16,17,.96); border: 1px solid var(--line-strong); border-left: 4px solid var(--orange); padding: 20px 26px; font-size: 20px; line-height: 1.6; box-shadow: var(--shadow); animation: toastIn .28s ease both; }
 .toast.error { border-left-color: var(--red); }
 .toast.success { border-left-color: var(--green); }
 .toast.warn { border-left-color: #ffd166; }
@@ -1065,7 +1065,7 @@ a { color: var(--orange); }
   .modal-body { padding: 12px; }
   .modal-head { padding: 12px; }
   .toast-root { left: 10px; right: 10px; bottom: 74px; align-items: stretch; }
-  .toast { max-width: none; }
+  .toast { min-width: 0; max-width: none; padding: 14px 16px; font-size: 16px; border-left-width: 4px; }
   .splash-content { padding: 34px 22px; }
   .splash-art { right: -18%; width: 100%; opacity: .35; }
   .splash-sub { font-size: 12px; margin: 22px 0 24px; }
