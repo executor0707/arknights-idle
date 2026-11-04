@@ -191,12 +191,19 @@ function attackClip35(sp) {
   const a = sp._anims || [];
   const pref = ['Attack', 'Attack_Loop', 'Attack_Begin', 'Attack_1_A', 'Attack_1_B', 'Attack_2_A', 'Attack_2_B', 'Doll_Attack_Loop', 'Doll_Attack_Begin'];
   for (const name of pref) if (a.includes(name)) return name;
-  return a.find(name => /attack/i.test(name) && !/down|end/i.test(name)) || null;
+  const atk = a.find(name => /attack/i.test(name) && !/down|end/i.test(name));
+  if (atk) return atk;
+  const skills = ['Skill_1_Start', 'Skill_2_Start', 'Skill_3_Start', 'Skill_1_Loop', 'Skill_2_Loop', 'Skill_3_Loop', 'Skill'];
+  for (const name of skills) if (a.includes(name)) return name;
+  return a.find(name => /^Skill/i.test(name)) || null;
 }
 
 function play(sp, name, loop = false) {
   if (!sp || sp._anim === name) return;
-  if (name === 'Attack') name = attackClip35(sp) || name;
+  if (name === 'Attack') {
+    name = attackClip35(sp) || name;
+    sp._attackClipName = attackClip35(sp) || null;
+  }
   if (!sp._anims.includes(name)) {
     if (!sp._anims.includes('Idle')) return;
     name = 'Idle'; loop = true;
@@ -250,7 +257,7 @@ export function syncSpine(battle) {
       const track = sp.state.getCurrent(0);
       const dur = track?.animation?.duration || 0;
       const elapsed = track?.trackTime || 0;
-      const attacking = /attack/i.test(sp._anim || '');
+      const attacking = sp._attackClipName ? sp._anim === sp._attackClipName : /attack/i.test(sp._anim || '');
       if (!attacking || !(dur > 0.05) || elapsed >= dur - 0.03) {
         sp._attackActive = false;
         play(sp, 'Idle', true);
