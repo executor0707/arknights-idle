@@ -55,7 +55,7 @@ export function initSpineArena(arena) {
 
   frame = document.createElement('iframe');
   frame.className = 'spine38-frame';
-  frame.src = 'spine38-frame.html?v=7';
+  frame.src = 'spine38-frame.html?v=8';
   frame.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;z-index:3;pointer-events:none;opacity:0;';
   frame.setAttribute('allowtransparency', 'true');
   frame.addEventListener('load', () => {
@@ -230,7 +230,7 @@ export function syncSpine(battle) {
     // the default 3.5 model.
     if (SPINE38_OPERATORS[a.id] || skinEntry) {
       const key = skinEntry ? skinKey : a.id;
-      post.push({ uid: 'a:' + a.uid, kind: 'op', key, fallback: SPINE38_OPERATORS[a.id] ? a.id : null, x: a.x, y: a.y, scale: (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id) * mobileBattleScale(), bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
+      post.push({ uid: 'a:' + a.uid, kind: 'op', key, fallback: SPINE38_OPERATORS[a.id] ? a.id : null, x: a.x, y: a.y, scale: (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id) * mobileBattleScale(), speed: state.stage.speed || 1, bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
       continue;
     }
     if (!SPINE35_ONLY[a.id]) continue;
@@ -243,6 +243,7 @@ export function syncSpine(battle) {
       if (!sp) continue;
     }
     const s = sp._baseScale * (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id) * mobileBattleScale();
+    sp.state.timeScale = state.stage.speed || 1;
     sp.scale.set(s, s);
     sp.x = Math.min(width - 26, Math.max(26, (a.x / 100) * width + Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7));
     sp.y = (a.y / 100) * height + 18 + Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6;
@@ -269,7 +270,7 @@ export function syncSpine(battle) {
   for (const e of battle.enemies) {
     const key = enemySpineKey(e.type, e.bossKey);
     if (!key || !SPINE_ENEMIES[key]) continue;
-    post.push({ uid: 'e:' + e.uid, kind: 'enemy', key, x: e.x, y: e.y, scale: state.settings?.enemyScale || 1, dead: e.dead, attackFlash: e.attackFlash, castUntil: 0, sp: 0, boss: !!e.boss });
+    post.push({ uid: 'e:' + e.uid, kind: 'enemy', key, x: e.x, y: e.y, scale: state.settings?.enemyScale || 1, speed: state.stage.speed || 1, dead: e.dead, attackFlash: e.attackFlash, castUntil: 0, sp: 0, boss: !!e.boss });
   }
   for (const [uid, sp] of sprites) {
     if (!wanted.has(uid)) { sp.destroy(); sprites.delete(uid); }

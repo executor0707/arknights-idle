@@ -661,6 +661,12 @@
         1.75,
         3.15
       ]
+    },
+    "battleSpeed": {
+      "logicSpeed": true,
+      "spineTimeScale": true,
+      "enemyTimeScale": true,
+      "tested": 2
     }
   },
   "limitations": [
