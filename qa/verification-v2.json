@@ -759,6 +759,17 @@
       "edgeClicks": 4,
       "passed": 4,
       "topTarget": "op-hit"
+    },
+    "skill7Panel": {
+      "fixed": true,
+      "cause": "MASTERY_REQS[0] null + canPay(null)",
+      "testedSkill": 7,
+      "mastery": 0,
+      "modal": true,
+      "cost": {
+        "lmd": 26000,
+        "book3": 3
+      }
     }
   },
   "limitations": [
