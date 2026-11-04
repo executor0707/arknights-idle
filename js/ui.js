@@ -288,8 +288,24 @@ function renderView() {
   else if (ui.view === 'archive') html = renderArchive();
   else if (ui.view === 'events') html = renderEvents();
   main.innerHTML = html;
+  if (ui.view === 'operators') bindOperatorHits();
   if (ui.view === 'battle') setupArena();
   if (ui.view === 'base') updateBaseDynamic();
+}
+
+// The card art and text are display-only. A dedicated transparent button on
+// top is the only click target, so hover transforms, image dragging or child
+// nodes can never swallow a click.
+function bindOperatorHits() {
+  document.querySelectorAll('.op-hit').forEach(btn => {
+    if (btn.dataset.bound === '1') return;
+    btn.dataset.bound = '1';
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openOperator(btn.dataset.id);
+    });
+  });
 }
 
 // ── toasts / modal ────────────────────────────────────────────────
@@ -917,7 +933,7 @@ function renderOperators() {
     const isOwned = !!o;
     const pot = o?.potential || 0;
     const levelText = isOwned ? `E${o.elite} L${o.level}` : '未获得';
-    return `<button type="button" draggable="false" class="op-card rarity-${d.rarity} ${isOwned ? '' : 'unowned'}" style="--rarity:${STAR_COLOR[d.rarity]};--class-color:${classOf(d)}" data-action="operator" data-id="${d.id}">
+    return `<div class="op-card rarity-${d.rarity} ${isOwned ? '' : 'unowned'}" style="--rarity:${STAR_COLOR[d.rarity]};--class-color:${classOf(d)}" data-op-card="${d.id}">
       <span class="rarity-strip"></span>
       <img src="${G.portraitFor(d.id)}" alt="${esc(d.name)}" loading="lazy" draggable="false">
       <span class="class-badge">${CLASS_GLYPH[d.cls]}</span>
@@ -930,7 +946,8 @@ function renderOperators() {
           <span class="op-power">${isOwned ? 'PWR ' + fmt(G.opPower(d.id)) : '—'}</span>
         </div>
       </div>
-    </button>`;
+      <button type="button" class="op-hit" data-action="operator" data-id="${d.id}" aria-label="查看${esc(d.name)}详情"></button>
+    </div>`;
   }).join('');
 
   return `<section class="page">

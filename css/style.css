@@ -464,10 +464,12 @@ a { color: var(--orange); }
 .filter-btn:hover { color: var(--text); border-color: var(--line-strong); }
 .filter-btn.active { color: var(--orange); border-color: rgba(255,180,58,.4); background: var(--orange-soft); }
 .op-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(138px, 1fr)); gap: 9px; }
-.op-card { position: relative; height: 224px; border: 1px solid var(--line); background: #0d1112; overflow: hidden; text-align: left; padding: 0; touch-action: manipulation; transition: border-color .2s; }
+.op-card { position: relative; display: block; height: 224px; border: 1px solid var(--line); background: #0d1112; overflow: hidden; text-align: left; padding: 0; color: inherit; font: inherit; touch-action: manipulation; transition: border-color .2s; }
 .op-card:hover { border-color: rgba(255,180,58,.45); }
 .op-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 36%, rgba(6,8,8,.35) 53%, rgba(6,8,8,.94) 79%); pointer-events: none; }
-.op-card > * { pointer-events: none; }
+.op-card > :not(.op-hit) { pointer-events: none; }
+.op-hit { position: absolute; inset: 0; z-index: 20; width: 100%; height: 100%; border: 0; padding: 0; background: transparent; cursor: pointer; }
+.op-hit:focus-visible { outline: 2px solid var(--orange); outline-offset: -3px; }
 .op-card img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 5%; transition: transform .45s; user-select: none; -webkit-user-drag: none; }
 .op-card:hover img { transform: scale(1.04); }
 .op-card .rarity-strip { position: absolute; left: 0; top: 0; right: 0; height: 2px; background: var(--rarity); z-index: 3; box-shadow: 0 0 10px var(--rarity); }
