@@ -414,7 +414,16 @@
       },
       "meleeNotBlockedOnly": true,
       "healInfinite": true,
-      "healFarDistance": 72
+      "healFarDistance": 72,
+      "rangedSpecialists": 12,
+      "rangedSpecialistRanges": {
+        "怪杰": 62,
+        "陷阱师": 62,
+        "炼金师": 58
+      },
+      "rangedSpecialistBlock": 0,
+      "meleeSpecialists": 43,
+      "meleeSpecialistRange": 26
     },
     "stageDots": {
       "clearedAlwaysGreen": true,

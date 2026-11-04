@@ -18,6 +18,9 @@ const CLASS_KEY = { 先锋: 'vanguard', 近卫: 'guard', 重装: 'defender', 狙
 // their old narrow 13-15% auto-attack range. Ranged roles keep ROLE_MODS range.
 const MELEE_ROLES = new Set(['vanguard', 'guard', 'defender', 'specialist']);
 const MELEE_RANGE = 26;
+// PRTS: 远程位特种 = 怪杰 / 陷阱师 / 炼金师 (12 operators).
+// They use the ranged (sniper/caster) engagement model and do not block.
+const RANGED_SPECIALIST_RANGE = new Map([['怪杰', 62], ['陷阱师', 62], ['炼金师', 58]]);
 const CAPS = { 2: [30], 3: [40, 55], 4: [45, 60, 70], 5: [50, 70, 80], 6: [50, 80, 90] };
 export const USEFUL_ITEM_IDS = new Set([
   'record1', 'record2', 'record3', 'record4',
@@ -268,7 +271,9 @@ export function getOpStats(id) {
   if (s.potential >= 5) { atk *= 1.03; hp *= 1.03; interval *= 0.94; }
   const skillPower = 1 + (s.skill - 1) * 0.055 + (s.mastery || 0) * 0.075 + (s.potential >= 5 ? 0.1 : 0);
   return {
-    id, hp, atk, def, res, interval, range: MELEE_ROLES.has(data.role) ? MELEE_RANGE : mod.range, block: mod.block,
+    id, hp, atk, def, res, interval,
+    range: (data.role === 'specialist' && RANGED_SPECIALIST_RANGE.get(data.sub)) || (MELEE_ROLES.has(data.role) ? MELEE_RANGE : mod.range),
+    block: data.role === 'specialist' && RANGED_SPECIALIST_RANGE.has(data.sub) ? 0 : mod.block,
     role: data.role, arts: !!mod.arts, heal: !!mod.heal, skillPower,
   };
 }
