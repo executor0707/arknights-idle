@@ -412,7 +412,7 @@ function renderBattle() {
       <span class="stage-code">${esc(s.code)}</span>
       <span class="stage-rec">PWR ${fmt(s.rec)}</span>
       <span class="stage-name">${esc(s.name)}</span>
-      <span class="stage-power"><i class="power-dot ${dot}"></i>${first ? '首通 +' + s.firstClearPrime + ' ◆' : '已首通'} · 挂机 ${G.idleSummary(s).pullsPerHour.toFixed(1)} 抽/h</span>
+      <span class="stage-power"><i class="power-dot ${dot}"></i>${first ? '首通 +' + s.firstClearPrime + ' ◆' : '已首通'} · 挂机 ${fmt(G.idleSummary(s).orundumPerHour)} 合成玉/h</span>
     </button>`;
   }).join('');
 
@@ -501,7 +501,7 @@ function renderBattle() {
             <div class="kv"><span>当前编队</span><b>${fmt(power)}</b></div>
             <div class="kv"><span>预估胜率</span><b class="${estimate[1] === 'bad' ? 'red' : estimate[1] === 'warn' ? 'orange' : 'green'}">${estimate[0]}</b></div>
             <div class="progress mt-8"><i style="width:${Math.min(100, ratio * 100)}%;${ratio >= 1 ? '' : 'background:linear-gradient(90deg,#ff8a2a,#ff5d55)'}"></i></div>
-            <div class="kv mt-8"><span>挂机合成玉</span><b class="orange">${idle.pullsPerHour.toFixed(1)} 抽/h</b></div>
+            <div class="kv mt-8"><span>挂机合成玉</span><b class="orange">${fmt(idle.orundumPerHour)} 合成玉/h</b></div>
             <div class="kv"><span>源石碎片</span><b>${idle.shardsPerHour.toFixed(1)}/h</b></div>
             <div class="kv"><span>基建材料块</span><b>${idle.blocksPerHour.toFixed(1)}/h</b></div>
             <div class="kv"><span>通用芯片</span><b class="orange">${idle.chipsPerHour.toFixed(0)}/h</b></div>
@@ -586,7 +586,7 @@ function rewardChips(stage) {
   const chips = [];
   chips.push(`<span class="reward-chip">龙门币 <b>${fmt(r.lmd)}</b></span>`);
   if (stage.group === 'annihilation' && stage.idle) {
-    chips.push(`<span class="reward-chip">挂机 <b>${(stage.idle.orundumPerHour / PULL_COST).toFixed(1)} 抽/h</b></span>`);
+    chips.push(`<span class="reward-chip">挂机 <b>${fmt(stage.idle.orundumPerHour)} 合成玉/h</b></span>`);
   } else if (r.orundum) {
     chips.push(`<span class="reward-chip">合成玉 <b>${r.orundum}</b></span>`);
   }

@@ -777,6 +777,11 @@
       "pullsPerHour": 10.2,
       "primesPerDay": 5.3,
       "columns": 4
+    },
+    "stageIdleLabel": {
+      "unit": "orundumPerHour",
+      "sample": "6,109 合成玉/h",
+      "pullLabelsOnStage": 0
     }
   },
   "limitations": [
