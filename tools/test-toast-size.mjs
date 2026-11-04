@@ -1,0 +1,18 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=toast2x'});
+await new Promise(r=>setTimeout(r,1000));
+await evalJS(send, `window.__RHODES_IMPORTING__=true;localStorage.clear();location.reload();true`);
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1400));
+await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`);
+await new Promise(r=>setTimeout(r,400));
+await evalJS(send, `import('./js/ui.js').then(m=>m.toast('源石不足，需要 18 枚。','warn',8000));true`);
+await new Promise(r=>setTimeout(r,500));
+console.log(await evalJS(send, `(()=>{const t=document.querySelector('.toast');const s=getComputedStyle(t);return JSON.stringify({text:t?.textContent,font:s.fontSize,padding:s.padding,minWidth:s.minWidth,maxWidth:s.maxWidth,width:Math.round(t?.getBoundingClientRect().width||0)})})()`));
+await screenshot(send,'.cache/toast-2x.png',1440,1000);
+process.exit(0);

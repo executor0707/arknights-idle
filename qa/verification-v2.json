@@ -514,6 +514,13 @@
       "healAtkRatio": 0.18,
       "noAttack": true,
       "noAttackAnimation": true
+    },
+    "toastSize": {
+      "font": "20px",
+      "padding": "20px 26px",
+      "minWidth": 440,
+      "maxWidth": 780,
+      "mobileFont": "16px"
     }
   },
   "limitations": [
