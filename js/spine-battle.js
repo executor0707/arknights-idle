@@ -242,8 +242,16 @@ export function syncSpine(battle) {
       if (sp._castMark !== a.sp) { play(sp, name); sp._castMark = a.sp; }
     } else if (a.attackLock > 0.01 || a.attackFlash > 0.06) {
       if (!sp._attackActive) { play(sp, 'Attack'); sp._attackActive = true; }
+    } else if (sp._attackActive) {
+      const track = sp.state.getCurrent(0);
+      const dur = track?.animation?.duration || 0;
+      const elapsed = track?.trackTime || 0;
+      const attacking = /attack/i.test(sp._anim || '');
+      if (!attacking || !(dur > 0.05) || elapsed >= dur - 0.03) {
+        sp._attackActive = false;
+        play(sp, 'Idle', true);
+      }
     } else {
-      sp._attackActive = false;
       play(sp, 'Idle', true);
     }
   }
