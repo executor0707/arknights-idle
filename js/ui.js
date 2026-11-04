@@ -917,9 +917,9 @@ function renderOperators() {
     const isOwned = !!o;
     const pot = o?.potential || 0;
     const levelText = isOwned ? `E${o.elite} L${o.level}` : '未获得';
-    return `<button class="op-card rarity-${d.rarity} ${isOwned ? '' : 'unowned'}" style="--rarity:${STAR_COLOR[d.rarity]};--class-color:${classOf(d)}" data-action="operator" data-id="${d.id}">
+    return `<button type="button" draggable="false" class="op-card rarity-${d.rarity} ${isOwned ? '' : 'unowned'}" style="--rarity:${STAR_COLOR[d.rarity]};--class-color:${classOf(d)}" data-action="operator" data-id="${d.id}">
       <span class="rarity-strip"></span>
-      <img src="${G.portraitFor(d.id)}" alt="${esc(d.name)}" loading="lazy">
+      <img src="${G.portraitFor(d.id)}" alt="${esc(d.name)}" loading="lazy" draggable="false">
       <span class="class-badge">${CLASS_GLYPH[d.cls]}</span>
       <span class="op-id">NO.${String(OPERATORS.indexOf(d) + 1).padStart(3, '0')}</span>
       <div class="op-info">
@@ -1732,7 +1732,7 @@ async function onClick(e) {
     placeDeployment(e.clientX, e.clientY);
     return;
   }
-  const target = e.target.closest('[data-action]');
+  const target = e.target.closest('[data-action]') || e.target.closest('.op-card');
   if (!target) return;
   if (target.disabled) return;
   const action = target.dataset.action;
