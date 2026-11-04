@@ -462,6 +462,21 @@
       "class": true,
       "search": true,
       "ownedOnly": true
+    },
+    "highGroundSpecialists": {
+      "count": 12,
+      "attackClipFallback": true,
+      "clips": [
+        "Attack_Loop",
+        "Doll_Attack_Loop",
+        "Attack_1_A"
+      ],
+      "tested": [
+        "char_225_haak",
+        "ela",
+        "char_2027_wang"
+      ],
+      "rangedLogic": true
     }
   },
   "limitations": [

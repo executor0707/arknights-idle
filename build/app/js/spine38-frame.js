@@ -124,8 +124,22 @@
     return sp;
   }
 
+  function attackClip(sp) {
+    var a = sp._anims || [];
+    var pref = ['Attack', 'Attack_Loop', 'Attack_Begin', 'Attack_1_A', 'Attack_1_B', 'Attack_2_A', 'Attack_2_B', 'Doll_Attack_Loop', 'Doll_Attack_Begin'];
+    for (var i = 0; i < pref.length; i++) if (a.indexOf(pref[i]) >= 0) return pref[i];
+    for (var j = 0; j < a.length; j++) {
+      if (/attack/i.test(a[j]) && !/down|end/i.test(a[j])) return a[j];
+    }
+    return null;
+  }
+
   function play(sp, name, loop) {
     if (!sp || sp._anim === name) return;
+    if (name === 'Attack') {
+      var clip = attackClip(sp);
+      if (clip) name = clip;
+    }
     if (sp._anims.indexOf(name) < 0) name = 'Idle', loop = true;
     sp.state.setAnimation(0, name, !!loop);
     sp._anim = name;
