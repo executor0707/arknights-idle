@@ -176,7 +176,12 @@
       "lmdStep": 22,
       "expStep": 9,
       "bossPool": 6,
-      "autoNext": true
+      "autoNext": true,
+      "singleCard": true,
+      "displayStart": 0,
+      "displayFloorOffset": -1,
+      "labelTemplate": "无尽战线-{n}",
+      "initialStages": 1
     },
     "materials": {
       "promotion": "chip + LMD only",
