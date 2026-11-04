@@ -752,6 +752,13 @@
       "childrenPointerEvents": "none",
       "edgeClickTests": 3,
       "passed": 3
+    },
+    "operatorBoxHitLayer": {
+      "independentHitButton": true,
+      "directListener": true,
+      "edgeClicks": 4,
+      "passed": 4,
+      "topTarget": "op-hit"
     }
   },
   "limitations": [
