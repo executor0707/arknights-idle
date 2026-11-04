@@ -145,6 +145,23 @@ export function loadOperator(id) {
 }
 export function loadEnemy() {}
 
+function boneBodyHeight35(data) {
+  try {
+    const s = s35();
+    const probe = new s.Spine(data);
+    const anims = data.animations.map(a => a.name);
+    probe.state.setAnimation(0, anims.includes('Idle') ? 'Idle' : anims[0], true);
+    probe.update(0);
+    probe.skeleton.updateWorldTransform();
+    const head = probe.skeleton.bones.find(b => /^F_Head$|^F_head$/i.test(b.data.name));
+    const feet = probe.skeleton.bones.filter(b => /^F_[LR]_Foot(_\d+)?$/i.test(b.data.name));
+    let body = 0;
+    if (head && feet.length) body = Math.abs(head.worldY - Math.min(...feet.map(b => b.worldY)));
+    probe.destroy({ children: true });
+    return body;
+  } catch (e) { return 0; }
+}
+
 function make35(unit) {
   const data = cache.get('op:' + unit.id)?.data;
   if (!data) return null;
@@ -156,7 +173,10 @@ function make35(unit) {
   sp.update(0);
   const lb = sp.getLocalBounds();
   const visibleH = lb && lb.height > 4 ? lb.height : data.height;
-  const scale = 130 / Math.max(1, visibleH);
+  const bodyH = boneBodyHeight35(data);
+  const scale = bodyH > 20 && bodyH / Math.max(1, visibleH) < 0.45
+    ? 70 / bodyH
+    : 130 / Math.max(1, visibleH);
   sp._baseScale = scale;
   sp._dir = 1;
   sp.scale.set(scale, scale);
