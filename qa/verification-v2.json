@@ -744,6 +744,14 @@
         "debuff",
         "execute"
       ]
+    },
+    "boxClick": {
+      "hitTarget": "button",
+      "imageDraggable": false,
+      "hoverMove": false,
+      "childrenPointerEvents": "none",
+      "edgeClickTests": 3,
+      "passed": 3
     }
   },
   "limitations": [

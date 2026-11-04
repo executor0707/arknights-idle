@@ -464,10 +464,11 @@ a { color: var(--orange); }
 .filter-btn:hover { color: var(--text); border-color: var(--line-strong); }
 .filter-btn.active { color: var(--orange); border-color: rgba(255,180,58,.4); background: var(--orange-soft); }
 .op-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(138px, 1fr)); gap: 9px; }
-.op-card { position: relative; height: 224px; border: 1px solid var(--line); background: #0d1112; overflow: hidden; text-align: left; padding: 0; transition: transform .2s, border-color .2s; }
-.op-card:hover { transform: translateY(-3px); border-color: rgba(255,180,58,.45); }
+.op-card { position: relative; height: 224px; border: 1px solid var(--line); background: #0d1112; overflow: hidden; text-align: left; padding: 0; touch-action: manipulation; transition: border-color .2s; }
+.op-card:hover { border-color: rgba(255,180,58,.45); }
 .op-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 36%, rgba(6,8,8,.35) 53%, rgba(6,8,8,.94) 79%); pointer-events: none; }
-.op-card img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 5%; transition: transform .45s; }
+.op-card > * { pointer-events: none; }
+.op-card img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 5%; transition: transform .45s; user-select: none; -webkit-user-drag: none; }
 .op-card:hover img { transform: scale(1.04); }
 .op-card .rarity-strip { position: absolute; left: 0; top: 0; right: 0; height: 2px; background: var(--rarity); z-index: 3; box-shadow: 0 0 10px var(--rarity); }
 .op-card .class-badge { position: absolute; left: 7px; top: 8px; z-index: 3; width: 22px; height: 22px; display: grid; place-items: center; border: 1px solid color-mix(in srgb, var(--class-color) 50%, transparent); background: rgba(7,10,10,.68); color: var(--class-color); font-size: 10px; font-weight: 700; }
