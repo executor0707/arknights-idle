@@ -943,18 +943,23 @@ export function openOperator(id, opts = {}) {
   const equipped = state.skins.equipped[id];
   const baseExp = bagExp();
   const canLevel = !next?.capped && (s.exp || 0) + baseExp >= next.needExp && state.lmd >= next.lmd;
-  const skinCards = allSkins.map(sk => {
+  const defaultPct = Math.round(G.skinScale(`${id}-default`) * 100);
+  const defaultCard = `<button class="skin-card ${!equipped ? 'equipped' : ''}" data-action="op-skin-default" data-op="${id}" title="默认皮肤">
+    <img src="${d.img}" alt="默认皮肤" loading="lazy">
+    <div class="skin-meta"><b>默认皮肤</b><span>${!equipped ? '已装备' : '点击装备'}</span></div>
+  </button>`;
+  const skinCards = [defaultCard, ...allSkins.map(sk => {
     const owned = G.skinOwned(id, sk.id);
     const isEq = equipped === sk.key;
-    const pct = Math.round(G.skinScale(sk.id) * 100);
-    return `<div class="skin-card-wrap">
-      <button class="skin-card ${owned ? 'owned' : ''} ${isEq ? 'equipped' : ''}" data-action="${owned ? 'op-skin' : 'op-buy-skin'}" data-id="${sk.id}" data-op="${id}" style="--skin-color:${sk.color}" title="${esc(sk.series)}">
-        <img src="${sk.img}" alt="${esc(sk.name)}" loading="lazy">
-        <div class="skin-meta"><b>${esc(sk.name)}</b><span>${owned ? (isEq ? '已装备' : '点击装备') : '◆ ' + SKIN_PRICE}</span></div>
-      </button>
-      <div class="skin-scale-row"><div class="skin-scale-head"><label><span>战斗小人缩放</span><b data-skin-scale-value="${sk.id}">${pct}%</b></label><button class="skin-scale-reset" data-action="reset-skin-scale" data-id="${sk.id}" title="重置为 100%">↺</button></div><input type="range" min="50" max="200" step="1" value="${pct}" data-skin-scale="${sk.id}" aria-label="${esc(sk.name)} 战斗小人缩放"></div>
-    </div>`;
-  }).join('');
+    return `<button class="skin-card ${owned ? 'owned' : ''} ${isEq ? 'equipped' : ''}" data-action="${owned ? 'op-skin' : 'op-buy-skin'}" data-id="${sk.id}" data-op="${id}" style="--skin-color:${sk.color}" title="${esc(sk.series)}">
+      <img src="${sk.img}" alt="${esc(sk.name)}" loading="lazy">
+      <div class="skin-meta"><b>${esc(sk.name)}</b><span>${owned ? (isEq ? '已装备' : '点击装备') : '◆ ' + SKIN_PRICE}</span></div>
+    </button>`;
+  })].join('');
+  const defaultScaleBlock = !equipped ? `<div class="skin-scale-row default-skin-scale">
+    <div class="skin-scale-head"><label><span>战斗小人大小</span><b data-skin-scale-value="${id}-default">${defaultPct}%</b></label><button class="skin-scale-reset" data-action="reset-skin-scale" data-id="${id}-default" title="重置为 100%">↺</button></div>
+    <input type="range" min="50" max="200" step="1" value="${defaultPct}" data-skin-scale="${id}-default" aria-label="默认皮肤 战斗小人大小">
+  </div>` : `<div class="detail-note">当前使用购买皮肤，战斗小人大小在「时装」页面调整。</div>`;
 
   const body = `<div class="op-detail">
     <div class="op-detail-hero rarity-${d.rarity}" style="--rarity:${STAR_COLOR[d.rarity]};--rarity-soft:${STAR_COLOR[d.rarity]}22">
@@ -1077,7 +1082,8 @@ export function openOperator(id, opts = {}) {
       <div class="detail-section">
         <div class="detail-section-head"><b>时装</b><span>${allSkins.length} 套 · 已拥有 ${allSkins.filter(sk => G.skinOwned(id, sk.id)).length}</span></div>
         <div class="detail-section-body">
-          ${allSkins.length ? `<div class="skin-strip">${skinCards}</div>` : '<div class="detail-note">该干员暂无可用时装。</div>'}
+          <div class="skin-strip">${skinCards}</div>
+          ${defaultScaleBlock}
           <div class="detail-note">时装售价 ${SKIN_PRICE} 源石。源石由首通与挂机源石碎片获得。当前拥有 ◆ ${fmt(state.primes)}。</div>
         </div>
       </div>
@@ -1258,11 +1264,13 @@ function renderSkins() {
   const cards = list.map(sk => {
     const op = G.OP_BY_ID.get(sk.opId);
     const isOwned = !!state.skins.owned[sk.id];
+    const opOwned = G.owned(sk.opId);
     const eq = state.skins.equipped[sk.opId] === sk.key;
+    const actionLabel = !opOwned ? '暂未获取该干员' : eq ? '已经穿戴' : isOwned ? '穿戴' : `◆ ${SKIN_PRICE}`;
     return `<div class="gallery-card ${isOwned ? 'owned' : ''}" style="--skin-color:${sk.color}">
       <img src="${sk.img}" alt="${esc(sk.name)}" loading="lazy">
       <div class="gallery-info"><b>${esc(sk.name)}</b><span>${esc(op.name)} · ${esc(sk.series || '常驻')}</span>
-        <button class="btn btn-small ${eq ? 'btn-cyan' : isOwned ? 'btn-primary' : ''}" data-action="gallery-skin" data-id="${sk.id}" ${!isOwned && state.primes < 18 ? 'disabled' : ''}>${eq ? '已装备' : isOwned ? '装备' : '◆ 18'}</button>
+        <button class="btn btn-small ${eq ? 'btn-cyan' : isOwned && opOwned ? 'btn-primary' : ''}" data-action="gallery-skin" data-id="${sk.id}" ${!opOwned || (!isOwned && state.primes < SKIN_PRICE) ? 'disabled' : ''}>${actionLabel}</button>
         <div class="skin-scale-row"><div class="skin-scale-head"><label><span>战斗小人缩放</span><b data-skin-scale-value="${sk.id}">${Math.round(G.skinScale(sk.id) * 100)}%</b></label><button class="skin-scale-reset" data-action="reset-skin-scale" data-id="${sk.id}" title="重置为 100%">↺</button></div><input type="range" min="50" max="200" step="1" value="${Math.round(G.skinScale(sk.id) * 100)}" data-skin-scale="${sk.id}" aria-label="${esc(sk.name)} 战斗小人缩放"></div>
       </div>
     </div>`;
@@ -1276,7 +1284,7 @@ function renderSkins() {
     <div class="skin-store-head">
       <div class="page-head-right" style="gap:14px">
         <span class="small">全量时装 · 统一售价 <b class="orange">18 源石</b></span>
-        <button class="filter-btn ${ui.skinFilter.owned ? 'active' : ''}" data-action="skin-owned">仅看已拥有</button>
+        <button class="filter-btn ${ui.skinFilter.owned ? 'active' : ''}" data-action="skin-owned">仅看已购买</button>
       </div>
       <div class="filter-group" style="margin-top:10px">
         <span class="filter-label">职业</span>
@@ -1793,6 +1801,11 @@ async function onClick(e) {
       if (input) input.value = '100';
       if (label) label.textContent = '100%';
       if (ui.view === 'battle') battle?.start(state.stage.selected);
+      break;
+    }
+    case 'op-skin-default': {
+      const opId = target.dataset.op;
+      if (G.equipSkin(opId, null)) { toast('已更换为默认皮肤。', 'success'); openOperator(opId, { silent: true }); }
       break;
     }
     case 'op-skin': {

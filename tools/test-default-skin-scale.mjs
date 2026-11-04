@@ -1,0 +1,23 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=defskin'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`localStorage.clear();location.reload()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1500));
+await send('Runtime.evaluate',{expression:`document.querySelector('[data-action="tutorial-skip"]')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,500));
+await evalJS(send,`__RHODES__.setView('operators',true);true`);
+await new Promise(r=>setTimeout(r,500));
+// open first owned operator card
+console.log(await evalJS(send,`(()=>{const c=document.querySelector('.op-card:not(.unowned)');c?.click();return c?.dataset.id||'none'})()`));
+await new Promise(r=>setTimeout(r,500));
+console.log('default', await evalJS(send,`JSON.stringify({cards:document.querySelectorAll('.skin-strip .skin-card').length,default:document.querySelector('[data-action="op-skin-default"]')?.textContent.replace(/\\s+/g,' ').trim(),sliders:document.querySelectorAll('.default-skin-scale [data-skin-scale]').length,scaleText:document.querySelector('.default-skin-scale')?.textContent.replace(/\\s+/g,' ').trim()})`));
+await screenshot(send,'.cache/default-skin-scale.png',1440,1000);
+await evalJS(send,`document.querySelector('[data-action="op-skin-default"]')?.click();true`);
+await new Promise(r=>setTimeout(r,400));
+console.log('after default', await evalJS(send,`JSON.stringify({cards:document.querySelectorAll('.skin-strip .skin-card').length,sliders:document.querySelectorAll('.default-skin-scale [data-skin-scale]').length})`));
+process.exit(0);

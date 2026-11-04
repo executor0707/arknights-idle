@@ -335,7 +335,16 @@
       "remoteTotal": 531,
       "remoteLoader": true,
       "localFallback": true,
-      "scale35": true
+      "scale35": true,
+      "defaultSlider": true,
+      "defaultKeySuffix": "-default",
+      "purchasedSkinSliderInOperator": false,
+      "storeStates": [
+        "已经穿戴",
+        "穿戴",
+        "暂未获取该干员"
+      ],
+      "storePurchasedFilter": true
     },
     "killLmd": {
       "instant": true,
