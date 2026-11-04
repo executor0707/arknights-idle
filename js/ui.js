@@ -377,9 +377,11 @@ function renderBattle() {
   const stageCards = stages.map(s => {
     const locked = !G.isStageUnlocked(s);
     const first = !state.stage.firstClear[s.id];
+    const cleared = state.stage.cleared.includes(s.id) || !!state.stage.firstClear[s.id];
     const active = s.id === stage.id;
     const r = G.squadPower() / s.rec;
-    const dot = r >= 1.05 ? '' : r >= 0.85 ? 'warn' : 'bad';
+    // Clear status wins over the power forecast: a cleared stage is always green.
+    const dot = cleared ? '' : r >= 1.05 ? '' : r >= 0.85 ? 'warn' : 'bad';
     return `<button class="stage-card ${active ? 'active' : ''} ${locked ? 'locked' : ''}" data-action="select-stage" data-id="${s.id}" ${locked ? 'disabled' : ''}>
       <span class="stage-code">${esc(s.code)}</span>
       <span class="stage-rec">PWR ${fmt(s.rec)}</span>
