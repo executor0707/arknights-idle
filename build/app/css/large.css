@@ -338,6 +338,15 @@
   .stage-chapter-row .mono { font-size: 10px; }
 }
 
+@media (min-width: 1000px) and (max-height: 820px) {
+  .sidebar { gap: 3px; padding: 10px 7px; overflow-y: auto; }
+  .nav-item { padding: 8px 3px 7px; gap: 3px; }
+  .nav-glyph { font-size: 20px; }
+  .nav-label { font-size: 13px; }
+  .nav-sub { display: none; }
+  .sidebar-foot { display: none; }
+}
+
 @media (min-width: 1000px) and (max-width: 1500px) {
   .brand { min-width: 230px; }
   .doctor-card { display: none; }
