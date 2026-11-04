@@ -191,6 +191,7 @@ function bindEvents() {
       const text = await f.text();
       const parsed = JSON.parse(text);
       const data = await decodeSaveFile(parsed);
+      window.__RHODES_IMPORTING__ = true;
       localStorage.setItem(SAVE_KEY, JSON.stringify(data));
       toast('存档已导入，正在重载...', 'success');
       setTimeout(() => location.reload(), 700);
