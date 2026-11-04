@@ -29,7 +29,7 @@ export const SPINE38_OPERATORS = {
     "name": "爱丽丝"
   },
   "ela": {
-    "base": "assets/spine38/operators/ela/char_4124_iana",
+    "base": "assets/spine38/operators/ela/char_4123_ela",
     "name": "艾拉"
   },
   "char_4043_erato": {

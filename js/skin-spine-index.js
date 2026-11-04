@@ -35,5 +35,9 @@ export const SKIN_SPINE = {
   "char_391_rosmon-skin2": {
     "name": "轻盈一梦",
     "base": "assets/spine38/skins/char_391_rosmon-skin2/char_391_rosmon_sale_16"
+  },
+  "ela-skin1": {
+    "name": "密室",
+    "base": "assets/spine38/skins/ela-skin1/char_4123_ela_rainbow6_2"
   }
 };

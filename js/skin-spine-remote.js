@@ -2027,9 +2027,5 @@ export const SKIN_SPINE_REMOTE = {
   "gitano-skin1": {
     "name": "未知的旅行",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_109_fmout/char_109_fmout_epoque_2/front/char_109_fmout_epoque_2"
-  },
-  "ela-skin1": {
-    "name": "镜廊",
-    "base": "https://torappu.prts.wiki/assets/char_spine/char_4124_iana/char_4124_iana_rainbow6_2/front/char_4124_iana_rainbow6_2"
   }
 };
