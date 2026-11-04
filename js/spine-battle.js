@@ -6,6 +6,9 @@ import { state, skinScaleForOp } from './game.js';
 const OPS_DATA = { ...SPINE38_OPERATORS, ...SKIN_SPINE_REMOTE, ...SKIN_SPINE };
 
 const ENEMY_KEY = { soldier: 'soldier', shield: 'shield', caster: 'caster', drone: 'hound', boss: 'boss_skulsr' };
+function mobileBattleScale() {
+  return window.matchMedia?.('(max-width: 900px)').matches ? 0.82 : 1;
+}
 const cache = new Map();
 const loading = new Set();
 let app = null;
@@ -188,7 +191,7 @@ export function syncSpine(battle) {
       const equipped = state.skins?.equipped?.[a.id];
       const skinKey = equipped ? `${a.id}-${equipped}` : null;
       const key = skinKey && OPS_DATA[skinKey] ? skinKey : a.id;
-      post.push({ uid: 'a:' + a.uid, kind: 'op', key, x: a.x, y: a.y, scale: (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id), bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
+      post.push({ uid: 'a:' + a.uid, kind: 'op', key, x: a.x, y: a.y, scale: (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id) * mobileBattleScale(), bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
       continue;
     }
     if (!SPINE35_ONLY[a.id]) continue;
@@ -200,7 +203,7 @@ export function syncSpine(battle) {
       if (sp) sprites.set('a:' + a.uid, sp);
       if (!sp) continue;
     }
-    const s = sp._baseScale * (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id);
+    const s = sp._baseScale * (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id) * mobileBattleScale();
     sp.scale.set(s, s);
     sp.x = Math.min(width - 26, Math.max(26, (a.x / 100) * width + Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7));
     sp.y = (a.y / 100) * height + 18 + Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6;

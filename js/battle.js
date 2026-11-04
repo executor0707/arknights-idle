@@ -614,7 +614,7 @@ export class Battle {
     if (this.status === 'victory' || this.status === 'defeat') return;
     this.status = win ? 'victory' : 'defeat';
     this.reason = reason;
-    this.endTimer = 3.2;
+    this.endTimer = 4.2;
     this.shouldAutoRestart = !!state.stage.auto;
     state.stats.runs += win ? 0 : 1;
     if (!win) {
