@@ -2,7 +2,7 @@
 
 一个以《明日方舟》世界观与 PRTS Wiki 资料为基础的非官方同人放置游戏。
 
-**在线游玩：** https://executor0707.github.io/arknights-idle/
+**在线游玩：** https://executor0707.github.io/arknights-idle/v4/（旧根地址会自动跳转到此入口）
 
 没有理智，没有体力。选关之后，干员会自动推进、战斗、循环。你可以关掉页面，回来收合成玉、源石碎片和基建材料。
 

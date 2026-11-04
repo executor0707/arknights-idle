@@ -1,0 +1,12 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/'});
+await new Promise(r=>setTimeout(r,1200));
+console.log(await evalJS(send, `JSON.stringify({url:location.href,base:document.baseURI,button:document.querySelector('#enterLabel')?.textContent,hasScript:!!document.querySelector('script[src*="main.js"]')})`));
+await screenshot(send,'.cache/v4-entry.png',1440,1000);
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=root'});
+await new Promise(r=>setTimeout(r,1200));
+console.log(await evalJS(send, `JSON.stringify({url:location.href,title:document.title})`));
+process.exit(0);

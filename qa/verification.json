@@ -585,6 +585,13 @@
         "预备干员-*(卫戍协议)",
         "郁金香(卫戍协议)"
       ]
+    },
+    "cacheEntry": {
+      "path": "/v4/",
+      "rootRedirects": true,
+      "localStorageKey": "rhodes_island_idle_save_v3",
+      "assetsQuery": "v=4",
+      "refreshPersists": true
     }
   },
   "limitations": [
