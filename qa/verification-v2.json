@@ -688,6 +688,18 @@
       "levelCapClamped": true,
       "cappedFieldsComplete": true,
       "stateFieldsNormalized": true
+    },
+    "endlessUnlockHighFloor": {
+      "fixed": true,
+      "testedFloor": 164,
+      "unlocked": true
+    },
+    "signatureSkills": {
+      "operators": 453,
+      "overrides": 453,
+      "genericDescriptions": 0,
+      "missing": 0,
+      "wikiSource": "Kengxxiao/ArknightsGameData zh_CN"
     }
   },
   "limitations": [
