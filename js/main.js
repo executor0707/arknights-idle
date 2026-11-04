@@ -2,7 +2,7 @@ import {
   state, loadGame, applyOffline, saveNow, tickBase, tickIdle,
 } from './game.js';
 import * as G from './game.js';
-import { SAVE_KEY } from './data.js';
+import { SAVE_KEY, SAVE_VERSION } from './data.js';
 import { decodeSaveFile } from './save-codec.js';
 import { Battle } from './battle.js';
 import { initUI, setView, tick, showOfflineReport, startTutorial, updateChrome } from './ui.js';
@@ -40,7 +40,11 @@ for (const legacy of [
 ]) {
   localStorage.removeItem(legacy);
 }
-const hasSave = !!localStorage.getItem(SAVE_KEY);
+let hasSave = false;
+try {
+  const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null');
+  hasSave = !!saved && saved.version === SAVE_VERSION && !!saved.operators;
+} catch (e) { hasSave = false; }
 if (enterLabel) enterLabel.textContent = hasSave ? '继续值守' : '建立博士档案';
 if (splashReset) splashReset.classList.toggle('hidden', !hasSave);
 
@@ -153,7 +157,8 @@ function uiView() {
 }
 
 window.addEventListener('beforeunload', () => {
-  if (!window.__RHODES_IMPORTING__) saveNow();
+  // Merely opening and closing the splash screen must not create a save.
+  if (booted && !window.__RHODES_IMPORTING__) saveNow();
 });
 
 // 调试入口：仅用于本机验证与自动化 QA。
