@@ -384,6 +384,8 @@ function renderBattle() {
   }
   const power = G.squadPower();
   const idle = G.idleSummary(stage);
+  const baseIdle = G.baseSummary();
+  const totalLmdPerHour = idle.lmdPerHour + baseIdle.lmdPerHour;
   if (ui.stageGroup === 'main' && !allGroupStages.some(s => String(s.chapterKey) === String(ui.mainChapter))) {
     ui.mainChapter = stage.group === 'main' ? stage.chapterKey : allGroupStages[0]?.chapterKey || 0;
   }
@@ -528,11 +530,12 @@ function renderBattle() {
         <div class="panel-head"><div class="panel-title">挂机收益</div><span class="panel-meta">LIVE // ${esc(stage.code)}</span></div>
         <div class="panel-body">
           <div class="mini-stat-row">
-            <div class="mini-stat"><span>龙门币 / 小时</span><b>${fmt(idle.lmdPerHour)}</b></div>
+            <div class="mini-stat"><span>龙门币 / 小时（含基建）</span><b>${fmt(totalLmdPerHour)}</b></div>
             <div class="mini-stat"><span>合成玉 / 小时</span><b>${fmt(idle.orundumPerHour)}</b></div>
             <div class="mini-stat"><span>寻访 / 小时</span><b>${idle.pullsPerHour.toFixed(1)} 抽</b></div>
             <div class="mini-stat"><span>源石 / 天</span><b>${idle.primesPerDay.toFixed(1)}</b></div>
           </div>
+          <div class="small mt-8">龙门币拆分：关卡 ${fmt(idle.lmdPerHour)}/h + 基建 ${fmt(baseIdle.lmdPerHour)}/h。</div>
           <div class="kv mt-12"><span>源石碎片进度</span><b>${Math.floor(state.primeShards)} / ${PRIME_SHARD_COST}</b></div>
           <div class="progress mt-8"><i class="cyan" style="width:${(state.primeShards / PRIME_SHARD_COST) * 100}%"></i></div>
           <div class="small mt-8">挂机收益与胜负无关；即使无法通关，也会按所选关卡持续积累。基建材料块 ${idle.blocksPerHour.toFixed(1)}/h。</div>
