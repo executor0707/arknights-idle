@@ -434,6 +434,13 @@
           "bad": 0
         }
       }
+    },
+    "modelScale": {
+      "operatorsAudited": 427,
+      "method": "bone body height",
+      "effectHeavyThreshold": 0.45,
+      "bodyTarget": 70,
+      "nianFixed": true
     }
   },
   "limitations": [

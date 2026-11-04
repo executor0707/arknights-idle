@@ -55,6 +55,48 @@
     });
   }
 
+  function coreBodyHeight(data) {
+    try {
+      var probe = new PIXI.spine.Spine(data);
+      probe.skeleton.setToSetupPose();
+      if (data.findAnimation && data.findAnimation('Idle')) probe.state.setAnimation(0, 'Idle', true);
+      probe.update(0);
+      var full = probe.getLocalBounds();
+      var fullH = full && full.height > 4 ? full.height : 0;
+      for (var i = 0; i < probe.skeleton.slots.length; i++) {
+        var name = probe.skeleton.slots[i].data.name;
+        if (/weapon|shield|effect|annex|summon|projectile|tail|coat|hair|wing/i.test(name)) {
+          probe.skeleton.slots[i].setAttachment(null);
+        }
+      }
+      probe.skeleton.updateWorldTransform();
+      probe.update(0);
+      var body = probe.getLocalBounds();
+      var bodyH = body && body.height > 20 ? body.height : 0;
+      probe.destroy({ children: true });
+      return bodyH || fullH;
+    } catch (e) { return 0; }
+  }
+
+  function boneBodyHeight(data) {
+    try {
+      var probe = new PIXI.spine.Spine(data);
+      probe.skeleton.setToSetupPose();
+      if (data.findAnimation && data.findAnimation('Idle')) probe.state.setAnimation(0, 'Idle', true);
+      probe.update(0);
+      probe.skeleton.updateWorldTransform();
+      var head = probe.skeleton.bones.find(function (b) { return /^F_Head$|^F_head$/i.test(b.data.name); });
+      var feet = probe.skeleton.bones.filter(function (b) { return /^F_[LR]_Foot(_\d+)?$/i.test(b.data.name); });
+      var body = 0;
+      if (head && feet.length) {
+        var footY = Math.min.apply(null, feet.map(function (b) { return b.worldY; }));
+        body = Math.abs(head.worldY - footY);
+      }
+      probe.destroy({ children: true });
+      return body;
+    } catch (e) { return 0; }
+  }
+
   function sprite(kind, key, unit) {
     var ck = kind + ':' + key;
     var data = dataCache.get(ck);
@@ -67,7 +109,13 @@
     var lb = sp.getLocalBounds();
     var visibleH = lb && lb.height > 4 ? lb.height : data.height;
     var target = kind === 'op' ? 130 : (unit && unit.boss ? 101 : 92);
+    var bodyH = kind === 'op' ? boneBodyHeight(data) : 0;
     var sc = target / Math.max(1, visibleH);
+    // Some assets carry oversized shields/weapons in their idle bounds. For
+    // those effect-heavy models, size the body instead of the whole silhouette.
+    if (bodyH > 20 && bodyH / Math.max(1, visibleH) < 0.45) {
+      sc = 70 / bodyH;
+    }
     sp._baseScale = sc;
     sp._dir = kind === 'enemy' ? -1 : 1;
     sp.scale.set(sc * sp._dir, sc);
