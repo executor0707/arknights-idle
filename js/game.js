@@ -32,7 +32,7 @@ export const USEFUL_ITEM_IDS = new Set([
 // Control room gives 0.05% crit per level on top of the 5% base crit.
 export const CONTROL_MAX_LEVEL = 1900;
 const MAX_ELITE = { 2: 0, 3: 1, 4: 2, 5: 2, 6: 2 };
-const TUTORIAL_FLAG = 'rhodes_idle_tutorial_v1';
+const TUTORIAL_FLAG = 'rhodes_idle_tutorial_v2';
 
 function dateKey(d = new Date()) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -113,6 +113,7 @@ export function loadGame() {
     const raw = localStorage.getItem(SAVE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
+      if (parsed.version !== SAVE_VERSION) throw new Error('存档版本过旧');
       state = deepMerge(createDefaultState(), parsed);
       state.version = SAVE_VERSION;
     }
