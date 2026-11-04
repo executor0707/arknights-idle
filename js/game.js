@@ -263,6 +263,7 @@ export function takeItem(id, n = 1) {
   return true;
 }
 export function canPay(cost = {}) {
+  if (!cost) return false;
   if ((cost.lmd || 0) > state.lmd) return false;
   if ((cost.orundum || 0) > state.orundum) return false;
   if ((cost.distinction || 0) > state.distinction) return false;
@@ -535,7 +536,7 @@ export function skillReqInfo(id) {
   if (s.skill < 7) return { kind: 'skill', next: s.skill + 1, cost: SKILL_REQS[s.skill] };
   if (s.mastery < 3) {
     if (s.elite < 2) return { locked: true, needElite: 2, next: 'M' + (s.mastery + 1) };
-    return { kind: 'mastery', next: 'M' + (s.mastery + 1), cost: MASTERY_REQS[s.mastery] };
+    return { kind: 'mastery', next: 'M' + (s.mastery + 1), cost: MASTERY_REQS[s.mastery + 1] };
   }
   return { maxed: true, cost: null, next: null };
 }
