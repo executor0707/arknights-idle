@@ -1,0 +1,1818 @@
+// Generated Spine index. 卫戍协议 operators removed.
+export const SPINE38_OPERATORS = {
+  "char_1037_amiya3": {
+    "base": "assets/spine38/operators/char_1037_amiya3/char_1037_amiya3",
+    "name": "阿米娅(医疗)"
+  },
+  "char_225_haak": {
+    "base": "assets/spine38/operators/char_225_haak/char_225_haak",
+    "name": "阿"
+  },
+  "char_446_aroma": {
+    "base": "assets/spine38/operators/char_446_aroma/char_446_aroma",
+    "name": "阿罗玛"
+  },
+  "12f": {
+    "base": "assets/spine38/operators/12f/char_009_12fce",
+    "name": "12F"
+  },
+  "char_4132_ascln": {
+    "base": "assets/spine38/operators/char_4132_ascln/char_4132_ascln",
+    "name": "阿斯卡纶"
+  },
+  "amiya": {
+    "base": "assets/spine38/operators/amiya/char_002_amiya",
+    "name": "阿米娅"
+  },
+  "char_338_iris": {
+    "base": "assets/spine38/operators/char_338_iris/char_338_iris",
+    "name": "爱丽丝"
+  },
+  "ela": {
+    "base": "assets/spine38/operators/ela/char_4124_iana",
+    "name": "艾拉"
+  },
+  "char_4043_erato": {
+    "base": "assets/spine38/operators/char_4043_erato/char_4043_erato",
+    "name": "埃拉托"
+  },
+  "char_1001_amiya2": {
+    "base": "assets/spine38/operators/char_1001_amiya2/char_1001_amiya2",
+    "name": "阿米娅(近卫)"
+  },
+  "char_127_estell": {
+    "base": "assets/spine38/operators/char_127_estell/char_127_estell",
+    "name": "艾丝黛尔"
+  },
+  "adnachiel": {
+    "base": "assets/spine38/operators/adnachiel/char_211_adnach",
+    "name": "安德切尔"
+  },
+  "char_4009_irene": {
+    "base": "assets/spine38/operators/char_4009_irene/char_4009_irene",
+    "name": "艾丽妮"
+  },
+  "char_302_glaze": {
+    "base": "assets/spine38/operators/char_302_glaze/char_302_glaze",
+    "name": "安比尔"
+  },
+  "char_4218_aigis": {
+    "base": "assets/spine38/operators/char_4218_aigis/char_4218_aigis",
+    "name": "埃癸斯"
+  },
+  "rope": {
+    "base": "assets/spine38/operators/rope/char_236_rope",
+    "name": "暗索"
+  },
+  "ansel": {
+    "base": "assets/spine38/operators/ansel/char_212_ansel",
+    "name": "安赛尔"
+  },
+  "char_4245_alga": {
+    "base": "assets/spine38/operators/char_4245_alga/char_4245_alga",
+    "name": "奥尔佳"
+  },
+  "eyjafjalla": {
+    "base": "assets/spine38/operators/eyjafjalla/char_180_amgoat",
+    "name": "艾雅法拉"
+  },
+  "shaw": {
+    "base": "assets/spine38/operators/shaw/char_277_sqrrel",
+    "name": "阿消"
+  },
+  "char_4131_odda": {
+    "base": "assets/spine38/operators/char_4131_odda/char_4131_odda",
+    "name": "奥达"
+  },
+  "char_4166_varkis": {
+    "base": "assets/spine38/operators/char_4166_varkis/char_4166_varkis",
+    "name": "摆渡人"
+  },
+  "char_218_cuttle": {
+    "base": "assets/spine38/operators/char_218_cuttle/char_218_cuttle",
+    "name": "安哲拉"
+  },
+  "char_4178_alanna": {
+    "base": "assets/spine38/operators/char_4178_alanna/char_4178_alanna",
+    "name": "阿兰娜"
+  },
+  "char_252_bibeak": {
+    "base": "assets/spine38/operators/char_252_bibeak/char_252_bibeak",
+    "name": "柏喙"
+  },
+  "char_291_aglina": {
+    "base": "assets/spine38/operators/char_291_aglina/char_291_aglina",
+    "name": "安洁莉娜"
+  },
+  "char_325_bison": {
+    "base": "assets/spine38/operators/char_325_bison/char_325_bison",
+    "name": "拜松"
+  },
+  "shirayuki": {
+    "base": "assets/spine38/operators/shirayuki/char_118_yuki",
+    "name": "白雪"
+  },
+  "platinum": {
+    "base": "assets/spine38/operators/platinum/char_204_platnm",
+    "name": "白金"
+  },
+  "char_1026_gvial2": {
+    "base": "assets/spine38/operators/char_1026_gvial2/char_1026_gvial2",
+    "name": "百炼嘉维尔"
+  },
+  "char_4186_tmoris": {
+    "base": "assets/spine38/operators/char_4186_tmoris/char_4186_tmoris",
+    "name": "八幡海铃"
+  },
+  "char_346_aosta": {
+    "base": "assets/spine38/operators/char_346_aosta/char_346_aosta",
+    "name": "奥斯塔"
+  },
+  "spot": {
+    "base": "assets/spine38/operators/spot/char_284_spot",
+    "name": "斑点"
+  },
+  "char_4072_ironmn": {
+    "base": "assets/spine38/operators/char_4072_ironmn/char_4072_ironmn",
+    "name": "白铁"
+  },
+  "ptilopsis": {
+    "base": "assets/spine38/operators/ptilopsis/char_128_plosis",
+    "name": "白面鸮"
+  },
+  "char_230_savage": {
+    "base": "assets/spine38/operators/char_230_savage/char_230_savage",
+    "name": "暴行"
+  },
+  "char_369_bena": {
+    "base": "assets/spine38/operators/char_369_bena/char_369_bena",
+    "name": "贝娜"
+  },
+  "char_388_mint": {
+    "base": "assets/spine38/operators/char_388_mint/char_388_mint",
+    "name": "薄绿"
+  },
+  "char_4104_coldst": {
+    "base": "assets/spine38/operators/char_4104_coldst/char_4104_coldst",
+    "name": "冰酿"
+  },
+  "char_304_zebra": {
+    "base": "assets/spine38/operators/char_304_zebra/char_304_zebra",
+    "name": "暴雨"
+  },
+  "char_4037_demetr": {
+    "base": "assets/spine38/operators/char_4037_demetr/char_4037_demetr",
+    "name": "贝洛内"
+  },
+  "char_4223_botany": {
+    "base": "assets/spine38/operators/char_4223_botany/char_4223_botany",
+    "name": "伯塔尼"
+  },
+  "char_258_podego": {
+    "base": "assets/spine38/operators/char_258_podego/char_258_podego",
+    "name": "波登可"
+  },
+  "char_487_bobb": {
+    "base": "assets/spine38/operators/char_487_bobb/char_487_bobb",
+    "name": "波卜"
+  },
+  "char_4004_pudd": {
+    "base": "assets/spine38/operators/char_4004_pudd/char_4004_pudd",
+    "name": "布丁"
+  },
+  "char_4106_bryota": {
+    "base": "assets/spine38/operators/char_4106_bryota/char_4106_bryota",
+    "name": "苍苔"
+  },
+  "char_4155_talr": {
+    "base": "assets/spine38/operators/char_4155_talr/char_4155_talr",
+    "name": "裁度"
+  },
+  "char_356_broca": {
+    "base": "assets/spine38/operators/char_356_broca/char_356_broca",
+    "name": "布洛卡"
+  },
+  "char_445_wscoot": {
+    "base": "assets/spine38/operators/char_445_wscoot/char_445_wscoot",
+    "name": "骋风"
+  },
+  "char_265_sophia": {
+    "base": "assets/spine38/operators/char_265_sophia/char_265_sophia",
+    "name": "鞭刃"
+  },
+  "char_289_gyuki": {
+    "base": "assets/spine38/operators/char_289_gyuki/char_289_gyuki",
+    "name": "缠丸"
+  },
+  "char_377_gdglow": {
+    "base": "assets/spine38/operators/char_377_gdglow/char_377_gdglow",
+    "name": "澄闪"
+  },
+  "char_286_cast3": {
+    "base": "assets/spine38/operators/char_286_cast3/char_286_cast3",
+    "name": "Castle-3"
+  },
+  "char_4188_confes": {
+    "base": "assets/spine38/operators/char_4188_confes/char_4188_confes",
+    "name": "CONFESS-47"
+  },
+  "char_1027_greyy2": {
+    "base": "assets/spine38/operators/char_1027_greyy2/char_1027_greyy2",
+    "name": "承曦格雷伊"
+  },
+  "char_4047_pianst": {
+    "base": "assets/spine38/operators/char_4047_pianst/char_4047_pianst",
+    "name": "车尔尼"
+  },
+  "char_1050_chen3": {
+    "base": "assets/spine38/operators/char_1050_chen3/char_1050_chen3",
+    "name": "赤刃明霄陈"
+  },
+  "char_4065_judge": {
+    "base": "assets/spine38/operators/char_4065_judge/char_4065_judge",
+    "name": "斥罪"
+  },
+  "pramanix": {
+    "base": "assets/spine38/operators/pramanix/char_174_slbell",
+    "name": "初雪"
+  },
+  "char_1016_agoat2": {
+    "base": "assets/spine38/operators/char_1016_agoat2/char_1016_agoat2",
+    "name": "纯烬艾雅法拉"
+  },
+  "char_494_vendla": {
+    "base": "assets/spine38/operators/char_494_vendla/char_494_vendla",
+    "name": "刺玫"
+  },
+  "char_362_saga": {
+    "base": "assets/spine38/operators/char_362_saga/char_362_saga",
+    "name": "嵯峨"
+  },
+  "char_157_dagda": {
+    "base": "assets/spine38/operators/char_157_dagda/char_157_dagda",
+    "name": "达格达"
+  },
+  "char_010_chen": {
+    "base": "assets/spine38/operators/char_010_chen/char_010_chen",
+    "name": "陈"
+  },
+  "chongyue": {
+    "base": "assets/spine38/operators/chongyue/char_2024_chyue",
+    "name": "重岳"
+  },
+  "char_475_akafyu": {
+    "base": "assets/spine38/operators/char_475_akafyu/char_475_akafyu",
+    "name": "赤冬"
+  },
+  "char_4110_delphn": {
+    "base": "assets/spine38/operators/char_4110_delphn/char_4110_delphn",
+    "name": "戴菲恩"
+  },
+  "char_4126_fuze": {
+    "base": "assets/spine38/operators/char_4126_fuze/char_4126_fuze",
+    "name": "导火索"
+  },
+  "char_393_toledo": {
+    "base": "assets/spine38/operators/char_393_toledo/char_393_toledo",
+    "name": "德·托莱多"
+  },
+  "char_1031_slent2": {
+    "base": "assets/spine38/operators/char_1031_slent2/char_1031_slent2",
+    "name": "淬羽赫默"
+  },
+  "char_4191_tippi": {
+    "base": "assets/spine38/operators/char_4191_tippi/char_4191_tippi",
+    "name": "蒂比"
+  },
+  "char_452_bstalk": {
+    "base": "assets/spine38/operators/char_452_bstalk/char_452_bstalk",
+    "name": "豆苗"
+  },
+  "char_4032_provs": {
+    "base": "assets/spine38/operators/char_4032_provs/char_4032_provs",
+    "name": "但书"
+  },
+  "char_4195_radian": {
+    "base": "assets/spine38/operators/char_4195_radian/char_4195_radian",
+    "name": "电弧"
+  },
+  "texas": {
+    "base": "assets/spine38/operators/texas/char_102_texas",
+    "name": "德克萨斯"
+  },
+  "char_130_doberm": {
+    "base": "assets/spine38/operators/char_130_doberm/char_130_doberm",
+    "name": "杜宾"
+  },
+  "char_4244_tocka": {
+    "base": "assets/spine38/operators/char_4244_tocka/char_4244_tocka",
+    "name": "冻河"
+  },
+  "char_427_vigil": {
+    "base": "assets/spine38/operators/char_427_vigil/char_427_vigil",
+    "name": "伺夜"
+  },
+  "char_4208_wintim": {
+    "base": "assets/spine38/operators/char_4208_wintim/char_4208_wintim",
+    "name": "冬时"
+  },
+  "earthspirit": {
+    "base": "assets/spine38/operators/earthspirit/char_183_skgoat",
+    "name": "地灵"
+  },
+  "char_4147_mitm": {
+    "base": "assets/spine38/operators/char_4147_mitm/char_4147_mitm",
+    "name": "渡桥"
+  },
+  "char_294_ayer": {
+    "base": "assets/spine38/operators/char_294_ayer/char_294_ayer",
+    "name": "断崖"
+  },
+  "char_1034_jesca2": {
+    "base": "assets/spine38/operators/char_1034_jesca2/char_1034_jesca2",
+    "name": "涤火杰西卡"
+  },
+  "char_271_spikes": {
+    "base": "assets/spine38/operators/char_271_spikes/char_271_spikes",
+    "name": "芳汀"
+  },
+  "char_4048_doroth": {
+    "base": "assets/spine38/operators/char_4048_doroth/char_4048_doroth",
+    "name": "多萝西"
+  },
+  "char_4182_oblvns": {
+    "base": "assets/spine38/operators/char_4182_oblvns/char_4182_oblvns",
+    "name": "丰川祥子"
+  },
+  "char_4083_chimes": {
+    "base": "assets/spine38/operators/char_4083_chimes/char_4083_chimes",
+    "name": "铎铃"
+  },
+  "char_300_phenxi": {
+    "base": "assets/spine38/operators/char_300_phenxi/char_300_phenxi",
+    "name": "菲亚梅塔"
+  },
+  "fang": {
+    "base": "assets/spine38/operators/fang/char_123_fang",
+    "name": "芬"
+  },
+  "char_4222_taraxa": {
+    "base": "assets/spine38/operators/char_4222_taraxa/char_4222_taraxa",
+    "name": "风絮"
+  },
+  "char_4016_kazema": {
+    "base": "assets/spine38/operators/char_4016_kazema/char_4016_kazema",
+    "name": "风丸"
+  },
+  "char_4148_philae": {
+    "base": "assets/spine38/operators/char_4148_philae/char_4148_philae",
+    "name": "菲莱"
+  },
+  "char_4093_frston": {
+    "base": "assets/spine38/operators/char_4093_frston/char_4093_frston",
+    "name": "Friston-3"
+  },
+  "char_159_peacok": {
+    "base": "assets/spine38/operators/char_159_peacok/char_159_peacok",
+    "name": "断罪者"
+  },
+  "hibiscus": {
+    "base": "assets/spine38/operators/hibiscus/char_120_hibisc",
+    "name": "芙蓉"
+  },
+  "char_222_bpipe": {
+    "base": "assets/spine38/operators/char_222_bpipe/char_222_bpipe",
+    "name": "风笛"
+  },
+  "char_4031_liesel": {
+    "base": "assets/spine38/operators/char_4031_liesel/char_4031_liesel",
+    "name": "复奏"
+  },
+  "char_4227_gallus": {
+    "base": "assets/spine38/operators/char_4227_gallus/char_4227_gallus",
+    "name": "GALLUS²"
+  },
+  "char_253_greyy": {
+    "base": "assets/spine38/operators/char_253_greyy/char_253_greyy",
+    "name": "格雷伊"
+  },
+  "durin": {
+    "base": "assets/spine38/operators/durin/char_501_durin",
+    "name": "杜林"
+  },
+  "gummy": {
+    "base": "assets/spine38/operators/gummy/char_196_sunbr",
+    "name": "古米"
+  },
+  "char_326_glacus": {
+    "base": "assets/spine38/operators/char_326_glacus/char_326_glacus",
+    "name": "格劳克斯"
+  },
+  "specter_alter": {
+    "base": "assets/spine38/operators/specter_alter/char_1023_ghost2",
+    "name": "归溟幽灵鲨"
+  },
+  "char_106_franka": {
+    "base": "assets/spine38/operators/char_106_franka/char_106_franka",
+    "name": "芙兰卡"
+  },
+  "char_220_grani": {
+    "base": "assets/spine38/operators/char_220_grani/char_220_grani",
+    "name": "格拉尼"
+  },
+  "char_4163_rosesa": {
+    "base": "assets/spine38/operators/char_4163_rosesa/char_4163_rosesa",
+    "name": "瑰盐"
+  },
+  "char_4246_dminon": {
+    "base": "assets/spine38/operators/char_4246_dminon/char_4246_dminon",
+    "name": "国度"
+  },
+  "char_4045_heidi": {
+    "base": "assets/spine38/operators/char_4045_heidi/char_4045_heidi",
+    "name": "海蒂"
+  },
+  "char_4066_highmo": {
+    "base": "assets/spine38/operators/char_4066_highmo/char_4066_highmo",
+    "name": "海沫"
+  },
+  "char_4079_haini": {
+    "base": "assets/spine38/operators/char_4079_haini/char_4079_haini",
+    "name": "海霓"
+  },
+  "char_341_sntlla": {
+    "base": "assets/spine38/operators/char_341_sntlla/char_341_sntlla",
+    "name": "寒檀"
+  },
+  "char_4039_horn": {
+    "base": "assets/spine38/operators/char_4039_horn/char_4039_horn",
+    "name": "号角"
+  },
+  "char_394_hadiya": {
+    "base": "assets/spine38/operators/char_394_hadiya/char_394_hadiya",
+    "name": "哈蒂娅"
+  },
+  "char_4114_harold": {
+    "base": "assets/spine38/operators/char_4114_harold/char_4114_harold",
+    "name": "哈洛德"
+  },
+  "char_4041_chnut": {
+    "base": "assets/spine38/operators/char_4041_chnut/char_4041_chnut",
+    "name": "褐果"
+  },
+  "char_4088_hodrer": {
+    "base": "assets/spine38/operators/char_4088_hodrer/char_4088_hodrer",
+    "name": "赫德雷"
+  },
+  "silence": {
+    "base": "assets/spine38/operators/silence/char_108_silent",
+    "name": "赫默"
+  },
+  "char_340_shwaz": {
+    "base": "assets/spine38/operators/char_340_shwaz/char_340_shwaz",
+    "name": "黑"
+  },
+  "char_297_hamoni": {
+    "base": "assets/spine38/operators/char_297_hamoni/char_297_hamoni",
+    "name": "和弦"
+  },
+  "char_188_helage": {
+    "base": "assets/spine38/operators/char_188_helage/char_188_helage",
+    "name": "赫拉格"
+  },
+  "char_474_glady": {
+    "base": "assets/spine38/operators/char_474_glady/char_474_glady",
+    "name": "歌蕾蒂娅"
+  },
+  "char_1021_kroos2": {
+    "base": "assets/spine38/operators/char_1021_kroos2/char_1021_kroos2",
+    "name": "寒芒克洛丝"
+  },
+  "gavial": {
+    "base": "assets/spine38/operators/gavial/char_187_ccheal",
+    "name": "嘉维尔"
+  },
+  "char_260_durnar": {
+    "base": "assets/spine38/operators/char_260_durnar/char_260_durnar",
+    "name": "坚雷"
+  },
+  "char_401_elysm": {
+    "base": "assets/spine38/operators/char_401_elysm/char_401_elysm",
+    "name": "极境"
+  },
+  "char_163_hpsts": {
+    "base": "assets/spine38/operators/char_163_hpsts/char_163_hpsts",
+    "name": "火神"
+  },
+  "texas_alter": {
+    "base": "assets/spine38/operators/texas_alter/char_1028_texas2",
+    "name": "缄默德克萨斯"
+  },
+  "char_4036_forcer": {
+    "base": "assets/spine38/operators/char_4036_forcer/char_4036_forcer",
+    "name": "见行者"
+  },
+  "char_349_chiave": {
+    "base": "assets/spine38/operators/char_349_chiave/char_349_chiave",
+    "name": "贾维"
+  },
+  "matterhorn": {
+    "base": "assets/spine38/operators/matterhorn/char_199_yak",
+    "name": "角峰"
+  },
+  "char_4230_mcnist": {
+    "base": "assets/spine38/operators/char_4230_mcnist/char_4230_mcnist",
+    "name": "机械师"
+  },
+  "char_4203_kichi": {
+    "base": "assets/spine38/operators/char_4203_kichi/char_4203_kichi",
+    "name": "吉星"
+  },
+  "char_293_thorns": {
+    "base": "assets/spine38/operators/char_293_thorns/char_293_thorns",
+    "name": "棘刺"
+  },
+  "char_347_jaksel": {
+    "base": "assets/spine38/operators/char_347_jaksel/char_347_jaksel",
+    "name": "杰克"
+  },
+  "char_4217_makoto": {
+    "base": "assets/spine38/operators/char_4217_makoto/char_4217_makoto",
+    "name": "结城理"
+  },
+  "char_4019_ncdeer": {
+    "base": "assets/spine38/operators/char_4019_ncdeer/char_4019_ncdeer",
+    "name": "九色鹿"
+  },
+  "char_306_leizi": {
+    "base": "assets/spine38/operators/char_306_leizi/char_306_leizi",
+    "name": "惊蛰"
+  },
+  "char_4078_bdhkgt": {
+    "base": "assets/spine38/operators/char_4078_bdhkgt/char_4078_bdhkgt",
+    "name": "截云"
+  },
+  "char_4221_ju": {
+    "base": "assets/spine38/operators/char_4221_ju/char_4221_ju",
+    "name": "矩"
+  },
+  "char_4169_caledo": {
+    "base": "assets/spine38/operators/char_4169_caledo/char_4169_caledo",
+    "name": "镜匠"
+  },
+  "char_214_kafka": {
+    "base": "assets/spine38/operators/char_214_kafka/char_214_kafka",
+    "name": "卡夫卡"
+  },
+  "char_272_strong": {
+    "base": "assets/spine38/operators/char_272_strong/char_272_strong",
+    "name": "孑"
+  },
+  "char_4237_jcinta": {
+    "base": "assets/spine38/operators/char_4237_jcinta/char_4237_jcinta",
+    "name": "嘉辛塔"
+  },
+  "char_426_billro": {
+    "base": "assets/spine38/operators/char_426_billro/char_426_billro",
+    "name": "卡涅利安"
+  },
+  "cardigan": {
+    "base": "assets/spine38/operators/cardigan/char_209_ardign",
+    "name": "卡缇"
+  },
+  "char_003_kalts": {
+    "base": "assets/spine38/operators/char_003_kalts/char_003_kalts",
+    "name": "凯尔希"
+  },
+  "char_4231_clemnt": {
+    "base": "assets/spine38/operators/char_4231_clemnt/char_4231_clemnt",
+    "name": "克莱门莎"
+  },
+  "char_2013_cerber": {
+    "base": "assets/spine38/operators/char_2013_cerber/char_2013_cerber",
+    "name": "刻俄柏"
+  },
+  "char_422_aurora": {
+    "base": "assets/spine38/operators/char_422_aurora/char_422_aurora",
+    "name": "极光"
+  },
+  "char_301_cutter": {
+    "base": "assets/spine38/operators/char_301_cutter/char_301_cutter",
+    "name": "刻刀"
+  },
+  "kroos": {
+    "base": "assets/spine38/operators/kroos/char_124_kroos",
+    "name": "克洛丝"
+  },
+  "croissant": {
+    "base": "assets/spine38/operators/croissant/char_201_moeshd",
+    "name": "可颂"
+  },
+  "char_4162_cathy": {
+    "base": "assets/spine38/operators/char_4162_cathy/char_4162_cathy",
+    "name": "凯瑟琳"
+  },
+  "char_1052_kalts2": {
+    "base": "assets/spine38/operators/char_1052_kalts2/char_1052_kalts2",
+    "name": "凯尔希·思衡托"
+  },
+  "catapult": {
+    "base": "assets/spine38/operators/catapult/char_282_catap",
+    "name": "空爆"
+  },
+  "char_4015_spuria": {
+    "base": "assets/spine38/operators/char_4015_spuria/char_4015_spuria",
+    "name": "空构"
+  },
+  "char_405_absin": {
+    "base": "assets/spine38/operators/char_405_absin/char_405_absin",
+    "name": "苦艾"
+  },
+  "char_4228_closur": {
+    "base": "assets/spine38/operators/char_4228_closur/char_4228_closur",
+    "name": "可露希尔"
+  },
+  "char_250_phatom": {
+    "base": "assets/spine38/operators/char_250_phatom/char_250_phatom",
+    "name": "傀影"
+  },
+  "char_332_archet": {
+    "base": "assets/spine38/operators/char_332_archet/char_332_archet",
+    "name": "空弦"
+  },
+  "lappland": {
+    "base": "assets/spine38/operators/lappland/char_140_whitew",
+    "name": "拉普兰德"
+  },
+  "char_4142_laios": {
+    "base": "assets/spine38/operators/char_4142_laios/char_4142_laios",
+    "name": "莱欧斯"
+  },
+  "char_322_lmlee": {
+    "base": "assets/spine38/operators/char_322_lmlee/char_322_lmlee",
+    "name": "老鲤"
+  },
+  "char_1049_catap2": {
+    "base": "assets/spine38/operators/char_1049_catap2/char_1049_catap2",
+    "name": "雷狼龙S空爆"
+  },
+  "char_4117_ray": {
+    "base": "assets/spine38/operators/char_4117_ray/char_4117_ray",
+    "name": "莱伊"
+  },
+  "char_373_lionhd": {
+    "base": "assets/spine38/operators/char_373_lionhd/char_373_lionhd",
+    "name": "莱恩哈特"
+  },
+  "char_4193_lemuen": {
+    "base": "assets/spine38/operators/char_4193_lemuen/char_4193_lemuen",
+    "name": "蕾缪安"
+  },
+  "jessica": {
+    "base": "assets/spine38/operators/jessica/char_235_jesica",
+    "name": "杰西卡"
+  },
+  "bluepoison": {
+    "base": "assets/spine38/operators/bluepoison/char_129_bluep",
+    "name": "蓝毒"
+  },
+  "chen_alter": {
+    "base": "assets/spine38/operators/chen_alter/char_1013_chen2",
+    "name": "假日威龙陈"
+  },
+  "char_194_leto": {
+    "base": "assets/spine38/operators/char_194_leto/char_194_leto",
+    "name": "烈夏"
+  },
+  "char_1036_fang2": {
+    "base": "assets/spine38/operators/char_1036_fang2/char_1036_fang2",
+    "name": "历阵锐枪芬"
+  },
+  "gravel": {
+    "base": "assets/spine38/operators/gravel/char_237_gravel",
+    "name": "砾"
+  },
+  "beehunter": {
+    "base": "assets/spine38/operators/beehunter/char_137_brownb",
+    "name": "猎蜂"
+  },
+  "char_4080_lin": {
+    "base": "assets/spine38/operators/char_4080_lin/char_4080_lin",
+    "name": "林"
+  },
+  "zima": {
+    "base": "assets/spine38/operators/zima/char_115_headbr",
+    "name": "凛冬"
+  },
+  "char_1042_phatm2": {
+    "base": "assets/spine38/operators/char_1042_phatm2/char_1042_phatm2",
+    "name": "酒神"
+  },
+  "nearl": {
+    "base": "assets/spine38/operators/nearl/char_148_nearl",
+    "name": "临光"
+  },
+  "char_1033_swire2": {
+    "base": "assets/spine38/operators/char_1033_swire2/char_1033_swire2",
+    "name": "琳琅诗怀雅"
+  },
+  "char_285_medic2": {
+    "base": "assets/spine38/operators/char_285_medic2/char_285_medic2",
+    "name": "Lancet-2"
+  },
+  "char_192_falco": {
+    "base": "assets/spine38/operators/char_192_falco/char_192_falco",
+    "name": "翎羽"
+  },
+  "char_4187_graceb": {
+    "base": "assets/spine38/operators/char_4187_graceb/char_4187_graceb",
+    "name": "聆音"
+  },
+  "char_206_gnosis": {
+    "base": "assets/spine38/operators/char_206_gnosis/char_206_gnosis",
+    "name": "灵知"
+  },
+  "char_358_lisa": {
+    "base": "assets/spine38/operators/char_358_lisa/char_358_lisa",
+    "name": "铃兰"
+  },
+  "char_617_sharp2": {
+    "base": "assets/spine38/operators/char_617_sharp2/char_617_sharp2",
+    "name": "领主·Sharp"
+  },
+  "char_4102_threye": {
+    "base": "assets/spine38/operators/char_4102_threye/char_4102_threye",
+    "name": "凛视"
+  },
+  "char_1045_svash2": {
+    "base": "assets/spine38/operators/char_1045_svash2/char_1045_svash2",
+    "name": "凛御银灰"
+  },
+  "char_4225_tanya": {
+    "base": "assets/spine38/operators/char_4225_tanya/char_4225_tanya",
+    "name": "裂响"
+  },
+  "char_4196_reckpr": {
+    "base": "assets/spine38/operators/char_4196_reckpr/char_4196_reckpr",
+    "name": "录武官"
+  },
+  "char_451_robin": {
+    "base": "assets/spine38/operators/char_451_robin/char_451_robin",
+    "name": "罗宾"
+  },
+  "char_4130_luton": {
+    "base": "assets/spine38/operators/char_4130_luton/char_4130_luton",
+    "name": "露托"
+  },
+  "char_4040_rockr": {
+    "base": "assets/spine38/operators/char_4040_rockr/char_4040_rockr",
+    "name": "洛洛"
+  },
+  "mlynar": {
+    "base": "assets/spine38/operators/mlynar/char_4064_mlynar",
+    "name": "玛恩纳"
+  },
+  "char_486_takila": {
+    "base": "assets/spine38/operators/char_486_takila/char_486_takila",
+    "name": "龙舌兰"
+  },
+  "char_4042_lumen": {
+    "base": "assets/spine38/operators/char_4042_lumen/char_4042_lumen",
+    "name": "流明"
+  },
+  "char_4232_hbound": {
+    "base": "assets/spine38/operators/char_4232_hbound/char_4232_hbound",
+    "name": "旅骨"
+  },
+  "char_433_windft": {
+    "base": "assets/spine38/operators/char_433_windft/char_433_windft",
+    "name": "掠风"
+  },
+  "meteor": {
+    "base": "assets/spine38/operators/meteor/char_126_shotst",
+    "name": "流星"
+  },
+  "char_248_mgllan": {
+    "base": "assets/spine38/operators/char_248_mgllan/char_248_mgllan",
+    "name": "麦哲伦"
+  },
+  "char_242_otter": {
+    "base": "assets/spine38/operators/char_242_otter/char_242_otter",
+    "name": "梅尔"
+  },
+  "char_4067_lolxh": {
+    "base": "assets/spine38/operators/char_4067_lolxh/char_4067_lolxh",
+    "name": "罗小黑"
+  },
+  "char_133_mm": {
+    "base": "assets/spine38/operators/char_133_mm/char_133_mm",
+    "name": "梅"
+  },
+  "char_4006_melnte": {
+    "base": "assets/spine38/operators/char_4006_melnte/char_4006_melnte",
+    "name": "玫拉"
+  },
+  "char_391_rosmon": {
+    "base": "assets/spine38/operators/char_391_rosmon/char_391_rosmon",
+    "name": "迷迭香"
+  },
+  "beagle": {
+    "base": "assets/spine38/operators/beagle/char_122_beagle",
+    "name": "米格鲁"
+  },
+  "char_4215_buddy": {
+    "base": "assets/spine38/operators/char_4215_buddy/char_4215_buddy",
+    "name": "罗德岛隐秘队"
+  },
+  "char_4071_peper": {
+    "base": "assets/spine38/operators/char_4071_peper/char_4071_peper",
+    "name": "明椒"
+  },
+  "char_616_pithst": {
+    "base": "assets/spine38/operators/char_616_pithst/char_616_pithst",
+    "name": "盟约·辅助干员"
+  },
+  "char_4198_christ": {
+    "base": "assets/spine38/operators/char_4198_christ/char_4198_christ",
+    "name": "Miss.Christine"
+  },
+  "char_4017_puzzle": {
+    "base": "assets/spine38/operators/char_4017_puzzle/char_4017_puzzle",
+    "name": "谜图"
+  },
+  "char_449_glider": {
+    "base": "assets/spine38/operators/char_449_glider/char_449_glider",
+    "name": "蜜莓"
+  },
+  "char_154_morgan": {
+    "base": "assets/spine38/operators/char_154_morgan/char_154_morgan",
+    "name": "摩根"
+  },
+  "char_213_mostma": {
+    "base": "assets/spine38/operators/char_213_mostma/char_213_mostma",
+    "name": "莫斯提马"
+  },
+  "char_4229_aphris": {
+    "base": "assets/spine38/operators/char_4229_aphris/char_4229_aphris",
+    "name": "谬因"
+  },
+  "myrrh": {
+    "base": "assets/spine38/operators/myrrh/char_117_myrrh",
+    "name": "末药"
+  },
+  "char_328_cammou": {
+    "base": "assets/spine38/operators/char_328_cammou/char_328_cammou",
+    "name": "卡达"
+  },
+  "char_4025_aprot2": {
+    "base": "assets/spine38/operators/char_4025_aprot2/char_4025_aprot2",
+    "name": "暮落"
+  },
+  "melantha": {
+    "base": "assets/spine38/operators/melantha/char_208_melan",
+    "name": "玫兰莎"
+  },
+  "char_512_aprot": {
+    "base": "assets/spine38/operators/char_512_aprot/char_512_aprot",
+    "name": "暮落"
+  },
+  "char_4171_wulfen": {
+    "base": "assets/spine38/operators/char_4171_wulfen/char_4171_wulfen",
+    "name": "钼铅"
+  },
+  "char_4134_cetsyr": {
+    "base": "assets/spine38/operators/char_4134_cetsyr/char_4134_cetsyr",
+    "name": "魔王"
+  },
+  "char_249_mlyss": {
+    "base": "assets/spine38/operators/char_249_mlyss/char_249_mlyss",
+    "name": "缪尔赛思"
+  },
+  "char_4138_narant": {
+    "base": "assets/spine38/operators/char_4138_narant/char_4138_narant",
+    "name": "娜仁图亚"
+  },
+  "char_4141_marcil": {
+    "base": "assets/spine38/operators/char_4141_marcil/char_4141_marcil",
+    "name": "玛露西尔"
+  },
+  "char_4212_nasti": {
+    "base": "assets/spine38/operators/char_4212_nasti/char_4212_nasti",
+    "name": "娜斯提"
+  },
+  "char_1051_headb2": {
+    "base": "assets/spine38/operators/char_1051_headb2/char_1051_headb2",
+    "name": "怒潮凛冬"
+  },
+  "nian": {
+    "base": "assets/spine38/operators/nian/char_2014_nian",
+    "name": "年"
+  },
+  "exusiai": {
+    "base": "assets/spine38/operators/exusiai/char_103_angel",
+    "name": "能天使"
+  },
+  "char_4173_nowell": {
+    "base": "assets/spine38/operators/char_4173_nowell/char_4173_nowell",
+    "name": "诺威尔"
+  },
+  "char_484_robrta": {
+    "base": "assets/spine38/operators/char_484_robrta/char_484_robrta",
+    "name": "罗比菈塔"
+  },
+  "mousse": {
+    "base": "assets/spine38/operators/mousse/char_185_frncat",
+    "name": "慕斯"
+  },
+  "char_4179_monstr": {
+    "base": "assets/spine38/operators/char_4179_monstr/char_4179_monstr",
+    "name": "Mon3tr"
+  },
+  "char_344_beewax": {
+    "base": "assets/spine38/operators/char_344_beewax/char_344_beewax",
+    "name": "蜜蜡"
+  },
+  "char_381_bubble": {
+    "base": "assets/spine38/operators/char_381_bubble/char_381_bubble",
+    "name": "泡泡"
+  },
+  "char_509_acast": {
+    "base": "assets/spine38/operators/char_509_acast/char_509_acast",
+    "name": "Pith"
+  },
+  "char_4146_nymph": {
+    "base": "assets/spine38/operators/char_4146_nymph/char_4146_nymph",
+    "name": "妮芙"
+  },
+  "provence": {
+    "base": "assets/spine38/operators/provence/char_145_prove",
+    "name": "普罗旺斯"
+  },
+  "char_4144_chilc": {
+    "base": "assets/spine38/operators/char_4144_chilc/char_4144_chilc",
+    "name": "齐尔查克"
+  },
+  "char_311_mudrok": {
+    "base": "assets/spine38/operators/char_311_mudrok/char_311_mudrok",
+    "name": "泥岩"
+  },
+  "char_485_pallas": {
+    "base": "assets/spine38/operators/char_485_pallas/char_485_pallas",
+    "name": "帕拉斯"
+  },
+  "char_4058_pepe": {
+    "base": "assets/spine38/operators/char_4058_pepe/char_4058_pepe",
+    "name": "佩佩"
+  },
+  "char_478_kirara": {
+    "base": "assets/spine38/operators/char_478_kirara/char_478_kirara",
+    "name": "绮良"
+  },
+  "char_479_sleach": {
+    "base": "assets/spine38/operators/char_479_sleach/char_479_sleach",
+    "name": "琴柳"
+  },
+  "char_4234_pedro": {
+    "base": "assets/spine38/operators/char_4234_pedro/char_4234_pedro",
+    "name": "佩德洛"
+  },
+  "char_4082_qiubai": {
+    "base": "assets/spine38/operators/char_4082_qiubai/char_4082_qiubai",
+    "name": "仇白"
+  },
+  "popukar": {
+    "base": "assets/spine38/operators/popukar/char_281_popka",
+    "name": "泡普卡"
+  },
+  "char_363_toddi": {
+    "base": "assets/spine38/operators/char_363_toddi/char_363_toddi",
+    "name": "熔泉"
+  },
+  "char_202_demkni": {
+    "base": "assets/spine38/operators/char_202_demkni/char_202_demkni",
+    "name": "塞雷娅"
+  },
+  "char_4026_vulpis": {
+    "base": "assets/spine38/operators/char_4026_vulpis/char_4026_vulpis",
+    "name": "忍冬"
+  },
+  "char_4183_mortis": {
+    "base": "assets/spine38/operators/char_4183_mortis/char_4183_mortis",
+    "name": "若叶睦"
+  },
+  "char_385_finlpp": {
+    "base": "assets/spine38/operators/char_385_finlpp/char_385_finlpp",
+    "name": "清流"
+  },
+  "char_473_mberry": {
+    "base": "assets/spine38/operators/char_473_mberry/char_473_mberry",
+    "name": "桑葚"
+  },
+  "char_4143_sensi": {
+    "base": "assets/spine38/operators/char_4143_sensi/char_4143_sensi",
+    "name": "森西"
+  },
+  "char_264_f12yin": {
+    "base": "assets/spine38/operators/char_264_f12yin/char_264_f12yin",
+    "name": "山"
+  },
+  "char_488_buildr": {
+    "base": "assets/spine38/operators/char_488_buildr/char_488_buildr",
+    "name": "青枳"
+  },
+  "char_4235_thumpy": {
+    "base": "assets/spine38/operators/char_4235_thumpy/char_4235_thumpy",
+    "name": "珊比"
+  },
+  "char_416_zumama": {
+    "base": "assets/spine38/operators/char_416_zumama/char_416_zumama",
+    "name": "森蚺"
+  },
+  "char_4139_papyrs": {
+    "base": "assets/spine38/operators/char_4139_papyrs/char_4139_papyrs",
+    "name": "莎草"
+  },
+  "char_4136_phonor": {
+    "base": "assets/spine38/operators/char_4136_phonor/char_4136_phonor",
+    "name": "PhonoR-0"
+  },
+  "char_508_aguard": {
+    "base": "assets/spine38/operators/char_508_aguard/char_508_aguard",
+    "name": "Sharp"
+  },
+  "char_147_shining": {
+    "base": "assets/spine38/operators/char_147_shining/char_147_shining",
+    "name": "闪灵"
+  },
+  "char_379_sesa": {
+    "base": "assets/spine38/operators/char_379_sesa/char_379_sesa",
+    "name": "慑砂"
+  },
+  "char_457_blitz": {
+    "base": "assets/spine38/operators/char_457_blitz/char_457_blitz",
+    "name": "闪击"
+  },
+  "kirin_yato": {
+    "base": "assets/spine38/operators/kirin_yato/char_1029_yato2",
+    "name": "麒麟R夜刀"
+  },
+  "char_4062_totter": {
+    "base": "assets/spine38/operators/char_4062_totter/char_4062_totter",
+    "name": "铅踝"
+  },
+  "scavenger": {
+    "base": "assets/spine38/operators/scavenger/char_149_scave",
+    "name": "清道夫"
+  },
+  "char_4109_baslin": {
+    "base": "assets/spine38/operators/char_4109_baslin/char_4109_baslin",
+    "name": "深律"
+  },
+  "deepcolor": {
+    "base": "assets/spine38/operators/deepcolor/char_110_deepcl",
+    "name": "深海色"
+  },
+  "steward": {
+    "base": "assets/spine38/operators/steward/char_210_stward",
+    "name": "史都华德"
+  },
+  "char_1032_excu2": {
+    "base": "assets/spine38/operators/char_1032_excu2/char_1032_excu2",
+    "name": "圣约送葬人"
+  },
+  "surtr": {
+    "base": "assets/spine38/operators/surtr/char_350_surtr",
+    "name": "史尔特尔"
+  },
+  "char_1046_sbell2": {
+    "base": "assets/spine38/operators/char_1046_sbell2/char_1046_sbell2",
+    "name": "圣聆初雪"
+  },
+  "char_4184_dolris": {
+    "base": "assets/spine38/operators/char_4184_dolris/char_4184_dolris",
+    "name": "三角初华"
+  },
+  "char_4137_udflow": {
+    "base": "assets/spine38/operators/char_4137_udflow/char_4137_udflow",
+    "name": "深巡"
+  },
+  "char_4236_tmslot": {
+    "base": "assets/spine38/operators/char_4236_tmslot/char_4236_tmslot",
+    "name": "时隙"
+  },
+  "char_241_panda": {
+    "base": "assets/spine38/operators/char_241_panda/char_241_panda",
+    "name": "食铁兽"
+  },
+  "char_489_serum": {
+    "base": "assets/spine38/operators/char_489_serum/char_489_serum",
+    "name": "蚀清"
+  },
+  "char_378_asbest": {
+    "base": "assets/spine38/operators/char_378_asbest/char_378_asbest",
+    "name": "石棉"
+  },
+  "cuora": {
+    "base": "assets/spine38/operators/cuora/char_150_snakek",
+    "name": "蛇屠箱"
+  },
+  "char_193_frostl": {
+    "base": "assets/spine38/operators/char_193_frostl/char_193_frostl",
+    "name": "霜叶"
+  },
+  "char_1502_crosly": {
+    "base": "assets/spine38/operators/char_1502_crosly/char_1502_crosly",
+    "name": "弑君者"
+  },
+  "char_158_milu": {
+    "base": "assets/spine38/operators/char_158_milu/char_158_milu",
+    "name": "守林人"
+  },
+  "swire": {
+    "base": "assets/spine38/operators/swire/char_308_swire",
+    "name": "诗怀雅"
+  },
+  "char_215_mantic": {
+    "base": "assets/spine38/operators/char_215_mantic/char_215_mantic",
+    "name": "狮蝎"
+  },
+  "char_4063_quartz": {
+    "base": "assets/spine38/operators/char_4063_quartz/char_4063_quartz",
+    "name": "石英"
+  },
+  "char_4081_warmy": {
+    "base": "assets/spine38/operators/char_4081_warmy/char_4081_warmy",
+    "name": "温米"
+  },
+  "char_400_weedy": {
+    "base": "assets/spine38/operators/char_400_weedy/char_400_weedy",
+    "name": "温蒂"
+  },
+  "dusk": {
+    "base": "assets/spine38/operators/dusk/char_2015_dusk",
+    "name": "夕"
+  },
+  "char_348_ceylon": {
+    "base": "assets/spine38/operators/char_348_ceylon/char_348_ceylon",
+    "name": "锡兰"
+  },
+  "char_455_nothin": {
+    "base": "assets/spine38/operators/char_455_nothin/char_455_nothin",
+    "name": "乌有"
+  },
+  "char_4151_tinman": {
+    "base": "assets/spine38/operators/char_4151_tinman/char_4151_tinman",
+    "name": "锡人"
+  },
+  "char_254_vodfox": {
+    "base": "assets/spine38/operators/char_254_vodfox/char_254_vodfox",
+    "name": "巫恋"
+  },
+  "char_423_blemsh": {
+    "base": "assets/spine38/operators/char_423_blemsh/char_423_blemsh",
+    "name": "瑕光"
+  },
+  "char_492_quercu": {
+    "base": "assets/spine38/operators/char_492_quercu/char_492_quercu",
+    "name": "夏栎"
+  },
+  "char_336_folivo": {
+    "base": "assets/spine38/operators/char_336_folivo/char_336_folivo",
+    "name": "稀音"
+  },
+  "char_4214_cairn": {
+    "base": "assets/spine38/operators/char_4214_cairn/char_4214_cairn",
+    "name": "响石"
+  },
+  "vanilla": {
+    "base": "assets/spine38/operators/vanilla/char_240_wyvern",
+    "name": "香草"
+  },
+  "char_4122_grabds": {
+    "base": "assets/spine38/operators/char_4122_grabds/char_4122_grabds",
+    "name": "小满"
+  },
+  "char_1022_flwr2": {
+    "base": "assets/spine38/operators/char_1022_flwr2/char_1022_flwr2",
+    "name": "撷英调香师"
+  },
+  "char_4224_turdus": {
+    "base": "assets/spine38/operators/char_4224_turdus/char_4224_turdus",
+    "name": "乌啾"
+  },
+  "char_497_ctable": {
+    "base": "assets/spine38/operators/char_497_ctable/char_497_ctable",
+    "name": "晓歌"
+  },
+  "char_4194_rmixer": {
+    "base": "assets/spine38/operators/char_4194_rmixer/char_4194_rmixer",
+    "name": "信仰搅拌机"
+  },
+  "char_4051_akkord": {
+    "base": "assets/spine38/operators/char_4051_akkord/char_4051_akkord",
+    "name": "协律"
+  },
+  "char_274_astesi": {
+    "base": "assets/spine38/operators/char_274_astesi/char_274_astesi",
+    "name": "星极"
+  },
+  "char_136_hsguma": {
+    "base": "assets/spine38/operators/char_136_hsguma/char_136_hsguma",
+    "name": "星熊"
+  },
+  "char_4105_almond": {
+    "base": "assets/spine38/operators/char_4105_almond/char_4105_almond",
+    "name": "杏仁"
+  },
+  "char_4170_hdbell": {
+    "base": "assets/spine38/operators/char_4170_hdbell/char_4170_hdbell",
+    "name": "行铃"
+  },
+  "char_1041_angel2": {
+    "base": "assets/spine38/operators/char_1041_angel2/char_1041_angel2",
+    "name": "新约能天使"
+  },
+  "char_4172_xingzh": {
+    "base": "assets/spine38/operators/char_4172_xingzh/char_4172_xingzh",
+    "name": "行箸"
+  },
+  "char_436_whispr": {
+    "base": "assets/spine38/operators/char_436_whispr/char_436_whispr",
+    "name": "絮雨"
+  },
+  "char_491_humus": {
+    "base": "assets/spine38/operators/char_491_humus/char_491_humus",
+    "name": "休谟斯"
+  },
+  "char_4211_snhunt": {
+    "base": "assets/spine38/operators/char_4211_snhunt/char_4211_snhunt",
+    "name": "雪猎"
+  },
+  "char_383_snsant": {
+    "base": "assets/spine38/operators/char_383_snsant/char_383_snsant",
+    "name": "雪雉"
+  },
+  "courier": {
+    "base": "assets/spine38/operators/courier/char_198_blackd",
+    "name": "讯使"
+  },
+  "cliffheart": {
+    "base": "assets/spine38/operators/cliffheart/char_173_slchan",
+    "name": "崖心"
+  },
+  "char_466_qanik": {
+    "base": "assets/spine38/operators/char_466_qanik/char_466_qanik",
+    "name": "雪绒"
+  },
+  "char_135_halo": {
+    "base": "assets/spine38/operators/char_135_halo/char_135_halo",
+    "name": "星源"
+  },
+  "char_1048_orchd2": {
+    "base": "assets/spine38/operators/char_1048_orchd2/char_1048_orchd2",
+    "name": "焰狐龙梓兰"
+  },
+  "char_131_flameb": {
+    "base": "assets/spine38/operators/char_131_flameb/char_131_flameb",
+    "name": "炎客"
+  },
+  "char_337_utage": {
+    "base": "assets/spine38/operators/char_337_utage/char_337_utage",
+    "name": "宴"
+  },
+  "lava": {
+    "base": "assets/spine38/operators/lava/char_121_lava",
+    "name": "炎熔"
+  },
+  "char_345_folnic": {
+    "base": "assets/spine38/operators/char_345_folnic/char_345_folnic",
+    "name": "亚叶"
+  },
+  "char_420_flamtl": {
+    "base": "assets/spine38/operators/char_420_flamtl/char_420_flamtl",
+    "name": "焰尾"
+  },
+  "char_1020_reed2": {
+    "base": "assets/spine38/operators/char_1020_reed2/char_1020_reed2",
+    "name": "焰影苇草"
+  },
+  "char_1011_lava2": {
+    "base": "assets/spine38/operators/char_1011_lava2/char_1011_lava2",
+    "name": "炎狱炎熔"
+  },
+  "char_4202_haruka": {
+    "base": "assets/spine38/operators/char_4202_haruka/char_4202_haruka",
+    "name": "遥"
+  },
+  "char_4052_surfer": {
+    "base": "assets/spine38/operators/char_4052_surfer/char_4052_surfer",
+    "name": "寻澜"
+  },
+  "char_476_blkngt": {
+    "base": "assets/spine38/operators/char_476_blkngt/char_476_blkngt",
+    "name": "夜半"
+  },
+  "char_464_cement": {
+    "base": "assets/spine38/operators/char_464_cement/char_464_cement",
+    "name": "洋灰"
+  },
+  "nearl_alter": {
+    "base": "assets/spine38/operators/nearl_alter/char_1014_nearl2",
+    "name": "耀骑士临光"
+  },
+  "yato": {
+    "base": "assets/spine38/operators/yato/char_502_nblade",
+    "name": "夜刀"
+  },
+  "haze": {
+    "base": "assets/spine38/operators/haze/char_141_nights",
+    "name": "夜烟"
+  },
+  "char_179_cgbird": {
+    "base": "assets/spine38/operators/char_179_cgbird/char_179_cgbird",
+    "name": "夜莺"
+  },
+  "rangers": {
+    "base": "assets/spine38/operators/rangers/char_503_rang",
+    "name": "巡林者"
+  },
+  "char_4145_ulpia": {
+    "base": "assets/spine38/operators/char_4145_ulpia/char_4145_ulpia",
+    "name": "乌尔比安"
+  },
+  "char_4087_ines": {
+    "base": "assets/spine38/operators/char_4087_ines/char_4087_ines",
+    "name": "伊内丝"
+  },
+  "char_4125_rdoc": {
+    "base": "assets/spine38/operators/char_4125_rdoc/char_4125_rdoc",
+    "name": "医生"
+  },
+  "char_472_pasngr": {
+    "base": "assets/spine38/operators/char_472_pasngr/char_472_pasngr",
+    "name": "异客"
+  },
+  "nightmare": {
+    "base": "assets/spine38/operators/nightmare/char_164_nightm",
+    "name": "夜魔"
+  },
+  "silverash": {
+    "base": "assets/spine38/operators/silverash/char_172_svrash",
+    "name": "银灰"
+  },
+  "char_134_ifrit": {
+    "base": "assets/spine38/operators/char_134_ifrit/char_134_ifrit",
+    "name": "伊芙利特"
+  },
+  "char_355_ethan": {
+    "base": "assets/spine38/operators/char_355_ethan/char_355_ethan",
+    "name": "伊桑"
+  },
+  "char_155_tiger": {
+    "base": "assets/spine38/operators/char_155_tiger/char_155_tiger",
+    "name": "因陀罗"
+  },
+  "char_4185_amoris": {
+    "base": "assets/spine38/operators/char_4185_amoris/char_4185_amoris",
+    "name": "祐天寺若麦"
+  },
+  "specter": {
+    "base": "assets/spine38/operators/specter/char_143_ghost",
+    "name": "幽灵鲨"
+  },
+  "char_4013_kjera": {
+    "base": "assets/spine38/operators/char_4013_kjera/char_4013_kjera",
+    "name": "耶拉"
+  },
+  "char_2026_yu": {
+    "base": "assets/spine38/operators/char_2026_yu/char_2026_yu",
+    "name": "余"
+  },
+  "char_498_inside": {
+    "base": "assets/spine38/operators/char_498_inside/char_498_inside",
+    "name": "隐现"
+  },
+  "char_506_rmedic": {
+    "base": "assets/spine38/operators/char_506_rmedic/char_506_rmedic",
+    "name": "预备干员-后勤"
+  },
+  "char_1039_thorn2": {
+    "base": "assets/spine38/operators/char_1039_thorn2/char_1039_thorn2",
+    "name": "引星棘刺"
+  },
+  "char_496_wildmn": {
+    "base": "assets/spine38/operators/char_496_wildmn/char_496_wildmn",
+    "name": "野鬃"
+  },
+  "char_505_rcast": {
+    "base": "assets/spine38/operators/char_505_rcast/char_505_rcast",
+    "name": "预备干员-术师"
+  },
+  "char_504_rguard": {
+    "base": "assets/spine38/operators/char_504_rguard/char_504_rguard",
+    "name": "预备干员-近战"
+  },
+  "char_507_rsnipe": {
+    "base": "assets/spine38/operators/char_507_rsnipe/char_507_rsnipe",
+    "name": "预备干员-狙击"
+  },
+  "char_514_rdfend": {
+    "base": "assets/spine38/operators/char_514_rdfend/char_514_rdfend",
+    "name": "预备干员-重装"
+  },
+  "char_4010_etlchi": {
+    "base": "assets/spine38/operators/char_4010_etlchi/char_4010_etlchi",
+    "name": "隐德来希"
+  },
+  "gitano": {
+    "base": "assets/spine38/operators/gitano/char_109_fmout",
+    "name": "远山"
+  },
+  "char_343_tknogi": {
+    "base": "assets/spine38/operators/char_343_tknogi/char_343_tknogi",
+    "name": "月禾"
+  },
+  "char_513_apionr": {
+    "base": "assets/spine38/operators/char_513_apionr/char_513_apionr",
+    "name": "郁金香"
+  },
+  "char_4219_yukari": {
+    "base": "assets/spine38/operators/char_4219_yukari/char_4219_yukari",
+    "name": "岳羽由加莉"
+  },
+  "char_421_crow": {
+    "base": "assets/spine38/operators/char_421_crow/char_421_crow",
+    "name": "羽毛笔"
+  },
+  "char_4100_caper": {
+    "base": "assets/spine38/operators/char_4100_caper/char_4100_caper",
+    "name": "跃跃"
+  },
+  "char_197_poca": {
+    "base": "assets/spine38/operators/char_197_poca/char_197_poca",
+    "name": "早露"
+  },
+  "char_430_fartth": {
+    "base": "assets/spine38/operators/char_430_fartth/char_430_fartth",
+    "name": "远牙"
+  },
+  "char_459_tachak": {
+    "base": "assets/spine38/operators/char_459_tachak/char_459_tachak",
+    "name": "战车"
+  },
+  "char_4165_ctrail": {
+    "base": "assets/spine38/operators/char_4165_ctrail/char_4165_ctrail",
+    "name": "云迹"
+  },
+  "meteorite": {
+    "base": "assets/spine38/operators/meteorite/char_219_meteo",
+    "name": "陨星"
+  },
+  "char_499_kaitou": {
+    "base": "assets/spine38/operators/char_499_kaitou/char_499_kaitou",
+    "name": "折光"
+  },
+  "char_4204_mantra": {
+    "base": "assets/spine38/operators/char_4204_mantra/char_4204_mantra",
+    "name": "真言"
+  },
+  "char_4054_malist": {
+    "base": "assets/spine38/operators/char_4054_malist/char_4054_malist",
+    "name": "至简"
+  },
+  "char_195_glassb": {
+    "base": "assets/spine38/operators/char_195_glassb/char_195_glassb",
+    "name": "真理"
+  },
+  "char_4011_lessng": {
+    "base": "assets/spine38/operators/char_4011_lessng/char_4011_lessng",
+    "name": "止颂"
+  },
+  "char_1044_hsgma2": {
+    "base": "assets/spine38/operators/char_1044_hsgma2/char_1044_hsgma2",
+    "name": "斩业星熊"
+  },
+  "char_333_sidero": {
+    "base": "assets/spine38/operators/char_333_sidero/char_333_sidero",
+    "name": "铸铁"
+  },
+  "char_1024_hbisc2": {
+    "base": "assets/spine38/operators/char_1024_hbisc2/char_1024_hbisc2",
+    "name": "濯尘芙蓉"
+  },
+  "char_4000_jnight": {
+    "base": "assets/spine38/operators/char_4000_jnight/char_4000_jnight",
+    "name": "正义骑士号"
+  },
+  "char_4207_branch": {
+    "base": "assets/spine38/operators/char_4207_branch/char_4207_branch",
+    "name": "折桠"
+  },
+  "char_1040_blaze2": {
+    "base": "assets/spine38/operators/char_1040_blaze2/char_1040_blaze2",
+    "name": "烛煌"
+  },
+  "midnight": {
+    "base": "assets/spine38/operators/midnight/char_283_midn",
+    "name": "月见夜"
+  },
+  "char_278_orchid": {
+    "base": "assets/spine38/operators/char_278_orchid/char_278_orchid",
+    "name": "梓兰"
+  },
+  "char_4121_zuole": {
+    "base": "assets/spine38/operators/char_4121_zuole/char_4121_zuole",
+    "name": "左乐"
+  },
+  "char_4014_lunacu": {
+    "base": "assets/spine38/operators/char_4014_lunacu/char_4014_lunacu",
+    "name": "子月"
+  },
+  "char_1015_aglna2": {
+    "base": "assets/spine38/operators/char_1015_aglna2/char_1015_aglna2",
+    "name": "予愿安洁莉娜"
+  },
+  "char_4140_lasher": {
+    "base": "assets/spine38/operators/char_4140_lasher/char_4140_lasher",
+    "name": "衡沙"
+  },
+  "char_4023_rfalcn": {
+    "base": "assets/spine38/operators/char_4023_rfalcn/char_4023_rfalcn",
+    "name": "红隼"
+  },
+  "char_4220_kormr": {
+    "base": "assets/spine38/operators/char_4220_kormr/char_4220_kormr",
+    "name": "虎狼丸"
+  },
+  "char_1038_whitw2": {
+    "base": "assets/spine38/operators/char_1038_whitw2/char_1038_whitw2",
+    "name": "荒芜拉普兰德"
+  },
+  "char_4177_brigid": {
+    "base": "assets/spine38/operators/char_4177_brigid/char_4177_brigid",
+    "name": "char_4177_brigid"
+  },
+  "char_450_necras": {
+    "base": "assets/spine38/operators/char_450_necras/char_450_necras",
+    "name": "char_450_necras"
+  },
+  "char_1043_leizi2": {
+    "base": "assets/spine38/operators/char_1043_leizi2/char_1043_leizi2",
+    "name": "char_1043_leizi2"
+  },
+  "char_4199_makiri": {
+    "base": "assets/spine38/operators/char_4199_makiri/char_4199_makiri",
+    "name": "char_4199_makiri"
+  },
+  "char_1047_halo2": {
+    "base": "assets/spine38/operators/char_1047_halo2/char_1047_halo2",
+    "name": "char_1047_halo2"
+  },
+  "char_245_cello": {
+    "base": "assets/spine38/operators/char_245_cello/char_245_cello",
+    "name": "char_245_cello"
+  },
+  "char_4247_oxi": {
+    "base": "assets/spine38/operators/char_4247_oxi/char_4247_oxi",
+    "name": "char_4247_oxi"
+  },
+  "char_4164_tecno": {
+    "base": "assets/spine38/operators/char_4164_tecno/char_4164_tecno",
+    "name": "char_4164_tecno"
+  },
+  "char_4056_titi": {
+    "base": "assets/spine38/operators/char_4056_titi/char_4056_titi",
+    "name": "char_4056_titi"
+  },
+  "char_4213_skybx": {
+    "base": "assets/spine38/operators/char_4213_skybx/char_4213_skybx",
+    "name": "char_4213_skybx"
+  },
+  "char_4119_wanqin": {
+    "base": "assets/spine38/operators/char_4119_wanqin/char_4119_wanqin",
+    "name": "char_4119_wanqin"
+  },
+  "char_2027_wang": {
+    "base": "assets/spine38/operators/char_2027_wang/char_2027_wang",
+    "name": "char_2027_wang"
+  },
+  "char_4107_vrdant": {
+    "base": "assets/spine38/operators/char_4107_vrdant/char_4107_vrdant",
+    "name": "char_4107_vrdant"
+  },
+  "char_1019_siege2": {
+    "base": "assets/spine38/operators/char_1019_siege2/char_1019_siege2",
+    "name": "char_1019_siege2"
+  },
+  "char_4226_veen": {
+    "base": "assets/spine38/operators/char_4226_veen/char_4226_veen",
+    "name": "char_4226_veen"
+  },
+  "char_4098_vvana": {
+    "base": "assets/spine38/operators/char_4098_vvana/char_4098_vvana",
+    "name": "char_4098_vvana"
+  },
+  "ling": {
+    "base": "assets/spine38/operators/ling/char_2023_ling",
+    "name": "ling"
+  },
+  "char_4124_iana": {
+    "base": "assets/spine38/operators/char_4124_iana/char_4124_iana",
+    "name": "双月"
+  },
+  "char_2012_typhon": {
+    "base": "assets/spine38/operators/char_2012_typhon/char_2012_typhon",
+    "name": "菲亚梅塔"
+  },
+  "shu": {
+    "base": "assets/spine38/operators/shu/char_2025_shu",
+    "name": "黍"
+  },
+  "wisadel": {
+    "base": "assets/spine38/operators/wisadel/char_1035_wisdel",
+    "name": "维什戴尔"
+  },
+  "logos": {
+    "base": "assets/spine38/operators/logos/char_4133_logos",
+    "name": "逻各斯"
+  },
+  "jian": {
+    "base": "assets/spine38/operators/jian/char_4116_blkkgt",
+    "name": "锏"
+  },
+  "liskarm": {
+    "base": "assets/spine38/operators/liskarm/char_107_liskarm",
+    "name": "雷蛇"
+  }
+};
+
+export const SPINE35_ONLY = {
+  "char_4046_ebnhlz": {
+    "base": "assets/spine/operators/char_4046_ebnhlz/char_4046_ebnhlz",
+    "name": "黑键"
+  },
+  "noir_corne": {
+    "base": "assets/spine/operators/noir_corne/char_500_noirc",
+    "name": "黑角"
+  },
+  "char_226_hmau": {
+    "base": "assets/spine/operators/char_226_hmau/char_226_hmau",
+    "name": "吽"
+  },
+  "projektred": {
+    "base": "assets/spine/operators/projektred/char_144_red",
+    "name": "红"
+  },
+  "char_290_vigna": {
+    "base": "assets/spine/operators/char_290_vigna/char_290_vigna",
+    "name": "红豆"
+  },
+  "char_4055_bgsnow": {
+    "base": "assets/spine/operators/char_4055_bgsnow/char_4055_bgsnow",
+    "name": "鸿雪"
+  },
+  "char_190_clour": {
+    "base": "assets/spine/operators/char_190_clour/char_190_clour",
+    "name": "红云"
+  },
+  "warfarin": {
+    "base": "assets/spine/operators/warfarin/char_171_bldsk",
+    "name": "华法琳"
+  },
+  "waai_fu": {
+    "base": "assets/spine/operators/waai_fu/char_243_waaifu",
+    "name": "槐琥"
+  },
+  "char_017_huang": {
+    "base": "assets/spine/operators/char_017_huang/char_017_huang",
+    "name": "煌"
+  },
+  "char_431_ashlok": {
+    "base": "assets/spine/operators/char_431_ashlok/char_431_ashlok",
+    "name": "灰毫"
+  },
+  "char_367_swllow": {
+    "base": "assets/spine/operators/char_367_swllow/char_367_swllow",
+    "name": "灰喉"
+  },
+  "ash": {
+    "base": "assets/spine/operators/ash/char_456_ash",
+    "name": "灰烬"
+  },
+  "char_4027_heyak": {
+    "base": "assets/spine/operators/char_4027_heyak/char_4027_heyak",
+    "name": "霍尔海雅"
+  },
+  "rathalos_noir": {
+    "base": "assets/spine/operators/rathalos_noir/char_1030_noirc2",
+    "name": "火龙S黑角"
+  },
+  "char_493_firwhl": {
+    "base": "assets/spine/operators/char_493_firwhl/char_493_firwhl",
+    "name": "火哨"
+  },
+  "char_101_sora": {
+    "base": "assets/spine/operators/char_101_sora/char_101_sora",
+    "name": "空"
+  },
+  "char_469_indigo": {
+    "base": "assets/spine/operators/char_469_indigo/char_469_indigo",
+    "name": "深靛"
+  },
+  "char_458_rfrost": {
+    "base": "assets/spine/operators/char_458_rfrost/char_458_rfrost",
+    "name": "霜华"
+  },
+  "char_437_mizuki": {
+    "base": "assets/spine/operators/char_437_mizuki/char_437_mizuki",
+    "name": "水月"
+  },
+  "char_263_skadi": {
+    "base": "assets/spine/operators/char_263_skadi/char_263_skadi",
+    "name": "斯卡蒂"
+  },
+  "char_365_aprl": {
+    "base": "assets/spine/operators/char_365_aprl/char_365_aprl",
+    "name": "四月"
+  },
+  "char_440_pinecn": {
+    "base": "assets/spine/operators/char_440_pinecn/char_440_pinecn",
+    "name": "松果"
+  },
+  "executor": {
+    "base": "assets/spine/operators/executor/char_279_excu",
+    "name": "送葬人"
+  },
+  "char_511_asnipe": {
+    "base": "assets/spine/operators/char_511_asnipe/char_511_asnipe",
+    "name": "Stormeye"
+  },
+  "susurro": {
+    "base": "assets/spine/operators/susurro/char_298_susuro",
+    "name": "苏苏洛"
+  },
+  "char_366_acdrop": {
+    "base": "assets/spine/operators/char_366_acdrop/char_366_acdrop",
+    "name": "酸糖"
+  },
+  "char_415_flint": {
+    "base": "assets/spine/operators/char_415_flint/char_415_flint",
+    "name": "燧石"
+  },
+  "char_376_therex": {
+    "base": "assets/spine/operators/char_376_therex/char_376_therex",
+    "name": "THRM-EX"
+  },
+  "char_4077_palico": {
+    "base": "assets/spine/operators/char_4077_palico/char_4077_palico",
+    "name": "泰拉大陆调查团"
+  },
+  "char_151_myrtle": {
+    "base": "assets/spine/operators/char_151_myrtle/char_151_myrtle",
+    "name": "桃金娘"
+  },
+  "char_411_tomimi": {
+    "base": "assets/spine/operators/char_411_tomimi/char_411_tomimi",
+    "name": "特米米"
+  },
+  "skyfire": {
+    "base": "assets/spine/operators/skyfire/char_166_skfire",
+    "name": "天火"
+  },
+  "perfumer": {
+    "base": "assets/spine/operators/perfumer/char_181_flower",
+    "name": "调香师"
+  },
+  "char_510_amedic": {
+    "base": "assets/spine/operators/char_510_amedic/char_510_amedic",
+    "name": "Touch"
+  },
+  "char_402_tuye": {
+    "base": "assets/spine/operators/char_402_tuye/char_402_tuye",
+    "name": "图耶"
+  },
+  "char_112_siege": {
+    "base": "assets/spine/operators/char_112_siege/char_112_siege",
+    "name": "推进之王"
+  },
+  "char_4091_ulika": {
+    "base": "assets/spine/operators/char_4091_ulika/char_4091_ulika",
+    "name": "U-Official"
+  },
+  "char_113_cqbw": {
+    "base": "assets/spine/operators/char_113_cqbw/char_113_cqbw",
+    "name": "W"
+  },
+  "char_261_sddrag": {
+    "base": "assets/spine/operators/char_261_sddrag/char_261_sddrag",
+    "name": "苇草"
+  },
+  "char_275_breeze": {
+    "base": "assets/spine/operators/char_275_breeze/char_275_breeze",
+    "name": "微风"
+  },
+  "skadi_alter": {
+    "base": "assets/spine/operators/skadi_alter/char_1012_skadi2",
+    "name": "浊心斯卡蒂"
+  }
+};

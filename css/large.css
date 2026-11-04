@@ -39,6 +39,8 @@
   .page-head-right { gap: 28px; font-size: 15px; }
   .page-head-stat b { font-size: 30px; }
   .page-head-stat span { font-size: 11px; }
+  .battle-size-tip { max-width: 330px; padding: 11px 14px; font-size: 11px; line-height: 1.7; }
+  .battle-size-tip b { font-size: 12px; }
 
   .panel-head { padding: 17px 19px; }
   .panel-title { font-size: 21px; gap: 10px; }

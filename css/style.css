@@ -193,6 +193,9 @@ a { color: var(--orange); }
 .page-head-stat { text-align: right; }
 .page-head-stat b { display: block; font-family: var(--display); font-size: 17px; color: var(--text); font-weight: 600; }
 .page-head-stat span { font-family: var(--mono); font-size: 8px; letter-spacing: .12em; color: var(--dim); }
+.battle-size-tip { max-width: 280px; padding: 8px 10px; border: 1px solid var(--line); border-left: 2px solid var(--orange); background: rgba(255,180,58,.035); color: var(--dim); font-family: var(--mono); font-size: 8px; line-height: 1.7; letter-spacing: .02em; text-align: left; }
+.battle-size-tip b { display: block; margin-bottom: 2px; color: var(--orange); font-size: 9px; letter-spacing: .08em; }
+.battle-size-tip span { display: block; }
 .panel { background: var(--panel); border: 1px solid var(--line); position: relative; }
 .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 15px; border-bottom: 1px solid var(--line); }
 .panel-title { font-size: 12px; letter-spacing: .08em; display: flex; align-items: center; gap: 8px; font-weight: 700; }
@@ -999,6 +1002,7 @@ a { color: var(--orange); }
   .page-head { min-height: 42px; margin-bottom: 12px; }
   .page-head h2 { font-size: 21px; }
   .page-head-right .page-head-stat:nth-child(n+3) { display: none; }
+  .battle-size-tip { display: none; }
   .battle-layout { grid-template-columns: 1fr; }
   .stage-panel { order: 2; max-height: 260px; }
   .arena-column { order: 1; }

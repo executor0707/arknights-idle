@@ -412,6 +412,11 @@ function renderBattle() {
 
   return `<section class="page battle-page">
     ${pageHead('COMBAT TERMINAL // LIVE', '作战终端', `
+      <div class="battle-size-tip">
+        <b>战斗小人大小</b>
+        <span>皮肤：时装 → 对应皮肤卡滑条</span>
+        <span>默认：干员详情 → 战斗小人大小</span>
+      </div>
       ${statHead('编队战力', fmt(power))}
       ${statHead('挂机寻访', idle.pullsPerHour.toFixed(1), ' 抽/时')}
       ${statHead('源石产出', (idle.shardsPerHour / PRIME_SHARD_COST * 24).toFixed(1), ' /天')}
