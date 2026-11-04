@@ -354,8 +354,8 @@
         "liskarm-skin1",
         "liskarm-skin2"
       ],
-      "total": 531,
-      "mapped": 529,
+      "total": 508,
+      "mapped": 508,
       "assetFailures": 0,
       "spine35SkinsRouted": 52,
       "parseAudit": {
@@ -370,7 +370,11 @@
         "spine35SkinsRouted": 52,
         "noAuthoredAttackFallback": 21
       },
-      "rosmontisLocal": true
+      "rosmontisLocal": true,
+      "parsedOk": 508,
+      "parseFailures": [],
+      "nativeAttack": 508,
+      "removed": 23
     },
     "killLmd": {
       "instant": true,
