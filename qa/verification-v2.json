@@ -592,6 +592,12 @@
       "localStorageKey": "rhodes_island_idle_save_v3",
       "assetsQuery": "v=4",
       "refreshPersists": true
+    },
+    "freshSplash": {
+      "noSaveLabel": "建立博士档案",
+      "splashReloadCreatesSave": false,
+      "afterPlayLabel": "继续值守",
+      "refreshPersists": true
     }
   },
   "limitations": [
