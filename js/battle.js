@@ -265,7 +265,7 @@ export class Battle {
         else { b.blockCount++; b.blocked.push(e); }
       }
     }
-    const melee = this.allies.filter(a => !a.dead && a.block > 0 && ['vanguard', 'guard', 'defender', 'specialist'].includes(a.role))
+    const melee = this.allies.filter(a => !a.dead && a.block > 0 && a.range <= 40 && ['vanguard', 'guard', 'defender', 'specialist'].includes(a.role))
       .sort((a, b) => b.x - a.x);
     for (const a of melee) {
       if (a.blockCount >= a.block) continue;
@@ -358,7 +358,7 @@ export class Battle {
   }
 
   _targetFor(a) {
-    if (MELEE.has(a.role)) {
+    if (MELEE.has(a.role) && a.range <= 40) {
       // Melee covers roughly two body-lengths in front and behind. It is not
       // limited to enemies actually assigned to this unit's block slots.
       return this.enemies.filter(e => !e.dead && e.lane === a.lane && Math.abs(e.x - a.x) <= a.range)
