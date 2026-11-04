@@ -1002,7 +1002,7 @@ export function openOperator(id, opts = {}) {
       <img src="${G.portraitFor(id)}" alt="${esc(d.name)}">
       <div class="odh-info">
         <div class="odh-name">${esc(d.name)}</div>
-        <div class="odh-sub">${d.cls} / ${d.sub} · 精英 ${s.elite} · 潜能 ${s.potential}</div>
+        <div class="odh-sub">${d.cls} / ${d.sub} · ${st.range > 40 ? '后排角色' : '前排角色'} · 精英 ${s.elite} · 潜能 ${s.potential}</div>
         <div class="odh-quote">“${esc(d.quote || '博士，请下达指令。')}”</div>
         <div class="odh-trust"><div class="tl"><span>TRUST</span><span>${Math.floor(s.trust)} / 100</span></div><div class="progress"><i style="width:${s.trust}%"></i></div></div>
       </div>
@@ -1048,7 +1048,7 @@ export function openOperator(id, opts = {}) {
           <div class="deploy-row">
             ${rangePreview(d)}
             <div class="deploy-copy">
-              <b>${st.range > 40 ? '后排' : '前排'} · 阻挡 ${st.block}</b>
+              <b>${st.range > 40 ? '后排角色' : '前排角色'} · 阻挡 ${st.block}</b>
               <span>战斗改为横版推进：近战在前排阻挡，远程与医疗在后排输出。</span>
               <span class="small">队伍会在战场中向前奔跑，遇敌停战、清波继续；不再使用格子部署。</span>
             </div>

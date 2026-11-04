@@ -491,6 +491,20 @@
       "desktopSaveBytes": 88801,
       "operators": 469,
       "skins": 531
+    },
+    "specialistRanged": {
+      "subclasses": [
+        "钩索师",
+        "巡空者",
+        "怪杰",
+        "陷阱师",
+        "行商",
+        "炼金师"
+      ],
+      "count": 25,
+      "range": 62,
+      "block": 0,
+      "backlineLabel": true
     }
   },
   "limitations": [

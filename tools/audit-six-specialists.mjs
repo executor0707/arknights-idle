@@ -1,0 +1,13 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=sixspec'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1400));
+await send('Runtime.evaluate',{expression:`document.querySelector('[data-action="tutorial-skip"]')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,400));
+console.log(await evalJS(send, `(()=>{const s=__RHODES__.state;const saved=JSON.parse(JSON.stringify(s.operators));for(const o of __RHODES__.G.OPERATORS)if(!s.operators[o.id])s.operators[o.id]={level:1,elite:0,potential:1,skill:1,mastery:0,trust:0,module:0,exp:0};const subs=new Set(['钩索师','巡空者','怪杰','陷阱师','行商','炼金师']);const rows=[];for(const o of __RHODES__.G.OPERATORS.filter(o=>subs.has(o.sub))){const st=__RHODES__.G.getOpStats(o.id);rows.push({sub:o.sub,name:o.name,range:st.range,block:st.block});}const out={count:rows.length,subs:{}};for(const r of rows)out.subs[r.sub]=(out.subs[r.sub]||0)+1;out.bad=rows.filter(r=>r.range!==62||r.block!==0);s.operators=saved;return JSON.stringify(out)})()`));
+console.log('target', await evalJS(send, `(()=>{const s=__RHODES__.state;s.operators.rope={level:1,elite:0,potential:1,skill:1,mastery:0,trust:0,module:0,exp:0};s.squad=['rope','fang',null,null,null];__RHODES__.battle.start('CE-6');const b=__RHODES__.battle,a=b.allies.find(x=>x.id==='rope');const mk=dx=>({uid:'t'+dx,dead:false,lane:a.lane,x:a.x+dx,hp:100});b.enemies=[mk(50)];const h50=b._targetFor(a)?.uid||null;b.enemies=[mk(70)];const h70=b._targetFor(a)?.uid||null;return JSON.stringify({range:a.range,block:a.block,hit50:h50,hit70:h70})})()`));
+process.exit(0);
