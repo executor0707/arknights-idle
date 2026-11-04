@@ -25,6 +25,11 @@ const RANGED_SPECIALIST_RANGE = new Map([
   ['陷阱师', 62], ['行商', 62], ['炼金师', 62],
 ]);
 const CAPS = { 2: [30], 3: [40, 55], 4: [45, 60, 70], 5: [50, 70, 80], 6: [50, 80, 90] };
+// Arknights-style promotion: E0 max -> E1 Lv1, E1 max -> E2 Lv1.
+// The elite base multipliers are chosen so the new Lv1 is never weaker than
+// the previous elite's max level.
+const ELITE_BASE_MULT = [1, 1.75, 3.15];
+const LEVEL_GROWTH = [0.014, 0.010, 0.008];
 export const USEFUL_ITEM_IDS = new Set([
   'record1', 'record2', 'record3', 'record4',
   'book1', 'book2', 'book3', 'chip', 'chip_pack', 'module', 'token', 'base_block',
@@ -286,8 +291,9 @@ export function getOpStats(id) {
   if (!data || !s) return null;
   const base = RARITY_BASE[data.rarity];
   const mod = ROLE_MODS[data.role];
-  const levelMul = 1 + (s.level - 1) * 0.014;
-  const eliteMul = 1 + s.elite * 0.38;
+  const eliteIndex = Math.min(2, Math.max(0, Number(s.elite) || 0));
+  const levelMul = 1 + (s.level - 1) * LEVEL_GROWTH[eliteIndex];
+  const eliteMul = ELITE_BASE_MULT[eliteIndex];
   const potMul = 1 + (s.potential - 1) * 0.02;
   const trustMul = 1 + (s.trust / 100) * 0.08;
   const moduleMul = 1 + (s.module || 0) * 0.04;
@@ -469,6 +475,8 @@ export function promote(id) {
   if (!pay(info.cost)) return false;
   const s = opState(id);
   s.elite += 1;
+  s.level = 1;
+  s.exp = 0;
   state.stats.promotions += 1;
   saveNow();
   bus.dispatchEvent(new CustomEvent('operator-change', { detail: { id, kind: 'promote' } }));
