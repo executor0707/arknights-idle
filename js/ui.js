@@ -1680,6 +1680,11 @@ async function onClick(e) {
     case 'stage-group':
       ui.stageGroup = target.dataset.group;
       if (ui.stageGroup === 'main') ui.mainChapter = G.STAGE_BY_ID.get(state.stage.selected)?.chapterKey ?? 0;
+      if (ui.stageGroup === 'endless') {
+        const endless = STAGES.filter(s => s.group === 'endless');
+        const current = endless.reduce((a, b) => !a || b.floor > a.floor ? b : a, null);
+        if (current) { G.setStage(current.id); battle.start(current.id); }
+      }
       renderView(); break;
     case 'select-stage': {
       if (!G.setStage(id)) { toast('该关卡尚未解锁，请先通关前置关卡。', 'warn'); break; }
