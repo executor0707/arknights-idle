@@ -981,15 +981,17 @@ export function openOperator(id, opts = {}) {
   if (!d) return;
   if (!G.owned(id)) { toast('尚未获得该干员。前往寻访，或使用 300 抽自选兑换。', 'warn'); return; }
   const s = state.operators[id];
+  if (!s) { toast('干员状态缺失，请重新载入存档。', 'warn'); return; }
   const st = G.getOpStats(id);
-  const next = G.nextLevelInfo(id);
+  if (!st) { toast('干员数据缺失，无法打开面板。', 'warn'); return; }
+  const next = G.nextLevelInfo(id) || { capped: true, cap: G.levelCap(d.rarity, s.elite), exp: 0, lmd: 0, needExp: 0 };
   const promo = G.promotionInfo(id);
   const skill = G.skillReqInfo(id);
   const mod = G.moduleReqInfo(id);
   const allSkins = G.skinsFor(id);
   const equipped = state.skins.equipped[id];
   const baseExp = bagExp();
-  const canLevel = !next?.capped && (s.exp || 0) + baseExp >= next.needExp && state.lmd >= next.lmd;
+  const canLevel = !!next && !next.capped && (s.exp || 0) + baseExp >= next.needExp && state.lmd >= next.lmd;
   const defaultPct = Math.round(G.skinScale(`${id}-default`) * 100);
   const defaultCard = `<button class="skin-card ${!equipped ? 'equipped' : ''}" data-action="op-skin-default" data-op="${id}" title="默认皮肤">
     <img src="${d.img}" alt="默认皮肤" loading="lazy">

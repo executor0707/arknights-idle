@@ -153,6 +153,20 @@ export function loadGame() {
       for (const [opId, key] of Object.entries(state.skins.equipped)) {
         if (REMOVED_SKIN_IDS.has(`${opId}-${key}`)) delete state.skins.equipped[opId];
       }
+      // Old saves occasionally have an operator record without every growth
+      // field. Fill defaults before the detail panel reads them.
+      for (const [opId, s] of Object.entries(state.operators)) {
+        const d = OP_BY_ID.get(opId);
+        if (!d || !s) continue;
+        s.elite = Math.max(0, Math.min(maxElite(d.rarity), Number(s.elite) || 0));
+        s.level = Math.max(1, Math.min(levelCap(d.rarity, s.elite), Number(s.level) || 1));
+        s.potential = Math.max(1, Math.min(5, Number(s.potential) || 1));
+        s.skill = Math.max(1, Math.min(7, Number(s.skill) || 1));
+        s.mastery = Math.max(0, Math.min(3, Number(s.mastery) || 0));
+        s.trust = Math.max(0, Math.min(100, Number(s.trust) || 0));
+        s.module = Math.max(0, Math.min(3, Number(s.module) || 0));
+        s.exp = Math.max(0, Number(s.exp) || 0);
+      }
     }
   } catch (e) {
     console.warn('存档读取失败，使用新存档', e);
@@ -279,7 +293,11 @@ export function unlockAmiyaForms() {
   if (amiyaFormUnlocked(AMIYA_MEDIC_ID)) ensureOp(AMIYA_MEDIC_ID);
 }
 export function maxElite(rarity) { return MAX_ELITE[rarity] ?? 2; }
-export function levelCap(rarity, elite) { return (CAPS[rarity] || CAPS[6])[Math.min(elite, maxElite(rarity))]; }
+export function levelCap(rarity, elite) {
+  const caps = CAPS[rarity] || CAPS[6];
+  const index = Math.max(0, Math.min(Number(elite) || 0, caps.length - 1));
+  return caps[index];
+}
 export function expNeeded(level, rarity) {
   return Math.max(20, Math.round((36 + level * 22 + Math.pow(level, 1.6) * 3.5) * (0.7 + rarity * 0.1)));
 }
@@ -400,7 +418,7 @@ export function nextLevelInfo(id) {
   const d = opData(id); const s = opState(id);
   if (!d || !s) return null;
   const cap = levelCap(d.rarity, s.elite);
-  if (s.level >= cap) return { capped: true, cap };
+  if (s.level >= cap) return { capped: true, cap, exp: 0, lmd: 0, needExp: 0 };
   return { capped: false, cap, exp: Math.max(0, expNeeded(s.level, d.rarity) - (s.exp || 0)), lmd: levelLmd(s.level, d.rarity), needExp: expNeeded(s.level, d.rarity) };
 }
 
@@ -459,7 +477,7 @@ export function promotionInfo(id) {
   const d = opData(id); const s = opState(id);
   if (!d || !s) return null;
   const max = maxElite(d.rarity);
-  if (s.elite >= max) return { maxed: true };
+  if (s.elite >= max) return { maxed: true, next: null, cost: null, cap: levelCap(d.rarity, s.elite) };
   const cap = levelCap(d.rarity, s.elite);
   if (s.level < cap) return { locked: true, needLevel: cap };
   const next = s.elite + 1;
@@ -507,7 +525,7 @@ export function skillReqInfo(id) {
     if (s.elite < 2) return { locked: true, needElite: 2, next: 'M' + (s.mastery + 1) };
     return { kind: 'mastery', next: 'M' + (s.mastery + 1), cost: MASTERY_REQS[s.mastery] };
   }
-  return { maxed: true };
+  return { maxed: true, cost: null, next: null };
 }
 
 export function trainSkill(id) {
@@ -525,7 +543,7 @@ export function moduleReqInfo(id) {
   const d = opData(id); const s = opState(id);
   if (!d || !s) return null;
   if (s.elite < 2) return { locked: true, needElite: 2 };
-  if ((s.module || 0) >= 3) return { maxed: true };
+  if ((s.module || 0) >= 3) return { maxed: true, cost: null, next: null };
   const next = (s.module || 0) + 1;
   return { next, cost: { lmd: 9000 * next, items: { module: next + 1 } } };
 }
