@@ -348,7 +348,7 @@
         "暂未获取该干员"
       ],
       "storePurchasedFilter": true,
-      "local": 7,
+      "local": 9,
       "nearlLocal": true,
       "missing": [
         "liskarm-skin1",
@@ -369,7 +369,8 @@
         ],
         "spine35SkinsRouted": 52,
         "noAuthoredAttackFallback": 21
-      }
+      },
+      "rosmontisLocal": true
     },
     "killLmd": {
       "instant": true,

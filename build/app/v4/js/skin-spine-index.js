@@ -27,5 +27,13 @@ export const SKIN_SPINE = {
   "nearl_alter-skin1": {
     "name": "复现荣光",
     "base": "assets/spine38/skins/nearl_alter-skin1/char_1014_nearl2_epoque_17"
+  },
+  "char_391_rosmon-skin1": {
+    "name": "拥抱新生",
+    "base": "assets/spine38/skins/char_391_rosmon-skin1/char_391_rosmon_epoque_17"
+  },
+  "char_391_rosmon-skin2": {
+    "name": "轻盈一梦",
+    "base": "assets/spine38/skins/char_391_rosmon-skin2/char_391_rosmon_sale_16"
   }
 };

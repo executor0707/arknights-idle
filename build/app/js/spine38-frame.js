@@ -170,17 +170,26 @@
     for (var i = 0; i < units.length; i++) {
       var u = units[i], ck = u.uid;
       wanted[ck] = true;
-      var entry = u.kind === 'op' ? ops[u.key] : enemies[u.key];
+      var useKey = u.key;
+      var entry = u.kind === 'op' ? ops[useKey] : enemies[useKey];
+      var data = dataCache.get(u.kind + ':' + useKey);
+      // If a remote skin fails to load, fall back to the operator's base
+      // model instead of leaving an empty character slot.
+      if (u.kind === 'op' && data === null && u.fallback && ops[u.fallback]) {
+        useKey = u.fallback;
+        entry = ops[useKey];
+        data = dataCache.get(u.kind + ':' + useKey);
+        if (!data) load(u.kind, useKey, entry.base || entry, function (d) { if (d) window.__frameDirty = true; });
+      }
       var base = entry && (entry.base || entry);
       window.__frameLast.sample = { u: u, base: base, opKeys: Object.keys(ops).slice(0, 3) };
       if (!base) continue;
-      var data = dataCache.get(u.kind + ':' + u.key);
       if (!data) {
-        load(u.kind, u.key, base, function (d) { if (d) window.__frameDirty = true; });
+        load(u.kind, useKey, base, function (d) { if (d) window.__frameDirty = true; });
         continue;
       }
       var sp = sprites.get(ck);
-      if (!sp) { sp = sprite(u.kind, u.key, u); if (sp) sprites.set(ck, sp); if (!sp) continue; }
+      if (!sp) { sp = sprite(u.kind, useKey, u); if (sp) sprites.set(ck, sp); if (!sp) continue; }
       var sc = sp._baseScale * (u.scale || 1);
       sp.scale.set(sc * sp._dir, sc);
       sp.x = Math.min(w - 26, Math.max(26, (u.x / 100) * w + (u.bobX || 0)));
