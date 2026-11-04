@@ -35,7 +35,14 @@
     ]).then(function (vals) {
       try {
         var btex = PIXI.BaseTexture.fromImage(base + '.png', true);
-        var atlas = new PIXI.spine.core.TextureAtlas(vals[0], function (line, cb2) { cb2(btex); });
+        var atlasText = vals[0];
+        // PRTS ships this one skin with a Unicode Roman numeral in the atlas
+        // while its binary skeleton contains the CP932-mojibake spelling.
+        // Alias the region name so the skin still loads.
+        if (base.indexOf('char_343_tknogi_epoque_9') >= 0) {
+          atlasText = atlasText.replace(/\u2160/g, '\uFFE2\uFF85\uFFA0');
+        }
+        var atlas = new PIXI.spine.core.TextureAtlas(atlasText, function (line, cb2) { cb2(btex); });
         var bin = new PIXI.spine.core.SkeletonBinary(new PIXI.spine.core.AtlasAttachmentLoader(atlas));
         var data = bin.readSkeletonData(new Uint8Array(vals[1]));
         dataCache.set(ck, data);
