@@ -18,9 +18,12 @@ const CLASS_KEY = { 先锋: 'vanguard', 近卫: 'guard', 重装: 'defender', 狙
 // their old narrow 13-15% auto-attack range. Ranged roles keep ROLE_MODS range.
 const MELEE_ROLES = new Set(['vanguard', 'guard', 'defender', 'specialist']);
 const MELEE_RANGE = 26;
-// PRTS: 远程位特种 = 怪杰 / 陷阱师 / 炼金师 (12 operators).
-// They use the ranged (sniper/caster) engagement model and do not block.
-const RANGED_SPECIALIST_RANGE = new Map([['怪杰', 62], ['陷阱师', 62], ['炼金师', 58]]);
+// Requested specialist treatments: 钩索师 / 巡空者 / 怪杰 / 陷阱师 / 行商 / 炼金师.
+// All use the sniper engagement range and do not block.
+const RANGED_SPECIALIST_RANGE = new Map([
+  ['钩索师', 62], ['巡空者', 62], ['怪杰', 62],
+  ['陷阱师', 62], ['行商', 62], ['炼金师', 62],
+]);
 const CAPS = { 2: [30], 3: [40, 55], 4: [45, 60, 70], 5: [50, 70, 80], 6: [50, 80, 90] };
 export const USEFUL_ITEM_IDS = new Set([
   'record1', 'record2', 'record3', 'record4',
