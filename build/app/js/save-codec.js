@@ -1,8 +1,8 @@
 // Local save-file obfuscation. This is not DRM: it exists so an exported save is
 // not a readable map of currencies/characters that can be edited by hand.
 const MAGIC = 'rhodes-idle-save';
-const FORMAT_VERSION = 3;
-const SECRET = 'Rhodes Island Idle — exported save envelope v3';
+const FORMAT_VERSION = 4;
+const SECRET = 'Rhodes Island Idle — exported save envelope v4';
 
 const enc = new TextEncoder();
 const dec = new TextDecoder();

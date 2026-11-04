@@ -547,20 +547,25 @@
       "attackLock": 0.8
     },
     "saveGeneration": {
-      "storageKey": "rhodes_island_idle_save_v2",
-      "saveVersion": 2,
-      "envelopeVersion": 3,
-      "oldLocalRemoved": true,
-      "oldTutorialRemoved": true,
+      "storageKey": "rhodes_island_idle_save_v3",
+      "saveVersion": 3,
+      "envelopeVersion": 4,
+      "legacyKeysCleared": [
+        "v1",
+        "v2"
+      ],
+      "legacyTutorialCleared": [
+        "v1",
+        "v2"
+      ],
       "plainRejected": true,
-      "oldV2Rejected": true,
-      "newV3Accepted": true,
-      "desktopFile": "rhodes-idle-max-no-stages-v3-2026-11-04.json",
-      "oldKeysCleared": true,
-      "freshLabel": "建立博士档案",
-      "plainError": "存档不符合读取要求",
-      "oldError": "旧版存档已失效",
-      "newV3": "OK"
+      "oldV3Rejected": true,
+      "newV4Accepted": true,
+      "importFlagReset": true,
+      "refreshKeepsSave": true,
+      "desktopFile": "rhodes-idle-max-no-stages-v4-2026-11-04.json",
+      "operators": 453,
+      "skins": 531
     },
     "operatorRemoval": {
       "removed": 16,

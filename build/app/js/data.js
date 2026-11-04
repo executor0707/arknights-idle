@@ -1,7 +1,7 @@
 import { STAGES as V2_STAGES, STAGE_GROUPS as V2_STAGE_GROUPS, MAIN_CHAPTERS } from './stages-v2.js';
 
-export const SAVE_KEY = 'rhodes_island_idle_save_v2';
-export const SAVE_VERSION = 2;
+export const SAVE_KEY = 'rhodes_island_idle_save_v3';
+export const SAVE_VERSION = 3;
 export const MAX_SQUAD = 5;
 export const PULL_COST = 600;
 export const OFFLINE_CAP_HOURS = 8;
