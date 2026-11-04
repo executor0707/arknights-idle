@@ -922,6 +922,9 @@ a { color: var(--orange); }
 .squad-editor-slots .squad-slot .sq-name { font-size: 11px; }
 .squad-editor-slots .squad-slot .sq-remove { right: 2px; top: 2px; width: 18px; height: 18px; background: rgba(0,0,0,.55); }
 .squad-editor-slots .squad-slot.empty { min-height: 188px; }
+.squad-filter-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; padding: 8px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.squad-filter-toolbar .filter-group { flex-wrap: wrap; }
+.squad-filter-toolbar .skin-search { flex: 1 1 150px; min-width: 120px; }
 .roster-picker { display: grid; grid-template-columns: repeat(auto-fill, minmax(116px, 1fr)); gap: 5px; max-height: 330px; overflow-y: auto; margin-top: 10px; padding-right: 3px; }
 .roster-pick { display: flex; gap: 6px; align-items: center; text-align: left; border: 1px solid var(--line); background: rgba(255,255,255,.018); padding: 4px; }
 .roster-pick img { width: 28px; height: 38px; object-fit: cover; object-position: 50% 5%; border-left: 2px solid var(--rarity); }
