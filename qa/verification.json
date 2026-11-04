@@ -184,7 +184,10 @@
       "initialStages": 1,
       "migrationPreservesFloor": true,
       "internalCap": 10000,
-      "lmdStart": 12000
+      "lmdStart": 12000,
+      "failFallback": true,
+      "showFallbackAndFailed": true,
+      "clearRetryRemovesFallback": true
     },
     "materials": {
       "promotion": "chip + LMD only",

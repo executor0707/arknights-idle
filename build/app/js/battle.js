@@ -598,13 +598,23 @@ export class Battle {
   }
 
   _nextStageAfterWin() {
-    if (this.stage.group === 'main' || this.stage.group === 'endless') {
-      const list = STAGES.filter(s => s.group === this.stage.group);
-      const i = list.findIndex(s => s.id === this.stage.id);
-      if (this.stage.group === 'endless' && i + 1 >= list.length) {
-        ensureEndlessFloor((this.stage.floor || i + 1) + 1);
+    if (this.stage.group === 'endless' && state.stage.endlessRetry) {
+      const retry = STAGE_BY_ID.get(state.stage.endlessRetry);
+      if (retry && retry.floor > 1 && this.stage.id === 'endless-' + (retry.floor - 1)) {
+        return this.stage.id;
       }
-      const next = STAGES.filter(s => s.group === this.stage.group)[i + 1];
+    }
+    if (this.stage.group === 'endless') {
+      const nextFloor = (this.stage.floor || 1) + 1;
+      ensureEndlessFloor(nextFloor);
+      const next = STAGES.find(s => s.group === 'endless' && s.floor === nextFloor);
+      if (next && isStageUnlocked(next)) return next.id;
+      return this.stage.id;
+    }
+    if (this.stage.group === 'main') {
+      const list = STAGES.filter(s => s.group === 'main');
+      const i = list.findIndex(s => s.id === this.stage.id);
+      const next = list[i + 1];
       if (next && isStageUnlocked(next)) return next.id;
     }
     return this.stage.id;
@@ -618,7 +628,13 @@ export class Battle {
     this.shouldAutoRestart = !!state.stage.auto;
     state.stats.runs += win ? 0 : 1;
     if (!win) {
-      this.nextStageId = this.stage.id;
+      if (this.stage.group === 'endless' && (this.stage.floor || 1) > 1) {
+        const prev = ensureEndlessFloor(this.stage.floor - 1);
+        state.stage.endlessRetry = this.stage.id;
+        this.nextStageId = prev.id;
+      } else {
+        this.nextStageId = this.stage.id;
+      }
       this.lastReward = null;
       this.lastWin = false;
       state.stats.losses += 1;
@@ -630,6 +646,7 @@ export class Battle {
       return;
     }
     if ((this.stage.group === 'main' || this.stage.group === 'endless') && !state.stage.cleared.includes(this.stage.id)) state.stage.cleared.push(this.stage.id);
+    if (this.stage.group === 'endless' && state.stage.endlessRetry === this.stage.id) state.stage.endlessRetry = null;
     this.nextStageId = this._nextStageAfterWin();
     state.stage.totalRuns = (state.stage.totalRuns || 0) + 1;
     const reward = grantStageRewards(this.stage, { lmdCredit: this.killLmdPaid || 0 });

@@ -57,7 +57,7 @@ export function createDefaultState() {
       chip: 30, chip_pack: 10,
       module: 0, token: 0, base_block: 20,
     },
-    stage: { selected: 'CE-6', cleared: [], firstClear: {}, auto: true, speed: 1, totalRuns: 0 },
+    stage: { selected: 'CE-6', cleared: [], firstClear: {}, auto: true, speed: 1, totalRuns: 0, endlessRetry: null },
     deploy: {},
     idle: { orundum: 0, shards: 0, blocks: 0, lmd: 0, exp: 0, chips: 0, chipPacks: 0, seconds: 0 },
     skins: { owned: {}, equipped: {}, scale: {} },
@@ -122,6 +122,11 @@ export function loadGame() {
   );
   if (endlessTarget > 1) ensureEndlessFloor(endlessTarget);
   if (oldEndlessSelected) state.stage.selected = 'endless-' + endlessTarget;
+  if (state.stage.endlessRetry) {
+    const retry = STAGE_BY_ID.get(state.stage.endlessRetry);
+    if (!retry || retry.group !== 'endless' || retry.floor <= 1) state.stage.endlessRetry = null;
+    else ensureEndlessFloor(retry.floor - 1);
+  }
   if (!STAGE_BY_ID.has(state.stage.selected)) state.stage.selected = 'CE-6';
   state.squad = state.squad.map(id => id && OP_BY_ID.has(id) ? id : null).slice(0, MAX_SQUAD);
   while (state.squad.length < MAX_SQUAD) state.squad.push(null);
@@ -615,9 +620,9 @@ export function isStageUnlocked(stage) {
     return i === 0 || state.stage.cleared.includes(mains[i - 1].id);
   }
   if (stage.group === 'endless') {
-    const endless = STAGES.filter(s => s.group === 'endless');
-    const i = endless.findIndex(s => s.id === stage.id);
-    return i === 0 || state.stage.cleared.includes(endless[i - 1].id);
+    if ((stage.floor || 1) <= 1) return true;
+    const prev = STAGES.find(s => s.group === 'endless' && s.floor === stage.floor - 1);
+    return !!prev && state.stage.cleared.includes(prev.id);
   }
   if (stage.group === 'annihilation') return true;
   return true;
