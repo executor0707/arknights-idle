@@ -505,6 +505,15 @@
       "range": 62,
       "block": 0,
       "backlineLabel": true
+    },
+    "bards": {
+      "count": 6,
+      "range": 999,
+      "block": 0,
+      "teamHeal": true,
+      "healAtkRatio": 0.18,
+      "noAttack": true,
+      "noAttackAnimation": true
     }
   },
   "limitations": [

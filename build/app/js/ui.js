@@ -679,7 +679,7 @@ function rangePreview(d) {
       cells.push(`<i class="${center ? 'self' : inRange ? 'inrange' : ''}"></i>`);
     }
   }
-  return `<div class="range-preview"><div class="range-grid">${cells.join('')}</div><span>${esc(d.cls)} · 射程 ${st?.range ? Math.round(st.range) : 12}</span></div>`;
+  return `<div class="range-preview"><div class="range-grid">${cells.join('')}</div><span>${esc(d.cls)} · ${st?.bard ? '全场治疗' : '射程 ' + (st?.range ? Math.round(st.range) : 12)}</span></div>`;
 }
 
 function makeAllyEl(a) {
@@ -1019,7 +1019,7 @@ export function openOperator(id, opts = {}) {
         <div class="stat-box"><span>RES</span><b>${st.res.toFixed(0)}</b></div>
         <div class="stat-box"><span>攻击间隔</span><b>${st.interval.toFixed(2)}s</b></div>
         <div class="stat-box"><span>阻挡</span><b>${st.block}</b></div>
-        <div class="stat-box"><span>攻击范围</span><b>${st.range > 40 ? '远程' : '近战'}</b></div>
+        <div class="stat-box"><span>攻击范围</span><b>${st.bard ? '全场' : st.range > 40 ? '远程' : '近战'}</b></div>
         <div class="stat-box"><span>信赖加成</span><b>+${(s.trust / 100 * 8).toFixed(1)}%</b></div>
       </div>
 
@@ -1048,8 +1048,8 @@ export function openOperator(id, opts = {}) {
           <div class="deploy-row">
             ${rangePreview(d)}
             <div class="deploy-copy">
-              <b>${st.range > 40 ? '后排角色' : '前排角色'} · 阻挡 ${st.block}</b>
-              <span>战斗改为横版推进：近战在前排阻挡，远程与医疗在后排输出。</span>
+              <b>${st.bard ? '后排角色 · 全图治疗' : st.range > 40 ? '后排角色' : '前排角色'} · 阻挡 ${st.block}</b>
+              <span>${st.bard ? '吟游者不攻击、不阻挡；按攻击力比例缓慢恢复全体角色生命。' : '战斗改为横版推进：近战在前排阻挡，远程与医疗在后排输出。'}</span>
               <span class="small">队伍会在战场中向前奔跑，遇敌停战、清波继续；不再使用格子部署。</span>
             </div>
           </div>
