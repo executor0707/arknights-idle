@@ -14,6 +14,10 @@ export const STAGE_BY_ID = new Map(STAGES.map(s => [s.id, s]));
 export const bus = new EventTarget();
 
 const CLASS_KEY = { 先锋: 'vanguard', 近卫: 'guard', 重装: 'defender', 狙击: 'sniper', 术师: 'caster', 医疗: 'medic', 辅助: 'supporter', 特种: 'specialist' };
+// Melee units engage roughly two body-lengths in front/behind, independent of
+// their old narrow 13-15% auto-attack range. Ranged roles keep ROLE_MODS range.
+const MELEE_ROLES = new Set(['vanguard', 'guard', 'defender', 'specialist']);
+const MELEE_RANGE = 26;
 const CAPS = { 2: [30], 3: [40, 55], 4: [45, 60, 70], 5: [50, 70, 80], 6: [50, 80, 90] };
 export const USEFUL_ITEM_IDS = new Set([
   'record1', 'record2', 'record3', 'record4',
@@ -264,7 +268,7 @@ export function getOpStats(id) {
   if (s.potential >= 5) { atk *= 1.03; hp *= 1.03; interval *= 0.94; }
   const skillPower = 1 + (s.skill - 1) * 0.055 + (s.mastery || 0) * 0.075 + (s.potential >= 5 ? 0.1 : 0);
   return {
-    id, hp, atk, def, res, interval, range: mod.range, block: mod.block,
+    id, hp, atk, def, res, interval, range: MELEE_ROLES.has(data.role) ? MELEE_RANGE : mod.range, block: mod.block,
     role: data.role, arts: !!mod.arts, heal: !!mod.heal, skillPower,
   };
 }

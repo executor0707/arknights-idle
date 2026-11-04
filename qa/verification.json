@@ -390,6 +390,25 @@
       "title": "设置",
       "settingsFirst": true,
       "defaultSkinLabel": true
+    },
+    "rangeAudit": {
+      "operators": 469,
+      "meleeRange": 26,
+      "meleeRoles": [
+        "vanguard",
+        "guard",
+        "defender",
+        "specialist"
+      ],
+      "ranged": {
+        "sniper": 62,
+        "caster": 58,
+        "medic": 55,
+        "supporter": 52
+      },
+      "meleeNotBlockedOnly": true,
+      "healInfinite": true,
+      "healFarDistance": 72
     }
   },
   "limitations": [

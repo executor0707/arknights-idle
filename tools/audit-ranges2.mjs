@@ -1,0 +1,14 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=rangeaudit2'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1300));
+await send('Runtime.evaluate',{expression:`document.querySelector('[data-action="tutorial-skip"]')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,400));
+console.log('ranges', await evalJS(send, `(()=>{const s=__RHODES__.state;const saved=JSON.parse(JSON.stringify(s.operators));for(const o of __RHODES__.G.OPERATORS){if(!s.operators[o.id])s.operators[o.id]={level:1,elite:0,potential:1,skill:1,mastery:0,trust:0,module:0,exp:0};}const roles={};for(const o of __RHODES__.G.OPERATORS){const st=__RHODES__.G.getOpStats(o.id);if(!roles[o.role])roles[o.role]=[];roles[o.role].push(st?.range??null);}const out={};for(const [r,a] of Object.entries(roles))out[r]={count:a.length,min:Math.min(...a),max:Math.max(...a),unique:[...new Set(a)].sort((x,y)=>x-y)};s.operators=saved;return JSON.stringify(out)})()`));
+console.log('target', await evalJS(send, `(()=>{__RHODES__.battle.start('CE-6');const a=__RHODES__.battle.allies.find(x=>['vanguard','guard','defender','specialist'].includes(x.role));const mk=(dx)=>({uid:'test'+dx,dead:false,lane:a.lane,x:a.x+dx,hp:100,type:'soldier'});__RHODES__.battle.enemies=[mk(25)];const h25=__RHODES__.battle._targetFor(a)?.uid||null;__RHODES__.battle.enemies=[mk(27)];const h27=__RHODES__.battle._targetFor(a)?.uid||null;return JSON.stringify({range:a.range,hit25:h25,hit27:h27})})()`));
+console.log('heal', await evalJS(send, `(()=>{const s=__RHODES__.state;s.operators.ansel={level:1,elite:0,potential:1,skill:1,mastery:0,trust:0,module:0,exp:0};s.squad=['ansel','fang','kroos','melantha','beagle'];__RHODES__.battle.start('CE-6');const b=__RHODES__.battle;const med=b.allies.find(x=>x.heal);if(!med)return 'no medic';b.allies.forEach((x,i)=>{x.x=10+i*15;x.hp=x.maxHp*(i===0?0.2:0.9);});const t=b._lowestAlly(med);return JSON.stringify({med:med.id,range:med.range,target:t?.id,ratio:t?+(t.hp/t.maxHp).toFixed(2):null,distance:t?Math.abs(t.x-med.x):null})})()`));
+process.exit(0);

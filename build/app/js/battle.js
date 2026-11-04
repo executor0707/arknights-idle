@@ -359,8 +359,9 @@ export class Battle {
 
   _targetFor(a) {
     if (MELEE.has(a.role)) {
-      // 近战只打自己拦住的敌人；不能隔空攻击远程/无人机。
-      return this.enemies.filter(e => e.blockedBy === a.uid && !e.dead)
+      // Melee covers roughly two body-lengths in front and behind. It is not
+      // limited to enemies actually assigned to this unit's block slots.
+      return this.enemies.filter(e => !e.dead && e.lane === a.lane && Math.abs(e.x - a.x) <= a.range)
         .sort((x, y) => x.hp - y.hp)[0] || null;
     }
     return this.enemies.filter(e => !e.dead && Math.abs(e.x - a.x) <= a.range && (a.range > 40 || e.lane === a.lane))
