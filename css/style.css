@@ -590,10 +590,10 @@ a { color: var(--orange); }
 .room-combat b { color: var(--orange); font-size: 9px; }
 .room-combat small { color: var(--dim); font-size: 7px; }
 .base-bonus-table { padding-top: 4px; }
-.base-bonus-row { display: grid; grid-template-columns: 1.2fr 1fr 0.8fr 0.9fr; gap: 12px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 9px; }
-.base-bonus-row.head { color: var(--dim); font-size: 8px; letter-spacing: .08em; border-bottom-color: var(--line-strong); }
+.base-bonus-row { display: grid; grid-template-columns: 1.2fr 1fr 0.8fr 0.9fr; gap: 12px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 13.5px; line-height: 1.5; }
+.base-bonus-row.head { color: var(--dim); font-size: 12px; letter-spacing: .08em; border-bottom-color: var(--line-strong); }
 .base-bonus-row b { color: var(--orange); }
-.base-bonus-row small { color: var(--dim); font-size: 7px; }
+.base-bonus-row small { color: var(--dim); font-size: 10.5px; }
 .room-actions { display: flex; gap: 5px; margin-top: 9px; }
 .room-actions .btn { flex: 1; }
 .room-timer { height: 2px; background: rgba(255,255,255,.08); margin-top: 8px; }

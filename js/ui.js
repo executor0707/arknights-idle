@@ -525,7 +525,7 @@ function renderBattle() {
           <div class="divider"></div>
           <div class="kv"><span>结构监测</span><b>${(state.base.sabotageTimer / 120 * 100).toFixed(0)}%</b></div>
           <div class="progress red mt-8"><i style="width:${state.base.sabotageTimer / 120 * 100}%"></i></div>
-          <div class="small mt-8">每 2 分钟进行一次结构判定。爆炸概率低，但并非为零。</div>
+          <div class="small mt-8">每 2 分钟进行一次结构判定。爆炸概率低，但并非为零。维修固定 30,000 龙门币，不随设施等级上升。</div>
           ${state.base.sabotageLog[0] ? `<div class="small mt-8">最近：${esc(state.base.sabotageLog[0].name)} · ${timeAgo(state.base.sabotageLog[0].at)}</div>` : ''}
         </div>
       </div>
@@ -2025,7 +2025,7 @@ function renderBase() {
         <div class="panel-body">
           <div class="wisadel-panel">
             <img src="${G.OP_BY_ID.get('wisadel')?.img}" alt="维什戴尔">
-            <div><h4>维什戴尔协议</h4><p>她拥有随时“测试承重结构”的自由。每 2 分钟进行一次爆炸判定：基础 0.6%，拥有维什戴尔 +0.4%，编队中再 +0.3%。维修费用随设施等级上升。</p></div>
+            <div><h4>维什戴尔协议</h4><p>她拥有随时“测试承重结构”的自由。每 2 分钟进行一次爆炸判定：基础 0.6%，拥有维什戴尔 +0.4%，编队中再 +0.3%。维修固定 30,000 龙门币，不随设施等级上升。</p></div>
           </div>
           <div class="kv mt-12"><span>下次结构判定</span><b id="baseSabotagePct">${Math.min(100, state.base.sabotageTimer / 120 * 100).toFixed(0)}%</b></div>
           <div class="progress red mt-8"><i id="baseSabotageBar" style="width:${Math.min(100, state.base.sabotageTimer / 120 * 100)}%"></i></div>
