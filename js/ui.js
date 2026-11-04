@@ -1509,7 +1509,7 @@ function renderArchive() {
           <div class="action-row">
             <button class="btn btn-small" data-action="export-save">导出加密存档</button>
             <button class="btn btn-small" data-action="import-save">导入存档</button>
-            <button class="btn btn-small btn-danger" data-action="reset-save">重置档案</button>
+            <button class="btn btn-small btn-danger" data-action="reset-save">重置存档</button>
           </div>
           <div class="divider"></div>
           <div class="credits">
@@ -1948,7 +1948,7 @@ async function onClick(e) {
     case 'import-save':
       document.getElementById('saveImport')?.click(); break;
     case 'reset-save':
-      openModal(modalShell('重置档案', `<div class="warning-box"><b>此操作不可撤销。</b><br>所有干员、抽卡记录、基建与关卡进度将被清除。导出的 JSON 存档仍可重新导入。</div>`, { narrow: true, kicker: 'DANGER // RESET', actions: '<button class="btn btn-ghost" data-action="close-modal">取消</button><button class="btn btn-danger" data-action="confirm-reset">确认重置</button>' }));
+      openModal(modalShell('重置存档', `<div class="warning-box"><b>此操作不可撤销。</b><br>所有干员、抽卡记录、基建与关卡进度将被清除。导出的 JSON 存档仍可重新导入。</div>`, { narrow: true, kicker: 'DANGER // RESET', actions: '<button class="btn btn-ghost" data-action="close-modal">取消</button><button class="btn btn-danger" data-action="confirm-reset">确认重置</button>' }));
       break;
     case 'confirm-reset':
       localStorage.removeItem(SAVE_KEY);
