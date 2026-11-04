@@ -618,6 +618,11 @@
       "catchUpCapSec": 60,
       "renderWhileHidden": false,
       "testedTimeGain": 3.52
+    },
+    "ca5Module": {
+      "stage": "CA-5",
+      "modulePerClear": 1,
+      "source": "rewards.items.module"
     }
   },
   "limitations": [
