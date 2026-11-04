@@ -1,0 +1,9 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront'); await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=idleskills'});
+await new Promise(r=>setTimeout(r,1400));
+if (await evalJS(send, `!!document.querySelector('#enterBtn')`)) { await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true}); await new Promise(r=>setTimeout(r,1400)); await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`); await new Promise(r=>setTimeout(r,300)); }
+console.log('audit', await evalJS(send, `(()=>{const O=__RHODES__.G.OPERATORS;const allowed=new Set(['aoe','nuke','multi','heal','buff','shield','control','debuff','execute']);const bad=O.filter(o=>!allowed.has(o.skill?.type)).map(o=>[o.id,o.skill?.type]);const special=O.filter(o=>/召唤|弹药|子弹|装填/.test((o.skill?.name||'')+(o.skill?.desc||''))).map(o=>[o.id,o.skill?.name]);const long=O.filter(o=>/部署|弹药|召唤|元素|阻挡数|射程/.test(o.skill?.desc||'')).length;return JSON.stringify({total:O.length,types:Object.values(O).reduce((a,o)=>(a[o.skill?.type]=(a[o.skill?.type]||0)+1,a),{}),bad,special,long,rosmon:O.find(o=>o.id==='char_391_rosmon')?.skill})})()`));
+console.log('battle', await evalJS(send, `(()=>{const s=__RHODES__.state,G=__RHODES__.G;const id='char_391_rosmon';s.operators[id]={level:90,elite:2,potential:5,skill:7,mastery:3,trust:100,module:3,exp:0};s.squad=[id,null,null,null,null];__RHODES__.setView('battle',true);const b=__RHODES__.battle;b.start('CE-6');b._castSkill(b.allies[0]);return JSON.stringify({skill:G.OP_BY_ID.get(id).skill.type,allies:b.allies.length,phantoms:b.allies.filter(a=>a.phantom).length,cast:b.cast?.name})})()`));
+process.exit(0);

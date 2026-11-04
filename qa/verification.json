@@ -727,6 +727,23 @@
     "ammoSkills": {
       "remaining": 0,
       "handling": "non-ammo alternative or idle adaptation"
+    },
+    "idleOnlySkills": {
+      "operators": 453,
+      "summonSkills": 0,
+      "ammoSkills": 0,
+      "unsupportedTerms": 0,
+      "types": [
+        "aoe",
+        "nuke",
+        "multi",
+        "heal",
+        "buff",
+        "shield",
+        "control",
+        "debuff",
+        "execute"
+      ]
     }
   },
   "limitations": [
