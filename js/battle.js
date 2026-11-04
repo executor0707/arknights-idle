@@ -647,9 +647,16 @@ export class Battle {
     state.stats.runs += win ? 0 : 1;
     if (!win) {
       if (this.stage.group === 'endless' && (this.stage.floor || 1) > 1) {
-        const prev = ensureEndlessFloor(this.stage.floor - 1);
-        state.stage.endlessRetry = this.stage.id;
-        this.nextStageId = prev.id;
+        const pending = state.stage.endlessRetry ? STAGE_BY_ID.get(state.stage.endlessRetry) : null;
+        if (pending && pending.floor > this.stage.floor) {
+          // Failing the fallback must not erase the higher-floor retry record.
+          // Keep looping this fallback until the pending floor is cleared.
+          this.nextStageId = this.stage.id;
+        } else {
+          const prev = ensureEndlessFloor(this.stage.floor - 1);
+          state.stage.endlessRetry = this.stage.id;
+          this.nextStageId = prev.id;
+        }
       } else {
         this.nextStageId = this.stage.id;
       }

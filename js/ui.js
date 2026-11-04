@@ -1737,13 +1737,8 @@ async function onClick(e) {
     case 'stage-group':
       ui.stageGroup = target.dataset.group;
       if (ui.stageGroup === 'main') ui.mainChapter = G.STAGE_BY_ID.get(state.stage.selected)?.chapterKey ?? 0;
-      if (ui.stageGroup === 'endless') {
-        const retry = state.stage.endlessRetry ? G.STAGE_BY_ID.get(state.stage.endlessRetry) : null;
-        const fallback = retry && retry.floor > 1 ? G.STAGE_BY_ID.get('endless-' + (retry.floor - 1)) : null;
-        const endless = STAGES.filter(s => s.group === 'endless');
-        const current = fallback || endless.reduce((a, b) => !a || b.floor > a.floor ? b : a, null);
-        if (current) { G.setStage(current.id); battle.start(current.id); }
-      }
+      // Switching tabs only changes the view. A battle on another stage must
+      // keep running until the player explicitly clicks an endless stage.
       renderView(); break;
     case 'select-stage': {
       if (!G.setStage(id)) { toast('该关卡尚未解锁，请先通关前置关卡。', 'warn'); break; }
