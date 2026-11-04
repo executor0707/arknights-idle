@@ -667,6 +667,12 @@ export function isStageUnlocked(stage) {
   }
   if (stage.group === 'endless') {
     if ((stage.floor || 1) <= 1) return true;
+    const retry = state.stage.endlessRetry ? STAGE_BY_ID.get(state.stage.endlessRetry) : null;
+    // The retry floor and its fallback stay open even if the fallback was not
+    // cleared. This lets the player keep farming the fallback until the higher
+    // floor is finally cleared.
+    if (retry && retry.group === 'endless' &&
+        (stage.floor === retry.floor || stage.floor === retry.floor - 1)) return true;
     const prev = STAGES.find(s => s.group === 'endless' && s.floor === stage.floor - 1);
     return !!prev && state.stage.cleared.includes(prev.id);
   }

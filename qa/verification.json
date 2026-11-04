@@ -626,6 +626,18 @@
       "stage": "CA-5",
       "modulePerClear": 1,
       "source": "rewards.items.module"
+    },
+    "endlessFix": {
+      "tabDoesNotStart": true,
+      "fallbackAndRetryUnlocked": true,
+      "fallbackFailureKeepsHigherRetry": true,
+      "fallbackLoops": true,
+      "tested": {
+        "selected": "CE-6",
+        "battle": "CE-6",
+        "retry": "endless-9",
+        "next": "endless-8"
+      }
     }
   },
   "limitations": [
