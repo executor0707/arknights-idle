@@ -165,16 +165,16 @@
       "annihilation": "boss_blksnk"
     },
     "endless": {
-      "floorCap": null,
+      "floorCap": 9999,
       "infinite": true,
       "recStart": 16000,
       "recStep": 8,
       "pullsStart": 15,
       "pullsStep": 0.1,
-      "shardsStep": 0.05,
-      "blocksStep": 0.004,
-      "lmdStep": 22,
-      "expStep": 9,
+      "shardsStep": 0.12,
+      "blocksStep": 0.02,
+      "lmdStep": 120,
+      "expStep": 18,
       "bossPool": 6,
       "autoNext": true,
       "singleCard": true,
@@ -182,7 +182,9 @@
       "displayFloorOffset": -1,
       "labelTemplate": "无尽战线-{n}",
       "initialStages": 1,
-      "migrationPreservesFloor": true
+      "migrationPreservesFloor": true,
+      "internalCap": 10000,
+      "lmdStart": 12000
     },
     "materials": {
       "promotion": "chip + LMD only",
@@ -272,7 +274,10 @@
       "basePowerGain": 16,
       "perRoomValues": true,
       "damagedBonusZero": true,
-      "repairCost": 30000
+      "repairCost": 30000,
+      "costGrowth": "linear 1 + 0.18*(level-1)",
+      "blocksGrowth": "1 + 0.14*(level-1)",
+      "twoFloorsPerUpgrade": true
     },
     "eventLog": {
       "page": "events",

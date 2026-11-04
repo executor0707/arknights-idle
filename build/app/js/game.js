@@ -637,6 +637,8 @@ export function stageIdleRates(stage = STAGE_BY_ID.get(state.stage.selected)) {
 export function idleSummary(stage = STAGE_BY_ID.get(state.stage.selected)) {
   const r = stageIdleRates(stage);
   return {
+    chipsPerHour: 0,
+    chipPacksPerHour: 0,
     ...r,
     pullsPerHour: r.orundumPerHour / PULL_COST,
     primesPerDay: (r.shardsPerHour * 24) / PRIME_SHARD_COST,
@@ -945,9 +947,12 @@ export function baseSummary() {
 export function roomUpgradeCost(id) {
   const r = roomDef(id); const s = state.base.rooms[id];
   if (!r || !s) return null;
+  const step = s.level - 1;
   return {
-    lmd: Math.floor(r.baseCost * Math.pow(1.28, s.level - 1)),
-    items: { base_block: Math.max(1, Math.ceil(s.level * 0.55)) },
+    // Linear growth keeps long-run base costs in the same order of magnitude as
+    // base/endless income instead of exploding past the player's hourly rate.
+    lmd: Math.floor(r.baseCost * (1 + 0.18 * step)),
+    items: { base_block: Math.max(1, Math.ceil(1 + step * 0.14)) },
   };
 }
 export function canUpgradeRoom(id) {
