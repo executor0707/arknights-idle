@@ -352,6 +352,17 @@
       "bossMultiplier": 6,
       "creditedAtClear": true,
       "lossKeeps": true
+    },
+    "resultActions": {
+      "winNonFinal": [
+        "下一关",
+        "退出作战"
+      ],
+      "winFinal": [
+        "再次作战",
+        "退出作战"
+      ],
+      "exitStopsAuto": true
     }
   },
   "limitations": [

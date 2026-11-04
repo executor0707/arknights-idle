@@ -1,0 +1,24 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=resultbtns'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`localStorage.clear();location.reload()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1500));
+await send('Runtime.evaluate',{expression:`document.querySelector('[data-action="tutorial-skip"]')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,500));
+await evalJS(send,`document.querySelector('[data-action="stage-group"][data-group="endless"]')?.click();true`);
+await new Promise(r=>setTimeout(r,600));
+await evalJS(send,`__RHODES__.battle._finish(true,'result test');true`);
+await new Promise(r=>setTimeout(r,400));
+console.log(await evalJS(send,`JSON.stringify({stage:__RHODES__.battle.stage.name,next:__RHODES__.battle.nextStageId,buttons:[...document.querySelectorAll('.result-actions .btn')].map(x=>x.textContent)})`));
+await screenshot(send,'.cache/result-next-exit.png',1440,1000);
+// test exit
+await evalJS(send,`document.querySelector('[data-action="exit-battle"]')?.click();true`);
+await new Promise(r=>setTimeout(r,400));
+console.log(await evalJS(send,`JSON.stringify({status:__RHODES__.battle.status,auto:__RHODES__.state.stage.auto,overlay:!!document.querySelector('.arena-result')})`));
+process.exit(0);

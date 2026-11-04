@@ -598,7 +598,6 @@ export class Battle {
   }
 
   _nextStageAfterWin() {
-    if (!state.stage.auto) return this.stage.id;
     if (this.stage.group === 'main' || this.stage.group === 'endless') {
       const list = STAGES.filter(s => s.group === this.stage.group);
       const i = list.findIndex(s => s.id === this.stage.id);
@@ -641,6 +640,14 @@ export class Battle {
     bus.dispatchEvent(new CustomEvent('battle-sfx', { detail: { sound: 'victory' } }));
     saveNow();
     this.onFinish?.({ win: true, reason, stage: this.stage, reward });
+  }
+
+  exit() {
+    this.status = 'idle';
+    this.shouldAutoRestart = false;
+    this.endTimer = 0;
+    this.paused = false;
+    this.nextStageId = null;
   }
 
   retreat() {
