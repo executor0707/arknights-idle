@@ -23,5 +23,9 @@ export const SKIN_SPINE = {
   "char_4178_alanna-skin1": {
     "name": "赤土拉力",
     "base": "assets/spine38/skins/char_4178_alanna-skin1/char_4178_alanna_race_3"
+  },
+  "nearl_alter-skin1": {
+    "name": "复现荣光",
+    "base": "assets/spine38/skins/nearl_alter-skin1/char_1014_nearl2_epoque_17"
   }
 };

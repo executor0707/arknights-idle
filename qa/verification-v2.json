@@ -334,7 +334,7 @@
       "remainingUsesDefault": true,
       "perSkinReset": true,
       "resetDefault": 1,
-      "remoteMapped": 524,
+      "remoteMapped": 529,
       "remoteTotal": 531,
       "remoteLoader": true,
       "localFallback": true,
@@ -347,7 +347,13 @@
         "穿戴",
         "暂未获取该干员"
       ],
-      "storePurchasedFilter": true
+      "storePurchasedFilter": true,
+      "local": 7,
+      "nearlLocal": true,
+      "missing": [
+        "liskarm-skin1",
+        "liskarm-skin2"
+      ]
     },
     "killLmd": {
       "instant": true,

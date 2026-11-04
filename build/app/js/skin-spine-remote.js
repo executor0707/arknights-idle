@@ -2095,5 +2095,25 @@ export const SKIN_SPINE_REMOTE = {
   "gitano-skin1": {
     "name": "未知的旅行",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_109_fmout/char_109_fmout_epoque_2/front/char_109_fmout_epoque_2"
+  },
+  "ela-skin1": {
+    "name": "镜廊",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_4124_iana/char_4124_iana_rainbow6_2/front/char_4124_iana_rainbow6_2"
+  },
+  "char_101_sora-skin1": {
+    "name": "夏卉 FA361",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_101_sora/char_101_sora_summer_1/spine/char_101_sora"
+  },
+  "char_101_sora-skin2": {
+    "name": "如歌",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_101_sora/char_101_sora_epoque_17/spine/char_101_sora_epoque_17"
+  },
+  "skadi_alter-skin1": {
+    "name": "升华",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_1012_skadi2/char_1012_skadi2_boc_4/spine/char_1012_skadi2_boc_4"
+  },
+  "skadi_alter-skin2": {
+    "name": "红女爵",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_1012_skadi2/char_1012_skadi2_iteration_2/spine/char_1012_skadi2_iteration_2"
   }
 };
