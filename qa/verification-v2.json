@@ -598,6 +598,13 @@
       "splashReloadCreatesSave": false,
       "afterPlayLabel": "继续值守",
       "refreshPersists": true
+    },
+    "battleSizeTip": {
+      "location": "作战终端 header right",
+      "text": "战斗小人大小",
+      "desktop": true,
+      "mobileHidden": true,
+      "newJsPath": "/v4/js"
     }
   },
   "limitations": [
