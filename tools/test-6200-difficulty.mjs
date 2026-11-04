@@ -1,0 +1,4 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state;const ids=['char_225_haak','char_4132_ascln','ela','char_4009_irene','eyjafjalla'];for(const id of ids){s.operators[id]={level:13,elite:0,potential:1,skill:1,mastery:0,trust:0,module:0,exp:0};}s.squad=[...ids];const stage=G.STAGE_BY_ID.get('main-6-3');s.stage.selected=stage.id;s.stage.auto=false;const b=__RHODES__.battle;b.start(stage.id);let t=0;let maxAllyHp=0,minAllyHp=1;while(t<180&&b.status==='running'){b.tick(0.1);t+=0.1;for(const a of b.allies)if(!a.dead){const r=a.hp/a.maxHp;if(r<minAllyHp)minAllyHp=r;}}return JSON.stringify({power:G.squadPower(),rec:stage.rec,status:b.status,time:+b.time.toFixed(1),kills:b.kills,spawned:b.totalSpawned,leaks:b.leaks,minAllyHp:+minAllyHp.toFixed(2),allies:b.allies.map(a=>({id:a.id,hp:Math.round(a.hp),max:Math.round(a.maxHp),dead:a.dead}))})})()`));
+process.exit(0);

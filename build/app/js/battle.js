@@ -22,6 +22,13 @@ const ENEMY_INFO = {
   drone: { glyph: '翼', hp: 0.68, atk: 0.9, speed: 1.36, block: false, size: 0.9 },
   boss: { glyph: 'BOSS', hp: 4.2, atk: 1.35, speed: 0.55, block: true, size: 1.5 },
 };
+// Low recommended-power stages stay at the old baseline. Above 5,000 the
+// enemy curve grows faster than the displayed rec, otherwise a squad can
+// clear a 14k stage while barely losing health.
+function enemyPressure(stage) {
+  const rec = Number(stage?.rec) || 0;
+  return 1 + Math.max(0, rec - 5000) / 10000 * 1.5;
+}
 
 const OP_MAP = new Map(OPERATORS.map(o => [o.id, o]));
 let uidCounter = 0;
@@ -160,13 +167,14 @@ export class Battle {
   _spawnEnemy(item) {
     const stage = this.stage;
     const info = ENEMY_INFO[item.type];
-    const baseHp = stage.rec * (0.205 + item.wave * 0.026);
+    const pressure = enemyPressure(stage);
+    const baseHp = stage.rec * (0.205 + item.wave * 0.026) * pressure;
     let hp = baseHp * info.hp * rand(0.9, 1.1);
-    let atk = stage.rec * 0.0105 * info.atk * rand(0.9, 1.1);
+    let atk = stage.rec * 0.0105 * info.atk * pressure * rand(0.9, 1.1);
     let bossPower = 0;
     if (item.boss) {
       // A boss is a single unit at 1.75x the party's average member power.
-      bossPower = (stage.rec / 5) * 1.75;
+      bossPower = (stage.rec / 5) * 1.75 * pressure;
       hp = bossPower * 2.4;
       atk = bossPower * 0.22;
     }
@@ -174,7 +182,7 @@ export class Battle {
       uid: uid('e'), type: item.type, glyph: info.glyph, boss: item.boss, bossKey: item.bossKey || null, bossPower,
       x: 105 + rand(0, 6), y: LANES[item.lane] + rand(-1.4, 1.4), lane: item.lane,
       hp, maxHp: hp, atk,
-      def: stage.rec * 0.0011 * (item.boss ? 1.8 : 1), res: 5 + item.wave * 2 + (item.type === 'caster' ? 15 : 0),
+      def: stage.rec * 0.0011 * pressure * (item.boss ? 1.8 : 1), res: 5 + item.wave * 2 + (item.type === 'caster' ? 15 : 0),
       speed: 6.2 * info.speed, blockable: info.block, size: info.size,
       blockedBy: null, attackCd: rand(0.5, 1.2), stun: 0, slow: 0, slowT: 0, burn: 0, burnDmg: 0,
       vuln: 0, vulnT: 0, hitFlash: 0, dead: false,

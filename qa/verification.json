@@ -700,6 +700,16 @@
       "genericDescriptions": 0,
       "missing": 0,
       "wikiSource": "Kengxxiao/ArknightsGameData zh_CN"
+    },
+    "enemyPressure": {
+      "threshold": 5000,
+      "stageRec": 14268,
+      "power": 6224,
+      "result": "defeat",
+      "leaks": 3,
+      "minAllyHp": 0.02,
+      "maxPower": 37016,
+      "resultMax": "victory"
     }
   },
   "limitations": [

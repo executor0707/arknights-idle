@@ -1,0 +1,4 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state;const ids=['char_225_haak','char_4132_ascln','ela','char_4009_irene','eyjafjalla'];for(const id of ids){s.operators[id]={level:90,elite:2,potential:5,skill:7,mastery:3,trust:100,module:3,exp:0};}s.squad=[...ids];const stage=G.STAGE_BY_ID.get('main-6-3');const mains=G.STAGES.filter(x=>x.group==='main');const idx=mains.findIndex(x=>x.id===stage.id);for(let i=0;i<idx;i++)if(!s.stage.cleared.includes(mains[i].id))s.stage.cleared.push(mains[i].id);s.stage.auto=false;const b=__RHODES__.battle;b.start(stage.id);let t=0,min=1;while(t<180&&b.status==='running'){b.tick(0.1);t+=0.1;for(const a of b.allies)if(!a.dead)min=Math.min(min,a.hp/a.maxHp);}return JSON.stringify({power:G.squadPower(),rec:stage.rec,status:b.status,time:+b.time.toFixed(1),leaks:b.leaks,min:+min.toFixed(2)})})()`));
+process.exit(0);
