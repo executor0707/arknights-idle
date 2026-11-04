@@ -673,6 +673,14 @@
       "spineTimeScale": true,
       "enemyTimeScale": true,
       "tested": 2
+    },
+    "annihilationOrundum": {
+      "timeBased": true,
+      "ratePerHour": 15000,
+      "pullsPerHour": 25,
+      "clearLump": 0,
+      "testTickGain": 15000,
+      "testClearGain": 0
     }
   },
   "limitations": [

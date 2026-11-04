@@ -795,7 +795,11 @@ export function grantStageRewards(stage, opts = {}) {
   const variance = opts.offline ? 1 : 0.9 + Math.random() * 0.2;
   const grossLmd = Math.floor(r.lmd * variance * multiplier);
   const lmd = Math.max(0, grossLmd - (opts.lmdCredit || 0));
-  const orundum = Math.round((r.orundum || 0) * multiplier);
+  // Annihilation orundum is a continuous idle stream (15,000/h on ann-1),
+  // not a lump sum on clear.
+  const orundum = stage.group === 'annihilation'
+    ? 0
+    : Math.round((r.orundum || 0) * multiplier);
   const items = {};
   const add = (id, n) => { if (id && n > 0) items[id] = (items[id] || 0) + n; };
   // Only resource stages provide items now. Main/annihilation/endless do not

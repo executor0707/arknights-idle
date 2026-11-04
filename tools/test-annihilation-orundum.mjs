@@ -1,0 +1,13 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront'); await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=annihilation'});
+await new Promise(r=>setTimeout(r,1200));
+if (await evalJS(send, `!!document.querySelector('#enterBtn')`)) {
+  await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+  await new Promise(r=>setTimeout(r,1400));
+  await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`);
+  await new Promise(r=>setTimeout(r,400));
+}
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state;G.setStage('ann-1');s.stage.auto=true;const before=s.orundum;G.tickIdle(3600);const afterTick=s.orundum;const stage=G.STAGE_BY_ID.get('ann-1');const reward=G.grantStageRewards(stage,{silent:true});const afterClear=s.orundum;return JSON.stringify({before,afterTick,afterClear,tickGain:afterTick-before,clearGain:afterClear-afterTick,rate:stage.idle.orundumPerHour,pulls:stage.idle.orundumPerHour/600,rewardOrundum:reward?.orundum})})()`));
+process.exit(0);

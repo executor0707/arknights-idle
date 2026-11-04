@@ -568,7 +568,11 @@ function rewardChips(stage) {
   const r = stage.rewards;
   const chips = [];
   chips.push(`<span class="reward-chip">龙门币 <b>${fmt(r.lmd)}</b></span>`);
-  if (r.orundum) chips.push(`<span class="reward-chip">合成玉 <b>${r.orundum}</b></span>`);
+  if (stage.group === 'annihilation' && stage.idle) {
+    chips.push(`<span class="reward-chip">挂机 <b>${(stage.idle.orundumPerHour / PULL_COST).toFixed(1)} 抽/h</b></span>`);
+  } else if (r.orundum) {
+    chips.push(`<span class="reward-chip">合成玉 <b>${r.orundum}</b></span>`);
+  }
   if (!state.stage.firstClear[stage.id]) chips.push(`<span class="reward-chip">首通 <b>◆ ${stage.firstClearPrime}</b></span>`);
   if (stage.group === 'resource') {
     for (const [id, n] of Object.entries(r.items || {})) chips.push(`<span class="reward-chip">${MATERIALS[id]?.name || id} <b>×${n}</b></span>`);
@@ -864,7 +868,9 @@ function syncArena(rebuild = false) {
         ${win ? `<div class="result-rewards">
           <div class="result-reward"><small>龙门币</small>+${fmt((r?.lmd || 0) + (r?.killLmd || 0))}</div>
           ${r?.killLmd ? `<div class="result-reward"><small>其中击杀已入账</small>+${fmt(r.killLmd)}</div>` : ''}
-          <div class="result-reward"><small>合成玉</small>+${fmt(r?.orundum || 0)}</div>
+          ${battle.stage.group === 'annihilation'
+            ? `<div class="result-reward"><small>挂机合成玉</small>按时间累计</div>`
+            : `<div class="result-reward"><small>合成玉</small>+${fmt(r?.orundum || 0)}</div>`}
           ${first ? `<div class="result-reward" style="color:#ff8b84"><small>首通源石</small>+${first.primes} ◆</div>` : ''}
         </div>` : `<div class="result-rewards"><div class="result-reward"><small>挂机</small>继续积累中</div></div>`}
         ${state.stage.auto ? `<div class="result-countdown" id="resultCountdown">自动继续 ${Math.max(0, battle.endTimer).toFixed(1)}s</div>` : ''}
