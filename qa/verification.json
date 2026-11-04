@@ -681,6 +681,13 @@
       "clearLump": 0,
       "testTickGain": 15000,
       "testClearGain": 0
+    },
+    "e2DetailPanel": {
+      "allMaxOperatorsTested": 453,
+      "openFailures": 0,
+      "levelCapClamped": true,
+      "cappedFieldsComplete": true,
+      "stateFieldsNormalized": true
     }
   },
   "limitations": [

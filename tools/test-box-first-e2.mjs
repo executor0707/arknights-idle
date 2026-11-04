@@ -1,0 +1,12 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront'); await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=boxshot'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1400));
+await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`);
+await new Promise(r=>setTimeout(r,400));
+console.log(await evalJS(send, `(()=>{const s=__RHODES__.state,G=__RHODES__.G;for(const d of G.OPERATORS){const max=G.maxElite(d.rarity);s.operators[d.id]={level:G.levelCap(d.rarity,max),elite:max,potential:5,skill:7,mastery:3,trust:100,module:3,exp:0};}__RHODES__.setView('operators',true);const c=document.querySelector('.op-card');const r=c.getBoundingClientRect();return JSON.stringify({id:c.dataset.id,name:c.querySelector('.op-name')?.textContent,rect:[r.x,r.y,r.width,r.height],top:document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)?.outerHTML?.slice(0,200)})})()`));
+await screenshot(send,'.cache/box-first-e2.png',1440,1000);
+process.exit(0);

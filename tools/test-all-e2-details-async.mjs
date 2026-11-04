@@ -1,0 +1,11 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront'); await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=alle2b'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1400));
+await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`);
+await new Promise(r=>setTimeout(r,400));
+console.log(await evalJS(send, `(async()=>{const s=__RHODES__.state,G=__RHODES__.G;for(const d of G.OPERATORS){const max=G.maxElite(d.rarity);s.operators[d.id]={level:G.levelCap(d.rarity,max),elite:max,potential:5,skill:7,mastery:3,trust:100,module:3,exp:0};}__RHODES__.setView('operators',true);window.__errs=[];window.addEventListener('error',e=>window.__errs.push({msg:e.message,stack:e.error?.stack}));const ids=[...document.querySelectorAll('.op-card')].map(c=>c.dataset.id);const failed=[];for(const id of ids){document.querySelector('[data-action="modal-close"]')?.click();const c=document.querySelector('.op-card[data-id="'+id+'"]');if(!c){failed.push({id,why:'missing-card'});continue;}c.click();await new Promise(r=>setTimeout(r,25));const modal=document.querySelector('.modal-backdrop');if(!modal)failed.push({id,why:'no-modal'});else document.querySelector('[data-action="modal-close"]')?.click();await new Promise(r=>setTimeout(r,10));}return JSON.stringify({ids:ids.length,failed:failed.slice(0,30),errs:window.__errs.slice(0,30)})})()`, true));
+process.exit(0);

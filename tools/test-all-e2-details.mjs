@@ -1,0 +1,11 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront'); await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=alle2'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1400));
+await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`);
+await new Promise(r=>setTimeout(r,400));
+console.log(await evalJS(send, `(()=>{const s=__RHODES__.state,G=__RHODES__.G;for(const d of G.OPERATORS){const max=G.maxElite(d.rarity);s.operators[d.id]={level:G.levelCap(d.rarity,max),elite:max,potential:5,skill:7,mastery:3,trust:100,module:3,exp:0};}__RHODES__.setView('operators',true);window.__errs=[];window.addEventListener('error',e=>window.__errs.push({id:document.querySelector('.op-card.active')?.dataset.id,msg:e.message,stack:e.error?.stack}));window.__checked=0;window.__fail=[];const cards=[...document.querySelectorAll('.op-card')];for(const c of cards){wx:;try{c.click();window.__checked++;const modal=document.querySelector('.modal-backdrop');if(!modal)window.__fail.push({id:c.dataset.id,why:'no-modal'});else document.querySelector('[data-action="modal-close"]')?.click();}catch(e){window.__fail.push({id:c.dataset.id,why:String(e.stack||e)});}}return JSON.stringify({cards:cards.length,checked:window.__checked,fail:window.__fail.slice(0,20),errs:window.__errs.slice(0,20)})})()`));
+process.exit(0);

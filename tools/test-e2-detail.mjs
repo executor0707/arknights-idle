@@ -1,0 +1,15 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront'); await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=e2err'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1400));
+await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`);
+await new Promise(r=>setTimeout(r,400));
+console.log(await evalJS(send, `(()=>{const s=__RHODES__.state;__RHODES__.setView('operators',true);const id=document.querySelector('.op-card')?.dataset.id;const d=__RHODES__.G.OP_BY_ID.get(id);s.operators[id]={level:__RHODES__.G.levelCap(d.rarity,2),elite:2,potential:5,skill:7,mastery:3,trust:100,module:3,exp:0};__RHODES__.setView('operators',true);window.__err=null;window.onerror=(m,src,l,c,e)=>{window.__err={m,src,l,c,stack:e?.stack}};return JSON.stringify({id,name:d?.name,stats:__RHODES__.G.getOpStats(id),next:__RHODES__.G.nextLevelInfo(id),promo:__RHODES__.G.promotionInfo(id),skill:__RHODES__.G.skillReqInfo(id),mod:__RHODES__.G.moduleReqInfo(id)})})()`));
+await new Promise(r=>setTimeout(r,300));
+await evalJS(send, `document.querySelector('.op-card')?.click();true`);
+await new Promise(r=>setTimeout(r,500));
+console.log('result', await evalJS(send, `JSON.stringify({err:window.__err,modal:!!document.querySelector('.modal-backdrop'),modalText:document.querySelector('.modal-backdrop')?.innerText?.slice(0,200),cards:document.querySelectorAll('.op-card').length})`));
+process.exit(0);
