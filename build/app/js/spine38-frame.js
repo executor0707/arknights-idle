@@ -178,8 +178,18 @@
         if (sp._castMark !== u.sp) { play(sp, sp._anims.indexOf('Skill') >= 0 ? 'Skill' : 'Attack'); sp._castMark = u.sp; }
       } else if (u.attackLock > 0.01 || u.attackFlash > 0.06) {
         if (!sp._attackActive) { play(sp, 'Attack'); sp._attackActive = true; }
+      } else if (sp._attackActive) {
+        // Do not cut an attack clip just because attackLock reached zero.
+        // Wait for the Spine track to finish, then return to Idle.
+        var track = sp.state.getCurrent(0);
+        var dur = track && track.animation ? track.animation.duration : 0;
+        var elapsed = track ? track.trackTime : 0;
+        var attacking = /attack/i.test(sp._anim || '');
+        if (!attacking || !(dur > 0.05) || elapsed >= dur - 0.03) {
+          sp._attackActive = false;
+          play(sp, 'Idle', true);
+        }
       } else {
-        sp._attackActive = false;
         play(sp, 'Idle', true);
       }
     }

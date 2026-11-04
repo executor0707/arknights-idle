@@ -521,6 +521,15 @@
       "minWidth": 440,
       "maxWidth": 780,
       "mobileFont": "16px"
+    },
+    "attackAnimation": {
+      "holdUntilClipEnds": true,
+      "tested": [
+        "阿 Attack_Loop 1.4s",
+        "王 Attack 1.0s",
+        "Attack_1_A 0.83s"
+      ],
+      "attackLock": 0.8
     }
   },
   "limitations": [
