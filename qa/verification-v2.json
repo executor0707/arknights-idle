@@ -367,7 +367,8 @@
           "liskarm-skin1",
           "liskarm-skin2"
         ],
-        "spine35SkinsRouted": 52
+        "spine35SkinsRouted": 52,
+        "noAuthoredAttackFallback": 21
       }
     },
     "killLmd": {

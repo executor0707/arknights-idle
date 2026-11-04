@@ -138,6 +138,11 @@
     for (var j = 0; j < a.length; j++) {
       if (/attack/i.test(a[j]) && !/down|end/i.test(a[j])) return a[j];
     }
+    // Some skins (for example Mlynar's) have no authored attack clip; use a
+    // short Skill start, then a generic Skill, before falling back to Idle.
+    var skill = ['Skill_1_Start', 'Skill_2_Start', 'Skill_3_Start', 'Skill_1_Loop', 'Skill_2_Loop', 'Skill_3_Loop', 'Skill'];
+    for (var k = 0; k < skill.length; k++) if (a.indexOf(skill[k]) >= 0) return skill[k];
+    for (var m = 0; m < a.length; m++) if (/^Skill/i.test(a[m])) return a[m];
     return null;
   }
 
@@ -145,7 +150,8 @@
     if (!sp || sp._anim === name) return;
     if (name === 'Attack') {
       var clip = attackClip(sp);
-      if (clip) name = clip;
+      if (clip) { name = clip; sp._attackClipName = clip; }
+      else sp._attackClipName = null;
     }
     if (sp._anims.indexOf(name) < 0) name = 'Idle', loop = true;
     sp.state.setAnimation(0, name, !!loop);
@@ -191,7 +197,7 @@
         var track = sp.state.getCurrent(0);
         var dur = track && track.animation ? track.animation.duration : 0;
         var elapsed = track ? track.trackTime : 0;
-        var attacking = /attack/i.test(sp._anim || '');
+        var attacking = sp._attackClipName ? sp._anim === sp._attackClipName : /attack/i.test(sp._anim || '');
         if (!attacking || !(dur > 0.05) || elapsed >= dur - 0.03) {
           sp._attackActive = false;
           play(sp, 'Idle', true);
