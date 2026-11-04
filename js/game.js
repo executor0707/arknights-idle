@@ -7,9 +7,16 @@ import {
 } from './data.js';
 import { SKINS, SKIN_BY_ID, SKINS_BY_OP } from './skins.js';
 import { RANDOM_EVENTS } from './events.js';
+import { SKILL_OVERRIDES } from './skill-overrides.js';
 
 export { STAGES, OPERATORS, SKINS };
 export const OP_BY_ID = new Map(OPERATORS.map(o => [o.id, o]));
+// Replace the old generic class-template skill descriptions with one
+// thematic, wiki-derived signature skill per operator.
+for (const [operatorId, skill] of Object.entries(SKILL_OVERRIDES)) {
+  const data = OP_BY_ID.get(operatorId);
+  if (data) data.skill = { ...data.skill, ...skill };
+}
 export const STAGE_BY_ID = new Map(STAGES.map(s => [s.id, s]));
 export const bus = new EventTarget();
 
@@ -187,7 +194,12 @@ export function loadGame() {
   if (state.stage.endlessRetry) {
     const retry = STAGE_BY_ID.get(state.stage.endlessRetry);
     if (!retry || retry.group !== 'endless' || retry.floor <= 1) state.stage.endlessRetry = null;
-    else ensureEndlessFloor(retry.floor - 1);
+    else {
+      // The retry card and its fallback both need concrete stage objects after
+      // a reload; only the fallback was recreated before.
+      ensureEndlessFloor(retry.floor);
+      ensureEndlessFloor(retry.floor - 1);
+    }
   }
   if (!STAGE_BY_ID.has(state.stage.selected)) state.stage.selected = 'CE-6';
   state.squad = state.squad.map(id => id && OP_BY_ID.has(id) ? id : null).slice(0, MAX_SQUAD);
@@ -699,8 +711,10 @@ export function isStageUnlocked(stage) {
     // floor is finally cleared.
     if (retry && retry.group === 'endless' &&
         (stage.floor === retry.floor || stage.floor === retry.floor - 1)) return true;
-    const prev = STAGES.find(s => s.group === 'endless' && s.floor === stage.floor - 1);
-    return !!prev && state.stage.cleared.includes(prev.id);
+    // Cleared floors are saved by id even when the stage object for that floor
+    // was not recreated on load. Never require the previous stage object here,
+    // or a high-floor save can become permanently locked after a reload.
+    return state.stage.cleared.includes('endless-' + (stage.floor - 1));
   }
   if (stage.group === 'annihilation') return true;
   return true;
