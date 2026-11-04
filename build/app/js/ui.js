@@ -205,7 +205,7 @@ function bindEvents() {
       localStorage.setItem(SAVE_KEY, JSON.stringify(data));
       toast('存档已导入，正在重载...', 'success');
       setTimeout(() => location.reload(), 700);
-    } catch (e) { toast('存档导入失败：格式错误或文件已损坏', 'error'); }
+    } catch (e) { toast(`存档导入失败：${e?.message || '文件不符合读取要求'}`, 'error'); }
     fileInput.value = '';
   });
 }

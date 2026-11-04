@@ -57,9 +57,9 @@ export async function encryptSave(state) {
 }
 
 export async function decodeSaveFile(value) {
-  if (!value || typeof value !== 'object') throw new Error('存档格式无效');
-  if (!isEncryptedSave(value)) throw new Error('只支持新版加密存档，旧明文存档已失效');
-  if (value.v !== FORMAT_VERSION || !value.salt || !value.iv) throw new Error('存档版本过旧或不受支持');
+  if (!value || typeof value !== 'object') throw new Error('存档不符合读取要求');
+  if (!isEncryptedSave(value)) throw new Error('存档不符合读取要求：仅支持新版加密存档，旧明文已失效');
+  if (value.v !== FORMAT_VERSION || !value.salt || !value.iv) throw new Error('存档不符合读取要求：旧版存档已失效');
   if (!globalThis.crypto?.subtle) throw new Error('当前环境不支持解密存档');
   const salt = b64ToBytes(value.salt);
   const iv = b64ToBytes(value.iv);
