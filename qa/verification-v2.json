@@ -348,7 +348,7 @@
         "暂未获取该干员"
       ],
       "storePurchasedFilter": true,
-      "local": 9,
+      "local": 10,
       "nearlLocal": true,
       "missing": [
         "liskarm-skin1",
@@ -374,7 +374,10 @@
       "parsedOk": 508,
       "parseFailures": [],
       "nativeAttack": 508,
-      "removed": 23
+      "removed": 23,
+      "elaFixed": "char_4123_ela",
+      "nameMismatches": 0,
+      "charIdMismatches": 0
     },
     "killLmd": {
       "instant": true,
