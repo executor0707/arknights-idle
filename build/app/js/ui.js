@@ -9,6 +9,7 @@ import * as G from './game.js';
 import { state } from './game.js';
 import { sfx, initAudio } from './audio.js';
 import { initSpineArena, syncSpine, isOperatorSpineReady, isEnemySpineReady } from './spine-battle.js';
+import { encryptSave, decodeSaveFile } from './save-codec.js';
 
 const $ = (sel) => document.querySelector(sel);
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
@@ -188,10 +189,12 @@ function bindEvents() {
     if (!f) return;
     try {
       const text = await f.text();
-      localStorage.setItem(SAVE_KEY, text);
+      const parsed = JSON.parse(text);
+      const data = await decodeSaveFile(parsed);
+      localStorage.setItem(SAVE_KEY, JSON.stringify(data));
       toast('存档已导入，正在重载...', 'success');
       setTimeout(() => location.reload(), 700);
-    } catch (e) { toast('存档导入失败', 'error'); }
+    } catch (e) { toast('存档导入失败：格式错误或文件已损坏', 'error'); }
     fileInput.value = '';
   });
 }
@@ -1526,7 +1529,7 @@ function renderArchive() {
         <div class="panel-body">
           <div class="small">存档保存在当前浏览器 localStorage。更换浏览器或清理缓存会丢失进度，建议定期导出。</div>
           <div class="action-row">
-            <button class="btn btn-small" data-action="export-save">导出存档</button>
+            <button class="btn btn-small" data-action="export-save">导出加密存档</button>
             <button class="btn btn-small" data-action="import-save">导入存档</button>
             <button class="btn btn-small btn-danger" data-action="reset-save">重置档案</button>
           </div>
@@ -1910,13 +1913,19 @@ async function onClick(e) {
       endTutorial(); break;
     case 'export-save': {
       G.saveNow();
-      const data = localStorage.getItem(SAVE_KEY) || '{}';
-      const blob = new Blob([data], { type: 'application/json' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `rhodes-idle-save-${new Date().toISOString().slice(0, 10)}.json`;
-      a.click(); URL.revokeObjectURL(a.href);
-      toast('存档已导出。', 'success'); break;
+      try {
+        const raw = localStorage.getItem(SAVE_KEY) || '{}';
+        const encrypted = await encryptSave(JSON.parse(raw));
+        const blob = new Blob([JSON.stringify(encrypted)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `rhodes-idle-save-${new Date().toISOString().slice(0, 10)}.json`;
+        a.click(); URL.revokeObjectURL(a.href);
+        toast('存档已加密导出。', 'success');
+      } catch (e) {
+        toast('存档导出失败：当前浏览器不支持加密。', 'error');
+      }
+      break;
     }
     case 'import-save':
       document.getElementById('saveImport')?.click(); break;

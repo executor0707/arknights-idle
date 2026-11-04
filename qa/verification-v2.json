@@ -363,6 +363,14 @@
         "退出作战"
       ],
       "exitStopsAuto": true
+    },
+    "saveCodec": {
+      "encrypted": true,
+      "alg": "AES-GCM",
+      "kdf": "PBKDF2-SHA256-100000",
+      "legacyImport": true,
+      "envelopeVersion": 2,
+      "plainValuesHidden": true
     }
   },
   "limitations": [

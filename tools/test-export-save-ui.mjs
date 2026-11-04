@@ -1,0 +1,18 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=encsave'});
+await new Promise(r=>setTimeout(r,1200));
+await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,1400));
+await send('Runtime.evaluate',{expression:`document.querySelector('[data-action="tutorial-skip"]')?.click()`,userGesture:true});
+await new Promise(r=>setTimeout(r,400));
+await evalJS(send, `__RHODES__.setView('settings',true);true`);
+await new Promise(r=>setTimeout(r,400));
+const before = await evalJS(send, `document.querySelector('[data-action="export-save"]')?.textContent`);
+await evalJS(send, `document.querySelector('[data-action="export-save"]')?.click();true`);
+await new Promise(r=>setTimeout(r,800));
+console.log({before});
+console.log(await evalJS(send, `JSON.stringify([...document.querySelectorAll('.toast')].map(x=>x.textContent))`));
+process.exit(0);
