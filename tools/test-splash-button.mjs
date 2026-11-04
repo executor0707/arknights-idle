@@ -1,0 +1,12 @@
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=splashbutton'});
+await new Promise(r=>setTimeout(r,1000));
+await evalJS(send, `window.__RHODES_IMPORTING__=true;localStorage.clear();location.reload();true`);
+await new Promise(r=>setTimeout(r,1200));
+console.log(await evalJS(send, `JSON.stringify({button:document.querySelector('#splashImport')?.textContent,rect:(()=>{const r=document.querySelector('#splashImport')?.getBoundingClientRect();return r&&{x:Math.round(r.x),y:Math.round(r.y),w:Math.round(r.width),h:Math.round(r.height)}})(),status:document.querySelector('#splashImportStatus')?.textContent})`));
+await screenshot(send,'.cache/splash-save-button.png',1440,1000);
+process.exit(0);

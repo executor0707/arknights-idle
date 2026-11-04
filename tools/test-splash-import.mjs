@@ -1,0 +1,16 @@
+import fs from 'node:fs';
+import { connect, evalJS, screenshot } from './cdp.mjs';
+const raw = fs.readFileSync('C:/Users/21023/Desktop/rhodes-idle-max-no-stages.json', 'utf8');
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=splashimport'});
+await new Promise(r=>setTimeout(r,1000));
+await evalJS(send, `window.__RHODES_IMPORTING__=true;localStorage.clear();location.reload();true`);
+await new Promise(r=>setTimeout(r,1200));
+console.log('splash', await evalJS(send, `JSON.stringify({button:document.querySelector('#splashImport')?.textContent,input:!!document.querySelector('#splashImportFile'),splash:!!document.querySelector('#splash')})`));
+await evalJS(send, `(()=>{const input=document.querySelector('#splashImportFile');const dt=new DataTransfer();dt.items.add(new File([${JSON.stringify(raw)}],'rhodes-idle-max-no-stages.json',{type:'application/json'}));input.files=dt.files;input.dispatchEvent(new Event('change',{bubbles:true}));return true})()`);
+await new Promise(r=>setTimeout(r,1800));
+console.log('after', await evalJS(send, `JSON.stringify({splash:!!document.querySelector('#splash'),appHidden:document.querySelector('#app')?.classList.contains('hidden'),status:document.querySelector('#splashImportStatus')?.textContent,operators:Object.keys(__RHODES__?.state?.operators||{}).length,skins:Object.keys(__RHODES__?.state?.skins?.owned||{}).length,cleared:__RHODES__?.state?.stage?.cleared?.length,tutorialDone:__RHODES__?.state?.tutorialDone})`));
+await screenshot(send,'.cache/splash-import.png',1440,1000);
+process.exit(0);

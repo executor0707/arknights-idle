@@ -482,6 +482,15 @@
       "pages": 4,
       "skinSizePage": true,
       "pageTitle": "战斗小人大小调整"
+    },
+    "splashImport": {
+      "button": true,
+      "filePicker": true,
+      "encryptedDecode": true,
+      "legacyPlain": true,
+      "desktopSaveBytes": 88801,
+      "operators": 469,
+      "skins": 531
     }
   },
   "limitations": [

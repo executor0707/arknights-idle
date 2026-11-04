@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import { connect, evalJS } from './cdp.mjs';
+const raw = fs.readFileSync('C:/Users/21023/Desktop/rhodes-idle-max-no-stages.json','utf8');
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable');
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=savecheck'});
+await new Promise(r=>setTimeout(r,1200));
+console.log(await evalJS(send, `(async()=>{try{const m=await import('./js/save-codec.js');const v=${JSON.stringify(raw)};const outer=JSON.parse(v);const s=await m.decodeSaveFile(outer);return JSON.stringify({ok:true,format:outer.format,v:outer.v,keys:Object.keys(s).slice(0,15),operators:Object.keys(s.operators||{}).length,skins:Object.keys(s.skins?.owned||{}).length,version:s.version,cleared:s.stage?.cleared?.length,firstClear:Object.keys(s.stage?.firstClear||{}).length})}catch(e){return JSON.stringify({ok:false,error:String(e),stack:e.stack})}})()`, true));
+process.exit(0);
