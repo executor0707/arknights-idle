@@ -25,6 +25,8 @@ let saveTimer = 0;
 let eventTimer = 0;
 let booted = false;
 let offlineReport = null;
+let backgroundTimer = null;
+let backgroundLast = 0;
 
 function updateClock() {
   const d = new Date();
@@ -121,29 +123,71 @@ function boot() {
   requestAnimationFrame(loop);
 }
 
-function loop(ts) {
+function simulate(dt, render = true) {
   if (!running) return;
-  const dt = Math.min(0.1, Math.max(0, (ts - last) / 1000));
-  last = ts;
+  dt = Math.max(0, Math.min(60, dt));
+  if (dt <= 0) return;
   tickBase(dt);
   tickIdle(dt);
-  battle?.tick(dt);
-  tick(dt);
+  if (battle) {
+    // Battle.tick caps a single step at 80 ms. Split the background delta so
+    // combat, skills and auto-restarts still advance at the intended rate.
+    const steps = Math.max(1, Math.min(1200, Math.ceil(dt / 0.05)));
+    const part = dt / steps;
+    for (let i = 0; i < steps; i++) battle.tick(part);
+  }
+  if (render) tick(dt);
   eventTimer += dt;
   if (eventTimer >= 2) { eventTimer = 0; G.checkRandomEvent(); }
   saveTimer += dt;
   if (saveTimer >= 8) { saveTimer = 0; saveNow(); }
+}
+
+function loop(ts) {
+  if (!running) return;
+  if (document.hidden) {
+    last = ts;
+    requestAnimationFrame(loop);
+    return;
+  }
+  const dt = Math.min(0.1, Math.max(0, (ts - last) / 1000));
+  last = ts;
+  simulate(dt, true);
   requestAnimationFrame(loop);
+}
+
+function startBackgroundLoop() {
+  if (backgroundTimer || !running) return;
+  backgroundLast = performance.now();
+  backgroundTimer = setInterval(() => {
+    if (!running || !document.hidden) return;
+    const now = performance.now();
+    const dt = Math.max(0, (now - backgroundLast) / 1000);
+    backgroundLast = now;
+    simulate(dt, false);
+  }, 1000);
+}
+
+function stopBackgroundLoop() {
+  if (!backgroundTimer) return;
+  clearInterval(backgroundTimer);
+  backgroundTimer = null;
 }
 
 document.addEventListener('visibilitychange', () => {
   if (!booted) return;
   if (document.hidden) {
-    // Page is still open: this is not an offline session. Just persist.
+    // Keep the simulation running while the tab is in the background.
     saveNow();
+    startBackgroundLoop();
   } else {
-    // Tab focus is not an offline session: no report and no battle restart.
-    last = performance.now();
+    stopBackgroundLoop();
+    const now = performance.now();
+    const gap = Math.max(0, (now - backgroundLast) / 1000);
+    // Catch up if the browser throttled the background interval.
+    if (gap > 0.1) simulate(gap, false);
+    last = now;
+    tick(0);
   }
 });
 
