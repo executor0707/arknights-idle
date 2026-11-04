@@ -782,6 +782,12 @@
       "unit": "orundumPerHour",
       "sample": "6,109 合成玉/h",
       "pullLabelsOnStage": 0
+    },
+    "homeLmdIncludesBase": {
+      "stage": 3082,
+      "base": 106272,
+      "total": 109354,
+      "displayed": "10.9万"
     }
   },
   "limitations": [
