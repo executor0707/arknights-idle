@@ -835,7 +835,8 @@ function syncArena(rebuild = false) {
         <div class="result-title">${win ? '作战成功' : '作战失败'}</div>
         <div class="result-reason">${win ? esc(battle.stage.name) + ' · 防线稳定' : esc(battle.reason || '防线崩溃') + ' · 挂机收益仍在继续'}</div>
         ${win ? `<div class="result-rewards">
-          <div class="result-reward"><small>龙门币</small>+${fmt(r?.lmd || 0)}</div>
+          <div class="result-reward"><small>龙门币</small>+${fmt((r?.lmd || 0) + (r?.killLmd || 0))}</div>
+          ${r?.killLmd ? `<div class="result-reward"><small>其中击杀已入账</small>+${fmt(r.killLmd)}</div>` : ''}
           <div class="result-reward"><small>合成玉</small>+${fmt(r?.orundum || 0)}</div>
           ${first ? `<div class="result-reward" style="color:#ff8b84"><small>首通源石</small>+${first.primes} ◆</div>` : ''}
         </div>` : `<div class="result-rewards"><div class="result-reward"><small>挂机</small>继续积累中</div></div>`}
