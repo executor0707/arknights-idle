@@ -1,8 +1,8 @@
 // Local save-file obfuscation. This is not DRM: it exists so an exported save is
 // not a readable map of currencies/characters that can be edited by hand.
 const MAGIC = 'rhodes-idle-save';
-const FORMAT_VERSION = 2;
-const SECRET = 'Rhodes Island Idle — exported save envelope v2';
+const FORMAT_VERSION = 3;
+const SECRET = 'Rhodes Island Idle — exported save envelope v3';
 
 const enc = new TextEncoder();
 const dec = new TextDecoder();
@@ -58,12 +58,8 @@ export async function encryptSave(state) {
 
 export async function decodeSaveFile(value) {
   if (!value || typeof value !== 'object') throw new Error('存档格式无效');
-  if (!isEncryptedSave(value)) {
-    // Backward compatibility with saves exported before the envelope existed.
-    if (value.operators || value.version != null) return value;
-    throw new Error('不是有效的存档文件');
-  }
-  if (value.v !== FORMAT_VERSION || !value.salt || !value.iv) throw new Error('存档版本不支持');
+  if (!isEncryptedSave(value)) throw new Error('只支持新版加密存档，旧明文存档已失效');
+  if (value.v !== FORMAT_VERSION || !value.salt || !value.iv) throw new Error('存档版本过旧或不受支持');
   if (!globalThis.crypto?.subtle) throw new Error('当前环境不支持解密存档');
   const salt = b64ToBytes(value.salt);
   const iv = b64ToBytes(value.iv);

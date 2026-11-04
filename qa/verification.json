@@ -530,6 +530,17 @@
         "Attack_1_A 0.83s"
       ],
       "attackLock": 0.8
+    },
+    "saveGeneration": {
+      "storageKey": "rhodes_island_idle_save_v2",
+      "saveVersion": 2,
+      "envelopeVersion": 3,
+      "oldLocalRemoved": true,
+      "oldTutorialRemoved": true,
+      "plainRejected": true,
+      "oldV2Rejected": true,
+      "newV3Accepted": true,
+      "desktopFile": "rhodes-idle-max-no-stages-v3-2026-11-04.json"
     }
   },
   "limitations": [

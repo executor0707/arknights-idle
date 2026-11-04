@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import { connect, evalJS, screenshot } from './cdp.mjs';
-const raw = fs.readFileSync('C:/Users/21023/Desktop/rhodes-idle-max-no-stages.json', 'utf8');
+const raw = fs.readFileSync('C:/Users/21023/明日方舟/rhodes-idle-max-no-stages.json', 'utf8');
 const { send } = await connect();
 await send('Page.bringToFront');
 await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});

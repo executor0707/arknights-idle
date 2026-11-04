@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+import { connect, evalJS } from './cdp.mjs';
+const oldRaw = fs.readFileSync('C:/Users/21023/Desktop/rhodes-idle-max-no-stages-2026-11-04.json', 'utf8');
+const newRaw = fs.readFileSync('rhodes-idle-max-no-stages.json', 'utf8');
+const { send } = await connect();
+await send('Page.bringToFront');
+await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=savev3'});
+await new Promise(r=>setTimeout(r,1200));
+console.log(await evalJS(send, `(async()=>{const m=await import('./js/save-codec.js');const test=async(v)=>{try{const s=await m.decodeSaveFile(v);return {ok:true,ops:Object.keys(s.operators||{}).length}}catch(e){return {ok:false,error:String(e.message||e)}}};return JSON.stringify({oldV2:await test(JSON.parse(${JSON.stringify(oldRaw)})),plain:await test({version:1,operators:{a:1}}),newV3:await test(JSON.parse(${JSON.stringify(newRaw)}))})})()`, true));
+await evalJS(send, `localStorage.setItem('rhodes_island_idle_save_v1','{"version":1,"operators":{"x":1}}');localStorage.setItem('rhodes_idle_tutorial_v1','1');true`);
+await send('Page.navigate',{url:'http://127.0.0.1:8765/index.html?v=savecleanup'});
+await new Promise(r=>setTimeout(r,1200));
+console.log(await evalJS(send, `JSON.stringify({oldSave:localStorage.getItem('rhodes_island_idle_save_v1'),oldTutorial:localStorage.getItem('rhodes_idle_tutorial_v1'),newSave:localStorage.getItem('rhodes_island_idle_save_v2'),label:document.querySelector('#enterLabel')?.textContent,resetHidden:document.querySelector('#splashReset')?.classList.contains('hidden')})`));
+process.exit(0);
