@@ -447,6 +447,12 @@
       "effectHeavyThreshold": 0.45,
       "bodyTarget": 70,
       "nianFixed": true
+    },
+    "squadFilter": {
+      "rarity": true,
+      "class": true,
+      "search": true,
+      "ownedOnly": true
     }
   },
   "limitations": [

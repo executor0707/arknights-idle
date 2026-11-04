@@ -54,6 +54,7 @@ const ui = {
   filter: { rarity: 0, cls: 'all', owned: false, sort: 'rarity' },
   eventFilter: { range: 'all', operator: 'all', outcome: 'all' },
   squadDirty: false,
+  squadFilter: { rarity: 0, cls: 'all', q: '' },
   skinFilter: { cls: 'all', owned: false, q: '' },
   bannerId: 'limited',
   invTab: 'all',
@@ -160,6 +161,15 @@ function bindEvents() {
       const label = e.target.id === 'charScale' ? $('#charScaleValue') : $('#enemyScaleValue');
       if (label) label.textContent = Math.round(v * 100) + '%';
       G.saveNow();
+      return;
+    }
+    if (e.target.id === 'squadSearch') {
+      ui.squadFilter.q = e.target.value;
+      openSquadEditor();
+      requestAnimationFrame(() => {
+        const input = document.getElementById('squadSearch');
+        if (input) { input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+      });
       return;
     }
     if (e.target.id === 'skinSearch') {
@@ -1590,12 +1600,17 @@ function openSquadEditor() {
     const d = G.OP_BY_ID.get(id); const s = state.operators[id];
     return `<div class="squad-slot rarity-${d.rarity}" data-action="remove-squad" data-id="${id}" title="点击下阵" style="--rarity:${STAR_COLOR[d.rarity]}"><img class="sq-img" src="${G.portraitFor(id)}" alt=""><div class="sq-info"><div class="sq-name">${esc(d.name)}</div><div class="sq-sub">E${s.elite} L${s.level}</div></div></div>`;
   }).join('');
-  const owned = OPERATORS.filter(o => G.owned(o.id)).sort((a, b) => G.opPower(b.id) - G.opPower(a.id));
+  const f = ui.squadFilter;
+  const owned = OPERATORS.filter(o => G.owned(o.id))
+    .filter(o => (!f.rarity || o.rarity === f.rarity) && (f.cls === 'all' || o.cls === f.cls) && (!f.q || `${o.name} ${o.cls} ${o.sub}`.toLowerCase().includes(f.q.toLowerCase())))
+    .sort((a, b) => G.opPower(b.id) - G.opPower(a.id));
   const roster = owned.map(d => {
     const inSquad = state.squad.includes(d.id);
     return `<button class="roster-pick ${inSquad ? 'in' : ''}" data-action="squad-add" data-id="${d.id}" ${inSquad ? 'disabled' : ''} style="--rarity:${STAR_COLOR[d.rarity]}"><img src="${G.portraitFor(d.id)}" alt="" loading="lazy"><span>${esc(d.name)}</span><small>PWR ${fmt(G.opPower(d.id))}</small></button>`;
   }).join('');
-  openModal(modalShell('编队配置', `<div class="squad-editor-slots">${slots}</div><div class="divider"></div><div class="flex-between"><div class="panel-title">可用干员</div><span class="small">点击加入编队 · 总战力 ${fmt(G.squadPower())}</span></div><div class="roster-picker">${roster}</div>`, { wide: true, kicker: 'FORMATION // 5 SLOTS', sub: '5 人横版编队：近战靠前，远程与医疗在后。' }));
+  const rarityButtons = [0, 6, 5, 4, 3, 2].map(r => `<button class="filter-btn ${f.rarity === r ? 'active' : ''}" data-action="squad-filter" data-kind="rarity" data-value="${r}">${r || 'ALL'}</button>`).join('');
+  const classButtons = [`<button class="filter-btn ${f.cls === 'all' ? 'active' : ''}" data-action="squad-filter" data-kind="cls" data-value="all">全</button>`, ...CLASSES.map(c => `<button class="filter-btn ${f.cls === c ? 'active' : ''}" data-action="squad-filter" data-kind="cls" data-value="${c}" style="color:${CLASS_COLOR[c]}">${CLASS_GLYPH[c]}</button>`)].join('');
+  openModal(modalShell('编队配置', `<div class="squad-editor-slots">${slots}</div><div class="divider"></div><div class="flex-between"><div class="panel-title">可用干员</div><span class="small">点击加入编队 · 总战力 ${fmt(G.squadPower())} · ${owned.length} 名</span></div><div class="squad-filter-toolbar"><div class="filter-group"><span class="filter-label">星级</span>${rarityButtons}</div><div class="filter-group"><span class="filter-label">职业</span>${classButtons}</div><input id="squadSearch" class="skin-search" placeholder="搜索干员…" value="${esc(f.q)}"></div><div class="roster-picker">${roster || '<div class="empty-state">没有符合筛选条件的可用干员。</div>'}</div>`, { wide: true, kicker: 'FORMATION // 5 SLOTS', sub: '5 人横版编队：近战靠前，远程与医疗在后。' }));
 }
 
 function openItem(id) {
@@ -1777,6 +1792,13 @@ async function onClick(e) {
       ui.squadDirty = true;
       if ($('#modalRoot').children.length) openSquadEditor(); else renderView();
       break;
+    case 'squad-filter': {
+      const kind = target.dataset.kind;
+      const value = target.dataset.value;
+      ui.squadFilter[kind] = kind === 'rarity' ? Number(value) : value;
+      openSquadEditor();
+      break;
+    }
     case 'squad-add':
       if (G.addToSquad(id)) { ui.squadDirty = true; openSquadEditor(); }
       else toast('编队已满或干员已在队伍中。', 'warn');
