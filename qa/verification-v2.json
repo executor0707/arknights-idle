@@ -605,6 +605,14 @@
       "desktop": true,
       "mobileHidden": true,
       "newJsPath": "/v4/js"
+    },
+    "backgroundBattle": {
+      "enabled": true,
+      "battleSubstep": 0.05,
+      "intervalMs": 1000,
+      "catchUpCapSec": 60,
+      "renderWhileHidden": false,
+      "testedTimeGain": 3.52
     }
   },
   "limitations": [
