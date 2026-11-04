@@ -477,6 +477,11 @@
         "char_2027_wang"
       ],
       "rangedLogic": true
+    },
+    "tutorial": {
+      "pages": 4,
+      "skinSizePage": true,
+      "pageTitle": "战斗小人大小调整"
     }
   },
   "limitations": [
