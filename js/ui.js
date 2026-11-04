@@ -528,6 +528,7 @@ function renderBattle() {
         <div class="panel-head"><div class="panel-title">挂机收益</div><span class="panel-meta">LIVE // ${esc(stage.code)}</span></div>
         <div class="panel-body">
           <div class="mini-stat-row">
+            <div class="mini-stat"><span>龙门币 / 小时</span><b>${fmt(idle.lmdPerHour)}</b></div>
             <div class="mini-stat"><span>合成玉 / 小时</span><b>${fmt(idle.orundumPerHour)}</b></div>
             <div class="mini-stat"><span>寻访 / 小时</span><b>${idle.pullsPerHour.toFixed(1)} 抽</b></div>
             <div class="mini-stat"><span>源石 / 天</span><b>${idle.primesPerDay.toFixed(1)}</b></div>
