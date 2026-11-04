@@ -638,6 +638,29 @@
         "retry": "endless-9",
         "next": "endless-8"
       }
+    },
+    "leveling": {
+      "promotionResetsLevel": true,
+      "caps": {
+        "6": [
+          50,
+          80,
+          90
+        ]
+      },
+      "e0MaxToE1L1": true,
+      "e1MaxToE2L1": true,
+      "e2Capped": true,
+      "growth": [
+        0.014,
+        0.01,
+        0.008
+      ],
+      "eliteBase": [
+        1,
+        1.75,
+        3.15
+      ]
     }
   },
   "limitations": [

@@ -1081,7 +1081,7 @@ export function openOperator(id, opts = {}) {
         <div class="detail-section-body">
           ${promo?.maxed ? `<div class="detail-note">该干员已抵达最高精英阶段。可继续升级技能与模组。</div>` : promo?.locked ? `<div class="detail-note">达到等级上限 LV ${promo.needLevel} 后开放精英化。</div>` : `
             <div class="cost-line">${costLine(promo.cost)}</div>
-            <div class="action-row"><button class="btn btn-small btn-primary" data-action="op-promote" data-id="${id}" ${G.canPay(promo.cost) ? '' : 'disabled'}>执行精英化</button><span class="small">精英化不重置等级，解锁更高等级上限。</span></div>`}
+            <div class="action-row"><button class="btn btn-small btn-primary" data-action="op-promote" data-id="${id}" ${G.canPay(promo.cost) ? '' : 'disabled'}>执行精英化</button><span class="small">晋升后等级重置为 1，并解锁更高等级上限。</span></div>`}
         </div>
       </div>
 
@@ -1835,7 +1835,7 @@ async function onClick(e) {
       break;
     }
     case 'op-promote':
-      if (G.promote(id)) { toast('精英化完成。等级上限已提升。', 'success'); sfx('upgrade'); openOperator(id, { silent: true }); updateChrome(); }
+      if (G.promote(id)) { toast('精英化完成：等级重置为 1，等级上限已提升。', 'success'); sfx('upgrade'); openOperator(id, { silent: true }); updateChrome(); }
       else toast('精英化材料不足。', 'warn');
       break;
     case 'op-skill':
