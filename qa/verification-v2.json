@@ -377,7 +377,13 @@
       "removed": 23,
       "elaFixed": "char_4123_ela",
       "nameMismatches": 0,
-      "charIdMismatches": 0
+      "charIdMismatches": 0,
+      "mode": "all-local",
+      "bundled": 508,
+      "remote": 0,
+      "parseOk": 508,
+      "noAttack": 0,
+      "assetMB": 252.9
     },
     "killLmd": {
       "instant": true,

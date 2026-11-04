@@ -8,10 +8,19 @@ const api = `https://api.github.com/repos/${repo}`;
 const headers = { authorization: `token ${token}`, 'user-agent': 'RhodesIdleDeploy/1.0', accept: 'application/vnd.github+json' };
 
 async function gh(method, url, body) {
-  const r = await fetch(api + url, { method, headers: { ...headers, 'content-type': 'application/json' }, body: body ? JSON.stringify(body) : undefined });
-  const text = await r.text();
-  if (!r.ok) throw new Error(`${method} ${url} ${r.status} ${text.slice(0, 400)}`);
-  return text ? JSON.parse(text) : null;
+  for (let attempt = 0; attempt < 7; attempt++) {
+    const r = await fetch(api + url, { method, headers: { ...headers, 'content-type': 'application/json' }, body: body ? JSON.stringify(body) : undefined });
+    const text = await r.text();
+    if (r.status === 403 || r.status === 429) {
+      const wait = 30000 * (attempt + 1) + Math.floor(Math.random() * 5000);
+      console.log('rate limit, waiting', Math.round(wait / 1000) + 's');
+      await new Promise(res => setTimeout(res, wait));
+      continue;
+    }
+    if (!r.ok) throw new Error(`${method} ${url} ${r.status} ${text.slice(0, 400)}`);
+    return text ? JSON.parse(text) : null;
+  }
+  throw new Error(`${method} ${url}: rate limit retries exhausted`);
 }
 
 function diffFiles(cwd, base) {
@@ -28,15 +37,23 @@ async function pushTree(ref, cwd, message) {
   // The local history may not contain the API-created remote commit; use the
   // equivalent local commit for the changed-file diff only.
   const changes = diffFiles(cwd, process.env.DIFF_BASE || base);
-  const entries = [];
-  for (const { status, file } of changes) {
-    const full = path.join(cwd, file);
-    if (status === 'D') { entries.push({ path: file, mode: '100644', type: 'blob', sha: null }); continue; }
-    const content = fs.readFileSync(full);
-    const blob = await gh('POST', '/git/blobs', { content: content.toString('base64'), encoding: 'base64' });
-    entries.push({ path: file, mode: '100644', type: 'blob', sha: blob.sha });
-    console.log('blob', file, blob.sha.slice(0, 7));
+  const entries = new Array(changes.length);
+  let cursor = 0;
+  async function uploadWorker() {
+    while (cursor < changes.length) {
+      const i = cursor++;
+      const { status, file } = changes[i];
+      if (status === 'D') {
+        entries[i] = { path: file, mode: '100644', type: 'blob', sha: null };
+        continue;
+      }
+      const content = fs.readFileSync(path.join(cwd, file));
+      const blob = await gh('POST', '/git/blobs', { content: content.toString('base64'), encoding: 'base64' });
+      entries[i] = { path: file, mode: '100644', type: 'blob', sha: blob.sha };
+      console.log('blob', file, blob.sha.slice(0, 7));
+    }
   }
+  await Promise.all(Array.from({ length: 2 }, uploadWorker));
   const tree = await gh('POST', '/git/trees', { base_tree: baseCommit.tree.sha, tree: entries });
   const commit = await gh('POST', '/git/commits', {
     message,
