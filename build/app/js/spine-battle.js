@@ -215,10 +215,14 @@ export function syncSpine(battle) {
   const wanted = new Set();
   const post = [];
   for (const a of battle.allies) {
-    if (SPINE38_OPERATORS[a.id]) {
-      const equipped = state.skins?.equipped?.[a.id];
-      const skinKey = equipped ? `${a.id}-${equipped}` : null;
-      const key = skinKey && OPS_DATA[skinKey] ? skinKey : a.id;
+    const equipped = state.skins?.equipped?.[a.id];
+    const skinKey = equipped ? `${a.id}-${equipped}` : null;
+    const skinEntry = skinKey && OPS_DATA[skinKey] ? OPS_DATA[skinKey] : null;
+    // 3.5-only operators still use their 3.5 base model, but their skins are
+    // 3.8 assets. Route a mapped skin through the 3.8 frame instead of showing
+    // the default 3.5 model.
+    if (SPINE38_OPERATORS[a.id] || skinEntry) {
+      const key = skinEntry ? skinKey : a.id;
       post.push({ uid: 'a:' + a.uid, kind: 'op', key, x: a.x, y: a.y, scale: (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id) * mobileBattleScale(), bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
       continue;
     }

@@ -353,7 +353,11 @@
       "missing": [
         "liskarm-skin1",
         "liskarm-skin2"
-      ]
+      ],
+      "total": 531,
+      "mapped": 529,
+      "assetFailures": 0,
+      "spine35SkinsRouted": 52
     },
     "killLmd": {
       "instant": true,
