@@ -192,8 +192,8 @@ const ENDLESS_STAGES = [makeEndlessStage(1)];
 const CORE_STAGES = V2_STAGES.filter(s => s.group !== 'chip' && !(s.group === 'resource' && s.code === 'PR-D'));
 const CA_STAGE = {
   id: 'CA-5', group: 'resource', code: 'CA-5', chapter: '资源筹备', name: '技巧概要·五',
-  rec: 4800, waves: 3, desc: '整理并回收技巧概要，用于干员技能升级与专精。',
-  color: '#c58cff', drops: [], rewards: { lmd: 600, orundum: 12, doctorExp: 12, items: { book1: 4, book2: 2, book3: 1 } },
+  rec: 4800, waves: 3, desc: '整理并回收技巧概要，用于干员技能升级与专精；同时回收 1 个模组数据块。',
+  color: '#c58cff', drops: [], rewards: { lmd: 600, orundum: 12, doctorExp: 12, items: { book1: 4, book2: 2, book3: 1, module: 1 } },
 };
 export const STAGES = [...CORE_STAGES, CA_STAGE, ...ENDLESS_STAGES];
 export { MAIN_CHAPTERS };
