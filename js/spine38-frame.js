@@ -190,6 +190,7 @@
       }
       var sp = sprites.get(ck);
       if (!sp) { sp = sprite(u.kind, useKey, u); if (sp) sprites.set(ck, sp); if (!sp) continue; }
+      if (sp.state) sp.state.timeScale = u.speed || 1;
       var sc = sp._baseScale * (u.scale || 1);
       sp.scale.set(sc * sp._dir, sc);
       sp.x = Math.min(w - 26, Math.max(26, (u.x / 100) * w + (u.bobX || 0)));
