@@ -110,6 +110,18 @@ export function loadGame() {
     console.warn('存档读取失败，使用新存档', e);
     state = createDefaultState();
   }
+  const oldEndlessSelected = String(state.stage.selected || '').match(/^endless-(\d+)$/);
+  const oldEndlessCleared = (state.stage.cleared || [])
+    .map(id => String(id).match(/^endless-(\d+)$/))
+    .filter(Boolean)
+    .map(m => Number(m[1]));
+  const endlessTarget = Math.max(
+    oldEndlessSelected ? Number(oldEndlessSelected[1]) : 0,
+    oldEndlessCleared.length ? Math.max(...oldEndlessCleared) + 1 : 0,
+    1,
+  );
+  if (endlessTarget > 1) ensureEndlessFloor(endlessTarget);
+  if (oldEndlessSelected) state.stage.selected = 'endless-' + endlessTarget;
   if (!STAGE_BY_ID.has(state.stage.selected)) state.stage.selected = 'CE-6';
   state.squad = state.squad.map(id => id && OP_BY_ID.has(id) ? id : null).slice(0, MAX_SQUAD);
   while (state.squad.length < MAX_SQUAD) state.squad.push(null);
