@@ -33,6 +33,12 @@ export const USEFUL_ITEM_IDS = new Set([
 export const CONTROL_MAX_LEVEL = 1900;
 const MAX_ELITE = { 2: 0, 3: 1, 4: 2, 5: 2, 6: 2 };
 const TUTORIAL_FLAG = 'rhodes_idle_tutorial_v2';
+const REMOVED_OPERATOR_IDS = new Set([
+  'char_610_acfend', 'char_615_acspec', 'char_612_accast', 'char_614_acsupo',
+  'char_609_acguad', 'char_611_acnipe', 'char_613_acmedc', 'char_606_csuppo',
+  'char_601_cguard', 'char_603_csnipe', 'char_604_ccast', 'char_607_cspec',
+  'char_600_cpione', 'char_605_cmedic', 'char_602_cdfend', 'char_608_acpion',
+]);
 
 function dateKey(d = new Date()) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -116,6 +122,8 @@ export function loadGame() {
       if (parsed.version !== SAVE_VERSION) throw new Error('存档版本过旧');
       state = deepMerge(createDefaultState(), parsed);
       state.version = SAVE_VERSION;
+      for (const id of REMOVED_OPERATOR_IDS) delete state.operators[id];
+      state.squad = state.squad.map(id => REMOVED_OPERATOR_IDS.has(id) ? null : id);
     }
   } catch (e) {
     console.warn('存档读取失败，使用新存档', e);
