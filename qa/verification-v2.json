@@ -331,7 +331,7 @@
       "remainingUsesDefault": true,
       "perSkinReset": true,
       "resetDefault": 1,
-      "remoteMapped": 405,
+      "remoteMapped": 524,
       "remoteTotal": 531,
       "remoteLoader": true,
       "localFallback": true,
@@ -362,7 +362,9 @@
         "再次作战",
         "退出作战"
       ],
-      "exitStopsAuto": true
+      "exitStopsAuto": true,
+      "autoCountdown": 4.2,
+      "countdownVisible": true
     },
     "saveCodec": {
       "encrypted": true,
@@ -371,6 +373,14 @@
       "legacyImport": true,
       "envelopeVersion": 2,
       "plainValuesHidden": true
+    },
+    "mobile": {
+      "battleScale": 0.82,
+      "testedWidth": 390
+    },
+    "skinStore": {
+      "unownedSliderCollapsed": true,
+      "ownedSlider": true
     }
   },
   "limitations": [

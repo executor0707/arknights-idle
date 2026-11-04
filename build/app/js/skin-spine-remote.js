@@ -1619,5 +1619,481 @@ export const SKIN_SPINE_REMOTE = {
   "char_4121_zuole-skin2": {
     "name": "无息破局",
     "base": "https://torappu.prts.wiki/assets/char_spine/char_4121_zuole/char_4121_zuole_sale_16/front/char_4121_zuole_sale_16"
+  },
+  "shaw-skin1": {
+    "name": "古堡清洁专家",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_277_sqrrel/char_277_sqrrel_ghost_1/front/char_277_sqrrel_ghost_1"
+  },
+  "amiya-skin1": {
+    "name": "报童",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_002_amiya/char_002_amiya_winter_1/front/char_002_amiya_winter_1"
+  },
+  "amiya-skin2": {
+    "name": "见习联结者",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_002_amiya/char_002_amiya_epoque_4/front/char_002_amiya_epoque_4"
+  },
+  "amiya-skin3": {
+    "name": "播种者",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_002_amiya/char_002_amiya_test_1/front/char_002_amiya_test_1"
+  },
+  "eyjafjalla-skin1": {
+    "name": "夏卉 FA018",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_180_amgoat/char_180_amgoat_summer_5/front/char_180_amgoat_summer_5"
+  },
+  "eyjafjalla-skin2": {
+    "name": "绵绒小魔女",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_180_amgoat/char_180_amgoat_sanrio_2/front/char_180_amgoat_sanrio_2"
+  },
+  "rope-skin1": {
+    "name": "小鬼当家",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_236_rope/char_236_rope_witch_1/front/char_236_rope_witch_1"
+  },
+  "rope-skin2": {
+    "name": "夏卉 FA008",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_236_rope/char_236_rope_summer_2/front/char_236_rope_summer_2"
+  },
+  "adnachiel-skin1": {
+    "name": "无痕行者",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_211_adnach/char_211_adnach_sale_5/front/char_211_adnach_sale_5"
+  },
+  "platinum-skin1": {
+    "name": "灿阳朝露 SD05",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_204_platnm/char_204_platnm_summer_3/front/char_204_platnm_summer_3"
+  },
+  "shirayuki-skin1": {
+    "name": "曲刃晴风",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_118_yuki/char_118_yuki_boc_2/front/char_118_yuki_boc_2"
+  },
+  "ansel-skin1": {
+    "name": "悠然假日 HDm06",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_212_ansel/char_212_ansel_summer_1/front/char_212_ansel_summer_1"
+  },
+  "ansel-skin2": {
+    "name": "晚间咖啡店",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_212_ansel/char_212_ansel_epoque_29/front/char_212_ansel_epoque_29"
+  },
+  "pramanix-skin1": {
+    "name": "开斯特之霜",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_174_slbell/char_174_slbell_snow_1/front/char_174_slbell_snow_1"
+  },
+  "spot-skin1": {
+    "name": "专业人士",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_284_spot/char_284_spot_boc_3/front/char_284_spot_boc_3"
+  },
+  "ptilopsis-skin1": {
+    "name": "幽静",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_128_plosis/char_128_plosis_epoque_3/front/char_128_plosis_epoque_3"
+  },
+  "ptilopsis-skin2": {
+    "name": "抚云间",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_128_plosis/char_128_plosis_yun_4/front/char_128_plosis_yun_4"
+  },
+  "chongyue-skin1": {
+    "name": "何处栖",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_2024_chyue/char_2024_chyue_nian_10/front/char_2024_chyue_nian_10"
+  },
+  "chongyue-skin2": {
+    "name": "全能演员",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_2024_chyue/char_2024_chyue_cfa_1/front/char_2024_chyue_cfa_1"
+  },
+  "fang-skin1": {
+    "name": "十字郡",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_123_fang/char_123_fang_winter_1/front/char_123_fang_winter_1"
+  },
+  "texas-skin1": {
+    "name": "寒冬信使",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_102_texas/char_102_texas_winter_1/front/char_102_texas_winter_1"
+  },
+  "texas-skin2": {
+    "name": "意志",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_102_texas/char_102_texas_epoque_7/front/char_102_texas_epoque_7"
+  },
+  "earthspirit-skin1": {
+    "name": "主修领域",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_183_skgoat/char_183_skgoat_epoque_30/front/char_183_skgoat_epoque_30"
+  },
+  "silence-skin1": {
+    "name": "漆匠",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_108_silent/char_108_silent_sweep_1/front/char_108_silent_sweep_1"
+  },
+  "silence-skin2": {
+    "name": "霜息",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_108_silent/char_108_silent_winter_2/front/char_108_silent_winter_2"
+  },
+  "hibiscus-skin1": {
+    "name": "守岁人",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_120_hibisc/char_120_hibisc_nian_1/front/char_120_hibisc_nian_1"
+  },
+  "warfarin-skin1": {
+    "name": "盛宴",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_171_bldsk/char_171_bldsk_witch_1/front/char_171_bldsk_witch_1"
+  },
+  "warfarin-skin2": {
+    "name": "悠然假日 HD31",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_171_bldsk/char_171_bldsk_summer_7/front/char_171_bldsk_summer_7"
+  },
+  "gummy-skin1": {
+    "name": "夏卉 FA011",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_196_sunbr/char_196_sunbr_summer_1/front/char_196_sunbr_summer_1"
+  },
+  "specter_alter-skin1": {
+    "name": "生而为一",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_1023_ghost2/char_1023_ghost2_boc_6/front/char_1023_ghost2_boc_6"
+  },
+  "projektred-skin1": {
+    "name": "轻风 LB01",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_144_red/char_144_red_summer_6/front/char_144_red_summer_6"
+  },
+  "waai_fu-skin1": {
+    "name": "街道狂花",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_243_waaifu/char_243_waaifu_whirlwind_2/front/char_243_waaifu_whirlwind_2"
+  },
+  "chen_alter-skin1": {
+    "name": "万重山",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_1013_chen2/char_1013_chen2_boc_6/front/char_1013_chen2_boc_6"
+  },
+  "chen_alter-skin2": {
+    "name": "悠然假日 HD79",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_1013_chen2/char_1013_chen2_summer_20/front/char_1013_chen2_summer_20"
+  },
+  "kroos-skin1": {
+    "name": "魔术师",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_124_kroos/char_124_kroos_witch_1/front/char_124_kroos_witch_1"
+  },
+  "kroos-skin2": {
+    "name": "星月漂流记",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_124_kroos/char_124_kroos_sale_14/front/char_124_kroos_sale_14"
+  },
+  "jian-skin1": {
+    "name": "暗月的影子",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_4116_blkkgt/char_4116_blkkgt_witch_5/front/char_4116_blkkgt_witch_5"
+  },
+  "ash-skin1": {
+    "name": "游侠",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_456_ash/char_456_ash_rainbow6_1/front/char_456_ash_rainbow6_1"
+  },
+  "gavial-skin1": {
+    "name": "战医",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_187_ccheal/char_187_ccheal_epoque_2/front/char_187_ccheal_epoque_2"
+  },
+  "cardigan-skin1": {
+    "name": "快乐卫士",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_209_ardign/char_209_ardign_snow_1/front/char_209_ardign_snow_1"
+  },
+  "cardigan-skin2": {
+    "name": "晴日",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_209_ardign/char_209_ardign_epoque_26/front/char_209_ardign_epoque_26"
+  },
+  "matterhorn-skin1": {
+    "name": "沙滩护卫 GT.001",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_199_yak/char_199_yak_summer_1/front/char_199_yak_summer_1"
+  },
+  "texas_alter-skin1": {
+    "name": "破翼者",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_1028_texas2/char_1028_texas2_iteration_1/front/char_1028_texas2_iteration_1"
+  },
+  "texas_alter-skin2": {
+    "name": "幽兰秘辛",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_1028_texas2/char_1028_texas2_epoque_36/front/char_1028_texas2_epoque_36"
+  },
+  "jessica-skin1": {
+    "name": "铁块",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_235_jesica/char_235_jesica_sweep_1/front/char_235_jesica_sweep_1"
+  },
+  "jessica-skin2": {
+    "name": "燃灰",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_235_jesica/char_235_jesica_wild_2/front/char_235_jesica_wild_2"
+  },
+  "jessica-skin3": {
+    "name": "君子兰",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_235_jesica/char_235_jesica_nian_2/front/char_235_jesica_nian_2"
+  },
+  "croissant-skin1": {
+    "name": "清晨七点",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_201_moeshd/char_201_moeshd_kfc_1/front/char_201_moeshd_kfc_1"
+  },
+  "croissant-skin2": {
+    "name": "探寻者 SK03",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_201_moeshd/char_201_moeshd_summer_4/front/char_201_moeshd_summer_4"
+  },
+  "bluepoison-skin1": {
+    "name": "浅滩律动",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_129_bluep/char_129_bluep_marthe_3/front/char_129_bluep_marthe_3"
+  },
+  "bluepoison-skin2": {
+    "name": "哀律西昂夜曲",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_129_bluep/char_129_bluep_iteration_2/front/char_129_bluep_iteration_2"
+  },
+  "catapult-skin1": {
+    "name": "悠然假日 HD66",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_282_catap/char_282_catap_summer_17/front/char_282_catap_summer_17"
+  },
+  "gravel-skin1": {
+    "name": "模特之夜",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_237_gravel/char_237_gravel_winter_2/front/char_237_gravel_winter_2"
+  },
+  "lappland-skin1": {
+    "name": "典雅噩兆",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_140_whitew/char_140_whitew_boc_1/front/char_140_whitew_boc_1"
+  },
+  "beehunter-skin1": {
+    "name": "掠蜜能手",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_137_brownb/char_137_brownb_kitchen_1/front/char_137_brownb_kitchen_1"
+  },
+  "zima-skin1": {
+    "name": "整装待发",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_115_headbr/char_115_headbr_marthe_2/front/char_115_headbr_marthe_2"
+  },
+  "zima-skin2": {
+    "name": "乌萨斯IO79",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_115_headbr/char_115_headbr_it_1/front/char_115_headbr_it_1"
+  },
+  "nearl-skin1": {
+    "name": "灿阳朝露 SD01",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_148_nearl/char_148_nearl_summer_2/front/char_148_nearl_summer_2"
+  },
+  "ling-skin1": {
+    "name": "濯缨",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_2023_ling/char_2023_ling_nian_9/front/char_2023_ling_nian_9"
+  },
+  "ling-skin2": {
+    "name": "崖高梦远",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_2023_ling/char_2023_ling_ncg_1/front/char_2023_ling_ncg_1"
+  },
+  "ling-skin3": {
+    "name": "方遒卷",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_2023_ling/char_2023_ling_nian_12/front/char_2023_ling_nian_12"
+  },
+  "beagle-skin1": {
+    "name": "无畏",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_122_beagle/char_122_beagle_boc_1/front/char_122_beagle_boc_1"
+  },
+  "meteor-skin1": {
+    "name": "诗人的假日",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_126_shotst/char_126_shotst_epoque_10/front/char_126_shotst_epoque_10"
+  },
+  "meteor-skin2": {
+    "name": "星橼林",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_126_shotst/char_126_shotst_epoque_28/front/char_126_shotst_epoque_28"
+  },
+  "logos-skin1": {
+    "name": "辉煌的静谧",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_4133_logos/char_4133_logos_ambiencesynesthesia_6/front/char_4133_logos_ambienceSynesthesia_6"
+  },
+  "mlynar-skin1": {
+    "name": "远路",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_4064_mlynar/char_4064_mlynar_epoque_28/front/char_4064_mlynar_epoque_28"
+  },
+  "mlynar-skin2": {
+    "name": "苍茫怒号",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_4064_mlynar/char_4064_mlynar_iteration_3/front/char_4064_mlynar_iteration_3"
+  },
+  "melantha-skin1": {
+    "name": "威塞克斯的信件",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_208_melan/char_208_melan_epoque_1/front/char_208_melan_epoque_1"
+  },
+  "mousse-skin1": {
+    "name": "营地炊烟",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_185_frncat/char_185_frncat_wild_7/front/char_185_frncat_wild_7"
+  },
+  "mousse-skin2": {
+    "name": "补水时间",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_185_frncat/char_185_frncat_marthe_12/front/char_185_frncat_marthe_12"
+  },
+  "myrrh-skin1": {
+    "name": "辛味",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_117_myrrh/char_117_myrrh_wild_1/front/char_117_myrrh_wild_1"
+  },
+  "exusiai-skin1": {
+    "name": "野地秘行",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_wild_1/front/char_103_angel_wild_1"
+  },
+  "exusiai-skin2": {
+    "name": "城市骑手",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_kfc_1/front/char_103_angel_kfc_1"
+  },
+  "exusiai-skin3": {
+    "name": "午夜邮差",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_sale_8/front/char_103_angel_sale_8"
+  },
+  "cuora-skin1": {
+    "name": "四边形",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_150_snakek/char_150_snakek_wild_1/front/char_150_snakek_wild_1"
+  },
+  "cuora-skin2": {
+    "name": "与荷",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_150_snakek/char_150_snakek_yun_7/front/char_150_snakek_yun_7"
+  },
+  "deepcolor-skin1": {
+    "name": "绘声绘影",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_110_deepcl/char_110_deepcl_winter_3/front/char_110_deepcl_winter_3"
+  },
+  "nian-skin1": {
+    "name": "乐逍遥",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_2014_nian/char_2014_nian_nian_4/front/char_2014_nian_nian_4"
+  },
+  "nian-skin2": {
+    "name": "霹雳导演",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_2014_nian/char_2014_nian_cfa_1/front/char_2014_nian_cfa_1"
+  },
+  "popukar-skin1": {
+    "name": "魔女的秋千",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_281_popka/char_281_popka_witch_5/front/char_281_popka_witch_5"
+  },
+  "popukar-skin2": {
+    "name": "幽然灵竹",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_281_popka/char_281_popka_sale_18/front/char_281_popka_sale_18"
+  },
+  "provence-skin1": {
+    "name": "悠然假日 HD08",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_145_prove/char_145_prove_summer_3/front/char_145_prove_summer_3"
+  },
+  "provence-skin2": {
+    "name": "荒原行者",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_145_prove/char_145_prove_wild_5/front/char_145_prove_wild_5"
+  },
+  "scavenger-skin1": {
+    "name": "生存",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_149_scave/char_149_scave_striker_2/front/char_149_scave_striker_2"
+  },
+  "swire-skin1": {
+    "name": "富贵荣华",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_308_swire/char_308_swire_nian_2/front/char_308_swire_nian_2"
+  },
+  "steward-skin1": {
+    "name": "风雪邀请",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_210_stward/char_210_stward_sale_6/front/char_210_stward_sale_6"
+  },
+  "shu-skin1": {
+    "name": "春日宴",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_2025_shu/char_2025_shu_nian_11/front/char_2025_shu_nian_11"
+  },
+  "shu-skin2": {
+    "name": "源远流长",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_2025_shu/char_2025_shu_nlc_1/front/char_2025_shu_nlc_1"
+  },
+  "surtr-skin1": {
+    "name": "自由//失效",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_350_surtr/char_350_surtr_it_1/front/char_350_surtr_it_1"
+  },
+  "surtr-skin2": {
+    "name": "缤纷奇境 CW03",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_350_surtr/char_350_surtr_summer_9/front/char_350_surtr_summer_9"
+  },
+  "surtr-skin3": {
+    "name": "超然序曲",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_350_surtr/char_350_surtr_ambiencesynesthesia_6/front/char_350_surtr_ambienceSynesthesia_6"
+  },
+  "perfumer-skin1": {
+    "name": "植物种志",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_181_flower/char_181_flower_daily_1/front/char_181_flower_daily_1"
+  },
+  "perfumer-skin2": {
+    "name": "闲适午后",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_181_flower/char_181_flower_epoque_9/front/char_181_flower_epoque_9"
+  },
+  "susurro-skin1": {
+    "name": "夏卉 FA026",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_298_susuro/char_298_susuro_summer_6/front/char_298_susuro_summer_6"
+  },
+  "susurro-skin2": {
+    "name": "随意而行",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_298_susuro/char_298_susuro_winter_4/front/char_298_susuro_winter_4"
+  },
+  "wisadel-skin1": {
+    "name": "超新星",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_1035_wisdel/char_1035_wisdel_sale_14/front/char_1035_wisdel_sale_14"
+  },
+  "wisadel-skin2": {
+    "name": "绝对主角",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_1035_wisdel/char_1035_wisdel_game_9/front/char_1035_wisdel_game_9"
+  },
+  "skyfire-skin1": {
+    "name": "温差 RT.RX01",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_166_skfire/char_166_skfire_summer_1/front/char_166_skfire_summer_1"
+  },
+  "executor-skin1": {
+    "name": "无题密令",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_279_excu/char_279_excu_boc_1/front/char_279_excu_boc_1"
+  },
+  "cliffheart-skin1": {
+    "name": "孤攀客",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_173_slchan/char_173_slchan_wild_1/front/char_173_slchan_wild_1"
+  },
+  "cliffheart-skin2": {
+    "name": "高原访客",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_173_slchan/char_173_slchan_wwf_1/front/char_173_slchan_wwf_1"
+  },
+  "dusk-skin1": {
+    "name": "染尘烟",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_2015_dusk/char_2015_dusk_nian_7/front/char_2015_dusk_nian_7"
+  },
+  "dusk-skin2": {
+    "name": "青玉砚",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_2015_dusk/char_2015_dusk_nian_12/front/char_2015_dusk_nian_12"
+  },
+  "vanilla-skin1": {
+    "name": "平原驯虫士",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_240_wyvern/char_240_wyvern_game_4/front/char_240_wyvern_game_4"
+  },
+  "lava-skin1": {
+    "name": "一束阳光",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_121_lava/char_121_lava_sale_9/front/char_121_lava_sale_9"
+  },
+  "courier-skin1": {
+    "name": "新航线",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_198_blackd/char_198_blackd_winter_1/front/char_198_blackd_winter_1"
+  },
+  "courier-skin2": {
+    "name": "无言狂响",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_198_blackd/char_198_blackd_as_1/front/char_198_blackd_as_1"
+  },
+  "nightmare-skin1": {
+    "name": "光影",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_164_nightm/char_164_nightm_epoque_5/front/char_164_nightm_epoque_5"
+  },
+  "nightmare-skin2": {
+    "name": "湖畔的少女",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_164_nightm/char_164_nightm_unveiling_2/front/char_164_nightm_unveiling_2"
+  },
+  "meteorite-skin1": {
+    "name": "石墨",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_219_meteo/char_219_meteo_sweep_1/front/char_219_meteo_sweep_1"
+  },
+  "meteorite-skin2": {
+    "name": "夏卉 FA240",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_219_meteo/char_219_meteo_summer_22/front/char_219_meteo_summer_22"
+  },
+  "silverash-skin1": {
+    "name": "约克的寒风",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_172_svrash/char_172_svrash_snow_1/front/char_172_svrash_snow_1"
+  },
+  "silverash-skin2": {
+    "name": "探寻者 SKm01",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_172_svrash/char_172_svrash_summer_4/front/char_172_svrash_summer_4"
+  },
+  "silverash-skin3": {
+    "name": "不融冰",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_172_svrash/char_172_svrash_ambiencesynesthesia_4/front/char_172_svrash_ambienceSynesthesia_4"
+  },
+  "nearl_alter-skin1": {
+    "name": "复现荣光",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_1014_nearl2/char_1014_nearl2_epoque_17/front/char_1014_nearl2_epoque_17"
+  },
+  "haze-skin1": {
+    "name": "疗养地怪谈",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_141_nights/char_141_nights_breaker_1/front/char_141_nights_breaker_1"
+  },
+  "midnight-skin1": {
+    "name": "第七夜苏醒魔君",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_283_midn/char_283_midn_boc_1/front/char_283_midn_boc_1"
+  },
+  "specter-skin1": {
+    "name": "暗流",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_143_ghost/char_143_ghost_winter_1/front/char_143_ghost_winter_1"
+  },
+  "gitano-skin1": {
+    "name": "未知的旅行",
+    "base": "https://torappu.prts.wiki/assets/char_spine/char_109_fmout/char_109_fmout_epoque_2/front/char_109_fmout_epoque_2"
   }
 };

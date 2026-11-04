@@ -840,6 +840,7 @@ function syncArena(rebuild = false) {
           <div class="result-reward"><small>合成玉</small>+${fmt(r?.orundum || 0)}</div>
           ${first ? `<div class="result-reward" style="color:#ff8b84"><small>首通源石</small>+${first.primes} ◆</div>` : ''}
         </div>` : `<div class="result-rewards"><div class="result-reward"><small>挂机</small>继续积累中</div></div>`}
+        ${state.stage.auto ? `<div class="result-countdown" id="resultCountdown">自动继续 ${Math.max(0, battle.endTimer).toFixed(1)}s</div>` : ''}
         <div class="result-actions">
           ${win && battle.nextStageId && battle.nextStageId !== battle.stage.id
             ? `<button class="btn btn-primary btn-small" data-action="next-stage">下一关</button>`
@@ -851,6 +852,8 @@ function syncArena(rebuild = false) {
   } else if (battle.status === 'running' && a.overlay.innerHTML) {
     a.overlay.innerHTML = '';
   }
+  const countdown = a.overlay.querySelector?.('#resultCountdown');
+  if (countdown) countdown.textContent = `自动继续 ${Math.max(0, battle.endTimer).toFixed(1)}s`;
 }
 
 function updateBaseDynamic() {
@@ -1282,7 +1285,9 @@ function renderSkins() {
       <img src="${sk.img}" alt="${esc(sk.name)}" loading="lazy">
       <div class="gallery-info"><b>${esc(sk.name)}</b><span>${esc(op.name)} · ${esc(sk.series || '常驻')}</span>
         <button class="btn btn-small ${eq ? 'btn-cyan' : isOwned && opOwned ? 'btn-primary' : ''}" data-action="gallery-skin" data-id="${sk.id}" ${!opOwned || (!isOwned && state.primes < SKIN_PRICE) ? 'disabled' : ''}>${actionLabel}</button>
-        <div class="skin-scale-row"><div class="skin-scale-head"><label><span>战斗小人缩放</span><b data-skin-scale-value="${sk.id}">${Math.round(G.skinScale(sk.id) * 100)}%</b></label><button class="skin-scale-reset" data-action="reset-skin-scale" data-id="${sk.id}" title="重置为 100%">↺</button></div><input type="range" min="50" max="200" step="1" value="${Math.round(G.skinScale(sk.id) * 100)}" data-skin-scale="${sk.id}" aria-label="${esc(sk.name)} 战斗小人缩放"></div>
+        ${isOwned || eq
+          ? `<div class="skin-scale-row"><div class="skin-scale-head"><label><span>战斗小人缩放</span><b data-skin-scale-value="${sk.id}">${Math.round(G.skinScale(sk.id) * 100)}%</b></label><button class="skin-scale-reset" data-action="reset-skin-scale" data-id="${sk.id}" title="重置为 100%">↺</button></div><input type="range" min="50" max="200" step="1" value="${Math.round(G.skinScale(sk.id) * 100)}" data-skin-scale="${sk.id}" aria-label="${esc(sk.name)} 战斗小人缩放"></div>`
+          : `<div class="skin-scale-locked">购买后可调整战斗小人大小</div>`}
       </div>
     </div>`;
   }).join('');
