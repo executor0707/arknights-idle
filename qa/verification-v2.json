@@ -882,6 +882,20 @@
       "ambusherBlock": 0,
       "ambusherStun": 0.4,
       "ambusherHitsAllInRange": true
+    },
+    "endlessMax": {
+      "floor": 9999,
+      "rec": 95984,
+      "formula": "16000+8*(floor-1)",
+      "enemyAtk": 14762,
+      "enemyHp": 288217,
+      "enemyDef": 1547,
+      "bossAtk": 108257,
+      "bossHp": 1180986
+    },
+    "fiveStarSelector": {
+      "cost": 325,
+      "dailyLimit": false
     }
   },
   "limitations": [
