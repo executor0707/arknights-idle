@@ -682,6 +682,9 @@ export function puppetSkillText(id) {
 export function talentText(id) {
   const d = opData(id);
   if (!d) return '';
+  if (id === 'char_4244_tocka') {
+    return '万用协同：可同时视作 Ave Mujica 成员、医疗干员与吟游者，参与对应的五人联动。';
+  }
   if (d.role === 'specialist' && d.sub === '伏击客') {
     return '伏击：攻击均为范围攻击，对范围内所有敌人造成 0.4 秒停顿；自身不成为敌方攻击目标。';
   }
@@ -775,7 +778,7 @@ export function skillDescription(id) {
   const baseSp = Math.max(10, Math.min(40, Number(d.skill.sp) || 30));
   const sp = skillSpCost(id);
   const cut = Math.max(0, Math.round((1 - sp / baseSp) * 1000) / 10);
-  return `${text} 当前技能倍率 ×${mult.toFixed(2)}；SP ${sp}（基础 ${baseSp}，已降低 ${cut}%）。`;
+  return `${text} 当前技能倍率 ×${mult.toFixed(2)}；SP ${sp} 秒（基础 ${baseSp} 秒，已降低 ${cut}%）。`;
 }
 
 // ── 编队 ───────────────────────────────────────────────────────────
