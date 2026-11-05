@@ -921,6 +921,11 @@ a { color: var(--orange); }
 .default-skin-scale input[type="range"] { height: 18px; }
 .selector-info { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
 .selector-info b { font-family: var(--display); font-size: 22px; color: var(--orange); margin-right: 6px; }
+.selector-filter-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 8px 0 10px; }
+.selector-search { flex: 1 1 220px; min-width: 180px; height: 28px; padding: 0 9px; border: 1px solid var(--line); background: rgba(0,0,0,.25); color: var(--text); font-size: 10px; }
+.selector-search:focus { outline: none; border-color: rgba(255,180,58,.55); }
+.selector-class-filters { display: flex; gap: 3px; flex-wrap: wrap; }
+.selector-count { margin-left: auto; font-family: var(--mono); font-size: 9px; color: var(--dim); }
 .selector-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
 .selector-card { display: flex; gap: 8px; align-items: center; text-align: left; border: 1px solid var(--line); background: rgba(255,255,255,.02); padding: 6px; }
 .selector-card:hover:not(:disabled) { border-color: var(--rarity); background: rgba(255,255,255,.05); }

@@ -71,6 +71,7 @@ export const MATERIALS = {
 export const SKIN_PRICE = 18;
 export const PRIME_SHARD_COST = 20;
 export const SELECTOR_COST = 300;
+export const FIVE_STAR_SELECTOR_COST = 325;
 
 export const RECORD_ORDER = ['record4', 'record3', 'record2', 'record1'];
 
