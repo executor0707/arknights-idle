@@ -1,0 +1,11 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront'); await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=bard85'});
+await new Promise(r=>setTimeout(r,4000));
+if (await evalJS(send, `!!document.querySelector('#enterBtn')`)) { await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true}); await new Promise(r=>setTimeout(r,2500)); await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`); await new Promise(r=>setTimeout(r,400)); }
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state;const bards=['char_101_sora','char_4045_heidi','char_4134_cetsyr','char_4184_dolris','skadi_alter'];const normal=['mlynar','ela','eyjafjalla','char_391_rosmon','char_4009_irene'];for(const id of [...bards,...normal])s.operators[id]={level:90,elite:2,potential:5,skill:7,mastery:3,trust:100,module:3,exp:0};const stage=G.STAGE_BY_ID.get('main-6-3');const mains=G.STAGES.filter(x=>x.group==='main');const idx=mains.findIndex(x=>x.id===stage.id);for(let i=0;i<idx;i++)if(!s.stage.cleared.includes(mains[i].id))s.stage.cleared.push(mains[i].id);s.stage.auto=false;const b=__RHODES__.battle;
+b._updateBardChorus=function(dt){const bs=this.allies.filter(a=>a.bard&&!a.dead);if(bs.length<5){this.bardPulseT=1;return;}this.bardPulseT=(this.bardPulseT??1)-dt;if(this.bardPulseT>0)return;this.bardPulseT+=1;for(const e of this.enemies){if(e.dead)continue;for(const a of bs){if(e.dead)break;this._damageEnemy(e,a.atk*.85,{arts:false,source:a});}}this._effect(50,50,'aoe',.45);};
+const run=(ids)=>{s.squad=ids;b.start(stage.id);let t=0,min=1;while(t<120&&b.status==='running'){b.tick(.1);t+=.1;for(const a of b.allies)if(!a.dead)min=Math.min(min,a.hp/a.maxHp);}return {status:b.status,time:+b.time.toFixed(1),leaks:b.leaks,kills:b.kills,min:+min.toFixed(2)};};
+const atk=bards.map(id=>G.getOpStats(id).atk);return JSON.stringify({chorus85:Math.round(atk.reduce((a,x)=>a+x*.85,0)),bard85:run(bards),normal:run(normal)})})()`));
+process.exit(0);
