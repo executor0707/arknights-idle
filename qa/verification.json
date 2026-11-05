@@ -1179,6 +1179,17 @@
       "hardPity": 50,
       "testedFrom49": "怒潮凛冬",
       "rarity": 6
+    },
+    "spSeconds": {
+      "sp34CastAt": 34,
+      "realX1": 34,
+      "realX2": 17,
+      "talent": "万用协同",
+      "flexSynergy": {
+        "mujica": true,
+        "bard": true,
+        "medic": true
+      }
     }
   },
   "limitations": [

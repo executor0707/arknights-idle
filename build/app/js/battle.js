@@ -23,6 +23,10 @@ const MUJICA_IDS = new Set([
   'char_4186_tmoris',
   'char_4185_amoris',
 ]);
+const FLEX_SYNERGY_ID = 'char_4244_tocka'; // 冻河
+const isMujicaMember = (a) => MUJICA_IDS.has(a.id) || a.id === FLEX_SYNERGY_ID;
+const isBardMember = (a) => !!a.bard || a.id === FLEX_SYNERGY_ID;
+const isMedicMember = (a) => a.role === 'medic' || a.id === FLEX_SYNERGY_ID;
 
 const ENEMY_INFO = {
   soldier: { glyph: '兵', hp: 1, atk: 1, speed: 1, block: true, size: 1 },
@@ -140,7 +144,7 @@ export class Battle {
       hp, maxHp: hp, shield: 0, atk: st.atk * (1 + b.atk) * (1 + bb.atk), def: st.def * (1 + b.def),
       res: st.res, interval: st.interval / (1 + bb.aspd), range: st.range, block: st.block,
       cooldown: rand(0.1, 0.6), sp: id === 'amiya' ? Math.min(5, skillSp) : 0, maxSp: skillSp,
-      spRate: 1 + b.spRegen, dead: false, heal: st.heal, bard: !!st.bard, ambusher: !!st.ambusher,
+      spRate: 1, dead: false, heal: st.heal, bard: !!st.bard, ambusher: !!st.ambusher,
       puppeteer: !!st.puppeteer, puppet: false, puppetElapsed: 0, puppetBody: null, puppetSkill: null,
       untargetable: !!st.untargetable, arts: st.arts,
       skillPower: st.skillPower, buffAtk: 0, buffUntil: 0, castUntil: 0, attackLock: 0,
@@ -240,7 +244,7 @@ export class Battle {
   }
 
   _updateBardChorus(dt) {
-    const bards = this.allies.filter(a => a.bard && !a.dead);
+    const bards = this.allies.filter(a => isBardMember(a) && !a.dead);
     if (bards.length < 5) { this.bardPulseT = 1; return; }
     this.bardPulseT = (this.bardPulseT ?? 1) - dt;
     if (this.bardPulseT > 0) return;
@@ -261,7 +265,7 @@ export class Battle {
   }
 
   _updateMujica(dt) {
-    const members = this.allies.filter(a => MUJICA_IDS.has(a.id) && !a.dead);
+    const members = this.allies.filter(a => isMujicaMember(a) && !a.dead);
     if (members.length < 5) { this.mujicaT = 10; return; }
     this.mujicaT = (this.mujicaT ?? 10) - dt;
     if (this.mujicaT > 0) return;
@@ -421,7 +425,6 @@ export class Battle {
             }
           }
           if (healedAny) this._effect(a.x, a.y, 'heal', 0.55);
-          a.sp = Math.min(a.maxSp, a.sp + 2.5);
           a.cooldown = a.interval * 1.35;
         }
       } else if (a.heal) {
@@ -435,7 +438,6 @@ export class Battle {
           const real = this._healAlly(target, amount, a);
           if (medicSynergy) this._overflowHeal(raw - real, a);
           this._effect(target.x, target.y, 'heal', 0.55);
-          a.sp = Math.min(a.maxSp, a.sp + 4);
           a.cooldown = a.interval;
           a.attackFlash = 0.18;
           a.attackLock = Math.max(a.attackLock || 0, 0.8);
@@ -446,7 +448,6 @@ export class Battle {
           if (target) {
             this._attack(a, target);
             a.cooldown = a.interval;
-            a.sp = Math.min(a.maxSp, a.sp + 2.2);
           }
         }
       }
@@ -474,7 +475,7 @@ export class Battle {
   }
 
   _hasMedicSynergy() {
-    return this.allies.filter(a => !a.dead && a.role === 'medic').length >= 5;
+    return this.allies.filter(a => !a.dead && isMedicMember(a)).length >= 5;
   }
 
   _overflowHeal(amount, source) {
@@ -562,7 +563,7 @@ export class Battle {
       bus.dispatchEvent(new CustomEvent('lmd-change', { detail: { amount: gain, total: state.lmd } }));
     }
     if (e.boss) this.shake = 0.5;
-    for (const a of this.allies) if (!a.dead && a.id === 'kirin_yato') a.sp = Math.min(a.maxSp, a.sp + 20);
+
   }
 
   _applyAtkBuff(a, amount, duration) {
