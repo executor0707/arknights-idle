@@ -824,7 +824,7 @@ export function idleSummary(stage = STAGE_BY_ID.get(state.stage.selected)) {
 }
 
 export function tickIdle(dt) {
-  if (dt <= 0 || !state.stage.auto) return;
+  if (dt <= 0) return;
   const stage = STAGE_BY_ID.get(state.stage.selected);
   if (!stage) return;
   const r = stageIdleRates(stage);

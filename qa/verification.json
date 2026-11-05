@@ -1118,6 +1118,11 @@
       "trainingPerHour": 39.6,
       "book3Delta": 33,
       "moduleDelta": 40
+    },
+    "idleAutoFix": {
+      "autoOff": true,
+      "orundumDelta": 6.844,
+      "idleSecondsDelta": 4.033
     }
   },
   "limitations": [
