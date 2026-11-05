@@ -1,0 +1,8 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront'); await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=mujica33'});
+await new Promise(r=>setTimeout(r,4000));
+if (await evalJS(send, `!!document.querySelector('#enterBtn')`)) { await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true}); await new Promise(r=>setTimeout(r,2500)); await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`); await new Promise(r=>setTimeout(r,400)); }
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state;const m=['char_4182_oblvns','char_4183_mortis','char_4184_dolris','char_4186_tmoris','char_4185_amoris'];const n=['mlynar','ela','eyjafjalla','char_391_rosmon','char_4009_irene'];for(const id of [...m,...n])s.operators[id]={level:90,elite:2,potential:5,skill:7,mastery:3,trust:100,module:3,exp:0};const stage=G.STAGE_BY_ID.get('main-6-3');const mains=G.STAGES.filter(x=>x.group==='main');const idx=mains.findIndex(x=>x.id===stage.id);for(let i=0;i<idx;i++)if(!s.stage.cleared.includes(mains[i].id))s.stage.cleared.push(mains[i].id);s.stage.auto=false;const run=(ids)=>{s.squad=ids;const b=__RHODES__.battle;b.start(stage.id);let t=0,min=1;while(t<120&&b.status==='running'){b.tick(.1);t+=.1;for(const a of b.allies)if(!a.dead)min=Math.min(min,a.hp/a.maxHp);}return {status:b.status,time:+b.time.toFixed(1),leaks:b.leaks,kills:b.kills,min:+min.toFixed(2)};};return JSON.stringify({mujica:run(m),normal:run(n)})})()`));
+process.exit(0);

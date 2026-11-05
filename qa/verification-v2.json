@@ -862,6 +862,18 @@
           19
         ]
       ]
+    },
+    "mujicaCombo": {
+      "members": 5,
+      "interval": 4,
+      "damageRatio": 6,
+      "stun": 0.45,
+      "vuln": 0.15,
+      "heal": 0.08,
+      "atkBuff": 0.4,
+      "clear": 20.1,
+      "normalClear": 24.9,
+      "speedRatio": 1.24
     }
   },
   "limitations": [

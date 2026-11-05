@@ -1,0 +1,4 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+console.log(await evalJS(send, `(()=>{const s=__RHODES__.state,G=__RHODES__.G;const m=['char_4182_oblvns','char_4183_mortis','char_4184_dolris','char_4186_tmoris','char_4185_amoris'];const stage=G.STAGE_BY_ID.get('main-6-3');const b=__RHODES__.battle;const run=(mult)=>{s.squad=m;b.start(stage.id);b._updateMujica=function(dt){const ms=this.allies.filter(a=>a.id.startsWith('char_418'));if(ms.length<5)return;this.mujicaT=(this.mujicaT??4)-dt;if(this.mujicaT>0)return;this.mujicaT+=4;const t=ms.reduce((x,a)=>x+a.atk,0);for(const e of this.enemies){if(e.dead)continue;this._damageEnemy(e,t*mult,{source:ms[0]});if(!e.dead)e.stun=Math.max(e.stun||0,.45);}};let t=0;while(t<120&&b.status==='running'){b.tick(.1);t+=.1;}return +b.time.toFixed(1)};return JSON.stringify({n6:run(6),n8:run(8),n10:run(10),n12:run(12)})})()`));
+process.exit(0);
