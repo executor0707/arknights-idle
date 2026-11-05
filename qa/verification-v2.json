@@ -1190,6 +1190,11 @@
         "bard": true,
         "medic": true
       }
+    },
+    "tacticianRanged": {
+      "count": 7,
+      "range": 62,
+      "block": 0
     }
   },
   "limitations": [

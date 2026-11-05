@@ -61,6 +61,8 @@ const CLASS_KEY = { 先锋: 'vanguard', 近卫: 'guard', 重装: 'defender', 狙
 // their old narrow 13-15% auto-attack range. Ranged roles keep ROLE_MODS range.
 const MELEE_ROLES = new Set(['vanguard', 'guard', 'defender', 'specialist']);
 const MELEE_RANGE = 26;
+const RANGED_VANGUARD_SUBS = new Set(['战术家']);
+const RANGED_VANGUARD_RANGE = 62;
 // Requested specialist treatments: 钩索师 / 巡空者 / 怪杰 / 陷阱师 / 行商 / 炼金师.
 // All use the sniper engagement range and do not block.
 const RANGED_SPECIALIST_RANGE = new Map([
@@ -382,11 +384,14 @@ export function getOpStats(id) {
   const lord = data.role === 'guard' && data.sub === '领主';
   const ambusher = data.role === 'specialist' && data.sub === '伏击客';
   const puppeteer = data.role === 'specialist' && data.sub === '傀儡师';
-  const baseRange = (data.role === 'specialist' && RANGED_SPECIALIST_RANGE.get(data.sub)) || (MELEE_ROLES.has(data.role) ? MELEE_RANGE : mod.range);
+  const tactician = data.role === 'vanguard' && RANGED_VANGUARD_SUBS.has(data.sub);
+  const baseRange = (data.role === 'specialist' && RANGED_SPECIALIST_RANGE.get(data.sub))
+    || (tactician ? RANGED_VANGUARD_RANGE : null)
+    || (MELEE_ROLES.has(data.role) ? MELEE_RANGE : mod.range);
   return {
     id, hp, atk, def, res, interval,
     range: bard ? 999 : lord ? 999 : baseRange,
-    block: bard || ambusher || (data.role === 'specialist' && RANGED_SPECIALIST_RANGE.has(data.sub)) ? 0 : mod.block,
+    block: bard || ambusher || tactician || (data.role === 'specialist' && RANGED_SPECIALIST_RANGE.has(data.sub)) ? 0 : mod.block,
     role: data.role, arts: !!mod.arts, heal: !!mod.heal, bard, lord, ambusher, puppeteer,
     untargetable: ambusher, skillPower,
   };
