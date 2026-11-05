@@ -82,6 +82,10 @@ export function puppetDurationFor(id) {
   return PUPPET_DURATIONS[id] || 20;
 }
 
+export function puppetHasSkill(id) {
+  return puppetDurationFor(id) >= 10;
+}
+
 export const PUPPET_SKILL = {
   name: '傀儡技能',
   type: 'aoe',

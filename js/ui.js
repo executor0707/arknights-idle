@@ -732,6 +732,7 @@ function makeAllyEl(a) {
     hp: node.querySelector('.hpbar > i'),
     shield: node.querySelector('.shieldbar i'),
     sp: node.querySelector('.spbar i'),
+    spBar: node.querySelector('.spbar'),
     puppetBar: node.querySelector('.puppetbar'),
     puppet: node.querySelector('.puppetbar i'),
     badge: node.querySelector('.block-badge'),
@@ -780,6 +781,7 @@ function syncArena(rebuild = false) {
     node.classList.toggle('shielded', shield > 0.5);
     node._refs.sp.style.width = Math.min(100, unit.sp / unit.maxSp * 100) + '%';
     const isPuppet = !!unit.puppet;
+    node._refs.spBar.classList.toggle('hidden', isPuppet && !unit.puppetSkill);
     node._refs.puppetBar.classList.toggle('hidden', !isPuppet);
     node._refs.puppet.style.width = isPuppet ? Math.min(100, (unit.puppetElapsed || 0) / (unit.puppetDuration || 20) * 100) + '%' : '0%';
     node.classList.toggle('puppet', isPuppet);
@@ -1167,7 +1169,7 @@ export function openOperator(id, opts = {}) {
         </div>
       </div>
 
-      ${d.sub === '傀儡师' ? `<div class="detail-section puppet-skill">
+      ${d.sub === '傀儡师' && G.puppetHasSkill(id) ? `<div class="detail-section puppet-skill">
         <div class="detail-section-head"><b>傀儡技能</b><span>替身专属 · SP 10</span></div>
         <div class="detail-section-body">
           <div class="skill-name">傀儡技能 <span class="tag cyan">替身</span></div>
