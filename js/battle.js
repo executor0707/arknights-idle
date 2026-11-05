@@ -124,11 +124,12 @@ export class Battle {
     const b = this.buffs;
     const bb = this.baseBonuses || { atk: 0, hp: 0, aspd: 0, heal: 0, crit: 0.05, critDmg: 1.5 };
     const hp = Math.round(st.hp * (1 + b.hp) * (1 + bb.hp));
+    const skillSp = Math.max(10, Math.min(40, Number(OP_MAP.get(id)?.skill?.sp) || 30));
     return {
       uid: uid('a'), id, x, y, lane, role: st.role, bobPhase: Math.random() * Math.PI * 2,
       hp, maxHp: hp, shield: 0, atk: st.atk * (1 + b.atk) * (1 + bb.atk), def: st.def * (1 + b.def),
       res: st.res, interval: st.interval / (1 + bb.aspd), range: st.range, block: st.block,
-      cooldown: rand(0.1, 0.6), sp: id === 'amiya' ? 5 : 0, maxSp: id === 'amiya' ? 27 : 30,
+      cooldown: rand(0.1, 0.6), sp: id === 'amiya' ? Math.min(5, skillSp) : 0, maxSp: skillSp,
       spRate: 1 + b.spRegen, dead: false, heal: st.heal, bard: !!st.bard, arts: st.arts,
       skillPower: st.skillPower, buffAtk: 0, buffUntil: 0, castUntil: 0, attackLock: 0,
       combo: 0, lastTarget: null, atkStacks: 0, mlynarTimer: 0, phantoms: [],
