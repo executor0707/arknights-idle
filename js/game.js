@@ -1021,9 +1021,10 @@ function pickOperator(rarity, banner) {
 }
 
 function rollRarity(banner, pity) {
+  // Every pool has a hard 50-pull 6-star guarantee. The 50th pull since the
+  // last 6-star is guaranteed; earlier pulls stay at the base 2% rate.
   let six = 0.02;
-  if (pity.since6 >= 50) six = Math.min(1, 0.02 + (pity.since6 - 49) * 0.02);
-  if (pity.since6 >= 98) six = 1;
+  if (pity.since6 >= 49) six = 1;
   const r = Math.random();
   if (r < six) return 6;
   if (r < six + (1 - six) * 0.08) return 5;
