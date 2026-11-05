@@ -1094,6 +1094,25 @@
       "cutIn": null,
       "damageStillApplied": 1899,
       "spineAnim": "Idle"
+    },
+    "baseStats": {
+      "allFacilitiesReflected": true,
+      "healOnlyHealers": true,
+      "pwrDeltas": {
+        "control": 6,
+        "trade": 1,
+        "factory": 19,
+        "power": 11,
+        "reception": 0,
+        "workshop": 0,
+        "training": 0,
+        "dorm": 31
+      },
+      "healerDeltas": {
+        "reception": 20,
+        "workshop": 15,
+        "training": 40
+      }
     }
   },
   "limitations": [

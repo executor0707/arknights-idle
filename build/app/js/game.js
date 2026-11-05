@@ -357,12 +357,43 @@ export function getOpStats(id) {
   };
 }
 
-export function opPower(id) {
+export function getCombatStats(id) {
   const st = getOpStats(id);
-  if (!st) return 0;
+  if (!st) return null;
   const b = getBaseBonuses();
+  const healer = !!(st.heal || st.bard);
+  return {
+    ...st,
+    hp: st.hp * (1 + b.hp),
+    atk: st.atk * (1 + b.atk),
+    def: st.def * (1 + b.def),
+    res: st.res + b.res,
+    interval: st.interval / (1 + b.aspd),
+    crit: Math.min(1, b.crit),
+    critDmg: b.critDmg,
+    aspd: b.aspd,
+    healBonus: healer ? b.heal : 0,
+  };
+}
+
+export function opPower(id) {
+  const st = getCombatStats(id);
+  if (!st) return 0;
+  const healer = !!(st.heal || st.bard);
   const atkW = st.heal ? 4.2 : 3;
-  return Math.round(st.atk * atkW * (1 + b.atk) + st.hp * 0.35 * (1 + b.hp) + st.def * 1.5 + st.res * 1.2 + st.skillPower * 55 * (1 + b.crit * 2));
+  const damage = st.atk * atkW;
+  const critPart = damage * st.crit * 0.35;
+  const critDmgPart = damage * st.crit * Math.max(0, st.critDmg - 1.5) * 0.8;
+  const aspdPart = damage * st.aspd * 1.2;
+  const healPart = healer ? damage * st.healBonus * 2.2 : 0;
+  return Math.round(
+    damage
+    + st.hp * 0.35
+    + st.def * 1.5
+    + st.res * 1.2
+    + st.skillPower * 55 * (1 + st.crit * 2)
+    + critPart + critDmgPart + aspdPart + healPart
+  );
 }
 
 export function getSquadBuffs(ids = state.squad.filter(Boolean)) {
@@ -1117,6 +1148,8 @@ export function getBaseBonuses() {
     aspd: lv('power') * 0.0003,
     heal: lv('reception') * 0.0004 + lv('workshop') * 0.0003 + lv('training') * 0.0008,
     hp: lv('dorm') * 0.0008,
+    def: 0,
+    res: 0,
   };
 }
 
