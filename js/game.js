@@ -18,6 +18,37 @@ for (const [operatorId, skill] of Object.entries(SKILL_OVERRIDES)) {
   const data = OP_BY_ID.get(operatorId);
   if (data) data.skill = { ...data.skill, ...skill };
 }
+// Vanguard/guard/sniper/caster skills must stay offensive. A few generated
+// healing skills are replaced with wiki-themed attacks so those classes never
+// heal through their skill slot.
+const CLASS_ATTACK_SKILL_FIXES = {
+  char_450_necras: { name: '冠死以冕', type: 'aoe', power: 3.2, duration: 3, sp: 40, stun: 0.4, desc: '冠死以冕：对范围内所有敌人造成攻击力 320% 的法术伤害，并使其停顿 0.4 秒。' },
+  char_127_estell: { name: '舍身突击', type: 'aoe', power: 2.5, duration: 3, sp: 23, stun: 0.3, desc: '舍身突击：对前方范围内所有敌人造成攻击力 250% 的物理伤害，并使其停顿 0.3 秒。' },
+  char_4166_varkis: { name: '同胞的意志', type: 'aoe', power: 2.4, duration: 3, sp: 22, desc: '同胞的意志：对前方范围内所有敌人造成攻击力 240% 的物理伤害。' },
+  char_452_bstalk: { name: '定点指令', type: 'nuke', power: 2.8, duration: 2, sp: 21, desc: '定点指令：对生命最低的敌人造成攻击力 280% 的物理伤害。' },
+  char_4066_highmo: { name: '泡影，殆尽', type: 'aoe', power: 2.6, duration: 3, sp: 22, desc: '泡影，殆尽：对范围内所有敌人造成攻击力 260% 的法术伤害。' },
+  char_4088_hodrer: { name: '死境硝烟', type: 'aoe', power: 2.8, duration: 4, sp: 22, stun: 0.5, desc: '死境硝烟：对范围内所有敌人造成攻击力 280% 的物理伤害，并使其停顿 0.5 秒。' },
+  char_4237_jcinta: { name: '伞下乘荫', type: 'aoe', power: 2.3, duration: 3, sp: 24, desc: '伞下乘荫：对前方范围内所有敌人造成攻击力 230% 的物理伤害。' },
+  surtr: { name: '黄昏', type: 'aoe', all: true, power: 4.2, duration: 4, sp: 25, desc: '黄昏：对全场敌人造成攻击力 420% 的法术伤害。' },
+  char_4199_makiri: { name: '万手成局', type: 'multi', power: 1.2, hits: 4, duration: 3, sp: 22, desc: '万手成局：连续攻击 4 次，每次造成攻击力 120% 的物理伤害。' },
+  char_151_myrtle: { name: '治愈之翼', type: 'aoe', power: 2, duration: 3, sp: 21, desc: '治愈之翼：对前方范围内所有敌人造成攻击力 200% 的物理伤害。' },
+  char_4119_wanqin: { name: '应东风', type: 'aoe', power: 2.5, duration: 3, sp: 22, desc: '应东风：对范围内所有敌人造成攻击力 250% 的法术伤害。' },
+  char_155_tiger: { name: '裂魂', type: 'multi', power: 1.5, hits: 3, duration: 3, sp: 22, desc: '裂魂：连续攻击 3 次，每次造成攻击力 150% 的物理伤害。' },
+  char_333_sidero: { name: '破浪回神', type: 'nuke', power: 3, duration: 2, sp: 22, desc: '破浪回神：对生命最低的敌人造成攻击力 300% 的法术伤害。' },
+  char_4121_zuole: { name: '佑序有炎', type: 'aoe', power: 3.45, duration: 4, sp: 38, dot: 0.3, desc: '佑序有炎：对范围内所有敌人造成攻击力 345% 的法术伤害，并附加持续 4 秒的灼烧。' },
+};
+for (const [operatorId, skill] of Object.entries(CLASS_ATTACK_SKILL_FIXES)) {
+  const data = OP_BY_ID.get(operatorId);
+  if (data) data.skill = { ...data.skill, ...skill };
+}
+// The original operator table sometimes carried a heal flag on an offensive
+// skill (for example Nearl Alter). Strip it for these four classes so no
+// forgotten flag can apply a hidden self-heal.
+for (const data of OPERATORS) {
+  if (!['先锋', '近卫', '狙击', '术士'].includes(data.cls) || !data.skill) continue;
+  const { heal, selfHeal, ...offensive } = data.skill;
+  data.skill = offensive;
+}
 export const STAGE_BY_ID = new Map(STAGES.map(s => [s.id, s]));
 export const bus = new EventTarget();
 
