@@ -1052,6 +1052,13 @@
       "beforePerHour": 2,
       "afterPerHour": 100,
       "multiplier": 50
+    },
+    "ulikaFix": {
+      "default3_8": true,
+      "skin3_8": true,
+      "spineUnitClass": true,
+      "portraitHidden": true,
+      "frameError": null
     }
   },
   "limitations": [

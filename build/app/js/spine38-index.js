@@ -1647,6 +1647,10 @@ export const SPINE38_OPERATORS = {
   "rathalos_noir": {
     "base": "assets/spine38/operators/rathalos_noir/char_1030_noirc2",
     "name": "火龙S黑角"
+  },
+  "char_4091_ulika": {
+    "base": "assets/spine38/operators/char_4091_ulika/char_4091_ulika",
+    "name": "U-Official"
   }
 };
 
@@ -1794,10 +1798,6 @@ export const SPINE35_ONLY = {
   "char_112_siege": {
     "base": "assets/spine/operators/char_112_siege/char_112_siege",
     "name": "推进之王"
-  },
-  "char_4091_ulika": {
-    "base": "assets/spine/operators/char_4091_ulika/char_4091_ulika",
-    "name": "U-Official"
   },
   "char_113_cqbw": {
     "base": "assets/spine/operators/char_113_cqbw/char_113_cqbw",
