@@ -1005,6 +1005,11 @@
     "ambusherStun": {
       "seconds": 0.2,
       "tested": true
+    },
+    "hailingSkill": {
+      "duration": 6,
+      "ambusherStun": 0.4,
+      "tested": true
     }
   },
   "limitations": [
