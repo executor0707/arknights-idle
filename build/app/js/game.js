@@ -338,7 +338,8 @@ export function getOpStats(id) {
     id, hp, atk, def, res, interval,
     range: bard ? 999 : lord ? 999 : baseRange,
     block: bard || ambusher || (data.role === 'specialist' && RANGED_SPECIALIST_RANGE.has(data.sub)) ? 0 : mod.block,
-    role: data.role, arts: !!mod.arts, heal: !!mod.heal, bard, lord, ambusher, skillPower,
+    role: data.role, arts: !!mod.arts, heal: !!mod.heal, bard, lord, ambusher,
+    untargetable: ambusher, skillPower,
   };
 }
 
@@ -574,6 +575,9 @@ export function useToken(id) {
 export function talentText(id) {
   const d = opData(id);
   if (!d) return '';
+  if (d.role === 'specialist' && d.sub === '伏击客') {
+    return '伏击：攻击均为范围攻击，对范围内所有敌人造成 0.4 秒停顿；自身不成为敌方攻击目标。';
+  }
   if (d.talent) return `${d.talent.name}：${d.talent.desc}`;
   if (d.rarity === 5) return '战术素养：攻击力 +6%。';
   if (d.rarity === 4) return '基础训练：生命上限 +5%。';

@@ -924,6 +924,19 @@
       "orundumPerFloor": 60,
       "floor9999Orundum": 608880,
       "floor9999Pulls": 1014.8
+    },
+    "ambusherTalent": {
+      "allInRange": true,
+      "stun": 0.4,
+      "untargetable": true,
+      "block": 0,
+      "talentText": true
+    },
+    "bardIdleOnly": {
+      "castUntil": 0,
+      "cutIn": null,
+      "banner": null,
+      "spineIdle": true
     }
   },
   "limitations": [

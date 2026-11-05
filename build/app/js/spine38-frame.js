@@ -217,6 +217,7 @@
       sp.y = (u.y / 100) * h + 18 + (u.bob || 0);
       sp.visible = !u.dead;
       if (u.dead) { play(sp, 'Die'); continue; }
+      if (u.bard) { play(sp, 'Idle', true); continue; }
       if (u.castUntil > 0.05) {
         if (sp._castMark !== u.sp) { play(sp, sp._anims.indexOf('Skill') >= 0 ? 'Skill' : 'Attack'); sp._castMark = u.sp; }
       } else if (u.attackLock > 0.01 || u.attackFlash > 0.06) {
