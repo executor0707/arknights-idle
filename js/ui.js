@@ -1050,7 +1050,7 @@ export function openOperator(id, opts = {}) {
   if (!G.owned(id)) { toast('尚未获得该干员。前往寻访，或使用 300 抽自选兑换。', 'warn'); return; }
   const s = state.operators[id];
   if (!s) { toast('干员状态缺失，请重新载入存档。', 'warn'); return; }
-  const st = G.getOpStats(id);
+  const st = G.getCombatStats(id);
   if (!st) { toast('干员数据缺失，无法打开面板。', 'warn'); return; }
   const next = G.nextLevelInfo(id) || { capped: true, cap: G.levelCap(d.rarity, s.elite), exp: 0, lmd: 0, needExp: 0 };
   const promo = G.promotionInfo(id);
@@ -1110,7 +1110,11 @@ export function openOperator(id, opts = {}) {
         <div class="stat-box"><span>攻击间隔</span><b>${st.interval.toFixed(2)}s</b></div>
         <div class="stat-box"><span>阻挡</span><b>${st.block}</b></div>
         <div class="stat-box"><span>攻击范围</span><b>${st.bard ? '全场' : st.range > 40 ? '远程' : '近战'}</b></div>
+        <div class="stat-box"><span>暴击率</span><b>${(st.crit * 100).toFixed(1)}%</b></div>
+        <div class="stat-box"><span>暴击伤害</span><b>${(st.critDmg * 100).toFixed(0)}%</b></div>
+        <div class="stat-box"><span>攻速加成</span><b>+${(st.aspd * 100).toFixed(1)}%</b></div>
         <div class="stat-box"><span>信赖加成</span><b>+${(s.trust / 100 * 8).toFixed(1)}%</b></div>
+        ${st.heal || st.bard ? `<div class="stat-box"><span>治疗加成</span><b>+${(st.healBonus * 100).toFixed(1)}%</b></div>` : ''}
       </div>
 
       ${id === 'amiya' || id === 'char_1001_amiya2' || id === 'char_1037_amiya3' ? `<div class="detail-section amiya-form-section">
@@ -2280,7 +2284,7 @@ function renderBase() {
           <div class="kv"><span>全队攻击</span><b>+${(sum.bonuses.atk * 100).toFixed(2)}%</b></div>
           <div class="kv"><span>全队生命</span><b>+${(sum.bonuses.hp * 100).toFixed(2)}%</b></div>
           <div class="kv"><span>攻击速度</span><b>+${(sum.bonuses.aspd * 100).toFixed(2)}%</b></div>
-          <div class="kv"><span>治疗量</span><b>+${(sum.bonuses.heal * 100).toFixed(2)}%</b></div>
+          <div class="kv"><span>治疗量（仅治疗干员）</span><b>+${(sum.bonuses.heal * 100).toFixed(2)}%</b></div>
           <div class="kv"><span>暴击率</span><b>${(sum.bonuses.crit * 100).toFixed(2)}%</b></div>
           <div class="kv"><span>暴击伤害</span><b>${(sum.bonuses.critDmg * 100).toFixed(0)}%</b></div>
           <div class="kv"><span>全基升 1 级战力</span><b>+${fmt(powerGain)}</b></div>
