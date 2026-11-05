@@ -63,20 +63,6 @@
         "char_376_therex-skin1",
         "liskarm-skin1",
         "liskarm-skin2"
-      ],
-      "skill1Attack": [
-        "char_388_mint-skin1",
-        "char_388_mint-skin2",
-        "char_445_wscoot-skin1",
-        "char_426_billro-skin1",
-        "char_426_billro-skin2",
-        "char_486_takila-skin1",
-        "char_486_takila-skin2",
-        "mlynar-skin1",
-        "mlynar-skin2",
-        "char_344_beewax-skin1",
-        "char_344_beewax-skin2",
-        "char_1043_leizi2-skin1"
       ]
     },
     "skinPurchase": {
@@ -806,6 +792,21 @@
       "base": 106272,
       "total": 109354,
       "displayed": "10.9万"
+    },
+    "skinAttackDefaults": {
+      "operatorsSubclasses": [
+        "阵法术师",
+        "解放者"
+      ],
+      "skillClips": [
+        "Skill_1_Start",
+        "Skill_1_Begin"
+      ],
+      "rathalos": "3.8 local model",
+      "tested": {
+        "mlynarClip": "Skill_1_Start",
+        "rathalosHeight": 117
+      }
     }
   },
   "limitations": [
