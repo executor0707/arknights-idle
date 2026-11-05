@@ -815,6 +815,18 @@
       "tested": 140,
       "changed": 120,
       "noDoubleMultiplier": true
+    },
+    "bardChorus": {
+      "bardsRequired": 5,
+      "pulseSeconds": 1,
+      "damageRatio": 0.8,
+      "stunSeconds": 0.3,
+      "tested": true
+    },
+    "shieldBar": {
+      "yellowOverlay": true,
+      "titleValue": true,
+      "testedShield": 500
     }
   },
   "limitations": [

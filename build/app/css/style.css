@@ -329,8 +329,11 @@ a { color: var(--orange); }
 .ally-token.spine-unit .spbar { margin-left: 12px; margin-right: 12px; }
 .ally-token .portrait { position: relative; width: 50px; height: 50px; margin: 0 auto; border-radius: 50%; border: 2px solid var(--rarity, var(--orange)); background: #111; overflow: hidden; box-shadow: 0 0 0 2px rgba(0,0,0,.45), 0 3px 12px rgba(0,0,0,.6); }
 .ally-token .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; transform: scale(1.35); }
-.ally-token .hpbar { height: 4px; margin: 3px 3px 0; background: rgba(0,0,0,.72); border: 1px solid rgba(0,0,0,.4); overflow: hidden; }
-.ally-token .hpbar i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, #66dca6, #a9f0c7); transition: width .18s; }
+.ally-token .hpbar { position: relative; height: 4px; margin: 3px 3px 0; background: rgba(0,0,0,.72); border: 1px solid rgba(0,0,0,.4); overflow: hidden; }
+.ally-token .hpbar > i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, #66dca6, #a9f0c7); transition: width .18s; }
+.ally-token .shieldbar { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.ally-token .shieldbar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #ffe27a, #ffb300); box-shadow: 0 0 7px rgba(255,201,64,.85); transition: width .18s; }
+.ally-token.shielded .portrait { box-shadow: 0 0 0 2px rgba(255,201,64,.75), 0 0 18px rgba(255,177,0,.35); }
 .ally-token .spbar { height: 2px; margin: 2px 5px 0; background: rgba(255,255,255,.12); overflow: hidden; }
 .ally-token .spbar i { display: block; height: 100%; background: var(--cyan); width: 0; transition: width .15s; }
 .ally-token .unit-name { margin-top: 2px; text-align: center; font-size: 7px; color: #c8d3d1; text-shadow: 0 1px 3px #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

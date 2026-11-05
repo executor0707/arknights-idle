@@ -1,0 +1,10 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront'); await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=bardshield'});
+await new Promise(r=>setTimeout(r,1800));
+if (await evalJS(send, `!!document.querySelector('#enterBtn')`)) { await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true}); await new Promise(r=>setTimeout(r,1800)); await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`); await new Promise(r=>setTimeout(r,400)); }
+console.log('bard', await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state;const ids=['char_101_sora','char_4045_heidi','char_4134_cetsyr','char_4184_dolris','char_4091_ulika'];for(const id of ids)s.operators[id]={level:50,elite:2,potential:1,skill:7,mastery:0,trust:0,module:0,exp:0};s.squad=ids;__RHODES__.setView('battle',true);const b=__RHODES__.battle;b.start('CE-6');const before=b.enemies.length;b.tick(1.1);return JSON.stringify({bards:b.allies.filter(a=>a.bard).length,enemies:b.enemies.length,stuns:b.enemies.map(e=>+((e.stun||0).toFixed(2))),pulse:b.bardPulseT})})()`));
+console.log('shield', await evalJS(send, `(()=>{const b=__RHODES__.battle;const a=b.allies[0];a.shield=500;a.maxHp=Math.max(a.maxHp,1000);__RHODES__.setView('battle',true);const bar=document.querySelector('.ally-token .shieldbar i');return JSON.stringify({bar:!!bar,width:bar?.style.width,title:bar?.title,shielded:document.querySelector('.ally-token')?.classList.contains('shielded')})})()`));
+console.log('intro', await evalJS(send, `(()=>{const id='char_101_sora';__RHODES__.setView('operators',true);document.querySelector('.op-hit[data-id="'+id+'"]')?.click();return JSON.stringify({text:document.querySelector('.modal-backdrop')?.innerText?.includes('吟游者共鸣'),excerpt:document.querySelector('.modal-backdrop')?.innerText?.match(/吟游者共鸣[\\s\\S]{0,100}/)?.[0]})})()`));
+process.exit(0);

@@ -717,11 +717,16 @@ function makeAllyEl(a) {
   node.dataset.uid = a.uid;
   node.style.setProperty('--rarity', STAR_COLOR[d?.rarity || 3]);
   if (a.phantom) {
-    node.innerHTML = `<div class="portrait"><span class="phantom-mark">影</span></div><div class="hpbar"><i></i></div><div class="spbar"><i></i></div><div class="unit-name">${esc(a.summonName || '召唤物')}</div>`;
+    node.innerHTML = `<div class="portrait"><span class="phantom-mark">影</span></div><div class="hpbar"><i></i><span class="shieldbar"><i></i></span></div><div class="spbar"><i></i></div><div class="unit-name">${esc(a.summonName || '召唤物')}</div>`;
   } else {
-    node.innerHTML = `<div class="portrait"><img src="${G.portraitFor(a.id)}" alt="${esc(d.name)}" loading="lazy"><span class="block-badge"></span></div><div class="hpbar"><i></i></div><div class="spbar"><i></i></div><div class="unit-name">${esc(d.name)}</div>`;
+    node.innerHTML = `<div class="portrait"><img src="${G.portraitFor(a.id)}" alt="${esc(d.name)}" loading="lazy"><span class="block-badge"></span></div><div class="hpbar"><i></i><span class="shieldbar"><i></i></span></div><div class="spbar"><i></i></div><div class="unit-name">${esc(d.name)}</div>`;
   }
-  node._refs = { hp: node.querySelector('.hpbar i'), sp: node.querySelector('.spbar i'), badge: node.querySelector('.block-badge') };
+  node._refs = {
+    hp: node.querySelector('.hpbar > i'),
+    shield: node.querySelector('.shieldbar i'),
+    sp: node.querySelector('.spbar i'),
+    badge: node.querySelector('.block-badge'),
+  };
   return node;
 }
 
@@ -760,6 +765,10 @@ function syncArena(rebuild = false) {
     node.style.left = `calc(${unit.x}% + ${bobX.toFixed(1)}px)`;
     node.style.top = `calc(${unit.y}% + ${bob.toFixed(1)}px)`;
     node._refs.hp.style.width = Math.max(0, unit.hp / unit.maxHp * 100) + '%';
+    const shield = Math.max(0, Number(unit.shield) || 0);
+    node._refs.shield.style.width = Math.min(100, shield / unit.maxHp * 100) + '%';
+    node._refs.shield.title = shield > 0 ? `护盾 ${Math.round(shield)}` : '';
+    node.classList.toggle('shielded', shield > 0.5);
     node._refs.sp.style.width = Math.min(100, unit.sp / unit.maxSp * 100) + '%';
     node.classList.toggle('dead', unit.dead);
     node.classList.toggle('spine-unit', isOperatorSpineReady(unit.id));
@@ -1094,6 +1103,13 @@ export function openOperator(id, opts = {}) {
           </div>
         </div>
       </div>
+
+      ${d.sub === '吟游者' ? `<div class="detail-section bard-synergy">
+        <div class="detail-section-head"><b>吟游者共鸣</b><span>5 人联动</span></div>
+        <div class="detail-section-body">
+          <div class="detail-note">当场上同时存在 5 名吟游者时，每秒对全场所有敌人造成各自攻击力 <b>80%</b> 的伤害，并使其麻痹 <b>0.3 秒</b>。</div>
+        </div>
+      </div>` : ''}
 
       <div class="detail-section">
         <div class="detail-section-head"><b>等级提升</b><span>${next?.capped ? '已达当前上限' : 'EXP ' + fmt(next.needExp)}</span></div>
