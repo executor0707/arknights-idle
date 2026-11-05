@@ -1506,7 +1506,7 @@ function renderInventory() {
     return m.kind === ui.invTab;
   }).sort((a, b) => b[1].tier - a[1].tier || a[1].name.localeCompare(b[1].name, 'zh'));
   const invGrid = items.map(([id, m]) => itemCard(id, m)).join('');
-  const fiveStarRow = `<div class="shop-row"><div><b>五星自选凭证 ×1</b><small>自选任意一名 5★ 干员；已拥有则提升 1 点潜能。</small></div><span class="shop-cost">▤ ${FIVE_STAR_SELECTOR_COST}</span><button class="btn btn-small" data-action="five-selector" ${state.distinction < FIVE_STAR_SELECTOR_COST ? 'disabled' : ''}>${state.distinction >= FIVE_STAR_SELECTOR_COST ? '兑换' : '凭证不足'}</button></div>`;
+  const fiveStarRow = `<div class="shop-row"><div><b>五星自选凭证 ×1</b><small>自选任意一名 5★ 干员；已拥有则提升 1 点潜能。每日不限次数。</small></div><span class="shop-cost">▤ ${FIVE_STAR_SELECTOR_COST}</span><button class="btn btn-small" data-action="five-selector" ${state.distinction < FIVE_STAR_SELECTOR_COST ? 'disabled' : ''}>${state.distinction >= FIVE_STAR_SELECTOR_COST ? '兑换' : '凭证不足'}</button></div>`;
   const shop = [fiveStarRow, ...SHOP_ITEMS.map(item => {
     const stock = state.shop.stock[item.id] ?? 0;
     return `<div class="shop-row"><div><b>${item.name} ×${item.qty}</b><small>${item.desc}</small></div><span class="shop-cost">▤ ${item.cost}</span><button class="btn btn-small" data-action="buy-shop" data-id="${item.id}" ${stock <= 0 || state.distinction < item.cost ? 'disabled' : ''}>${stock > 0 ? '兑换 · 余 ' + stock : '售罄'}</button></div>`;

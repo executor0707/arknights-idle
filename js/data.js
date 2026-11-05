@@ -156,7 +156,7 @@ const LEGACY_STAGES = [
 
 export const ENDLESS_BOSSES = ['boss_skulsr', 'boss_frstar', 'boss_faust', 'boss_mephi', 'boss_sfsui', 'boss_blksnk'];
 // Internal floor 1 displays as 无尽战线-0; internal 10000 displays as -9999.
-export const MAX_ENDLESS_FLOOR = 10000;
+export const MAX_ENDLESS_FLOOR = 9999;
 export function makeEndlessStage(n) {
   const floor = Math.max(1, Math.min(MAX_ENDLESS_FLOOR, Math.floor(n)));
   // Two endless floors per full-base-level power gain. The base calculator
