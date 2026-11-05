@@ -139,7 +139,8 @@ export class Battle {
       hp, maxHp: hp, shield: 0, atk: st.atk * (1 + b.atk) * (1 + bb.atk), def: st.def * (1 + b.def),
       res: st.res, interval: st.interval / (1 + bb.aspd), range: st.range, block: st.block,
       cooldown: rand(0.1, 0.6), sp: id === 'amiya' ? Math.min(5, skillSp) : 0, maxSp: skillSp,
-      spRate: 1 + b.spRegen, dead: false, heal: st.heal, bard: !!st.bard, ambusher: !!st.ambusher, arts: st.arts,
+      spRate: 1 + b.spRegen, dead: false, heal: st.heal, bard: !!st.bard, ambusher: !!st.ambusher,
+      untargetable: !!st.untargetable, arts: st.arts,
       skillPower: st.skillPower, buffAtk: 0, buffUntil: 0, castUntil: 0, attackLock: 0,
       combo: 0, lastTarget: null, atkStacks: 0, mlynarTimer: 0, phantoms: [],
       hitFlash: 0, healFlash: 0,
@@ -324,11 +325,11 @@ export class Battle {
     for (const e of this.enemies) {
       if (e.blockedBy) {
         const b = this.allies.find(a => a.uid === e.blockedBy && !a.dead);
-        if (!b || !e.blockable || b.blockCount >= b.block) e.blockedBy = null;
+        if (!b || b.untargetable || !e.blockable || b.blockCount >= b.block) e.blockedBy = null;
         else { b.blockCount++; b.blocked.push(e); }
       }
     }
-    const melee = this.allies.filter(a => !a.dead && a.block > 0 && a.range <= 40 && ['vanguard', 'guard', 'defender', 'specialist'].includes(a.role))
+    const melee = this.allies.filter(a => !a.dead && !a.untargetable && a.block > 0 && a.range <= 40 && ['vanguard', 'guard', 'defender', 'specialist'].includes(a.role))
       .sort((a, b) => b.x - a.x);
     for (const a of melee) {
       if (a.blockCount >= a.block) continue;
@@ -576,9 +577,12 @@ export class Battle {
     if (!['heal', 'buff', 'shield', 'summon'].includes(skill.type) && !enemiesInRange.length) return;
     const power = a.skillPower * (a.id === 'dusk' ? 1.2 : 1);
     a.sp = 0;
-    a.castUntil = 0.7;
-    this.cast = { name: `${op.name} · ${skill.name}`, life: 1.35, color: a.arts ? '#67d9ff' : '#ffb544' };
-    this.cutIn = { id: a.id, name: op.name, skill: skill.name, life: 1.15, key: `${a.id}-${this.time.toFixed(2)}` };
+    // Bards keep their idle loop: no cast pose, cut-in, banner or casting glow.
+    a.castUntil = a.bard ? 0 : 0.7;
+    if (!a.bard) {
+      this.cast = { name: `${op.name} · ${skill.name}`, life: 1.35, color: a.arts ? '#67d9ff' : '#ffb544' };
+      this.cutIn = { id: a.id, name: op.name, skill: skill.name, life: 1.15, key: `${a.id}-${this.time.toFixed(2)}` };
+    }
     // Bard paralysis is tied to skill release, not to the one-second chorus
     // damage tick. max() prevents several simultaneous bards from stacking
     // multiple 0.3s controls into a long chain.
