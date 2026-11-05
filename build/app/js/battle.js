@@ -482,7 +482,8 @@ export class Battle {
     const enemies = this.enemies.filter(e => !e.dead);
     if (!enemies.length) return;
     const target = enemies[Math.floor(Math.random() * enemies.length)];
-    this._damageEnemy(target, amount, { arts: true, source, green: true });
+    // Medic resonance: 300% of the otherwise wasted healing becomes damage.
+    this._damageEnemy(target, amount * 3, { arts: true, source, green: true });
   }
 
   _attack(a, target) {

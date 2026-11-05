@@ -1,0 +1,7 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=medic300verify'});
+await new Promise(r=>setTimeout(r,3500));
+if (await evalJS(send, `!!document.querySelector('#enterBtn')`)) { await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true}); await new Promise(r=>setTimeout(r,2000)); await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`); }
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state;const meds=G.OPERATORS.filter(o=>o.cls==='医疗').slice(0,5);for(const o of meds)s.operators[o.id]={level:90,elite:2,potential:1,skill:1,mastery:0,trust:0,module:0,exp:0};s.squad=meds.map(o=>o.id);s.settings.autoSkill=false;const run=(healLevel)=>{for(const id of ['reception','workshop','training'])s.base.rooms[id].level=healLevel;__RHODES__.setView('battle',true);const b=__RHODES__.battle;b.start('CE-6');b.enemies=[];b._spawnEnemy({type:'boss',wave:1,boss:true,lane:0,bossKey:'boss_skulsr'});const e=b.enemies[0];e.hp=e.maxHp=1e9;for(const a of b.allies){a.hp=a.maxHp;a.cooldown=0;a.attackLock=0;a.sp=0;}const calls=[];b._damageEnemy=function(e,amount,opts){calls.push(+amount.toFixed(2))};b._updateAllies(0.1);return {healBonus:b.baseBonuses.heal,calls:calls.slice(0,5),total:calls.reduce((a,x)=>a+x,0)}};const low=run(1),high=run(11);return JSON.stringify({low,high,damageRatio:+(high.total/low.total).toFixed(3)})})()`));
+process.exit(0);

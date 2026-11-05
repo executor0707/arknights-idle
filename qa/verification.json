@@ -1166,6 +1166,14 @@
     "medicDescription": {
       "allMedics": true,
       "samePosition": true
+    },
+    "medic300Dps": {
+      "healBonusRatio": 1.015,
+      "medicDamage": 143289,
+      "normalDamage": 817889,
+      "medicDps": 4776,
+      "normalDps": 27263,
+      "ratio": 0.175
     }
   },
   "limitations": [
