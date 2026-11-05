@@ -1134,7 +1134,7 @@ export function openOperator(id, opts = {}) {
       <div class="detail-section">
         <div class="detail-section-head"><b>等级提升</b><span>${next?.capped ? '已达当前上限' : 'EXP ' + fmt(next.needExp)}</span></div>
         <div class="detail-section-body">
-          ${next?.capped ? `<div class="detail-note">已达到 E${s.elite} 的等级上限，请完成精英化。</div>` : `
+          ${next?.capped ? `<div class="detail-note">${s.elite >= 2 ? '已达等级上限。' : `已达到 E${s.elite} 的等级上限，请完成精英化。`}</div>` : `
             <div class="lvl-bar"><span>LV ${s.level} / ${next.cap}</span><b>${fmt(s.exp || 0)} / ${fmt(next.needExp)}</b></div>
             <div class="progress"><i style="width:${Math.min(100, (s.exp || 0) / next.needExp * 100)}%"></i></div>
             <div class="cost-line"><span class="cost-item ${state.lmd < next.lmd ? 'missing' : ''}"><span class="ci">L</span> ${fmt(next.lmd)}</span><span class="small">升级消耗作战记录，库存经验 ${fmt(baseExp)}</span></div>
