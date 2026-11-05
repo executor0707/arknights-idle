@@ -235,7 +235,7 @@ export class Battle {
       if (e.dead) continue;
       for (const a of bards) {
         if (e.dead) break;
-        this._damageEnemy(e, a.atk * 0.8, { arts: false, source: a });
+        this._damageEnemy(e, a.atk * 0.8325, { arts: false, source: a });
       }
     }
     this._effect(50, 50, 'aoe', 0.45);
@@ -537,7 +537,7 @@ export class Battle {
     // damage tick. max() prevents several simultaneous bards from stacking
     // multiple 0.3s controls into a long chain.
     if (a.bard) {
-      for (const e of this.enemies) if (!e.dead) e.stun = Math.max(e.stun || 0, 0.3);
+      for (const e of this.enemies) if (!e.dead) e.stun = Math.max(e.stun || 0, 0.325);
       this._effect(a.x, a.y, 'stun', 0.45);
     }
     bus.dispatchEvent(new CustomEvent('battle-sfx', { detail: { sound: 'skill' } }));
