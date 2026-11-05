@@ -2828,10 +2828,10 @@ export const SKILL_OVERRIDES = {
   "wisadel": {
     "name": "定点清算",
     "type": "control",
-    "power": 1,
+    "power": 3,
     "duration": 4,
     "sp": 23,
-    "desc": "定点清算：对范围内敌人造成攻击力 100% 的伤害，并使其停顿 4 秒。"
+    "desc": "定点清算：对范围内敌人造成攻击力 300% 的伤害，并使其停顿 4 秒。"
   },
   "char_4098_vvana": {
     "name": "“明灭”",
