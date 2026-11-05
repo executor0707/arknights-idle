@@ -1087,6 +1087,13 @@
       "testedWeakNoOverride": true,
       "sameNoExtension": true,
       "strongOverride": true
+    },
+    "noCastAnimation": {
+      "castUntil": 0,
+      "castBanner": null,
+      "cutIn": null,
+      "damageStillApplied": 1899,
+      "spineAnim": "Idle"
     }
   },
   "limitations": [
