@@ -1078,6 +1078,15 @@
       "healRatio": 1.504,
       "descriptionCurrent": true,
       "descriptionPreview": true
+    },
+    "skadiBuff": {
+      "type": "buff",
+      "power": 2,
+      "duration": 10,
+      "nonStacking": true,
+      "testedWeakNoOverride": true,
+      "sameNoExtension": true,
+      "strongOverride": true
     }
   },
   "limitations": [

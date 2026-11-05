@@ -140,6 +140,16 @@ for (const op of OPERATORS) {
     overrides[op.id].duration = 3;
     overrides[op.id].desc = '无存之所：对范围内敌人造成攻击力 200% 的伤害，并使其停顿 3 秒。';
   }
+  if (op.id === 'skadi_alter') {
+    overrides[op.id] = {
+      name: '同葬无光之愿',
+      type: 'buff',
+      power: 2,
+      duration: 10,
+      sp: 19,
+      desc: '同葬无光之愿：全队攻击力 +200%，持续 10 秒。',
+    };
+  }
   for (const s of list) {
     const d = clean(levelOf(s).description, levelOf(s).blackboard);
     if (BLOCKED.test(d)) blockedCount[s.skillId] = (blockedCount[s.skillId] || 0) + 1;

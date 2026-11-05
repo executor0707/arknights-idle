@@ -3615,11 +3615,11 @@ export const SKILL_OVERRIDES = {
   },
   "skadi_alter": {
     "name": "同葬无光之愿",
-    "type": "shield",
-    "power": 0.6,
-    "duration": 8,
+    "type": "buff",
+    "power": 2,
+    "duration": 10,
     "sp": 19,
-    "desc": "同葬无光之愿：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 60%。"
+    "desc": "同葬无光之愿：全队攻击力 +200%，持续 10 秒。"
   },
   "char_278_orchid": {
     "name": "迅捷打击·α型",
