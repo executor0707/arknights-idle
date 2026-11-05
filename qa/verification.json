@@ -918,6 +918,12 @@
         "atk": 1130,
         "interval": 0.9606
       }
+    },
+    "endlessPulls": {
+      "perFloor": 0.1,
+      "orundumPerFloor": 60,
+      "floor9999Orundum": 608880,
+      "floor9999Pulls": 1014.8
     }
   },
   "limitations": [

@@ -180,7 +180,7 @@ export function makeEndlessStage(n) {
     bossKey,
     rewards: { lmd: 1200 + rec * 0.18, orundum: 20 + i * 9, doctorExp: 18 + Math.min(60, i * 4), items: {} },
     idle: {
-      orundumPerHour: 9000 + 90 * (floor - 1),
+      orundumPerHour: 9000 + 60 * (floor - 1),
       shardsPerHour: 12 + 0.12 * (floor - 1),
       blocksPerHour: 2.4 + 0.02 * (floor - 1),
       lmdPerHour: 12000 + 120 * (floor - 1),
