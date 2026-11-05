@@ -1,6 +1,6 @@
 import { state, getOpStats, getSquadBuffs, getBaseBonuses, grantStageRewards, saveNow, bus, STAGE_BY_ID, STAGES, isStageUnlocked, ensureEndlessFloor } from './game.js';
 import { OPERATORS } from './operators.js';
-import { PUPPET_SKILL } from './data.js';
+import { PUPPET_SKILL, puppetDurationFor } from './data.js';
 
 const MELEE = new Set(['vanguard', 'guard', 'defender', 'specialist']);
 // Merc Storia-like single horizontal marching line. Positions are still
@@ -383,7 +383,7 @@ export class Battle {
       }
       if (a.puppet) {
         a.puppetElapsed += dt;
-        if (a.puppetElapsed >= 20) {
+        if (a.puppetElapsed >= (a.puppetDuration || 20)) {
           this._returnPuppet(a);
           continue;
         }
@@ -582,11 +582,13 @@ export class Battle {
     sub.puppeteer = true;
     sub.puppetBody = body;
     sub.puppetElapsed = 0;
+    sub.puppetDuration = puppetDurationFor(body.id);
     sub.block = 0;
     sub.hp = sub.maxHp;
     sub.sp = 0;
     sub.maxSp = 10;
-    sub.spRate = 2.5;
+    // 44 SP over the full puppet lifetime guarantees four 10-SP casts.
+    sub.spRate = 44 / sub.puppetDuration;
     sub.puppetSkill = { ...PUPPET_SKILL };
     this.allies[idx] = sub;
     this._effect(body.x, body.y, 'switch', 0.8);

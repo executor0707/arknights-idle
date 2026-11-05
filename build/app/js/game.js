@@ -2,7 +2,7 @@ import { OPERATORS, STARTERS } from './operators.js';
 import {
   SAVE_KEY, SAVE_VERSION, MAX_SQUAD, PULL_COST, OFFLINE_CAP_HOURS,
   MATERIALS, STAGES, BANNERS, ROOMS, DAILY_TASKS, SHOP_ITEMS,
-  RARITY_BASE, ROLE_MODS, RECORD_ORDER, SKIN_PRICE, PRIME_SHARD_COST, SELECTOR_COST, FIVE_STAR_SELECTOR_COST, PUPPET_SKILL,
+  RARITY_BASE, ROLE_MODS, RECORD_ORDER, SKIN_PRICE, PRIME_SHARD_COST, SELECTOR_COST, FIVE_STAR_SELECTOR_COST, PUPPET_SKILL, puppetDurationFor,
   makeEndlessStage, MAX_ENDLESS_FLOOR,
 } from './data.js';
 import { SKINS, SKIN_BY_ID, SKINS_BY_OP } from './skins.js';
@@ -576,7 +576,8 @@ export function useToken(id) {
 export function puppetSkillText(id) {
   const d = opData(id);
   if (!d || d.role !== 'specialist' || d.sub !== '傀儡师') return '';
-  return `${PUPPET_SKILL.desc} 替身期间可按正常技能循环释放 4 次；不随本体技能等级或 SP 变化。白条固定 40 点 / 20 秒，白条读满自动回归本体。`;
+  const duration = puppetDurationFor(id);
+  return `${PUPPET_SKILL.desc} 替身持续 ${duration} 秒，期间可按正常技能循环释放 4 次；不随本体技能等级或 SP 变化。白条读满时自动回归本体。`;
 }
 
 export function talentText(id) {
@@ -586,7 +587,8 @@ export function talentText(id) {
     return '伏击：攻击均为范围攻击，对范围内所有敌人造成 0.4 秒停顿；自身不成为敌方攻击目标。';
   }
   if (d.role === 'specialist' && d.sub === '傀儡师') {
-    return '傀儡：受到致命伤时不撤退，切换为阻挡 0 的替身，持续 20 秒；替身使用独立技能，SP 固定 10，替身白条读满或替身阵亡时结束。';
+    const duration = puppetDurationFor(id);
+    return `傀儡：受到致命伤时不撤退，切换为阻挡 0 的替身，持续 ${duration} 秒；替身使用独立技能，SP 固定 10，替身白条读满或替身阵亡时结束。`;
   }
   if (d.talent) return `${d.talent.name}：${d.talent.desc}`;
   if (d.rarity === 5) return '战术素养：攻击力 +6%。';

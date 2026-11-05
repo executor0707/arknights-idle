@@ -1,0 +1,7 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=puppetdurations'});
+await new Promise(r=>setTimeout(r,4000));
+if (await evalJS(send, `!!document.querySelector('#enterBtn')`)) { await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true}); await new Promise(r=>setTimeout(r,2200)); await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`); await new Promise(r=>setTimeout(r,300)); }
+console.log(await evalJS(send, `(()=>{const s=__RHODES__.state;const ids=['char_369_bena','char_4016_kazema','char_4217_makoto','char_4183_mortis','char_4124_iana','char_4107_vrdant','specter_alter'];const out=[];for(const id of ids){s.operators[id]={level:90,elite:2,potential:5,skill:7,mastery:3,trust:100,module:3,exp:0};s.squad=[id,null,null,null,null];__RHODES__.setView('battle',true);const b=__RHODES__.battle;b.start('CE-6');const body=b.allies[0];b._damageAlly(body,body.maxHp+1000);const sub=b.allies[0];let casts=0;const orig=b._castSkill.bind(b);b._castSkill=function(a){if(a.puppet)casts++;return orig(a)};for(let t=0;t<sub.puppetDuration+0.2;t+=.05)b._updateAllies(.05);out.push({id,duration:sub.puppetDuration,maxSp:sub.maxSp,spRate:+sub.spRate.toFixed(3),casts,returned:!b.allies[0].puppet});}return JSON.stringify(out)})()`));
+process.exit(0);

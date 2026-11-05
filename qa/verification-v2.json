@@ -965,6 +965,17 @@
         "shield": 902,
         "shieldT": 10
       }
+    },
+    "puppetDurations": {
+      "bena": 20,
+      "kazema": 20,
+      "makoto": 20,
+      "mortis": 18.133,
+      "iana": 4,
+      "vrdant": 3.333,
+      "specter": 20,
+      "sp10": true,
+      "casts": 4
     }
   },
   "limitations": [
