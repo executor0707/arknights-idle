@@ -1,4 +1,4 @@
-// Generated skins. 516 skins. Bard skins may have no attack animation.
+// Generated skins. 528 skins. Some caster/liberator skins use Skill_1 as attack.
 export const SKINS = [
   {
     "id": "char_225_haak-skin1",
@@ -5674,6 +5674,138 @@ export const SKINS = [
     "color": "#b5163c",
     "desc": "命途迭代系列/红女爵。浊心斯卡蒂在决策F/3019226中的迭代。混沌与冲动带来了赤红原野独一的主人。借着这样的情感，她创造出了心爱的造物。",
     "img": "assets/skins/skadi_alter-skin2.webp",
+    "price": 18
+  },
+  {
+    "id": "char_388_mint-skin1",
+    "opId": "char_388_mint",
+    "key": "skin1",
+    "name": "月宵",
+    "series": "时代/XXII",
+    "color": "#ec7262",
+    "desc": "EPOQUE系列新款/月宵。薄绿的私人定制款，将维多利亚风格融入东国传统服饰中，穿着舒适，独具个性。薄绿喜欢用这身搭配欢庆的气氛。",
+    "img": "assets/skins/char_388_mint-skin1.webp",
+    "price": 18
+  },
+  {
+    "id": "char_388_mint-skin2",
+    "opId": "char_388_mint",
+    "key": "skin2",
+    "name": "私人书房",
+    "series": "时代/XXX",
+    "color": "#222e2b",
+    "desc": "EPOQUE系列新款/私人书房。薄绿在维多利亚高等学府的正式着装，腰间的绿色束带收束腰线，尽显个人风格。",
+    "img": "assets/skins/char_388_mint-skin2.webp",
+    "price": 18
+  },
+  {
+    "id": "char_445_wscoot-skin1",
+    "opId": "char_445_wscoot",
+    "key": "skin1",
+    "name": "异乡的云",
+    "series": "时代/XLVIII",
+    "color": "#8eacc4",
+    "desc": "EPOQUE系列新款/异乡的云。骋风暂时放下工作，独自在异乡旅行时的穿着。宽松的休闲短衣搭配轻便运动鞋，令他能享受这自在逍遥的一刻。",
+    "img": "assets/skins/char_445_wscoot-skin1.webp",
+    "price": 18
+  },
+  {
+    "id": "char_426_billro-skin1",
+    "opId": "char_426_billro",
+    "key": "skin1",
+    "name": "霍恩洛厄的寒沙",
+    "series": "冰原信使/III",
+    "color": "#435a93",
+    "desc": "卡涅利安在莱塔尼亚过冬时的装扮/霍恩洛厄的寒沙。莱塔尼亚传统女式风衣，配以兽皮披肩与加绒手套一对，无惧任何低温环境。",
+    "img": "assets/skins/char_426_billro-skin1.webp",
+    "price": 18
+  },
+  {
+    "id": "char_426_billro-skin2",
+    "opId": "char_426_billro",
+    "key": "skin2",
+    "name": "灿阳朝露 SD08",
+    "series": "珊瑚海岸/VIII",
+    "color": "#3f3b69",
+    "desc": "MARTHE [珊瑚海岸/CoralCoast]灿阳朝露系列泳衣08款。贴身、透气、轻便，专为夏日而生。",
+    "img": "assets/skins/char_426_billro-skin2.webp",
+    "price": 18
+  },
+  {
+    "id": "char_486_takila-skin1",
+    "opId": "char_486_takila",
+    "key": "skin1",
+    "name": "开牌制胜",
+    "series": "音律联觉/II",
+    "color": "#6c6d63",
+    "desc": "音律联觉特供款/开牌制胜。龙舌兰的演出正装。合格的主持人炒热氛围，优秀的主持人则致力于杜绝一切意外。",
+    "img": "assets/skins/char_486_takila-skin1.webp",
+    "price": 18
+  },
+  {
+    "id": "char_486_takila-skin2",
+    "opId": "char_486_takila",
+    "key": "skin2",
+    "name": "巅峰现场",
+    "series": "闪耀阶梯/II",
+    "color": "#0047ec",
+    "desc": "塞壬唱片偶像企划《闪耀阶梯》特供服饰/巅峰现场。永远清澈的笑容，永远有礼的姿态，还有不俗的能力，龙舌兰刚上舞台，所有人的目光就被他吸引。",
+    "img": "assets/skins/char_486_takila-skin2.webp",
+    "price": 18
+  },
+  {
+    "id": "mlynar-skin1",
+    "opId": "mlynar",
+    "key": "skin1",
+    "name": "远路",
+    "series": "时代/XXVIII",
+    "color": "#3f526f",
+    "desc": "EPOQUE子品牌 [昔时/Passe]系列精选款/远路。玛恩纳以游侠身份走遍卡西米尔平原与林海时的装束，剑柄镌刻的一行小字尚未被冗余的装饰遮盖。",
+    "img": "assets/skins/mlynar-skin1.webp",
+    "price": 18
+  },
+  {
+    "id": "mlynar-skin2",
+    "opId": "mlynar",
+    "key": "skin2",
+    "name": "苍茫怒号",
+    "series": "命途迭代/III",
+    "color": "#101658",
+    "desc": "命途迭代系列/苍茫怒号。玛恩纳在决策F/3019226中的迭代。黑色铁骑终于踏足被遗忘的原野，隐居的骑士没有选择离开，而是独自拦在他们面前。",
+    "img": "assets/skins/mlynar-skin2.webp",
+    "price": 18
+  },
+  {
+    "id": "char_344_beewax-skin1",
+    "opId": "char_344_beewax",
+    "key": "skin1",
+    "name": "白沙",
+    "series": "时代/IX",
+    "color": "#c9b7b2",
+    "desc": "EPOQUE系列新款/白沙。居家休闲款，卡涅利安送给蜜蜡的礼物，她认为这件最适合，也知道蜜蜡会喜欢。",
+    "img": "assets/skins/char_344_beewax-skin1.webp",
+    "price": 18
+  },
+  {
+    "id": "char_344_beewax-skin2",
+    "opId": "char_344_beewax",
+    "key": "skin2",
+    "name": "悠然假日 HD61",
+    "series": "珊瑚海岸/XI",
+    "color": "#13418a",
+    "desc": "MARTHE [珊瑚海岸/CoralCoast]悠然假日系列泳衣61款。舒适放松，透气轻盈。让您可以在闲适的环境中享受最完美的沙滩体验。",
+    "img": "assets/skins/char_344_beewax-skin2.webp",
+    "price": 18
+  },
+  {
+    "id": "char_1043_leizi2-skin1",
+    "opId": "char_1043_leizi2",
+    "key": "skin1",
+    "name": "血翼蔷薇",
+    "series": "成就之星/VIII",
+    "color": "#c43b54",
+    "desc": "成就之星系列/血翼蔷薇。惊蛰在游戏《苍影历年纪》内的角色形象。缠绕荆棘的雷霆在血翼的嘶吼声中现身，她正是冒险者能遇到的最棘手的挑战。",
+    "img": "assets/skins/char_1043_leizi2-skin1.webp",
     "price": 18
   }
 ];
@@ -12084,6 +12216,152 @@ export const SKINS_BY_OP = {
       "color": "#b5163c",
       "desc": "命途迭代系列/红女爵。浊心斯卡蒂在决策F/3019226中的迭代。混沌与冲动带来了赤红原野独一的主人。借着这样的情感，她创造出了心爱的造物。",
       "img": "assets/skins/skadi_alter-skin2.webp",
+      "price": 18
+    }
+  ],
+  "char_388_mint": [
+    {
+      "id": "char_388_mint-skin1",
+      "opId": "char_388_mint",
+      "key": "skin1",
+      "name": "月宵",
+      "series": "时代/XXII",
+      "color": "#ec7262",
+      "desc": "EPOQUE系列新款/月宵。薄绿的私人定制款，将维多利亚风格融入东国传统服饰中，穿着舒适，独具个性。薄绿喜欢用这身搭配欢庆的气氛。",
+      "img": "assets/skins/char_388_mint-skin1.webp",
+      "price": 18
+    },
+    {
+      "id": "char_388_mint-skin2",
+      "opId": "char_388_mint",
+      "key": "skin2",
+      "name": "私人书房",
+      "series": "时代/XXX",
+      "color": "#222e2b",
+      "desc": "EPOQUE系列新款/私人书房。薄绿在维多利亚高等学府的正式着装，腰间的绿色束带收束腰线，尽显个人风格。",
+      "img": "assets/skins/char_388_mint-skin2.webp",
+      "price": 18
+    }
+  ],
+  "char_445_wscoot": [
+    {
+      "id": "char_445_wscoot-skin1",
+      "opId": "char_445_wscoot",
+      "key": "skin1",
+      "name": "异乡的云",
+      "series": "时代/XLVIII",
+      "color": "#8eacc4",
+      "desc": "EPOQUE系列新款/异乡的云。骋风暂时放下工作，独自在异乡旅行时的穿着。宽松的休闲短衣搭配轻便运动鞋，令他能享受这自在逍遥的一刻。",
+      "img": "assets/skins/char_445_wscoot-skin1.webp",
+      "price": 18
+    }
+  ],
+  "char_426_billro": [
+    {
+      "id": "char_426_billro-skin1",
+      "opId": "char_426_billro",
+      "key": "skin1",
+      "name": "霍恩洛厄的寒沙",
+      "series": "冰原信使/III",
+      "color": "#435a93",
+      "desc": "卡涅利安在莱塔尼亚过冬时的装扮/霍恩洛厄的寒沙。莱塔尼亚传统女式风衣，配以兽皮披肩与加绒手套一对，无惧任何低温环境。",
+      "img": "assets/skins/char_426_billro-skin1.webp",
+      "price": 18
+    },
+    {
+      "id": "char_426_billro-skin2",
+      "opId": "char_426_billro",
+      "key": "skin2",
+      "name": "灿阳朝露 SD08",
+      "series": "珊瑚海岸/VIII",
+      "color": "#3f3b69",
+      "desc": "MARTHE [珊瑚海岸/CoralCoast]灿阳朝露系列泳衣08款。贴身、透气、轻便，专为夏日而生。",
+      "img": "assets/skins/char_426_billro-skin2.webp",
+      "price": 18
+    }
+  ],
+  "char_486_takila": [
+    {
+      "id": "char_486_takila-skin1",
+      "opId": "char_486_takila",
+      "key": "skin1",
+      "name": "开牌制胜",
+      "series": "音律联觉/II",
+      "color": "#6c6d63",
+      "desc": "音律联觉特供款/开牌制胜。龙舌兰的演出正装。合格的主持人炒热氛围，优秀的主持人则致力于杜绝一切意外。",
+      "img": "assets/skins/char_486_takila-skin1.webp",
+      "price": 18
+    },
+    {
+      "id": "char_486_takila-skin2",
+      "opId": "char_486_takila",
+      "key": "skin2",
+      "name": "巅峰现场",
+      "series": "闪耀阶梯/II",
+      "color": "#0047ec",
+      "desc": "塞壬唱片偶像企划《闪耀阶梯》特供服饰/巅峰现场。永远清澈的笑容，永远有礼的姿态，还有不俗的能力，龙舌兰刚上舞台，所有人的目光就被他吸引。",
+      "img": "assets/skins/char_486_takila-skin2.webp",
+      "price": 18
+    }
+  ],
+  "mlynar": [
+    {
+      "id": "mlynar-skin1",
+      "opId": "mlynar",
+      "key": "skin1",
+      "name": "远路",
+      "series": "时代/XXVIII",
+      "color": "#3f526f",
+      "desc": "EPOQUE子品牌 [昔时/Passe]系列精选款/远路。玛恩纳以游侠身份走遍卡西米尔平原与林海时的装束，剑柄镌刻的一行小字尚未被冗余的装饰遮盖。",
+      "img": "assets/skins/mlynar-skin1.webp",
+      "price": 18
+    },
+    {
+      "id": "mlynar-skin2",
+      "opId": "mlynar",
+      "key": "skin2",
+      "name": "苍茫怒号",
+      "series": "命途迭代/III",
+      "color": "#101658",
+      "desc": "命途迭代系列/苍茫怒号。玛恩纳在决策F/3019226中的迭代。黑色铁骑终于踏足被遗忘的原野，隐居的骑士没有选择离开，而是独自拦在他们面前。",
+      "img": "assets/skins/mlynar-skin2.webp",
+      "price": 18
+    }
+  ],
+  "char_344_beewax": [
+    {
+      "id": "char_344_beewax-skin1",
+      "opId": "char_344_beewax",
+      "key": "skin1",
+      "name": "白沙",
+      "series": "时代/IX",
+      "color": "#c9b7b2",
+      "desc": "EPOQUE系列新款/白沙。居家休闲款，卡涅利安送给蜜蜡的礼物，她认为这件最适合，也知道蜜蜡会喜欢。",
+      "img": "assets/skins/char_344_beewax-skin1.webp",
+      "price": 18
+    },
+    {
+      "id": "char_344_beewax-skin2",
+      "opId": "char_344_beewax",
+      "key": "skin2",
+      "name": "悠然假日 HD61",
+      "series": "珊瑚海岸/XI",
+      "color": "#13418a",
+      "desc": "MARTHE [珊瑚海岸/CoralCoast]悠然假日系列泳衣61款。舒适放松，透气轻盈。让您可以在闲适的环境中享受最完美的沙滩体验。",
+      "img": "assets/skins/char_344_beewax-skin2.webp",
+      "price": 18
+    }
+  ],
+  "char_1043_leizi2": [
+    {
+      "id": "char_1043_leizi2-skin1",
+      "opId": "char_1043_leizi2",
+      "key": "skin1",
+      "name": "血翼蔷薇",
+      "series": "成就之星/VIII",
+      "color": "#c43b54",
+      "desc": "成就之星系列/血翼蔷薇。惊蛰在游戏《苍影历年纪》内的角色形象。缠绕荆棘的雷霆在血翼的嘶吼声中现身，她正是冒险者能遇到的最棘手的挑战。",
+      "img": "assets/skins/char_1043_leizi2-skin1.webp",
       "price": 18
     }
   ]

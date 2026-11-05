@@ -57,19 +57,27 @@
       "errors": []
     },
     "skins": {
-      "total": 516,
-      "localSpine": 516,
-      "restoredBards": [
-        "char_101_sora-skin1",
-        "char_101_sora-skin2",
-        "char_4045_heidi-skin1",
-        "char_4134_cetsyr-skin1",
-        "char_4184_dolris-skin1",
-        "char_4091_ulika-skin1",
-        "skadi_alter-skin1",
-        "skadi_alter-skin2"
+      "total": 528,
+      "localSpine": 528,
+      "removed": [
+        "char_376_therex-skin1",
+        "liskarm-skin1",
+        "liskarm-skin2"
       ],
-      "bardNoAttackAllowed": true
+      "skill1Attack": [
+        "char_388_mint-skin1",
+        "char_388_mint-skin2",
+        "char_445_wscoot-skin1",
+        "char_426_billro-skin1",
+        "char_426_billro-skin2",
+        "char_486_takila-skin1",
+        "char_486_takila-skin2",
+        "mlynar-skin1",
+        "mlynar-skin2",
+        "char_344_beewax-skin1",
+        "char_344_beewax-skin2",
+        "char_1043_leizi2-skin1"
+      ]
     },
     "skinPurchase": {
       "before": 0,

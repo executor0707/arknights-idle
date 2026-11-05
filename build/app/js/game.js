@@ -52,13 +52,6 @@ const REMOVED_OPERATOR_IDS = new Set([
   'char_600_cpione', 'char_605_cmedic', 'char_602_cdfend', 'char_608_acpion',
 ]);
 const REMOVED_SKIN_IDS = new Set([
-  'char_388_mint-skin1', 'char_388_mint-skin2',
-  'char_445_wscoot-skin1',
-  'char_426_billro-skin1', 'char_426_billro-skin2',
-  'char_486_takila-skin1', 'char_486_takila-skin2',
-  'mlynar-skin1', 'mlynar-skin2',
-  'char_344_beewax-skin1', 'char_344_beewax-skin2',
-  'char_1043_leizi2-skin1',
   'char_376_therex-skin1',
   'liskarm-skin1', 'liskarm-skin2',
 ]);
