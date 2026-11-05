@@ -46,6 +46,23 @@ function nums(bb, keys) {
   for (const k of keys) if (m.has(k)) return m.get(k);
   return 0;
 }
+function spCost(type, power, duration, hits, tieKey = '') {
+  const base = {
+    buff: 14, shield: 18, heal: 20, control: 22,
+    aoe: 24, multi: 24, debuff: 22, nuke: 28, execute: 30,
+  }[type] || 20;
+  let cost = base;
+  cost += Math.max(0, (Number(power) || 1) - 1) * 4;
+  cost += Math.max(0, (Number(duration) || 0) - 8) * 0.25;
+  cost += Math.max(0, (Number(hits) || 1) - 1) * 1.2;
+  // Small deterministic tie-breaker so operators with identical skill curves
+  // do not all cast on exactly the same frame.
+  let h = 0;
+  for (const ch of String(tieKey)) h = (h * 31 + ch.codePointAt(0)) % 97;
+  cost += (h % 3) - 1;
+  return Math.max(10, Math.min(40, Math.round(cost)));
+}
+
 function idleDesc(name, type, power, duration, hits) {
   const p = Math.round((Number(power) || 1) * 100);
   switch (type) {
@@ -96,6 +113,7 @@ for (const op of OPERATORS) {
       type,
       power: Number(power.toFixed(2)),
       duration: Number(duration.toFixed(1)),
+      sp: spCost(type, power, duration, hits, chosen.skillId || op.id),
       ...(type === 'multi' ? { hits } : {}),
       desc: idleDesc(level.name || op.skill?.name, type, power, duration, hits),
     };
@@ -111,7 +129,9 @@ for (const op of OPERATORS) {
       .replace(/快速部署/g, '迅捷斩击');
     overrides[op.id] = {
       name,
-      type, power, duration, ...(hits ? { hits } : {}),
+      type, power, duration,
+      sp: spCost(type, power, duration, hits, op.id),
+      ...(hits ? { hits } : {}),
       desc: idleDesc(name, type, power, duration, hits),
     };
     fallback.push(op.id + '|' + op.name);

@@ -833,6 +833,35 @@
       "shieldAt79s": 500,
       "shieldAt81s": 0,
       "allSources": true
+    },
+    "skillSP": {
+      "operators": 453,
+      "min": 13,
+      "max": 40,
+      "uniqueValues": 28,
+      "customPerOperator": true,
+      "bards": [
+        [
+          "char_101_sora",
+          30
+        ],
+        [
+          "char_4045_heidi",
+          19
+        ],
+        [
+          "char_4134_cetsyr",
+          28
+        ],
+        [
+          "char_4184_dolris",
+          24
+        ],
+        [
+          "skadi_alter",
+          19
+        ]
+      ]
     }
   },
   "limitations": [

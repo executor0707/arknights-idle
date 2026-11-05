@@ -6,6 +6,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.15,
     "duration": 8,
+    "sp": 19,
     "desc": "闪避：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 15%。"
   },
   "char_225_haak": {
@@ -13,6 +14,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.5,
     "duration": 18,
+    "sp": 18,
     "desc": "爆发剂·榴莲味：18 秒内提升自身与全队攻击力 50%。"
   },
   "char_4178_alanna": {
@@ -20,6 +22,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.5,
     "duration": 15,
+    "sp": 19,
     "desc": "“万斤顶”：15 秒内提升自身与全队攻击力 50%。"
   },
   "char_446_aroma": {
@@ -27,6 +30,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2,
     "duration": 18,
+    "sp": 30,
     "desc": "小心地滑：对范围内敌人造成攻击力 200% 的伤害，并使其停顿 18 秒。"
   },
   "amiya": {
@@ -34,6 +38,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.6,
     "duration": 18,
+    "sp": 26,
     "desc": "精神爆发：对范围内敌人造成攻击力 160% 的伤害，并使其停顿 18 秒。"
   },
   "char_1001_amiya2": {
@@ -41,6 +46,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 2.2,
     "duration": 6,
+    "sp": 30,
     "desc": "影霄·绝影：对范围内所有敌人造成攻击力 220% 的伤害。"
   },
   "char_1037_amiya3": {
@@ -48,6 +54,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1.5,
     "duration": 6,
+    "sp": 22,
     "desc": "慈悲愿景：立即治疗全体友军，治疗量为自身攻击力的 150%。"
   },
   "char_4132_ascln": {
@@ -55,6 +62,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "降临：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "shaw": {
@@ -62,6 +70,7 @@ export const SKILL_OVERRIDES = {
     "type": "nuke",
     "power": 2.5,
     "duration": 4,
+    "sp": 35,
     "desc": "水蒸气泵：对当前生命最低的敌人造成攻击力 250% 的伤害。"
   },
   "char_4218_aigis": {
@@ -69,6 +78,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 2.6,
     "duration": 2,
+    "sp": 36,
     "desc": "全弹发射：对范围内所有敌人造成攻击力 260% 的伤害。"
   },
   "ela": {
@@ -76,6 +86,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1,
     "duration": 2,
+    "sp": 23,
     "desc": "眩目阻滞：对范围内敌人造成攻击力 100% 的伤害，并使其停顿 2 秒。"
   },
   "char_4043_erato": {
@@ -83,6 +94,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.5,
     "duration": 18,
+    "sp": 20,
     "desc": "英雄赞歌：18 秒内提升自身与全队攻击力 50%。"
   },
   "char_4009_irene": {
@@ -90,6 +102,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 4,
     "duration": 4,
+    "sp": 35,
     "desc": "判决：对范围内敌人造成攻击力 400% 的伤害，并使其停顿 4 秒。"
   },
   "char_338_iris": {
@@ -97,6 +110,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 4,
     "duration": 4,
+    "sp": 37,
     "desc": "梦乡摇篮：对范围内所有敌人造成攻击力 400% 的伤害。"
   },
   "char_127_estell": {
@@ -104,6 +118,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 15,
+    "sp": 23,
     "desc": "舍身突击：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "eyjafjalla": {
@@ -111,6 +126,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.3,
     "duration": 15,
+    "sp": 28,
     "desc": "火山：15 秒内提升自身与全队攻击力 130%。"
   },
   "char_302_glaze": {
@@ -118,6 +134,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 18,
+    "sp": 20,
     "desc": "雷达定位：18 秒内提升自身与全队攻击力 100%。"
   },
   "adnachiel": {
@@ -125,6 +142,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.5,
     "duration": 18,
+    "sp": 18,
     "desc": "攻击力强化·α型：18 秒内提升自身与全队攻击力 50%。"
   },
   "char_291_aglina": {
@@ -132,6 +150,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.5,
     "duration": 18,
+    "sp": 26,
     "desc": "秘杖·反重力模式：18 秒内提升自身与全队攻击力 150%。"
   },
   "ansel": {
@@ -139,6 +158,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.4,
     "duration": 18,
+    "sp": 18,
     "desc": "治疗范围强化：18 秒内提升自身与全队攻击力 40%。"
   },
   "rope": {
@@ -146,6 +166,7 @@ export const SKILL_OVERRIDES = {
     "type": "nuke",
     "power": 2.9,
     "duration": 4,
+    "sp": 36,
     "desc": "勾爪发射：对当前生命最低的敌人造成攻击力 290% 的伤害。"
   },
   "char_218_cuttle": {
@@ -153,6 +174,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.4,
     "duration": 18,
+    "sp": 25,
     "desc": "阻滞射击战术：18 秒内提升自身与全队攻击力 240%。"
   },
   "char_4131_odda": {
@@ -160,6 +182,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 1,
     "duration": 8,
+    "sp": 17,
     "desc": "锻锤之力：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 100%。"
   },
   "char_4245_alga": {
@@ -167,6 +190,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.8,
     "duration": 15,
+    "sp": 28,
     "desc": "只为我的答案：对范围内敌人造成攻击力 180% 的伤害，并使其停顿 15 秒。"
   },
   "char_346_aosta": {
@@ -174,6 +198,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.7,
     "duration": 18,
+    "sp": 26,
     "desc": "影钉：对范围内敌人造成攻击力 170% 的伤害，并使其停顿 18 秒。"
   },
   "char_4186_tmoris": {
@@ -181,6 +206,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2,
     "duration": 15,
+    "sp": 29,
     "desc": "无存之所：对范围内敌人造成攻击力 200% 的伤害，并使其停顿 15 秒。"
   },
   "char_4166_varkis": {
@@ -188,6 +214,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "同胞的意志：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_252_bibeak": {
@@ -195,6 +222,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 3,
     "duration": 4,
+    "sp": 37,
     "desc": "异刃斩：对范围内敌人造成攻击力 300% 的伤害，并使其停顿 4 秒。"
   },
   "platinum": {
@@ -202,6 +230,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 8,
+    "sp": 18,
     "desc": "天马视域：8 秒内提升自身与全队攻击力 100%。"
   },
   "char_1026_gvial2": {
@@ -209,6 +238,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.4,
     "duration": 18,
+    "sp": 22,
     "desc": "丛林之魂：18 秒内提升自身与全队攻击力 140%。"
   },
   "ptilopsis": {
@@ -216,6 +246,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 16,
     "desc": "脑啡肽：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_325_bison": {
@@ -223,6 +254,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.25,
     "duration": 8,
+    "sp": 17,
     "desc": "深化阵线：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_4072_ironmn": {
@@ -230,6 +262,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.55,
     "duration": 18,
+    "sp": 18,
     "desc": "铁钳号·原型机：18 秒内提升自身与全队攻击力 55%。"
   },
   "shirayuki": {
@@ -237,6 +270,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 18,
     "desc": "敌飙：18 秒内提升自身与全队攻击力 10%。"
   },
   "spot": {
@@ -244,6 +278,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "次级治疗模式：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_388_mint": {
@@ -251,6 +286,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 4,
     "duration": 18,
+    "sp": 38,
     "desc": "聚能涡旋：对范围内所有敌人造成攻击力 400% 的伤害。"
   },
   "char_230_savage": {
@@ -258,6 +294,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 5,
     "duration": 4,
+    "sp": 40,
     "desc": "微差爆破：对范围内所有敌人造成攻击力 500% 的伤害。"
   },
   "char_304_zebra": {
@@ -265,6 +302,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.55,
     "duration": 8,
+    "sp": 19,
     "desc": "群体迷彩：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 55%。"
   },
   "char_4037_demetr": {
@@ -272,6 +310,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 18,
     "desc": "清算：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_369_bena": {
@@ -279,6 +318,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.9,
     "duration": 18,
+    "sp": 21,
     "desc": "快速修剪：18 秒内提升自身与全队攻击力 90%。"
   },
   "char_265_sophia": {
@@ -286,6 +326,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.6,
     "duration": 18,
+    "sp": 20,
     "desc": "鞭刃：18 秒内提升自身与全队攻击力 60%。"
   },
   "char_4104_coldst": {
@@ -293,6 +334,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 18,
+    "sp": 21,
     "desc": "攻击力强化·γ型：18 秒内提升自身与全队攻击力 100%。"
   },
   "char_487_bobb": {
@@ -300,6 +342,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.4,
     "duration": 11,
+    "sp": 20,
     "desc": "“此路不通”：11 秒内提升自身与全队攻击力 140%。"
   },
   "char_258_podego": {
@@ -307,6 +350,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.8,
     "duration": 4,
+    "sp": 25,
     "desc": "孢子扩散：对范围内敌人造成攻击力 180% 的伤害，并使其停顿 4 秒。"
   },
   "char_4223_botany": {
@@ -314,6 +358,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 18,
     "desc": "静域回声：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_4004_pudd": {
@@ -321,6 +366,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.1,
     "duration": 18,
+    "sp": 24,
     "desc": "扩散电流：18 秒内提升自身与全队攻击力 110%。"
   },
   "char_356_broca": {
@@ -328,6 +374,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.9,
     "duration": 18,
+    "sp": 32,
     "desc": "高压电流：对范围内敌人造成攻击力 290% 的伤害，并使其停顿 18 秒。"
   },
   "char_4188_confes": {
@@ -335,6 +382,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.6,
     "duration": 8,
+    "sp": 16,
     "desc": "战术指令：8 秒内提升自身与全队攻击力 60%。"
   },
   "char_4155_talr": {
@@ -342,6 +390,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.6,
     "duration": 8,
+    "sp": 31,
     "desc": "缝线缠身：对范围内敌人造成攻击力 260% 的伤害，并使其停顿 8 秒。"
   },
   "char_4106_bryota": {
@@ -349,6 +398,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.8,
     "duration": 8,
+    "sp": 19,
     "desc": "土石的恒心：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 80%。"
   },
   "char_286_cast3": {
@@ -356,6 +406,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1.6,
     "duration": 6,
+    "sp": 25,
     "desc": "战术指令：对范围内所有敌人造成攻击力 160% 的伤害。"
   },
   "char_289_gyuki": {
@@ -363,6 +414,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.25,
     "duration": 8,
+    "sp": 17,
     "desc": "恶鬼之力：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_4047_pianst": {
@@ -370,6 +422,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.8,
     "duration": 18,
+    "sp": 28,
     "desc": "曲惊四座：18 秒内提升自身与全队攻击力 280%。"
   },
   "char_010_chen": {
@@ -377,6 +430,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 4.2,
     "duration": 4,
+    "sp": 40,
     "desc": "赤霄·绝影：对范围内敌人造成攻击力 420% 的伤害，并使其停顿 4 秒。"
   },
   "char_445_wscoot": {
@@ -384,6 +438,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 3,
     "duration": 18,
+    "sp": 37,
     "hits": 2,
     "desc": "招无虚发：连续攻击 2 次，每次造成攻击力 300% 的伤害。"
   },
@@ -392,6 +447,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.8,
     "duration": 18,
+    "sp": 28,
     "desc": "澄净闪耀：对范围内敌人造成攻击力 180% 的伤害，并使其停顿 18 秒。"
   },
   "char_1027_greyy2": {
@@ -399,6 +455,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.3,
     "duration": 2,
+    "sp": 27,
     "desc": "晨曦信标：对范围内敌人造成攻击力 230% 的伤害，并使其停顿 2 秒。"
   },
   "char_475_akafyu": {
@@ -406,6 +463,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.5,
     "duration": 8,
+    "sp": 19,
     "desc": "信影流·十文字胜：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 50%。"
   },
   "char_1050_chen3": {
@@ -413,6 +471,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 3.1,
     "duration": 18,
+    "sp": 40,
     "hits": 4,
     "desc": "赤霄·天喟：连续攻击 4 次，每次造成攻击力 310% 的伤害。"
   },
@@ -421,6 +480,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 1.3,
     "duration": 8,
+    "sp": 18,
     "desc": "披荆斩棘：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 130%。"
   },
   "chongyue": {
@@ -428,6 +488,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 4.8,
     "duration": 4,
+    "sp": 40,
     "hits": 3,
     "desc": "我无：连续攻击 3 次，每次造成攻击力 480% 的伤害。"
   },
@@ -436,6 +497,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1,
     "duration": 18,
+    "sp": 26,
     "desc": "自然震慑：对范围内所有敌人造成攻击力 100% 的伤害。"
   },
   "char_1016_agoat2": {
@@ -443,6 +505,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 24,
     "desc": "火山回响：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_494_vendla": {
@@ -450,6 +513,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.3,
     "duration": 15,
+    "sp": 22,
     "desc": "荆藤庇荫：15 秒内提升自身与全队攻击力 130%。"
   },
   "char_427_vigil": {
@@ -457,6 +521,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 1,
     "duration": 15,
+    "sp": 27,
     "hits": 3,
     "desc": "领袖的尊严：连续攻击 3 次，每次造成攻击力 100% 的伤害。"
   },
@@ -465,6 +530,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.3,
     "duration": 18,
+    "sp": 19,
     "desc": "无畏者协议：18 秒内提升自身与全队攻击力 30%。"
   },
   "char_362_saga": {
@@ -472,6 +538,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.3,
     "duration": 18,
+    "sp": 23,
     "desc": "怒目：18 秒内提升自身与全队攻击力 130%。"
   },
   "char_157_dagda": {
@@ -479,6 +546,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.35,
     "duration": 15,
+    "sp": 17,
     "desc": "精准捕杀：15 秒内提升自身与全队攻击力 35%。"
   },
   "char_4110_delphn": {
@@ -486,6 +554,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 18,
+    "sp": 21,
     "desc": "“抢攻”：18 秒内提升自身与全队攻击力 100%。"
   },
   "char_4032_provs": {
@@ -493,6 +562,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 4.5,
     "duration": 10,
+    "sp": 37,
     "desc": "致胜立论：对范围内敌人造成攻击力 450% 的伤害，并使其停顿 10 秒。"
   },
   "char_4126_fuze": {
@@ -500,6 +570,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 5.5,
     "duration": 2,
+    "sp": 40,
     "hits": 3,
     "desc": "霰射炸药：连续攻击 3 次，每次造成攻击力 550% 的伤害。"
   },
@@ -508,6 +579,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 18,
+    "sp": 22,
     "desc": "以假乱真：18 秒内提升自身与全队攻击力 100%。"
   },
   "texas": {
@@ -515,6 +587,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.7,
     "duration": 4,
+    "sp": 28,
     "desc": "剑雨：对范围内敌人造成攻击力 270% 的伤害，并使其停顿 4 秒。"
   },
   "earthspirit": {
@@ -522,6 +595,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.8,
     "duration": 18,
+    "sp": 19,
     "desc": "攻击力强化·β型：18 秒内提升自身与全队攻击力 80%。"
   },
   "char_4191_tippi": {
@@ -529,6 +603,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.5,
     "duration": 15,
+    "sp": 19,
     "desc": "紧急赶场通知：15 秒内提升自身与全队攻击力 50%。"
   },
   "char_1034_jesca2": {
@@ -536,6 +611,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.75,
     "duration": 15,
+    "sp": 18,
     "desc": "掩蔽护卫：15 秒内提升自身与全队攻击力 75%。"
   },
   "char_4195_radian": {
@@ -543,6 +619,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.8,
     "duration": 8,
+    "sp": 21,
     "desc": "手牵手：8 秒内提升自身与全队攻击力 180%。"
   },
   "char_4244_tocka": {
@@ -550,6 +627,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 3.2,
     "duration": 18,
+    "sp": 38,
     "desc": "踽踽独行之春：对范围内敌人造成攻击力 320% 的伤害，并使其停顿 18 秒。"
   },
   "char_4208_wintim": {
@@ -557,6 +635,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1,
     "duration": 9,
+    "sp": 22,
     "desc": "循理归因：对范围内敌人造成攻击力 100% 的伤害，并使其停顿 9 秒。"
   },
   "char_452_bstalk": {
@@ -564,6 +643,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 4,
+    "sp": 21,
     "desc": "定点指令：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_130_doberm": {
@@ -571,6 +651,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.8,
     "duration": 18,
+    "sp": 20,
     "desc": "鞭策：18 秒内提升自身与全队攻击力 80%。"
   },
   "durin": {
@@ -578,6 +659,7 @@ export const SKILL_OVERRIDES = {
     "type": "nuke",
     "power": 2,
     "duration": 6,
+    "sp": 31,
     "desc": "法术强化：对当前生命最低的敌人造成攻击力 200% 的伤害。"
   },
   "char_4147_mitm": {
@@ -585,6 +667,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.25,
     "duration": 8,
+    "sp": 19,
     "desc": "承压功率：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_294_ayer": {
@@ -592,6 +675,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 2.7,
     "duration": 18,
+    "sp": 34,
     "desc": "浮游刃启动：对范围内所有敌人造成攻击力 270% 的伤害。"
   },
   "char_159_peacok": {
@@ -599,6 +683,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1,
     "duration": 4,
+    "sp": 22,
     "desc": "创世纪：对范围内敌人造成攻击力 100% 的伤害，并使其停顿 4 秒。"
   },
   "char_4083_chimes": {
@@ -606,6 +691,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.4,
     "duration": 8,
+    "sp": 17,
     "desc": "乡心无改：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 40%。"
   },
   "char_4048_doroth": {
@@ -613,6 +699,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 4.5,
     "duration": 2,
+    "sp": 36,
     "desc": "高速共振排障：对范围内敌人造成攻击力 450% 的伤害，并使其停顿 2 秒。"
   },
   "char_271_spikes": {
@@ -620,6 +707,7 @@ export const SKILL_OVERRIDES = {
     "type": "nuke",
     "power": 2.6,
     "duration": 18,
+    "sp": 38,
     "desc": "致命恶作剧：对当前生命最低的敌人造成攻击力 260% 的伤害。"
   },
   "char_4148_philae": {
@@ -627,6 +715,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 4,
     "duration": 18,
+    "sp": 30,
     "desc": "冥河诅咒：18 秒内提升自身与全队攻击力 300%。"
   },
   "char_300_phenxi": {
@@ -634,6 +723,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.2,
     "duration": 2,
+    "sp": 23,
     "desc": "“你须偿还”：2 秒内提升自身与全队攻击力 220%。"
   },
   "fang": {
@@ -641,6 +731,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 8,
+    "sp": 13,
     "desc": "冲锋号令·α型：8 秒内提升自身与全队攻击力 10%。"
   },
   "char_4182_oblvns": {
@@ -648,6 +739,7 @@ export const SKILL_OVERRIDES = {
     "type": "nuke",
     "power": 3.2,
     "duration": 18,
+    "sp": 40,
     "desc": "残月的余响：对当前生命最低的敌人造成攻击力 320% 的伤害。"
   },
   "char_222_bpipe": {
@@ -655,6 +747,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 1.2,
     "duration": 8,
+    "sp": 19,
     "desc": "闭膛连发：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 120%。"
   },
   "char_4016_kazema": {
@@ -662,6 +755,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 4.5,
     "duration": 2,
+    "sp": 28,
     "desc": "纸艺·迅击：2 秒内提升自身与全队攻击力 350%。"
   },
   "char_4222_taraxa": {
@@ -669,6 +763,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "扶风起：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4093_frston": {
@@ -676,6 +771,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 1.6,
     "duration": 8,
+    "sp": 21,
     "desc": "战术指令：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 160%。"
   },
   "char_106_franka": {
@@ -683,6 +779,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.25,
     "duration": 8,
+    "sp": 17,
     "desc": "极致锋度：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "hibiscus": {
@@ -690,6 +787,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.5,
     "duration": 18,
+    "sp": 18,
     "desc": "治疗强化·α型：18 秒内提升自身与全队攻击力 50%。"
   },
   "char_4031_liesel": {
@@ -697,6 +795,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 2.8,
     "duration": 2,
+    "sp": 31,
     "desc": "直到终曲：对范围内所有敌人造成攻击力 280% 的伤害。"
   },
   "char_4227_gallus": {
@@ -704,6 +803,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1.6,
     "duration": 6,
+    "sp": 26,
     "desc": "战术指令：对范围内所有敌人造成攻击力 160% 的伤害。"
   },
   "char_220_grani": {
@@ -711,6 +811,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.8,
     "duration": 8,
+    "sp": 19,
     "desc": "永不后退！：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 80%。"
   },
   "char_326_glacus": {
@@ -718,6 +819,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1,
     "duration": 4,
+    "sp": 21,
     "desc": "反制电磁脉冲：对范围内敌人造成攻击力 100% 的伤害，并使其停顿 4 秒。"
   },
   "char_474_glady": {
@@ -725,6 +827,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.3,
     "duration": 8,
+    "sp": 28,
     "desc": "缺水的碎漩狂舞：对范围内敌人造成攻击力 230% 的伤害，并使其停顿 8 秒。"
   },
   "char_253_greyy": {
@@ -732,6 +835,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1,
     "duration": 18,
+    "sp": 26,
     "desc": "静电释放：对范围内敌人造成攻击力 100% 的伤害，并使其停顿 18 秒。"
   },
   "gummy": {
@@ -739,6 +843,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 4,
+    "sp": 21,
     "desc": "备用军粮：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "specter_alter": {
@@ -746,6 +851,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.5,
     "duration": 18,
+    "sp": 23,
     "desc": "生存的技巧：18 秒内提升自身与全队攻击力 150%。"
   },
   "char_4163_rosesa": {
@@ -753,6 +859,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 17,
     "desc": "绝妙的长效药呀：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_4246_dminon": {
@@ -760,6 +867,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 18,
+    "sp": 22,
     "desc": "无人的国度：18 秒内提升自身与全队攻击力 100%。"
   },
   "char_394_hadiya": {
@@ -767,6 +875,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.5,
     "duration": 18,
+    "sp": 26,
     "desc": "剑角之锋：18 秒内提升自身与全队攻击力 150%。"
   },
   "char_4114_harold": {
@@ -774,6 +883,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "重症优先：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4045_heidi": {
@@ -781,6 +891,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.7,
     "duration": 8,
+    "sp": 19,
     "desc": "虚构故事·锈城：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 70%。"
   },
   "char_4066_highmo": {
@@ -788,6 +899,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "泡影，殆尽：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4079_haini": {
@@ -795,6 +907,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.5,
     "duration": 18,
+    "sp": 21,
     "desc": "阻滞性显色剂：18 秒内提升自身与全队攻击力 50%。"
   },
   "char_1021_kroos2": {
@@ -802,6 +915,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 18,
     "desc": "封喉：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_341_sntlla": {
@@ -809,6 +923,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.45,
     "duration": 18,
+    "sp": 19,
     "desc": "迅捷打击·γ型：18 秒内提升自身与全队攻击力 45%。"
   },
   "char_4039_horn": {
@@ -816,6 +931,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.7,
     "duration": 18,
+    "sp": 20,
     "desc": "终极防线：18 秒内提升自身与全队攻击力 70%。"
   },
   "char_4088_hodrer": {
@@ -823,6 +939,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "死境硝烟：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4041_chnut": {
@@ -830,6 +947,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 23,
     "desc": "厚土迸发：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_188_helage": {
@@ -837,6 +955,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 15,
+    "sp": 22,
     "desc": "满月：15 秒内提升自身与全队攻击力 100%。"
   },
   "silence": {
@@ -844,6 +963,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 4,
+    "sp": 20,
     "desc": "医疗无人机：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_297_hamoni": {
@@ -851,6 +971,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 16,
     "desc": "沉溺之灾：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_340_shwaz": {
@@ -858,6 +979,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.8,
     "duration": 18,
+    "sp": 24,
     "desc": "战术的终结：18 秒内提升自身与全队攻击力 180%。"
   },
   "char_4046_ebnhlz": {
@@ -865,6 +987,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.65,
     "duration": 18,
+    "sp": 18,
     "desc": "寂静之声：18 秒内提升自身与全队攻击力 65%。"
   },
   "noir_corne": {
@@ -872,6 +995,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.2,
     "duration": 8,
+    "sp": 17,
     "desc": "防御强化：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 20%。"
   },
   "char_4140_lasher": {
@@ -879,6 +1003,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.4,
     "duration": 18,
+    "sp": 27,
     "desc": "权知轻重：对范围内敌人造成攻击力 140% 的伤害，并使其停顿 18 秒。"
   },
   "char_226_hmau": {
@@ -886,6 +1011,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 24,
     "desc": "反制医疗模式：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "projektred": {
@@ -893,6 +1019,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.8,
     "duration": 10,
+    "sp": 19,
     "desc": "处决模式：10 秒内提升自身与全队攻击力 80%。"
   },
   "char_290_vigna": {
@@ -900,6 +1027,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3,
     "duration": 18,
+    "sp": 24,
     "desc": "槌音：18 秒内提升自身与全队攻击力 200%。"
   },
   "char_4023_rfalcn": {
@@ -907,6 +1035,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.4,
     "duration": 15,
+    "sp": 17,
     "desc": "醉刃乱舞：15 秒内提升自身与全队攻击力 40%。"
   },
   "char_4055_bgsnow": {
@@ -914,6 +1043,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3,
     "duration": 18,
+    "sp": 25,
     "desc": "锐笔速写：18 秒内提升自身与全队攻击力 200%。"
   },
   "char_190_clour": {
@@ -921,6 +1051,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.45,
     "duration": 18,
+    "sp": 21,
     "desc": "双弦开弓：18 秒内提升自身与全队攻击力 45%。"
   },
   "char_4220_kormr": {
@@ -928,6 +1059,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1.6,
     "duration": 6,
+    "sp": 26,
     "desc": "战术指令：对范围内所有敌人造成攻击力 160% 的伤害。"
   },
   "warfarin": {
@@ -935,6 +1067,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.9,
     "duration": 2,
+    "sp": 17,
     "desc": "不稳定血浆：2 秒内提升自身与全队攻击力 90%。"
   },
   "waai_fu": {
@@ -942,6 +1075,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 10,
+    "sp": 16,
     "desc": "寸劲：10 秒内提升自身与全队攻击力 10%。"
   },
   "char_017_huang": {
@@ -949,6 +1083,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.25,
     "duration": 8,
+    "sp": 19,
     "desc": "沸腾爆裂：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_1038_whitw2": {
@@ -956,6 +1091,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.8,
     "duration": 18,
+    "sp": 19,
     "desc": "终幕·浩劫：18 秒内提升自身与全队攻击力 80%。"
   },
   "char_431_ashlok": {
@@ -963,6 +1099,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.55,
     "duration": 10,
+    "sp": 18,
     "desc": "专注轰击：10 秒内提升自身与全队攻击力 55%。"
   },
   "char_367_swllow": {
@@ -970,6 +1107,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.4,
     "duration": 18,
+    "sp": 18,
     "desc": "回流：18 秒内提升自身与全队攻击力 40%。"
   },
   "ash": {
@@ -977,6 +1115,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.15,
     "duration": 2,
+    "sp": 14,
     "desc": "支援射击：2 秒内提升自身与全队攻击力 15%。"
   },
   "char_4027_heyak": {
@@ -984,6 +1123,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1,
     "duration": 18,
+    "sp": 26,
     "desc": "博览者的狂语：对范围内敌人造成攻击力 100% 的伤害，并使其停顿 18 秒。"
   },
   "rathalos_noir": {
@@ -991,6 +1131,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1,
     "duration": 6,
+    "sp": 24,
     "desc": "居合拔刀气刃斩：对范围内所有敌人造成攻击力 100% 的伤害。"
   },
   "char_493_firwhl": {
@@ -998,6 +1139,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1,
     "duration": 17,
+    "sp": 25,
     "desc": "焦土：对范围内所有敌人造成攻击力 100% 的伤害。"
   },
   "char_163_hpsts": {
@@ -1005,6 +1147,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 24,
     "desc": "武力模式：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_293_thorns": {
@@ -1012,6 +1155,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.6,
     "duration": 18,
+    "sp": 18,
     "desc": "至高之术：18 秒内提升自身与全队攻击力 60%。"
   },
   "char_422_aurora": {
@@ -1019,6 +1163,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 2.1,
     "duration": 8,
+    "sp": 23,
     "desc": "固守家园：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 210%。"
   },
   "char_401_elysm": {
@@ -1026,6 +1171,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1,
     "duration": 15,
+    "sp": 30,
     "desc": "聆听：对范围内所有敌人造成攻击力 100% 的伤害。"
   },
   "char_4230_mcnist": {
@@ -1033,6 +1179,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 5.5,
     "duration": 18,
+    "sp": 34,
     "desc": "工程学十字星：18 秒内提升自身与全队攻击力 450%。"
   },
   "char_4203_kichi": {
@@ -1040,6 +1187,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.8,
     "duration": 18,
+    "sp": 27,
     "desc": "吉星高照！：对范围内敌人造成攻击力 180% 的伤害，并使其停顿 18 秒。"
   },
   "chen_alter": {
@@ -1047,6 +1195,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 0.8,
     "duration": 6,
+    "sp": 27,
     "hits": 3,
     "desc": "假日风暴：连续攻击 3 次，每次造成攻击力 80% 的伤害。"
   },
@@ -1055,6 +1204,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 4.5,
     "duration": 2,
+    "sp": 38,
     "desc": "火焰剥离：对范围内所有敌人造成攻击力 450% 的伤害。"
   },
   "gavial": {
@@ -1062,6 +1212,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 2,
+    "sp": 19,
     "desc": "活力再生：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4237_jcinta": {
@@ -1069,6 +1220,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 24,
     "desc": "伞下乘荫：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "jian": {
@@ -1076,6 +1228,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 8,
+    "sp": 19,
     "desc": "归于宁静：8 秒内提升自身与全队攻击力 10%。"
   },
   "char_260_durnar": {
@@ -1083,6 +1236,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.8,
     "duration": 18,
+    "sp": 21,
     "desc": "起盾回击：18 秒内提升自身与全队攻击力 80%。"
   },
   "texas_alter": {
@@ -1090,6 +1244,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.7,
     "duration": 12,
+    "sp": 17,
     "desc": "细雨无声：12 秒内提升自身与全队攻击力 70%。"
   },
   "char_4036_forcer": {
@@ -1097,6 +1252,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1,
     "duration": 2,
+    "sp": 23,
     "desc": "惊爆射击：对范围内敌人造成攻击力 100% 的伤害，并使其停顿 2 秒。"
   },
   "matterhorn": {
@@ -1104,6 +1260,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "体能强化：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_272_strong": {
@@ -1111,6 +1268,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 2,
+    "sp": 21,
     "desc": "刺身拼盘：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4217_makoto": {
@@ -1118,6 +1276,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.8,
     "duration": 2,
+    "sp": 30,
     "desc": "开辟明日的剑刃：对范围内敌人造成攻击力 280% 的伤害，并使其停顿 2 秒。"
   },
   "char_347_jaksel": {
@@ -1125,6 +1284,7 @@ export const SKILL_OVERRIDES = {
     "type": "nuke",
     "power": 2.6,
     "duration": 18,
+    "sp": 36,
     "desc": "全神贯注！：对当前生命最低的敌人造成攻击力 260% 的伤害。"
   },
   "jessica": {
@@ -1132,6 +1292,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.3,
     "duration": 8,
+    "sp": 23,
     "desc": "强力击·β型：8 秒内提升自身与全队攻击力 230%。"
   },
   "char_4078_bdhkgt": {
@@ -1139,6 +1300,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 2.35,
     "duration": 15,
+    "sp": 32,
     "desc": "掷旧尘：对范围内所有敌人造成攻击力 235% 的伤害。"
   },
   "char_4169_caledo": {
@@ -1146,6 +1308,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.2,
     "duration": 18,
+    "sp": 20,
     "desc": "“多面镜”：18 秒内提升自身与全队攻击力 120%。"
   },
   "char_306_leizi": {
@@ -1153,6 +1316,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.5,
     "duration": 18,
+    "sp": 24,
     "desc": "初雷：18 秒内提升自身与全队攻击力 150%。"
   },
   "char_4019_ncdeer": {
@@ -1160,6 +1324,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 17,
     "desc": "仙山去远：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_1042_phatm2": {
@@ -1167,6 +1332,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.25,
     "duration": 18,
+    "sp": 23,
     "desc": "空剧场：18 秒内提升自身与全队攻击力 125%。"
   },
   "char_4221_ju": {
@@ -1174,6 +1340,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 18,
+    "sp": 22,
     "desc": "良翼难乘：18 秒内提升自身与全队攻击力 100%。"
   },
   "char_328_cammou": {
@@ -1181,6 +1348,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.7,
     "duration": 18,
+    "sp": 28,
     "desc": "同步索敌攻击：对范围内敌人造成攻击力 170% 的伤害，并使其停顿 18 秒。"
   },
   "char_214_kafka": {
@@ -1188,6 +1356,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 5,
     "duration": 2,
+    "sp": 39,
     "desc": "诡异剪刀：对范围内所有敌人造成攻击力 500% 的伤害。"
   },
   "char_426_billro": {
@@ -1195,6 +1364,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.8,
     "duration": 18,
+    "sp": 27,
     "desc": "食噬之印：18 秒内提升自身与全队攻击力 280%。"
   },
   "cardigan": {
@@ -1202,6 +1372,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 4,
+    "sp": 21,
     "desc": "生命回复·α型：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_003_kalts": {
@@ -1209,6 +1380,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.25,
     "duration": 8,
+    "sp": 19,
     "desc": "指令：熔毁：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_1052_kalts2": {
@@ -1216,6 +1388,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 24,
     "desc": "破梏重生：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4162_cathy": {
@@ -1223,6 +1396,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.3,
     "duration": 8,
+    "sp": 17,
     "desc": "战火淬炼：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 30%。"
   },
   "char_301_cutter": {
@@ -1230,6 +1404,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 5.5,
     "duration": 4,
+    "sp": 40,
     "desc": "绯红刺刀：对范围内所有敌人造成攻击力 550% 的伤害。"
   },
   "char_2013_cerber": {
@@ -1237,6 +1412,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.1,
     "duration": 18,
+    "sp": 25,
     "desc": "“很重的枪”：18 秒内提升自身与全队攻击力 210%。"
   },
   "char_4231_clemnt": {
@@ -1244,6 +1420,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.9,
     "duration": 8,
+    "sp": 25,
     "desc": "冲蚀：8 秒内提升自身与全队攻击力 290%。"
   },
   "char_4228_closur": {
@@ -1251,6 +1428,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.5,
     "duration": 18,
+    "sp": 27,
     "desc": "Q.E.D.：18 秒内提升自身与全队攻击力 250%。"
   },
   "kroos": {
@@ -1258,6 +1436,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 2.4,
     "duration": 4,
+    "sp": 32,
     "hits": 2,
     "desc": "二连射·自动：连续攻击 2 次，每次造成攻击力 240% 的伤害。"
   },
@@ -1266,6 +1445,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.7,
     "duration": 8,
+    "sp": 18,
     "desc": "自动防御：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 70%。"
   },
   "char_101_sora": {
@@ -1273,6 +1453,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 2,
     "duration": 18,
+    "sp": 30,
     "desc": "战斗之歌：对范围内所有敌人造成攻击力 200% 的伤害。"
   },
   "catapult": {
@@ -1280,6 +1461,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 18,
     "desc": "爆破范围提升·α型：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_4015_spuria": {
@@ -1287,6 +1469,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.3,
     "duration": 18,
+    "sp": 25,
     "desc": "临场铳械改装：对范围内敌人造成攻击力 130% 的伤害，并使其停顿 18 秒。"
   },
   "char_332_archet": {
@@ -1294,6 +1477,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.3,
     "duration": 18,
+    "sp": 19,
     "desc": "箭矢·暴风：18 秒内提升自身与全队攻击力 30%。"
   },
   "char_405_absin": {
@@ -1301,6 +1485,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.9,
     "duration": 18,
+    "sp": 19,
     "desc": "终结连射：18 秒内提升自身与全队攻击力 90%。"
   },
   "char_250_phatom": {
@@ -1308,6 +1493,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 4,
     "duration": 2,
+    "sp": 35,
     "desc": "夜幕突袭：对范围内敌人造成攻击力 400% 的伤害，并使其停顿 2 秒。"
   },
   "lappland": {
@@ -1315,6 +1501,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.2,
     "duration": 18,
+    "sp": 22,
     "desc": "狼魂：18 秒内提升自身与全队攻击力 120%。"
   },
   "char_373_lionhd": {
@@ -1322,6 +1509,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 3.3,
     "duration": 2,
+    "sp": 32,
     "desc": "解构与爆破：对范围内所有敌人造成攻击力 330% 的伤害。"
   },
   "char_4142_laios": {
@@ -1329,6 +1517,7 @@ export const SKILL_OVERRIDES = {
     "type": "nuke",
     "power": 5.5,
     "duration": 10,
+    "sp": 40,
     "desc": "威吓战法：对当前生命最低的敌人造成攻击力 550% 的伤害。"
   },
   "char_4117_ray": {
@@ -1336,6 +1525,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 2.8,
     "duration": 6,
+    "sp": 34,
     "hits": 3,
     "desc": "“得见光芒”：连续攻击 3 次，每次造成攻击力 280% 的伤害。"
   },
@@ -1344,6 +1534,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.5,
     "duration": 18,
+    "sp": 18,
     "desc": "毒液散射：18 秒内提升自身与全队攻击力 50%。"
   },
   "char_285_medic2": {
@@ -1351,6 +1542,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1.5,
     "duration": 6,
+    "sp": 22,
     "desc": "战术指令：立即治疗全体友军，治疗量为自身攻击力的 150%。"
   },
   "char_322_lmlee": {
@@ -1358,6 +1550,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.5,
     "duration": 8,
+    "sp": 17,
     "desc": "贵客盈门：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 50%。"
   },
   "char_1049_catap2": {
@@ -1365,6 +1558,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 1,
     "duration": 8,
+    "sp": 19,
     "desc": "超高输出属性解放斩：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 100%。"
   },
   "char_4193_lemuen": {
@@ -1372,6 +1566,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 2.8,
     "duration": 6,
+    "sp": 34,
     "hits": 3,
     "desc": "礼炮·强制追思：连续攻击 3 次，每次造成攻击力 280% 的伤害。"
   },
@@ -1380,6 +1575,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 3,
     "duration": 18,
+    "sp": 35,
     "desc": "反击电弧：对范围内敌人造成攻击力 300% 的伤害，并使其停顿 18 秒。"
   },
   "gravel": {
@@ -1387,6 +1583,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 4,
     "duration": 8,
+    "sp": 31,
     "desc": "影袭：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 400%。"
   },
   "char_1036_fang2": {
@@ -1394,6 +1591,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.4,
     "duration": 8,
+    "sp": 17,
     "desc": "执守阵线：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 40%。"
   },
   "beehunter": {
@@ -1401,6 +1599,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 8,
+    "sp": 15,
     "desc": "高机动：8 秒内提升自身与全队攻击力 10%。"
   },
   "char_194_leto": {
@@ -1408,6 +1607,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.15,
     "duration": 18,
+    "sp": 22,
     "desc": "一呼百应：18 秒内提升自身与全队攻击力 115%。"
   },
   "char_4225_tanya": {
@@ -1415,6 +1615,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.2,
     "duration": 8,
+    "sp": 19,
     "desc": "溃决：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 20%。"
   },
   "char_4080_lin": {
@@ -1422,6 +1623,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3,
     "duration": 18,
+    "sp": 24,
     "desc": "流光乍裂：18 秒内提升自身与全队攻击力 200%。"
   },
   "zima": {
@@ -1429,6 +1631,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.6,
     "duration": 8,
+    "sp": 19,
     "desc": "乌萨斯战吼：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 60%。"
   },
   "nearl": {
@@ -1436,6 +1639,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 4,
+    "sp": 19,
     "desc": "急救：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_1033_swire2": {
@@ -1443,6 +1647,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 2.5,
     "duration": 2,
+    "sp": 30,
     "desc": "千金一掷：对范围内所有敌人造成攻击力 250% 的伤害。"
   },
   "char_4102_threye": {
@@ -1450,6 +1655,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 18,
     "desc": "我见枯朽之后：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_1045_svash2": {
@@ -1457,6 +1663,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 2.3,
     "duration": 18,
+    "sp": 34,
     "hits": 3,
     "desc": "变革已至：连续攻击 3 次，每次造成攻击力 230% 的伤害。"
   },
@@ -1465,6 +1672,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 0.7,
     "duration": 15,
+    "sp": 15,
     "desc": "宁作吾：15 秒内提升自身与全队攻击力 10%。"
   },
   "char_358_lisa": {
@@ -1472,6 +1680,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 23,
     "desc": "狐火渺然：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4187_graceb": {
@@ -1479,6 +1688,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 3.5,
     "duration": 2,
+    "sp": 39,
     "desc": "破膛弥撒：对范围内所有敌人造成攻击力 350% 的伤害。"
   },
   "char_192_falco": {
@@ -1486,6 +1696,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.25,
     "duration": 18,
+    "sp": 18,
     "desc": "迅捷打击·α型：18 秒内提升自身与全队攻击力 25%。"
   },
   "char_206_gnosis": {
@@ -1493,6 +1704,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 5.5,
     "duration": 13,
+    "sp": 40,
     "desc": "失温症：对范围内敌人造成攻击力 550% 的伤害，并使其停顿 13 秒。"
   },
   "char_617_sharp2": {
@@ -1500,6 +1712,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.25,
     "duration": 18,
+    "sp": 28,
     "desc": "沉默的爆发：18 秒内提升自身与全队攻击力 225%。"
   },
   "char_4042_lumen": {
@@ -1507,6 +1720,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 2,
+    "sp": 20,
     "desc": "沐雨：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "meteor": {
@@ -1514,6 +1728,7 @@ export const SKILL_OVERRIDES = {
     "type": "nuke",
     "power": 2.8,
     "duration": 2,
+    "sp": 34,
     "desc": "碎甲击：对当前生命最低的敌人造成攻击力 280% 的伤害。"
   },
   "char_486_takila": {
@@ -1521,6 +1736,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 3.3,
     "duration": 15,
+    "sp": 36,
     "hits": 3,
     "desc": "剑走偏锋：连续攻击 3 次，每次造成攻击力 330% 的伤害。"
   },
@@ -1529,6 +1745,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 1.3,
     "duration": 8,
+    "sp": 19,
     "desc": "强磁防卫：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 130%。"
   },
   "char_4196_reckpr": {
@@ -1536,6 +1753,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 23,
     "desc": "一点关窍：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_484_robrta": {
@@ -1543,6 +1761,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.8,
     "duration": 8,
+    "sp": 18,
     "desc": "全自动造型仪：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 80%。"
   },
   "char_451_robin": {
@@ -1550,6 +1769,7 @@ export const SKILL_OVERRIDES = {
     "type": "nuke",
     "power": 4.8,
     "duration": 4,
+    "sp": 40,
     "desc": "弹射“夹子”：对当前生命最低的敌人造成攻击力 480% 的伤害。"
   },
   "char_4215_buddy": {
@@ -1557,6 +1777,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.6,
     "duration": 8,
+    "sp": 16,
     "desc": "战术指令：8 秒内提升自身与全队攻击力 60%。"
   },
   "logos": {
@@ -1564,6 +1785,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 2,
+    "sp": 18,
     "desc": "殁亡：2 秒内提升自身与全队攻击力 100%。"
   },
   "char_4040_rockr": {
@@ -1571,6 +1793,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.5,
     "duration": 18,
+    "sp": 26,
     "desc": "自负此轭：对范围内敌人造成攻击力 150% 的伤害，并使其停顿 18 秒。"
   },
   "char_4067_lolxh": {
@@ -1578,6 +1801,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.7,
     "duration": 18,
+    "sp": 20,
     "desc": "碎金为刃：18 秒内提升自身与全队攻击力 70%。"
   },
   "char_4232_hbound": {
@@ -1585,6 +1809,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1.2,
     "duration": 2,
+    "sp": 26,
     "desc": "座浅：对范围内所有敌人造成攻击力 120% 的伤害。"
   },
   "char_433_windft": {
@@ -1592,6 +1817,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.6,
     "duration": 15,
+    "sp": 22,
     "desc": "此身为源：15 秒内提升自身与全队攻击力 160%。"
   },
   "mlynar": {
@@ -1599,6 +1825,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1.12,
     "duration": 18,
+    "sp": 31,
     "desc": "未照耀的荣光：对范围内所有敌人造成攻击力 112% 的伤害。"
   },
   "char_4141_marcil": {
@@ -1606,6 +1833,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 4.9,
     "duration": 2,
+    "sp": 38,
     "desc": "爆破魔法：对范围内敌人造成攻击力 490% 的伤害，并使其停顿 2 秒。"
   },
   "char_248_mgllan": {
@@ -1613,6 +1841,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.5,
     "duration": 15,
+    "sp": 21,
     "desc": "武装打击模块：15 秒内提升自身与全队攻击力 150%。"
   },
   "char_133_mm": {
@@ -1620,6 +1849,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.2,
     "duration": 18,
+    "sp": 29,
     "desc": "束缚电击：对范围内敌人造成攻击力 220% 的伤害，并使其停顿 18 秒。"
   },
   "char_242_otter": {
@@ -1627,6 +1857,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 5.5,
     "duration": 4,
+    "sp": 39,
     "desc": "爆破回收：对范围内敌人造成攻击力 550% 的伤害，并使其停顿 4 秒。"
   },
   "char_4006_melnte": {
@@ -1634,6 +1865,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 5.5,
     "duration": 4,
+    "sp": 40,
     "desc": "临界爆发：对范围内所有敌人造成攻击力 550% 的伤害。"
   },
   "melantha": {
@@ -1641,6 +1873,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.5,
     "duration": 18,
+    "sp": 18,
     "desc": "攻击力强化·α型：18 秒内提升自身与全队攻击力 50%。"
   },
   "char_616_pithst": {
@@ -1648,6 +1881,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 19,
     "desc": "战术咏唱·双型：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_391_rosmon": {
@@ -1655,6 +1889,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 1,
     "duration": 4,
+    "sp": 26,
     "hits": 3,
     "desc": "思维膨大：连续攻击 3 次，每次造成攻击力 100% 的伤害。"
   },
@@ -1663,6 +1898,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.5,
     "duration": 8,
+    "sp": 19,
     "desc": "防御力强化·α型：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 50%。"
   },
   "char_344_beewax": {
@@ -1670,6 +1906,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.6,
     "duration": 18,
+    "sp": 20,
     "desc": "沙暴扩散：18 秒内提升自身与全队攻击力 60%。"
   },
   "char_449_glider": {
@@ -1677,6 +1914,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 25,
     "desc": "振奋：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4017_puzzle": {
@@ -1684,6 +1922,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 8,
+    "sp": 14,
     "desc": "疑点追踪：8 秒内提升自身与全队攻击力 10%。"
   },
   "char_4071_peper": {
@@ -1691,6 +1930,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "同伴意识：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4198_christ": {
@@ -1698,6 +1938,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 2.15,
     "duration": 18,
+    "sp": 30,
     "desc": "狂饮之宴：对范围内所有敌人造成攻击力 215% 的伤害。"
   },
   "char_4229_aphris": {
@@ -1705,6 +1946,7 @@ export const SKILL_OVERRIDES = {
     "type": "nuke",
     "power": 2.5,
     "duration": 8,
+    "sp": 33,
     "desc": "临界瞬爆：对当前生命最低的敌人造成攻击力 250% 的伤害。"
   },
   "char_154_morgan": {
@@ -1712,6 +1954,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 1.5,
     "duration": 8,
+    "sp": 20,
     "desc": "无畏招架：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 150%。"
   },
   "char_213_mostma": {
@@ -1719,6 +1962,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.7,
     "duration": 18,
+    "sp": 31,
     "desc": "序时之匙：对范围内敌人造成攻击力 270% 的伤害，并使其停顿 18 秒。"
   },
   "char_4134_cetsyr": {
@@ -1726,6 +1970,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1,
     "duration": 18,
+    "sp": 28,
     "desc": "编织重构现世：对范围内所有敌人造成攻击力 100% 的伤害。"
   },
   "myrrh": {
@@ -1733,6 +1978,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 4,
+    "sp": 19,
     "desc": "二重治疗：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4179_monstr": {
@@ -1740,6 +1986,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "策略：熔毁：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_249_mlyss": {
@@ -1747,6 +1994,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.5,
     "duration": 15,
+    "sp": 26,
     "desc": "浅层非熵适应：对范围内敌人造成攻击力 150% 的伤害，并使其停顿 15 秒。"
   },
   "char_4025_aprot2": {
@@ -1754,6 +2002,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1.8,
     "duration": 18,
+    "sp": 29,
     "desc": "燃命狂欢：对范围内所有敌人造成攻击力 180% 的伤害。"
   },
   "char_512_aprot": {
@@ -1761,6 +2010,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 17,
     "desc": "速战速决：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_4171_wulfen": {
@@ -1768,6 +2018,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 3.5,
     "duration": 2,
+    "sp": 35,
     "desc": "“顽石专用”：对范围内所有敌人造成攻击力 350% 的伤害。"
   },
   "mousse": {
@@ -1775,6 +2026,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.75,
     "duration": 8,
+    "sp": 18,
     "desc": "挠伤：8 秒内提升自身与全队攻击力 75%。"
   },
   "char_4138_narant": {
@@ -1782,6 +2034,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.75,
     "duration": 18,
+    "sp": 33,
     "desc": "吞日：对范围内敌人造成攻击力 275% 的伤害，并使其停顿 18 秒。"
   },
   "char_4212_nasti": {
@@ -1789,6 +2042,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 15,
+    "sp": 21,
     "desc": "栖脚地：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "exusiai": {
@@ -1796,6 +2050,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.1,
     "duration": 15,
+    "sp": 20,
     "desc": "过载模式：15 秒内提升自身与全队攻击力 110%。"
   },
   "char_4146_nymph": {
@@ -1803,6 +2058,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.2,
     "duration": 18,
+    "sp": 28,
     "desc": "心防溃决：18 秒内提升自身与全队攻击力 220%。"
   },
   "char_311_mudrok": {
@@ -1810,6 +2066,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.8,
     "duration": 8,
+    "sp": 19,
     "desc": "秽壤的血脉：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 80%。"
   },
   "nian": {
@@ -1817,6 +2074,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 1.3,
     "duration": 8,
+    "sp": 18,
     "desc": "铜印：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 130%。"
   },
   "char_1051_headb2": {
@@ -1824,6 +2082,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 3.4,
     "duration": 4,
+    "sp": 31,
     "desc": "无可抵挡：对范围内敌人造成攻击力 340% 的伤害，并使其停顿 4 秒。"
   },
   "char_4173_nowell": {
@@ -1831,6 +2090,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 2,
+    "sp": 21,
     "desc": "生命不息：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_485_pallas": {
@@ -1838,6 +2098,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.25,
     "duration": 8,
+    "sp": 19,
     "desc": "英勇的祝福：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_381_bubble": {
@@ -1845,6 +2106,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 1.2,
     "duration": 8,
+    "sp": 20,
     "desc": "“挨打”：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 120%。"
   },
   "popukar": {
@@ -1852,6 +2114,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.5,
     "duration": 18,
+    "sp": 18,
     "desc": "攻击力强化·α型：18 秒内提升自身与全队攻击力 50%。"
   },
   "char_4234_pedro": {
@@ -1859,6 +2122,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 3.1,
     "duration": 2,
+    "sp": 32,
     "desc": "交替撤离：立即治疗全体友军，治疗量为自身攻击力的 310%。"
   },
   "char_4058_pepe": {
@@ -1866,6 +2130,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 3.4,
     "duration": 18,
+    "sp": 33,
     "desc": "时光震荡：对范围内敌人造成攻击力 340% 的伤害，并使其停顿 18 秒。"
   },
   "char_4136_phonor": {
@@ -1873,6 +2138,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.6,
     "duration": 8,
+    "sp": 17,
     "desc": "战术指令：8 秒内提升自身与全队攻击力 60%。"
   },
   "char_509_acast": {
@@ -1880,6 +2146,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.4,
     "duration": 18,
+    "sp": 17,
     "desc": "“为我所为”：18 秒内提升自身与全队攻击力 40%。"
   },
   "provence": {
@@ -1887,6 +2154,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.2,
     "duration": 18,
+    "sp": 24,
     "desc": "杀戮嗅觉：18 秒内提升自身与全队攻击力 220%。"
   },
   "char_4144_chilc": {
@@ -1894,6 +2162,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 10,
+    "sp": 16,
     "desc": "随机应变：10 秒内提升自身与全队攻击力 10%。"
   },
   "char_478_kirara": {
@@ -1901,6 +2170,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 2,
     "duration": 8,
+    "sp": 29,
     "desc": "锚点捕捉：对范围内所有敌人造成攻击力 200% 的伤害。"
   },
   "kirin_yato": {
@@ -1908,6 +2178,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 16,
     "desc": "鬼人化：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_4062_totter": {
@@ -1915,6 +2186,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 16,
     "desc": "破虹：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_479_sleach": {
@@ -1922,6 +2194,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 4,
     "duration": 10,
+    "sp": 36,
     "desc": "光辉旗帜：对范围内敌人造成攻击力 400% 的伤害，并使其停顿 10 秒。"
   },
   "scavenger": {
@@ -1929,6 +2202,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 8,
+    "sp": 14,
     "desc": "冲锋号令·β型：8 秒内提升自身与全队攻击力 10%。"
   },
   "char_385_finlpp": {
@@ -1936,6 +2210,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 23,
     "desc": "涌泉：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_488_buildr": {
@@ -1943,6 +2218,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.65,
     "duration": 8,
+    "sp": 18,
     "desc": "工程者之愿：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 65%。"
   },
   "char_4082_qiubai": {
@@ -1950,6 +2226,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.55,
     "duration": 18,
+    "sp": 20,
     "desc": "问雪：18 秒内提升自身与全队攻击力 55%。"
   },
   "char_4026_vulpis": {
@@ -1957,6 +2234,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.1,
     "duration": 10,
+    "sp": 28,
     "desc": "隐狐之艺：对范围内敌人造成攻击力 210% 的伤害，并使其停顿 10 秒。"
   },
   "char_363_toddi": {
@@ -1964,6 +2242,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 2.8,
     "duration": 18,
+    "sp": 36,
     "hits": 3,
     "desc": "信号矢：连续攻击 3 次，每次造成攻击力 280% 的伤害。"
   },
@@ -1972,6 +2251,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.2,
     "duration": 15,
+    "sp": 22,
     "desc": "破坏与滋养：15 秒内提升自身与全队攻击力 120%。"
   },
   "char_202_demkni": {
@@ -1979,6 +2259,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "钙质化：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4184_dolris": {
@@ -1986,6 +2267,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 2,
     "duration": 12,
+    "sp": 24,
     "desc": "我悲悯的：立即治疗全体友军，治疗量为自身攻击力的 200%。"
   },
   "char_473_mberry": {
@@ -1993,6 +2275,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 23,
     "desc": "安全区域：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_416_zumama": {
@@ -2000,6 +2283,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "钢铁意志：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4143_sensi": {
@@ -2007,6 +2291,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 10,
+    "sp": 20,
     "desc": "团体魔物大餐：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4139_papyrs": {
@@ -2014,6 +2299,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 15,
+    "sp": 21,
     "desc": "临考发挥：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_264_f12yin": {
@@ -2021,6 +2307,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 18,
+    "sp": 25,
     "desc": "震地碎岩击：18 秒内提升自身与全队攻击力 100%。"
   },
   "char_4235_thumpy": {
@@ -2028,6 +2315,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 1.35,
     "duration": 8,
+    "sp": 18,
     "desc": "“不准走！”：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 135%。"
   },
   "char_457_blitz": {
@@ -2035,6 +2323,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 3,
     "duration": 7,
+    "sp": 29,
     "desc": "突破防线：对范围内敌人造成攻击力 300% 的伤害，并使其停顿 7 秒。"
   },
   "char_147_shining": {
@@ -2042,6 +2331,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 1,
     "duration": 8,
+    "sp": 19,
     "desc": "教条力场：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 100%。"
   },
   "char_508_aguard": {
@@ -2049,6 +2339,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.25,
     "duration": 8,
+    "sp": 19,
     "desc": "亮剑：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_379_sesa": {
@@ -2056,6 +2347,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.4,
     "duration": 18,
+    "sp": 27,
     "desc": "延时震荡零件：18 秒内提升自身与全队攻击力 240%。"
   },
   "cuora": {
@@ -2063,6 +2355,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "壳状防御：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_469_indigo": {
@@ -2070,6 +2363,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1,
     "duration": 18,
+    "sp": 25,
     "desc": "光影迷宫：对范围内敌人造成攻击力 100% 的伤害，并使其停顿 18 秒。"
   },
   "deepcolor": {
@@ -2077,6 +2371,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 24,
     "desc": "光影之触：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4109_baslin": {
@@ -2084,6 +2379,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 24,
     "desc": "沉音宁神：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4137_udflow": {
@@ -2091,6 +2387,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.5,
     "duration": 15,
+    "sp": 28,
     "desc": "行动能力剥夺：对范围内敌人造成攻击力 150% 的伤害，并使其停顿 15 秒。"
   },
   "char_1046_sbell2": {
@@ -2098,6 +2395,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 18,
+    "sp": 21,
     "desc": "群山俯首：18 秒内提升自身与全队攻击力 100%。"
   },
   "char_1032_excu2": {
@@ -2105,6 +2403,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 2.8,
     "duration": 6,
+    "sp": 32,
     "desc": "圣约决裁：对范围内所有敌人造成攻击力 280% 的伤害。"
   },
   "steward": {
@@ -2112,6 +2411,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.9,
     "duration": 8,
+    "sp": 21,
     "desc": "强力击·α型：8 秒内提升自身与全队攻击力 190%。"
   },
   "surtr": {
@@ -2119,6 +2419,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 2,
+    "sp": 25,
     "desc": "黄昏：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "swire": {
@@ -2126,6 +2427,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 18,
     "desc": "指挥调度：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_1502_crosly": {
@@ -2133,6 +2435,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1,
     "duration": 16,
+    "sp": 23,
     "desc": "烽烟行刑场：对范围内敌人造成攻击力 100% 的伤害，并使其停顿 16 秒。"
   },
   "char_378_asbest": {
@@ -2140,6 +2443,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.6,
     "duration": 8,
+    "sp": 18,
     "desc": "火电模式：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 60%。"
   },
   "char_489_serum": {
@@ -2147,6 +2451,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 18,
+    "sp": 20,
     "desc": "传导蚀滞弹：18 秒内提升自身与全队攻击力 100%。"
   },
   "char_241_panda": {
@@ -2154,6 +2459,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 3.5,
     "duration": 2,
+    "sp": 32,
     "desc": "崩拳式：对范围内敌人造成攻击力 350% 的伤害，并使其停顿 2 秒。"
   },
   "char_4236_tmslot": {
@@ -2161,6 +2467,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.5,
     "duration": 18,
+    "sp": 19,
     "desc": "科技与传统仪式：18 秒内提升自身与全队攻击力 50%。"
   },
   "char_215_mantic": {
@@ -2168,6 +2475,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.9,
     "duration": 18,
+    "sp": 28,
     "desc": "蓄力毒尾击：对范围内敌人造成攻击力 190% 的伤害，并使其停顿 18 秒。"
   },
   "char_4063_quartz": {
@@ -2175,6 +2483,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.25,
     "duration": 18,
+    "sp": 30,
     "desc": "全力相搏：对范围内敌人造成攻击力 225% 的伤害，并使其停顿 18 秒。"
   },
   "char_158_milu": {
@@ -2182,6 +2491,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 4,
     "duration": 4,
+    "sp": 36,
     "desc": "战术电台：对范围内所有敌人造成攻击力 400% 的伤害。"
   },
   "shu": {
@@ -2189,6 +2499,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 23,
     "desc": "离离枯荣：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_458_rfrost": {
@@ -2196,6 +2507,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.8,
     "duration": 4,
+    "sp": 32,
     "desc": "击倒猎物：对范围内敌人造成攻击力 280% 的伤害，并使其停顿 4 秒。"
   },
   "char_193_frostl": {
@@ -2203,6 +2515,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1,
     "duration": 18,
+    "sp": 24,
     "desc": "凝冰枪刃：对范围内敌人造成攻击力 100% 的伤害，并使其停顿 18 秒。"
   },
   "char_4124_iana": {
@@ -2210,6 +2523,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 10,
+    "sp": 15,
     "desc": "全知者的战术：10 秒内提升自身与全队攻击力 10%。"
   },
   "char_4177_brigid": {
@@ -2217,6 +2531,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.5,
     "duration": 18,
+    "sp": 28,
     "desc": "可驯服的：对范围内敌人造成攻击力 150% 的伤害，并使其停顿 18 秒。"
   },
   "char_437_mizuki": {
@@ -2224,6 +2539,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.5,
     "duration": 18,
+    "sp": 31,
     "desc": "镜花水月：对范围内敌人造成攻击力 250% 的伤害，并使其停顿 18 秒。"
   },
   "char_263_skadi": {
@@ -2231,6 +2547,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 1.3,
     "duration": 8,
+    "sp": 18,
     "desc": "涌潮悲歌：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 130%。"
   },
   "char_450_necras": {
@@ -2238,6 +2555,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 9,
     "duration": 2,
+    "sp": 40,
     "desc": "冠死以冕：立即治疗全体友军，治疗量为自身攻击力的 900%。"
   },
   "char_1043_leizi2": {
@@ -2245,6 +2563,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1,
     "duration": 18,
+    "sp": 26,
     "desc": "天地通明：对范围内所有敌人造成攻击力 100% 的伤害。"
   },
   "char_365_aprl": {
@@ -2252,6 +2571,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 18,
+    "sp": 21,
     "desc": "灵活伪装：18 秒内提升自身与全队攻击力 100%。"
   },
   "char_440_pinecn": {
@@ -2259,6 +2579,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 17,
     "desc": "电能过载：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_4199_makiri": {
@@ -2266,6 +2587,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 15,
+    "sp": 22,
     "desc": "万手成局：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "executor": {
@@ -2273,6 +2595,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 17,
     "desc": "最终旅程：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_511_asnipe": {
@@ -2280,6 +2603,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 1,
     "duration": 18,
+    "sp": 27,
     "hits": 2,
     "desc": "旋臂：连续攻击 2 次，每次造成攻击力 100% 的伤害。"
   },
@@ -2288,6 +2612,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.7,
     "duration": 18,
+    "sp": 21,
     "desc": "并流连锁：18 秒内提升自身与全队攻击力 70%。"
   },
   "susurro": {
@@ -2295,6 +2620,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 18,
+    "sp": 20,
     "desc": "深度治疗：18 秒内提升自身与全队攻击力 100%。"
   },
   "char_245_cello": {
@@ -2302,6 +2628,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.25,
     "duration": 8,
+    "sp": 18,
     "desc": "“自由的探戈”：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_366_acdrop": {
@@ -2309,6 +2636,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.4,
     "duration": 18,
+    "sp": 19,
     "desc": "扳机时刻：18 秒内提升自身与全队攻击力 40%。"
   },
   "char_415_flint": {
@@ -2316,6 +2644,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.55,
     "duration": 18,
+    "sp": 26,
     "desc": "锋芒毕露：对范围内敌人造成攻击力 155% 的伤害，并使其停顿 18 秒。"
   },
   "char_376_therex": {
@@ -2323,6 +2652,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.6,
     "duration": 2,
+    "sp": 24,
     "desc": "战术指令：对范围内敌人造成攻击力 160% 的伤害，并使其停顿 2 秒。"
   },
   "char_4247_oxi": {
@@ -2330,6 +2660,7 @@ export const SKILL_OVERRIDES = {
     "type": "nuke",
     "power": 5.5,
     "duration": 2,
+    "sp": 40,
     "desc": "照霎白夜：对当前生命最低的敌人造成攻击力 550% 的伤害。"
   },
   "char_4077_palico": {
@@ -2337,6 +2668,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 1.6,
     "duration": 6,
+    "sp": 29,
     "hits": 3,
     "desc": "战术指令：连续攻击 3 次，每次造成攻击力 160% 的伤害。"
   },
@@ -2345,6 +2677,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 16,
+    "sp": 21,
     "desc": "治愈之翼：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4164_tecno": {
@@ -2352,6 +2685,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 16,
     "desc": "恣意挥洒：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_411_tomimi": {
@@ -2359,6 +2693,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1,
     "duration": 18,
+    "sp": 24,
     "desc": "嘉维尔保护方案：对范围内敌人造成攻击力 100% 的伤害，并使其停顿 18 秒。"
   },
   "char_2012_typhon": {
@@ -2366,6 +2701,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.45,
     "duration": 18,
+    "sp": 19,
     "desc": "迅捷打击·γ型：18 秒内提升自身与全队攻击力 45%。"
   },
   "char_4056_titi": {
@@ -2373,6 +2709,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.8,
     "duration": 18,
+    "sp": 25,
     "desc": "旧日绽放：18 秒内提升自身与全队攻击力 180%。"
   },
   "skyfire": {
@@ -2380,6 +2717,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 18,
+    "sp": 21,
     "desc": "攻击力强化·γ型：18 秒内提升自身与全队攻击力 100%。"
   },
   "char_4213_skybx": {
@@ -2387,6 +2725,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 4,
     "duration": 2,
+    "sp": 37,
     "hits": 3,
     "desc": "源石火药驾临：连续攻击 3 次，每次造成攻击力 400% 的伤害。"
   },
@@ -2395,6 +2734,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.5,
     "duration": 18,
+    "sp": 28,
     "desc": "精调：18 秒内提升自身与全队攻击力 250%。"
   },
   "char_510_amedic": {
@@ -2402,6 +2742,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 24,
     "desc": "宛如天启：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_402_tuye": {
@@ -2409,6 +2750,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 2,
+    "sp": 20,
     "desc": "强心剂：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_112_siege": {
@@ -2416,6 +2758,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 4.8,
     "duration": 18,
+    "sp": 40,
     "desc": "碎颅击：对范围内敌人造成攻击力 480% 的伤害，并使其停顿 18 秒。"
   },
   "char_4091_ulika": {
@@ -2423,6 +2766,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.6,
     "duration": 8,
+    "sp": 17,
     "desc": "战术指令：8 秒内提升自身与全队攻击力 60%。"
   },
   "char_113_cqbw": {
@@ -2430,6 +2774,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 4.1,
     "duration": 4,
+    "sp": 37,
     "desc": "D12：对范围内敌人造成攻击力 410% 的伤害，并使其停顿 4 秒。"
   },
   "char_4119_wanqin": {
@@ -2437,6 +2782,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 15,
+    "sp": 22,
     "desc": "应东风：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_2027_wang": {
@@ -2444,6 +2790,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.35,
     "duration": 2,
+    "sp": 27,
     "desc": "取势：对范围内敌人造成攻击力 235% 的伤害，并使其停顿 2 秒。"
   },
   "char_261_sddrag": {
@@ -2451,6 +2798,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.8,
     "duration": 18,
+    "sp": 20,
     "desc": "生灵火花：18 秒内提升自身与全队攻击力 80%。"
   },
   "char_4107_vrdant": {
@@ -2458,6 +2806,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 16,
     "desc": "双刃毒藤：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_275_breeze": {
@@ -2465,6 +2814,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "扩散疗法：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_1019_siege2": {
@@ -2472,6 +2822,7 @@ export const SKILL_OVERRIDES = {
     "type": "execute",
     "power": 2.8,
     "duration": 4,
+    "sp": 36,
     "desc": "重铸晖光：对生命比例最低的敌人造成攻击力 280% 的真实伤害。"
   },
   "wisadel": {
@@ -2479,6 +2830,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1,
     "duration": 4,
+    "sp": 23,
     "desc": "定点清算：对范围内敌人造成攻击力 100% 的伤害，并使其停顿 4 秒。"
   },
   "char_4098_vvana": {
@@ -2486,6 +2838,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.9,
     "duration": 8,
+    "sp": 17,
     "desc": "“明灭”：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 90%。"
   },
   "char_4226_veen": {
@@ -2493,6 +2846,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 17,
     "desc": "“自呼号生发”：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_400_weedy": {
@@ -2500,6 +2854,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 4.5,
     "duration": 2,
+    "sp": 37,
     "desc": "液氮大炮：对范围内所有敌人造成攻击力 450% 的伤害。"
   },
   "char_4081_warmy": {
@@ -2507,6 +2862,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3,
     "duration": 15,
+    "sp": 24,
     "desc": "滔滔热流：15 秒内提升自身与全队攻击力 200%。"
   },
   "char_4145_ulpia": {
@@ -2514,6 +2870,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 5.2,
     "duration": 18,
+    "sp": 40,
     "desc": "必须开辟的通路：对范围内敌人造成攻击力 520% 的伤害，并使其停顿 18 秒。"
   },
   "char_4224_turdus": {
@@ -2521,6 +2878,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 4,
+    "sp": 19,
     "desc": "“捉迷藏！”：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_254_vodfox": {
@@ -2528,6 +2886,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 0.9,
     "duration": 2,
+    "sp": 23,
     "desc": "诅咒娃娃：对范围内所有敌人造成攻击力 90% 的伤害。"
   },
   "char_455_nothin": {
@@ -2535,6 +2894,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.6,
     "duration": 2,
+    "sp": 15,
     "desc": "阴晴圆缺：2 秒内提升自身与全队攻击力 60%。"
   },
   "dusk": {
@@ -2542,6 +2902,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 3.5,
     "duration": 2,
+    "sp": 35,
     "desc": "工笔入化：对范围内所有敌人造成攻击力 350% 的伤害。"
   },
   "char_348_ceylon": {
@@ -2549,6 +2910,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 24,
     "desc": "水灵庇护：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4151_tinman": {
@@ -2556,6 +2918,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 2.1,
     "duration": 2,
+    "sp": 25,
     "desc": "“大拉里”：立即治疗全体友军，治疗量为自身攻击力的 210%。"
   },
   "char_336_folivo": {
@@ -2563,6 +2926,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 1.3,
     "duration": 8,
+    "sp": 18,
     "desc": "全景过载摄像：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 130%。"
   },
   "char_423_blemsh": {
@@ -2570,6 +2934,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 23,
     "desc": "先贤化身：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_492_quercu": {
@@ -2577,6 +2942,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 17,
+    "sp": 22,
     "desc": "生灵的回响：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "vanilla": {
@@ -2584,6 +2950,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.35,
     "duration": 10,
+    "sp": 15,
     "desc": "冲锋号令·援军：10 秒内提升自身与全队攻击力 35%。"
   },
   "char_4214_cairn": {
@@ -2591,6 +2958,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.25,
     "duration": 8,
+    "sp": 17,
     "desc": "震撼型指路：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_497_ctable": {
@@ -2598,6 +2966,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 18,
+    "sp": 21,
     "desc": "观火：18 秒内提升自身与全队攻击力 100%。"
   },
   "char_4122_grabds": {
@@ -2605,6 +2974,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 15,
+    "sp": 17,
     "desc": "乡音沉沉：15 秒内提升自身与全队攻击力 10%。"
   },
   "char_4051_akkord": {
@@ -2612,6 +2982,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.6,
     "duration": 18,
+    "sp": 20,
     "desc": "震爆调谐：18 秒内提升自身与全队攻击力 60%。"
   },
   "char_1022_flwr2": {
@@ -2619,6 +2990,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "“神殿的余烬”：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4194_rmixer": {
@@ -2626,6 +2998,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 2.8,
     "duration": 8,
+    "sp": 26,
     "desc": "退休前布道：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 280%。"
   },
   "char_1041_angel2": {
@@ -2633,6 +3006,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.8,
     "duration": 2,
+    "sp": 28,
     "desc": "使命必达！：对范围内敌人造成攻击力 280% 的伤害，并使其停顿 2 秒。"
   },
   "char_274_astesi": {
@@ -2640,6 +3014,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.8,
     "duration": 8,
+    "sp": 19,
     "desc": "星辉剑：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 80%。"
   },
   "char_4170_hdbell": {
@@ -2647,6 +3022,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.6,
     "duration": 18,
+    "sp": 20,
     "desc": "蔬菜大拼盘：18 秒内提升自身与全队攻击力 60%。"
   },
   "char_4105_almond": {
@@ -2654,6 +3030,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.8,
     "duration": 4,
+    "sp": 28,
     "desc": "强力牵引：对范围内敌人造成攻击力 280% 的伤害，并使其停顿 4 秒。"
   },
   "char_136_hsguma": {
@@ -2661,6 +3038,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.9,
     "duration": 8,
+    "sp": 18,
     "desc": "力之锯：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 90%。"
   },
   "char_135_halo": {
@@ -2668,6 +3046,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.4,
     "duration": 18,
+    "sp": 19,
     "desc": "星束交汇：18 秒内提升自身与全队攻击力 40%。"
   },
   "char_4172_xingzh": {
@@ -2675,6 +3054,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 25,
     "desc": "食不厌精：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_491_humus": {
@@ -2682,6 +3062,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 16,
     "desc": "高效处理：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_436_whispr": {
@@ -2689,6 +3070,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 2,
+    "sp": 20,
     "desc": "痛觉抑制：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_4211_snhunt": {
@@ -2696,6 +3078,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.3,
     "duration": 8,
+    "sp": 23,
     "desc": "强力击·β型：8 秒内提升自身与全队攻击力 230%。"
   },
   "char_466_qanik": {
@@ -2703,6 +3086,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1,
     "duration": 7,
+    "sp": 22,
     "desc": "坠雪：对范围内敌人造成攻击力 100% 的伤害，并使其停顿 7 秒。"
   },
   "char_383_snsant": {
@@ -2710,6 +3094,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 3,
     "duration": 4,
+    "sp": 30,
     "desc": "伸缩式电捕网：对范围内敌人造成攻击力 300% 的伤害，并使其停顿 4 秒。"
   },
   "char_4052_surfer": {
@@ -2717,6 +3102,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 10,
+    "sp": 16,
     "desc": "洞悉：10 秒内提升自身与全队攻击力 10%。"
   },
   "rangers": {
@@ -2724,6 +3110,7 @@ export const SKILL_OVERRIDES = {
     "type": "nuke",
     "power": 2,
     "duration": 6,
+    "sp": 33,
     "desc": "射击强化：对当前生命最低的敌人造成攻击力 200% 的伤害。"
   },
   "courier": {
@@ -2731,6 +3118,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 8,
+    "sp": 14,
     "desc": "冲锋号令·β型：8 秒内提升自身与全队攻击力 10%。"
   },
   "cliffheart": {
@@ -2738,6 +3126,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 3,
     "duration": 4,
+    "sp": 31,
     "desc": "束缚链：对范围内敌人造成攻击力 300% 的伤害，并使其停顿 4 秒。"
   },
   "char_345_folnic": {
@@ -2745,6 +3134,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 3,
     "duration": 18,
+    "sp": 30,
     "desc": "复合型药物弹片：立即治疗全体友军，治疗量为自身攻击力的 300%。"
   },
   "char_337_utage": {
@@ -2752,6 +3142,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.1,
     "duration": 2,
+    "sp": 19,
     "desc": "落地斩·破门：2 秒内提升自身与全队攻击力 110%。"
   },
   "char_1048_orchd2": {
@@ -2759,6 +3150,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 4.6,
     "duration": 2,
+    "sp": 39,
     "desc": "龙之箭：对范围内所有敌人造成攻击力 460% 的伤害。"
   },
   "char_131_flameb": {
@@ -2766,6 +3158,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.7,
     "duration": 8,
+    "sp": 18,
     "desc": "刃鬼：8 秒内提升自身与全队攻击力 70%。"
   },
   "lava": {
@@ -2773,6 +3166,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 16,
     "desc": "战术咏唱·α型：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_420_flamtl": {
@@ -2780,6 +3174,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.9,
     "duration": 8,
+    "sp": 19,
     "desc": "焰心：8 秒内提升自身与全队攻击力 90%。"
   },
   "char_1020_reed2": {
@@ -2787,6 +3182,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 18,
     "desc": "生命火种：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_1011_lava2": {
@@ -2794,6 +3190,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1.5,
     "duration": 18,
+    "sp": 28,
     "desc": "狱火之环：对范围内所有敌人造成攻击力 150% 的伤害。"
   },
   "char_464_cement": {
@@ -2801,6 +3198,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 16,
     "desc": "结构加固：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_4202_haruka": {
@@ -2808,6 +3206,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.25,
     "duration": 8,
+    "sp": 19,
     "desc": "夏末游鳞：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "nearl_alter": {
@@ -2815,6 +3214,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.7,
     "duration": 2,
+    "sp": 16,
     "desc": "灿焰长刃：2 秒内提升自身与全队攻击力 70%。"
   },
   "char_476_blkngt": {
@@ -2822,6 +3222,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 8,
+    "sp": 13,
     "desc": "安眠：8 秒内提升自身与全队攻击力 10%。"
   },
   "yato": {
@@ -2829,6 +3230,7 @@ export const SKILL_OVERRIDES = {
     "type": "execute",
     "power": 2.5,
     "duration": 6,
+    "sp": 35,
     "desc": "迅捷斩击：对生命比例最低的敌人造成攻击力 250% 的真实伤害。"
   },
   "char_4013_kjera": {
@@ -2836,6 +3238,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.55,
     "duration": 18,
+    "sp": 19,
     "desc": "心随意动：18 秒内提升自身与全队攻击力 55%。"
   },
   "nightmare": {
@@ -2843,6 +3246,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 24,
     "desc": "灵魂汲取：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "haze": {
@@ -2850,6 +3254,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.6,
     "duration": 18,
+    "sp": 18,
     "desc": "赤色之瞳：18 秒内提升自身与全队攻击力 60%。"
   },
   "char_179_cgbird": {
@@ -2857,6 +3262,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.8,
     "duration": 18,
+    "sp": 20,
     "desc": "圣域：18 秒内提升自身与全队攻击力 80%。"
   },
   "char_496_wildmn": {
@@ -2864,6 +3270,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.8,
     "duration": 18,
+    "sp": 19,
     "desc": "夹枪冲锋：18 秒内提升自身与全队攻击力 80%。"
   },
   "char_134_ifrit": {
@@ -2871,6 +3278,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 2.4,
     "duration": 18,
+    "sp": 32,
     "desc": "灼地：对范围内所有敌人造成攻击力 240% 的伤害。"
   },
   "char_472_pasngr": {
@@ -2878,6 +3286,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 2.5,
     "duration": 2,
+    "sp": 29,
     "desc": "辉煌裂片：对范围内所有敌人造成攻击力 250% 的伤害。"
   },
   "char_4087_ines": {
@@ -2885,6 +3294,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 4.6,
     "duration": 16,
+    "sp": 35,
     "desc": "独影归途：16 秒内提升自身与全队攻击力 360%。"
   },
   "char_355_ethan": {
@@ -2892,6 +3302,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.7,
     "duration": 18,
+    "sp": 19,
     "desc": "十字悬挂：18 秒内提升自身与全队攻击力 70%。"
   },
   "char_4125_rdoc": {
@@ -2899,6 +3310,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 2.2,
     "duration": 6,
+    "sp": 29,
     "desc": "激素手枪：对范围内所有敌人造成攻击力 220% 的伤害。"
   },
   "char_4010_etlchi": {
@@ -2906,6 +3318,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.75,
     "duration": 8,
+    "sp": 22,
     "desc": "玫影觅迹：8 秒内提升自身与全队攻击力 175%。"
   },
   "silverash": {
@@ -2913,6 +3326,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.2,
     "duration": 8,
+    "sp": 23,
     "desc": "真银斩：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 20%。"
   },
   "char_155_tiger": {
@@ -2920,6 +3334,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "裂魂：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_498_inside": {
@@ -2927,6 +3342,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 2.2,
     "duration": 6,
+    "sp": 31,
     "hits": 3,
     "desc": "“解决麻烦”：连续攻击 3 次，每次造成攻击力 220% 的伤害。"
   },
@@ -2935,6 +3351,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.2,
     "duration": 8,
+    "sp": 17,
     "desc": "“我的海疆”：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 20%。"
   },
   "specter": {
@@ -2942,6 +3359,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 2.6,
     "duration": 15,
+    "sp": 30,
     "desc": "肉斩骨断：对范围内敌人造成攻击力 260% 的伤害，并使其停顿 15 秒。"
   },
   "char_4185_amoris": {
@@ -2949,6 +3367,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1,
     "duration": 18,
+    "sp": 26,
     "desc": "如麦般生长：对范围内所有敌人造成攻击力 100% 的伤害。"
   },
   "char_2026_yu": {
@@ -2956,6 +3375,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.7,
     "duration": 8,
+    "sp": 17,
     "desc": "今日做东：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 70%。"
   },
   "char_506_rmedic": {
@@ -2963,6 +3383,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1.5,
     "duration": 6,
+    "sp": 23,
     "desc": "战术指令：立即治疗全体友军，治疗量为自身攻击力的 150%。"
   },
   "char_504_rguard": {
@@ -2970,6 +3391,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.6,
     "duration": 8,
+    "sp": 17,
     "desc": "战术指令：8 秒内提升自身与全队攻击力 60%。"
   },
   "char_507_rsnipe": {
@@ -2977,6 +3399,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 1.6,
     "duration": 6,
+    "sp": 30,
     "hits": 3,
     "desc": "战术指令：连续攻击 3 次，每次造成攻击力 160% 的伤害。"
   },
@@ -2985,6 +3408,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1.6,
     "duration": 6,
+    "sp": 25,
     "desc": "战术指令：对范围内所有敌人造成攻击力 160% 的伤害。"
   },
   "char_514_rdfend": {
@@ -2992,6 +3416,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 1.6,
     "duration": 8,
+    "sp": 21,
     "desc": "战术指令：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 160%。"
   },
   "char_513_apionr": {
@@ -2999,6 +3424,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 3,
     "duration": 2,
+    "sp": 40,
     "desc": "只余芬芳：对范围内所有敌人造成攻击力 300% 的伤害。"
   },
   "char_421_crow": {
@@ -3006,6 +3432,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.7,
     "duration": 18,
+    "sp": 18,
     "desc": "收割：18 秒内提升自身与全队攻击力 70%。"
   },
   "char_1015_aglna2": {
@@ -3013,6 +3440,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2.35,
     "duration": 18,
+    "sp": 22,
     "desc": "极速送达：18 秒内提升自身与全队攻击力 135%。"
   },
   "gitano": {
@@ -3020,6 +3448,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 2,
     "duration": 18,
+    "sp": 22,
     "desc": "命运：18 秒内提升自身与全队攻击力 100%。"
   },
   "char_430_fartth": {
@@ -3027,6 +3456,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.8,
     "duration": 18,
+    "sp": 28,
     "desc": "光羽箭：18 秒内提升自身与全队攻击力 280%。"
   },
   "char_343_tknogi": {
@@ -3034,6 +3464,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 24,
     "desc": "森廻：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "midnight": {
@@ -3041,6 +3472,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.35,
     "duration": 18,
+    "sp": 17,
     "desc": "武器附魔·α型：18 秒内提升自身与全队攻击力 35%。"
   },
   "char_4219_yukari": {
@@ -3048,6 +3480,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1,
     "duration": 2,
+    "sp": 28,
     "desc": "明镜止水：对范围内所有敌人造成攻击力 100% 的伤害。"
   },
   "char_4100_caper": {
@@ -3055,6 +3488,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.6,
     "duration": 18,
+    "sp": 18,
     "desc": "乐趣加倍：18 秒内提升自身与全队攻击力 60%。"
   },
   "char_4165_ctrail": {
@@ -3062,6 +3496,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.9,
     "duration": 18,
+    "sp": 32,
     "desc": "掠空飞翎：对范围内敌人造成攻击力 190% 的伤害，并使其停顿 18 秒。"
   },
   "meteorite": {
@@ -3069,6 +3504,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 4,
     "duration": 2,
+    "sp": 36,
     "desc": "高爆弹头：对范围内所有敌人造成攻击力 400% 的伤害。"
   },
   "char_197_poca": {
@@ -3076,6 +3512,7 @@ export const SKILL_OVERRIDES = {
     "type": "control",
     "power": 1.25,
     "duration": 8,
+    "sp": 28,
     "desc": "雪崩击：对范围内敌人造成攻击力 125% 的伤害，并使其停顿 8 秒。"
   },
   "char_459_tachak": {
@@ -3083,6 +3520,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1.7,
     "duration": 4,
+    "sp": 28,
     "desc": "燃烧榴弹：对范围内所有敌人造成攻击力 170% 的伤害。"
   },
   "char_1044_hsgma2": {
@@ -3090,6 +3528,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 3.3,
     "duration": 18,
+    "sp": 29,
     "desc": "地狱变相：18 秒内提升自身与全队攻击力 230%。"
   },
   "char_499_kaitou": {
@@ -3097,6 +3536,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 18,
     "desc": "热处理变色：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_4207_branch": {
@@ -3104,6 +3544,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.5,
     "duration": 8,
+    "sp": 17,
     "desc": "生存决心：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 50%。"
   },
   "char_195_glassb": {
@@ -3111,6 +3552,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.75,
     "duration": 18,
+    "sp": 21,
     "desc": "文学风暴：18 秒内提升自身与全队攻击力 75%。"
   },
   "char_4204_mantra": {
@@ -3118,6 +3560,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 5.5,
     "duration": 18,
+    "sp": 36,
     "desc": "无言为真：18 秒内提升自身与全队攻击力 450%。"
   },
   "char_4000_jnight": {
@@ -3125,6 +3568,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 1.6,
     "duration": 6,
+    "sp": 29,
     "hits": 3,
     "desc": "战术指令：连续攻击 3 次，每次造成攻击力 160% 的伤害。"
   },
@@ -3133,6 +3577,7 @@ export const SKILL_OVERRIDES = {
     "type": "multi",
     "power": 3,
     "duration": 4,
+    "sp": 33,
     "hits": 3,
     "desc": "神工意匠：连续攻击 3 次，每次造成攻击力 300% 的伤害。"
   },
@@ -3141,6 +3586,7 @@ export const SKILL_OVERRIDES = {
     "type": "nuke",
     "power": 1,
     "duration": 18,
+    "sp": 31,
     "desc": "苦修破誓：对当前生命最低的敌人造成攻击力 100% 的伤害。"
   },
   "char_1040_blaze2": {
@@ -3148,6 +3594,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 1.7,
     "duration": 2,
+    "sp": 28,
     "desc": "炙手之援：对范围内所有敌人造成攻击力 170% 的伤害。"
   },
   "char_333_sidero": {
@@ -3155,6 +3602,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 1,
     "duration": 18,
+    "sp": 22,
     "desc": "破浪回神：立即治疗全体友军，治疗量为自身攻击力的 100%。"
   },
   "char_1024_hbisc2": {
@@ -3162,6 +3610,7 @@ export const SKILL_OVERRIDES = {
     "type": "aoe",
     "power": 2.7,
     "duration": 8,
+    "sp": 33,
     "desc": "抚业之触：对范围内所有敌人造成攻击力 270% 的伤害。"
   },
   "skadi_alter": {
@@ -3169,6 +3618,7 @@ export const SKILL_OVERRIDES = {
     "type": "shield",
     "power": 0.6,
     "duration": 8,
+    "sp": 19,
     "desc": "同葬无光之愿：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 60%。"
   },
   "char_278_orchid": {
@@ -3176,6 +3626,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1.25,
     "duration": 18,
+    "sp": 18,
     "desc": "迅捷打击·α型：18 秒内提升自身与全队攻击力 25%。"
   },
   "char_4014_lunacu": {
@@ -3183,6 +3634,7 @@ export const SKILL_OVERRIDES = {
     "type": "buff",
     "power": 1,
     "duration": 18,
+    "sp": 16,
     "desc": "伏击之影：18 秒内提升自身与全队攻击力 10%。"
   },
   "char_4121_zuole": {
@@ -3190,6 +3642,7 @@ export const SKILL_OVERRIDES = {
     "type": "heal",
     "power": 3.45,
     "duration": 4,
+    "sp": 38,
     "desc": "佑序有炎：立即治疗全体友军，治疗量为自身攻击力的 345%。"
   }
 };
