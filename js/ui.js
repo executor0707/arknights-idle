@@ -1157,6 +1157,13 @@ export function openOperator(id, opts = {}) {
         </div>
       </div>` : ''}
 
+      ${d.cls === '医疗' ? `<div class="detail-section medic-synergy">
+        <div class="detail-section-head"><b>医疗共鸣</b><span>5 人联动</span></div>
+        <div class="detail-section-body">
+          <div class="detail-note">当场上同时存在 5 名医疗干员时，医疗可以治疗满血友军；所有未实际恢复的溢出治疗量会转化为 <b>绿色伤害</b>，随机攻击敌人。</div>
+        </div>
+      </div>` : ''}
+
       ${MUJICA_IDS.has(id) ? `<div class="detail-section mujica-synergy">
         <div class="detail-section-head"><b>假面舞会 · 五重奏</b><span>Ave Mujica</span></div>
         <div class="detail-section-body">
