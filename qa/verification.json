@@ -956,6 +956,15 @@
       "effect": "aoe all, stun 0.6, selfHeal 8%",
       "castCount": 4,
       "underOriginalSkill": true
+    },
+    "mujicaShield": {
+      "amountPct": 8,
+      "duration": 10,
+      "tested": {
+        "maxHp": 11271,
+        "shield": 902,
+        "shieldT": 10
+      }
     }
   },
   "limitations": [

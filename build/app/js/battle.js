@@ -273,7 +273,8 @@ export class Battle {
     }
     for (const a of this.allies) {
       if (a.dead) continue;
-      this._healAlly(a, a.maxHp * 0.08, members[0]);
+      a.shield = Math.max(a.shield || 0, a.maxHp * 0.08);
+      a.shieldT = Math.max(a.shieldT || 0, 10);
       a.buffAtk = Math.max(a.buffAtk || 0, 0.4);
       a.buffUntil = Math.max(a.buffUntil || 0, 4);
     }
