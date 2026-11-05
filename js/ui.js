@@ -781,7 +781,7 @@ function syncArena(rebuild = false) {
     node._refs.sp.style.width = Math.min(100, unit.sp / unit.maxSp * 100) + '%';
     const isPuppet = !!unit.puppet;
     node._refs.puppetBar.classList.toggle('hidden', !isPuppet);
-    node._refs.puppet.style.width = isPuppet ? Math.min(100, (unit.puppetElapsed || 0) / 20 * 100) + '%' : '0%';
+    node._refs.puppet.style.width = isPuppet ? Math.min(100, (unit.puppetElapsed || 0) / (unit.puppetDuration || 20) * 100) + '%' : '0%';
     node.classList.toggle('puppet', isPuppet);
     node.classList.toggle('dead', unit.dead);
     node.classList.toggle('spine-unit', isOperatorSpineReady(unit.id));

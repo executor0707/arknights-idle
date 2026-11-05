@@ -72,6 +72,16 @@ export const SKIN_PRICE = 18;
 export const PRIME_SHARD_COST = 20;
 export const SELECTOR_COST = 300;
 export const FIVE_STAR_SELECTOR_COST = 325;
+export const PUPPET_DURATIONS = {
+  'char_4183_mortis': 18.133,
+  'char_4124_iana': 4,
+  'char_4107_vrdant': 3.333,
+};
+
+export function puppetDurationFor(id) {
+  return PUPPET_DURATIONS[id] || 20;
+}
+
 export const PUPPET_SKILL = {
   name: '傀儡技能',
   type: 'aoe',
