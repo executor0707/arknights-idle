@@ -280,8 +280,7 @@ export class Battle {
       if (a.dead) continue;
       a.shield = Math.max(a.shield || 0, a.maxHp * 0.08);
       a.shieldT = Math.max(a.shieldT || 0, 10);
-      a.buffAtk = Math.max(a.buffAtk || 0, 0.4);
-      a.buffUntil = Math.max(a.buffUntil || 0, 4);
+      this._applyAtkBuff(a, 0.4, 4);
     }
     this._effect(50, 50, 'aoe', 0.8);
     this._effect(50, 50, 'buff', 0.8);
@@ -549,6 +548,15 @@ export class Battle {
     for (const a of this.allies) if (!a.dead && a.id === 'kirin_yato') a.sp = Math.min(a.maxSp, a.sp + 20);
   }
 
+  _applyAtkBuff(a, amount, duration) {
+    if (!a || a.dead) return false;
+    const current = a.buffUntil > 0 ? (a.buffAtk || 0) : 0;
+    if (amount <= current + 1e-6) return false;
+    a.buffAtk = amount;
+    a.buffUntil = Math.max(0, Number(duration) || 0);
+    return true;
+  }
+
   _damageAlly(a, amount, source) {
     if (a.dead) return;
     let dmg = Math.max(1, Math.round(amount));
@@ -693,9 +701,7 @@ export class Battle {
       this._effect(a.x, a.y, 'heal', 0.8);
     } else if (skill.type === 'buff') {
       for (const al of this.allies) if (!al.dead) {
-        al.buffAtk = Math.max(al.buffAtk, (skill.power || 0.25) * power);
-        al.buffUntil = skill.duration || 8;
-        if (a.id === 'skadi_alter') al.hp = Math.min(al.maxHp, al.hp + al.maxHp * 0.15);
+        this._applyAtkBuff(al, (skill.power || 0.25) * power, skill.duration || 8);
       }
       this._effect(a.x, a.y, 'buff', 0.8);
     } else if (skill.type === 'shield') {
