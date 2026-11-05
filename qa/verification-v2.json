@@ -1059,6 +1059,11 @@
       "spineUnitClass": true,
       "portraitHidden": true,
       "frameError": null
+    },
+    "bardChorusCrit": {
+      "appliesCrit": true,
+      "testedBase": 3187.6,
+      "testedCrit2x": 6374.9
     }
   },
   "limitations": [

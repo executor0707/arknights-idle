@@ -1,0 +1,7 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=bardcrit'});
+await new Promise(r=>setTimeout(r,4000));
+if (await evalJS(send, `!!document.querySelector('#enterBtn')`)) { await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true}); await new Promise(r=>setTimeout(r,2200)); await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`); await new Promise(r=>setTimeout(r,300)); }
+console.log(await evalJS(send, `(()=>{const s=__RHODES__.state;const ids=['char_101_sora','char_4045_heidi','char_4134_cetsyr','char_4184_dolris','skadi_alter'];for(const id of ids)s.operators[id]={level:90,elite:2,potential:5,skill:7,mastery:3,trust:100,module:3,exp:0};s.squad=ids;__RHODES__.setView('battle',true);const b=__RHODES__.battle;b.start('CE-6');b._spawnEnemy({type:'boss',wave:1,boss:true,lane:0,bossKey:'boss_skulsr'});const vals=[];b._damageEnemy=function(e,amount,opts){vals.push({amount:+amount.toFixed(1),crit:!!opts.crit});};b.baseBonuses.crit=0;b.bardPulseT=0;b._updateBardChorus(1);const base=vals.slice();vals.length=0;b.baseBonuses.crit=1;b.baseBonuses.critDmg=2;b.bardPulseT=0;b._updateBardChorus(1);return JSON.stringify({base, crit:vals.slice(0,5),baseTotal:base.reduce((a,x)=>a+x.amount,0),critTotal:vals.reduce((a,x)=>a+x.amount,0)})})()`));
+process.exit(0);

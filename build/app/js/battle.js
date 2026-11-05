@@ -245,11 +245,16 @@ export class Battle {
     this.bardPulseT = (this.bardPulseT ?? 1) - dt;
     if (this.bardPulseT > 0) return;
     this.bardPulseT += 1;
+    const critChance = this.baseBonuses?.crit ?? 0.05;
+    const critDmg = this.baseBonuses?.critDmg ?? 1.5;
     for (const e of this.enemies) {
       if (e.dead) continue;
       for (const a of bards) {
         if (e.dead) break;
-        this._damageEnemy(e, a.atk * 0.8325, { arts: false, source: a });
+        let damage = a.atk * 0.8325;
+        const crit = Math.random() < critChance;
+        if (crit) damage *= critDmg;
+        this._damageEnemy(e, damage, { arts: false, source: a, crit });
       }
     }
     this._effect(50, 50, 'aoe', 0.45);
