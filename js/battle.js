@@ -498,7 +498,7 @@ export class Battle {
         if (e !== target && Math.abs(e.x - a.x) > a.range) continue;
         if (e !== target && a.range <= 40 && e.lane !== a.lane) continue;
         if (e !== target) this._damageEnemy(e, damage, { arts: a.arts, source: a, crit });
-        if (!e.dead) e.stun = Math.max(e.stun || 0, 0.4);
+        if (!e.dead) e.stun = Math.max(e.stun || 0, 0.2);
       }
     }
     if (a.id === 'chen_alter' && Math.random() < 0.2) {
