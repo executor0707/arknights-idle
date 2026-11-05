@@ -98,7 +98,7 @@ export class Battle {
     this.floats = [];
     this.effects = [];
     this.bardPulseT = 1;
-    this.mujicaT = 4;
+    this.mujicaT = 10;
     this.cast = null;
     this.cutIn = null;
     this.nextStageId = null;
@@ -254,14 +254,14 @@ export class Battle {
 
   _updateMujica(dt) {
     const members = this.allies.filter(a => MUJICA_IDS.has(a.id) && !a.dead);
-    if (members.length < 5) { this.mujicaT = 4; return; }
-    this.mujicaT = (this.mujicaT ?? 4) - dt;
+    if (members.length < 5) { this.mujicaT = 10; return; }
+    this.mujicaT = (this.mujicaT ?? 10) - dt;
     if (this.mujicaT > 0) return;
-    this.mujicaT += 4;
+    this.mujicaT += 10;
     const totalAtk = members.reduce((sum, a) => sum + a.atk, 0);
     for (const e of this.enemies) {
       if (e.dead) continue;
-      this._damageEnemy(e, totalAtk * 6.0, { arts: false, source: members[0] });
+      this._damageEnemy(e, totalAtk * 3.25, { arts: false, source: members[0] });
       if (!e.dead) {
         e.stun = Math.max(e.stun || 0, 0.45);
         e.vuln = Math.max(e.vuln || 0, 0.15);
