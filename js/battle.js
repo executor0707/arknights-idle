@@ -140,6 +140,7 @@ export class Battle {
       res: st.res, interval: st.interval / (1 + bb.aspd), range: st.range, block: st.block,
       cooldown: rand(0.1, 0.6), sp: id === 'amiya' ? Math.min(5, skillSp) : 0, maxSp: skillSp,
       spRate: 1 + b.spRegen, dead: false, heal: st.heal, bard: !!st.bard, ambusher: !!st.ambusher,
+      puppeteer: !!st.puppeteer, puppet: false, puppetElapsed: 0, puppetBody: null, puppetSkill: null,
       untargetable: !!st.untargetable, arts: st.arts,
       skillPower: st.skillPower, buffAtk: 0, buffUntil: 0, castUntil: 0, attackLock: 0,
       combo: 0, lastTarget: null, atkStacks: 0, mlynarTimer: 0, phantoms: [],
@@ -378,6 +379,13 @@ export class Battle {
         a.phantomT -= dt;
         if (a.phantomT <= 0) { a.dead = true; continue; }
       }
+      if (a.puppet) {
+        a.puppetElapsed += dt;
+        if (a.puppetElapsed >= 20) {
+          this._returnPuppet(a);
+          continue;
+        }
+      }
       a.hitFlash = Math.max(0, a.hitFlash - dt);
       a.healFlash = Math.max(0, a.healFlash - dt);
       a.castUntil = Math.max(0, a.castUntil - dt);
@@ -549,11 +557,62 @@ export class Battle {
     a.hitFlash = 0.14;
     if (Math.random() < 0.3) this._float(a.x, a.y - 2, '-' + dmg, 'hurt');
     if (a.hp <= 0) {
+      if (a.puppeteer && !a.puppet) {
+        this._enterPuppet(a);
+        return;
+      }
       a.hp = 0;
       a.dead = true;
       for (const e of this.enemies) if (e.blockedBy === a.uid) e.blockedBy = null;
       this._effect(a.x, a.y, 'down', 0.35);
     }
+  }
+
+  _enterPuppet(body) {
+    const idx = this.allies.indexOf(body);
+    if (idx < 0) return;
+    body.hp = 0;
+    body.dead = true;
+    for (const e of this.enemies) if (e.blockedBy === body.uid) e.blockedBy = null;
+    const sub = this._makeAlly(body.id, body.x, body.y, body.lane);
+    if (!sub) return;
+    sub.puppet = true;
+    sub.puppeteer = true;
+    sub.puppetBody = body;
+    sub.puppetElapsed = 0;
+    sub.block = 0;
+    sub.hp = sub.maxHp;
+    sub.sp = 0;
+    sub.maxSp = 10;
+    sub.spRate = 2.5;
+    const baseSkill = OP_MAP.get(body.id)?.skill || { name: '替身技能', type: 'buff', power: 1, duration: 4 };
+    sub.puppetSkill = { ...baseSkill, name: `替身·${baseSkill.name || '技能'}`, sp: 10 };
+    this.allies[idx] = sub;
+    this._effect(body.x, body.y, 'switch', 0.8);
+    this._float(body.x, body.y - 8, '替身', 'buff');
+    bus.dispatchEvent(new CustomEvent('battle-sfx', { detail: { sound: 'skill' } }));
+  }
+
+  _returnPuppet(sub) {
+    const idx = this.allies.indexOf(sub);
+    const body = sub?.puppetBody;
+    if (idx < 0 || !body) return false;
+    for (const e of this.enemies) if (e.blockedBy === sub.uid) e.blockedBy = null;
+    sub.dead = true;
+    body.dead = false;
+    body.hp = body.maxHp;
+    body.shield = 0;
+    body.shieldT = 0;
+    body.sp = 0;
+    body.castUntil = 0;
+    body.attackLock = 0;
+    body.cooldown = 0.3;
+    body.buffAtk = 0;
+    body.buffUntil = 0;
+    this.allies[idx] = body;
+    this._effect(body.x, body.y, 'switch', 0.8);
+    this._float(body.x, body.y - 8, '本体回归', 'heal');
+    return true;
   }
 
   _healAlly(a, amount, source) {
@@ -572,7 +631,7 @@ export class Battle {
   _castSkill(a) {
     const op = OP_MAP.get(a.id);
     if (!op) return;
-    const skill = op.skill;
+    const skill = a.puppet && a.puppetSkill ? a.puppetSkill : op.skill;
     const enemiesInRange = this.enemies.filter(e => !e.dead && (a.range > 40 ? Math.abs(e.x - a.x) <= Math.max(70, a.range * 1.5) : e.lane === a.lane && Math.abs(e.x - a.x) <= 38));
     if (!['heal', 'buff', 'shield', 'summon'].includes(skill.type) && !enemiesInRange.length) return;
     const power = a.skillPower * (a.id === 'dusk' ? 1.2 : 1);
