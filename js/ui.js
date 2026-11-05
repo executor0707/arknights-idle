@@ -1026,10 +1026,15 @@ export function openOperator(id, opts = {}) {
       <div class="skin-meta"><b>${esc(sk.name)}</b><span>${owned ? (isEq ? '已装备' : '点击装备') : '◆ ' + SKIN_PRICE}</span></div>
     </button>`;
   })].join('');
-  const defaultScaleBlock = !equipped ? `<div class="skin-scale-row default-skin-scale">
-    <div class="skin-scale-head"><label><span>战斗小人大小</span><b data-skin-scale-value="${id}-default">${defaultPct}%</b></label><button class="skin-scale-reset" data-action="reset-skin-scale" data-id="${id}-default" title="重置为 100%">↺</button></div>
-    <input type="range" min="50" max="200" step="1" value="${defaultPct}" data-skin-scale="${id}-default" aria-label="默认皮肤 战斗小人大小">
-  </div>` : `<div class="detail-note">当前使用购买皮肤，战斗小人大小在「时装」页面调整。</div>`;
+  const equippedSkin = allSkins.find(sk => sk.key === equipped) || null;
+  const equippedPct = equippedSkin ? Math.round(G.skinScale(equippedSkin.id) * 100) : defaultPct;
+  const scaleKey = equippedSkin ? equippedSkin.id : `${id}-default`;
+  const scalePct = equippedSkin ? equippedPct : defaultPct;
+  const scaleLabel = equippedSkin ? `当前皮肤「${esc(equippedSkin.name)}」战斗小人大小` : '战斗小人大小';
+  const defaultScaleBlock = `<div class="skin-scale-row default-skin-scale">
+    <div class="skin-scale-head"><label><span>${scaleLabel}</span><b data-skin-scale-value="${scaleKey}">${scalePct}%</b></label><button class="skin-scale-reset" data-action="reset-skin-scale" data-id="${scaleKey}" title="重置为 100%">↺</button></div>
+    <input type="range" min="50" max="200" step="1" value="${scalePct}" data-skin-scale="${scaleKey}" aria-label="${scaleLabel}">
+  </div>`;
 
   const body = `<div class="op-detail">
     <div class="op-detail-hero rarity-${d.rarity}" style="--rarity:${STAR_COLOR[d.rarity]};--rarity-soft:${STAR_COLOR[d.rarity]}22">
