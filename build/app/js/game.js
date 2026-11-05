@@ -2,7 +2,7 @@ import { OPERATORS, STARTERS } from './operators.js';
 import {
   SAVE_KEY, SAVE_VERSION, MAX_SQUAD, PULL_COST, OFFLINE_CAP_HOURS,
   MATERIALS, STAGES, BANNERS, ROOMS, DAILY_TASKS, SHOP_ITEMS,
-  RARITY_BASE, ROLE_MODS, RECORD_ORDER, SKIN_PRICE, PRIME_SHARD_COST, SELECTOR_COST, FIVE_STAR_SELECTOR_COST,
+  RARITY_BASE, ROLE_MODS, RECORD_ORDER, SKIN_PRICE, PRIME_SHARD_COST, SELECTOR_COST, FIVE_STAR_SELECTOR_COST, PUPPET_SKILL,
   makeEndlessStage, MAX_ENDLESS_FLOOR,
 } from './data.js';
 import { SKINS, SKIN_BY_ID, SKINS_BY_OP } from './skins.js';
@@ -576,9 +576,7 @@ export function useToken(id) {
 export function puppetSkillText(id) {
   const d = opData(id);
   if (!d || d.role !== 'specialist' || d.sub !== '傀儡师') return '';
-  const sk = d.skill || {};
-  const name = sk.name ? `替身·${sk.name}` : '替身技能';
-  return `替身技能「${name}」：SP 固定 10，替身期间可按正常技能循环释放 4 次；不随本体技能等级或 SP 变化。白条固定 40 点 / 20 秒，白条读满自动回归本体。`;
+  return `${PUPPET_SKILL.desc} 替身期间可按正常技能循环释放 4 次；不随本体技能等级或 SP 变化。白条固定 40 点 / 20 秒，白条读满自动回归本体。`;
 }
 
 export function talentText(id) {

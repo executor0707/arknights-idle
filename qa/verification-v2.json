@@ -949,6 +949,13 @@
       "returnAlive": true,
       "deathEnds": true,
       "bodySpIndependent": true
+    },
+    "puppetSkill": {
+      "name": "傀儡技能",
+      "sp": 10,
+      "effect": "aoe all, stun 0.6, selfHeal 8%",
+      "castCount": 4,
+      "underOriginalSkill": true
     }
   },
   "limitations": [

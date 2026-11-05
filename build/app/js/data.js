@@ -72,6 +72,17 @@ export const SKIN_PRICE = 18;
 export const PRIME_SHARD_COST = 20;
 export const SELECTOR_COST = 300;
 export const FIVE_STAR_SELECTOR_COST = 325;
+export const PUPPET_SKILL = {
+  name: '傀儡技能',
+  type: 'aoe',
+  power: 1.2,
+  duration: 0.6,
+  stun: 0.6,
+  selfHeal: 0.08,
+  all: true,
+  sp: 10,
+  desc: '傀儡技能：以丝线贯穿全场，对全部敌人造成自身攻击力 120% 的伤害并使其停顿 0.6 秒，同时回复自身 8% 最大生命。SP 10。',
+};
 
 export const RECORD_ORDER = ['record4', 'record3', 'record2', 'record1'];
 

@@ -1,0 +1,9 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront'); await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=puppetskill'});
+await new Promise(r=>setTimeout(r,4000));
+if (await evalJS(send, `!!document.querySelector('#enterBtn')`)) { await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true}); await new Promise(r=>setTimeout(r,2500)); await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`); await new Promise(r=>setTimeout(r,400)); }
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state,id='char_369_bena';s.operators[id]={level:90,elite:2,potential:5,skill:7,mastery:3,trust:100,module:3,exp:0};s.squad=[id,null,null,null,null];__RHODES__.setView('battle',true);const b=__RHODES__.battle;b.start('CE-6');const body=b.allies[0];b._damageAlly(body,body.maxHp+1000);const sub=b.allies[0];b._spawnEnemy({type:'soldier',wave:1,boss:false,lane:0,bossKey:null});const e=b.enemies[0];e.x=40;e.hp=10000;e.maxHp=10000;sub.hp=100;sub.sp=10;b._castSkill(sub);return JSON.stringify({name:sub.puppetSkill.name,sp:sub.puppetSkill.sp,type:sub.puppetSkill.type,spDamage:10000-Math.round(e.hp),stun:+(e.stun||0).toFixed(2),selfHp:Math.round(sub.hp),maxSp:sub.maxSp})})()`));
+console.log(await evalJS(send, `(()=>{const s=__RHODES__.state;__RHODES__.setView('operators',true);document.querySelector('.op-hit[data-id="char_369_bena"]')?.click();const root=document.querySelector('.modal-backdrop');const secs=[...root.querySelectorAll('.detail-section-head b')].map(x=>x.textContent);return JSON.stringify({sections:secs,hasPuppetSkill:secs.includes('傀儡技能'),hasOriginal:secs.some(x=>x.includes('快速修剪')),sp10:root.innerText.includes('SP 10')})})()`));
+process.exit(0);
