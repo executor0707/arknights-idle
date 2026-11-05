@@ -97,7 +97,11 @@ export function destroySpine() {
 }
 
 export function isOperatorSpineReady(id) {
-  return !!SPINE38_OPERATORS[id] || !!cache.get('op:' + id)?.data;
+  const equipped = state.skins?.equipped?.[id];
+  const skinKey = equipped ? `${id}-${equipped}` : null;
+  return !!SPINE38_OPERATORS[id]
+    || !!(skinKey && OPS_DATA[skinKey])
+    || !!cache.get('op:' + id)?.data;
 }
 export function isEnemySpineReady(type, bossKey) {
   const key = enemySpineKey(type, bossKey);
