@@ -830,6 +830,12 @@
       "yellowOverlay": true,
       "titleValue": true,
       "testedShield": 500
+    },
+    "shieldDuration": {
+      "seconds": 8,
+      "shieldAt79s": 500,
+      "shieldAt81s": 0,
+      "allSources": true
     }
   },
   "limitations": [

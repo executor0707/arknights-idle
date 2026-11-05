@@ -88,7 +88,8 @@ for (const op of OPERATORS) {
     if (type === 'heal') power = Math.max(0.8, 1 + atkScale);
     else if (type === 'shield') power = Math.max(0.2, nums(bb, ['hp_ratio', 'shield_scale', 'damage_resistance', 'def']) || 0.25);
     else power = Math.max(0.9, Math.min(5.5, 1 + atkBuff + atkScale));
-    const duration = Math.max(2, Math.min(18, Number(level.duration) || (type === 'buff' ? 8 : type === 'shield' ? 6 : 4)));
+    let duration = Math.max(2, Math.min(18, Number(level.duration) || (type === 'buff' ? 8 : type === 'shield' ? 6 : 4)));
+    if (type === 'shield') duration = 8;
     const hits = Math.max(1, Math.min(8, Math.round(nums(bb, ['attack@max_target', 'max_target', 'times', 'hit', 'attack_times']) || (type === 'multi' ? 3 : 1))));
     overrides[op.id] = {
       name: level.name || op.skill?.name || chosen.skillId,
@@ -102,7 +103,8 @@ for (const op of OPERATORS) {
     const original = op.skill || {};
     const type = TYPES.has(original.type) ? original.type : 'buff';
     const power = Number(original.power) || 1;
-    const duration = Number(original.duration) || 6;
+    let duration = Number(original.duration) || 6;
+    if (type === 'shield') duration = 8;
     const hits = type === 'multi' ? 3 : undefined;
     const name = String(original.name || '战术指令')
       .replace(/弹药|子弹|召唤物|召唤/g, '火力')
