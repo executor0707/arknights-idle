@@ -57,9 +57,19 @@
       "errors": []
     },
     "skins": {
-      "cards": 531,
-      "primes": 100,
-      "errors": []
+      "total": 516,
+      "localSpine": 516,
+      "restoredBards": [
+        "char_101_sora-skin1",
+        "char_101_sora-skin2",
+        "char_4045_heidi-skin1",
+        "char_4134_cetsyr-skin1",
+        "char_4184_dolris-skin1",
+        "char_4091_ulika-skin1",
+        "skadi_alter-skin1",
+        "skadi_alter-skin2"
+      ],
+      "bardNoAttackAllowed": true
     },
     "skinPurchase": {
       "before": 0,

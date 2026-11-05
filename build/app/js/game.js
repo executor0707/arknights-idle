@@ -54,18 +54,12 @@ const REMOVED_OPERATOR_IDS = new Set([
 const REMOVED_SKIN_IDS = new Set([
   'char_388_mint-skin1', 'char_388_mint-skin2',
   'char_445_wscoot-skin1',
-  'char_4045_heidi-skin1',
   'char_426_billro-skin1', 'char_426_billro-skin2',
-  'char_101_sora-skin1', 'char_101_sora-skin2',
   'char_486_takila-skin1', 'char_486_takila-skin2',
   'mlynar-skin1', 'mlynar-skin2',
   'char_344_beewax-skin1', 'char_344_beewax-skin2',
-  'char_4134_cetsyr-skin1',
-  'char_4184_dolris-skin1',
   'char_1043_leizi2-skin1',
   'char_376_therex-skin1',
-  'char_4091_ulika-skin1',
-  'skadi_alter-skin1', 'skadi_alter-skin2',
   'liskarm-skin1', 'liskarm-skin2',
 ]);
 

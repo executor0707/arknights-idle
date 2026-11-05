@@ -2031,5 +2031,37 @@ export const SKIN_SPINE = {
   "char_1040_blaze2-skin2": {
     "name": "夜行烛火",
     "base": "assets/spine38/skins/char_1040_blaze2-skin2/char_1040_blaze2_nlc_1"
+  },
+  "char_4045_heidi-skin1": {
+    "name": "书信零落",
+    "base": "assets/spine38/skins/char_4045_heidi-skin1/char_4045_heidi_epoque_24"
+  },
+  "char_101_sora-skin1": {
+    "name": "夏卉 FA361",
+    "base": "assets/spine38/skins/char_101_sora-skin1/char_101_sora"
+  },
+  "char_101_sora-skin2": {
+    "name": "如歌",
+    "base": "assets/spine38/skins/char_101_sora-skin2/char_101_sora_epoque_17"
+  },
+  "char_4134_cetsyr-skin1": {
+    "name": "追悼",
+    "base": "assets/spine38/skins/char_4134_cetsyr-skin1/char_4134_cetsyr_epoque_50"
+  },
+  "char_4184_dolris-skin1": {
+    "name": "笼中歌者",
+    "base": "assets/spine38/skins/char_4184_dolris-skin1/char_4184_dolris_avemujica_1"
+  },
+  "char_4091_ulika-skin1": {
+    "name": "云上直播间",
+    "base": "assets/spine38/skins/char_4091_ulika-skin1/char_4091_ulika_sanrio_1"
+  },
+  "skadi_alter-skin1": {
+    "name": "升华",
+    "base": "assets/spine38/skins/skadi_alter-skin1/char_1012_skadi2_boc_4"
+  },
+  "skadi_alter-skin2": {
+    "name": "红女爵",
+    "base": "assets/spine38/skins/skadi_alter-skin2/char_1012_skadi2_iteration_2"
   }
 };

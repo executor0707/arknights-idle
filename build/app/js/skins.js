@@ -1,4 +1,4 @@
-// Generated skins. 508 skins with native attack + usable battle Spine.
+// Generated skins. 516 skins. Bard skins may have no attack animation.
 export const SKINS = [
   {
     "id": "char_225_haak-skin1",
@@ -5586,6 +5586,94 @@ export const SKINS = [
     "color": "#5d7284",
     "desc": "忒斯特收藏系列/无息破局。左乐走出的一步好棋。从纵横十九道至黑白六十四格，执刀者与己身对弈已久，他逐渐明白：棋局万殊，棋理一揆。",
     "img": "assets/skins/char_4121_zuole-skin2.webp",
+    "price": 18
+  },
+  {
+    "id": "char_4045_heidi-skin1",
+    "opId": "char_4045_heidi",
+    "key": "skin1",
+    "name": "书信零落",
+    "series": "时代/XXIV",
+    "color": "#29406b",
+    "desc": "EPOQUE系列新款/书信零落。海蒂按照幼年时夏日出游的经历定做的服饰，材质轻盈，用料考究，只是穿上的感觉和记忆中已经不同。",
+    "img": "assets/skins/char_4045_heidi-skin1.webp",
+    "price": 18
+  },
+  {
+    "id": "char_101_sora-skin1",
+    "opId": "char_101_sora",
+    "key": "skin1",
+    "name": "夏卉 FA361",
+    "series": "珊瑚海岸/I",
+    "color": "#f09a00",
+    "desc": "MARTHE [珊瑚海岸/CoralCoast]夏卉系列泳衣361款。参考少女的身材和体质，采用天然材质制成。追求今夏最领先的设计潮流。",
+    "img": "assets/skins/char_101_sora-skin1.webp",
+    "price": 18
+  },
+  {
+    "id": "char_101_sora-skin2",
+    "opId": "char_101_sora",
+    "key": "skin2",
+    "name": "如歌",
+    "series": "时代/XVII",
+    "color": "#752B27",
+    "desc": "EPOQUE系列新款/如歌。空在叙拉古米兰剧场进修与表演时的服装。叙拉古歌舞剧有其独特的文化符号，因此也必须穿上符合身份的服饰。",
+    "img": "assets/skins/char_101_sora-skin2.webp",
+    "price": 18
+  },
+  {
+    "id": "char_4134_cetsyr-skin1",
+    "opId": "char_4134_cetsyr",
+    "key": "skin1",
+    "name": "追悼",
+    "series": "时代/XLIX",
+    "color": "#8ca7cc",
+    "desc": "EPOQUE子品牌 [昔时/Passe]系列精选款/追悼。魔王在特蕾西娅的数据中深潜时的装束。透过时光的面纱，她望见亡者已封缄的记忆。",
+    "img": "assets/skins/char_4134_cetsyr-skin1.webp",
+    "price": 18
+  },
+  {
+    "id": "char_4184_dolris-skin1",
+    "opId": "char_4184_dolris",
+    "key": "skin1",
+    "name": "笼中歌者",
+    "series": "Ave Mujica",
+    "color": "#87321a",
+    "desc": "Ave Mujica合作服装/笼中歌者。少女下定决心后，梦境中显现的演出服。她不会拒绝牢笼，她会接受这牢笼，并背负着它歌唱下去。",
+    "img": "assets/skins/char_4184_dolris-skin1.webp",
+    "price": 18
+  },
+  {
+    "id": "char_4091_ulika-skin1",
+    "opId": "char_4091_ulika",
+    "key": "skin1",
+    "name": "云上直播间",
+    "series": "三丽鸥家族",
+    "color": "#f57daa",
+    "desc": "品牌合作服装/云上直播间。穿着儿时喜欢的裙子在云上醒来，看见朋友们环绕着自己，她恍惚间感受到了久违的自由——但她为什么掏出手机开始直播了？！",
+    "img": "assets/skins/char_4091_ulika-skin1.webp",
+    "price": 18
+  },
+  {
+    "id": "skadi_alter-skin1",
+    "opId": "skadi_alter",
+    "key": "skin1",
+    "name": "升华",
+    "series": "斗争血脉/IV",
+    "color": "#8d95a8",
+    "desc": "斗争血脉系列/升华。祂栖息在被大海浸漫的伊比利亚大教堂残骸内，歌声从喉中传出，进入每位海嗣的耳中。",
+    "img": "assets/skins/skadi_alter-skin1.webp",
+    "price": 18
+  },
+  {
+    "id": "skadi_alter-skin2",
+    "opId": "skadi_alter",
+    "key": "skin2",
+    "name": "红女爵",
+    "series": "命途迭代/II",
+    "color": "#b5163c",
+    "desc": "命途迭代系列/红女爵。浊心斯卡蒂在决策F/3019226中的迭代。混沌与冲动带来了赤红原野独一的主人。借着这样的情感，她创造出了心爱的造物。",
+    "img": "assets/skins/skadi_alter-skin2.webp",
     "price": 18
   }
 ];
@@ -11896,6 +11984,106 @@ export const SKINS_BY_OP = {
       "color": "#5d7284",
       "desc": "忒斯特收藏系列/无息破局。左乐走出的一步好棋。从纵横十九道至黑白六十四格，执刀者与己身对弈已久，他逐渐明白：棋局万殊，棋理一揆。",
       "img": "assets/skins/char_4121_zuole-skin2.webp",
+      "price": 18
+    }
+  ],
+  "char_4045_heidi": [
+    {
+      "id": "char_4045_heidi-skin1",
+      "opId": "char_4045_heidi",
+      "key": "skin1",
+      "name": "书信零落",
+      "series": "时代/XXIV",
+      "color": "#29406b",
+      "desc": "EPOQUE系列新款/书信零落。海蒂按照幼年时夏日出游的经历定做的服饰，材质轻盈，用料考究，只是穿上的感觉和记忆中已经不同。",
+      "img": "assets/skins/char_4045_heidi-skin1.webp",
+      "price": 18
+    }
+  ],
+  "char_101_sora": [
+    {
+      "id": "char_101_sora-skin1",
+      "opId": "char_101_sora",
+      "key": "skin1",
+      "name": "夏卉 FA361",
+      "series": "珊瑚海岸/I",
+      "color": "#f09a00",
+      "desc": "MARTHE [珊瑚海岸/CoralCoast]夏卉系列泳衣361款。参考少女的身材和体质，采用天然材质制成。追求今夏最领先的设计潮流。",
+      "img": "assets/skins/char_101_sora-skin1.webp",
+      "price": 18
+    },
+    {
+      "id": "char_101_sora-skin2",
+      "opId": "char_101_sora",
+      "key": "skin2",
+      "name": "如歌",
+      "series": "时代/XVII",
+      "color": "#752B27",
+      "desc": "EPOQUE系列新款/如歌。空在叙拉古米兰剧场进修与表演时的服装。叙拉古歌舞剧有其独特的文化符号，因此也必须穿上符合身份的服饰。",
+      "img": "assets/skins/char_101_sora-skin2.webp",
+      "price": 18
+    }
+  ],
+  "char_4134_cetsyr": [
+    {
+      "id": "char_4134_cetsyr-skin1",
+      "opId": "char_4134_cetsyr",
+      "key": "skin1",
+      "name": "追悼",
+      "series": "时代/XLIX",
+      "color": "#8ca7cc",
+      "desc": "EPOQUE子品牌 [昔时/Passe]系列精选款/追悼。魔王在特蕾西娅的数据中深潜时的装束。透过时光的面纱，她望见亡者已封缄的记忆。",
+      "img": "assets/skins/char_4134_cetsyr-skin1.webp",
+      "price": 18
+    }
+  ],
+  "char_4184_dolris": [
+    {
+      "id": "char_4184_dolris-skin1",
+      "opId": "char_4184_dolris",
+      "key": "skin1",
+      "name": "笼中歌者",
+      "series": "Ave Mujica",
+      "color": "#87321a",
+      "desc": "Ave Mujica合作服装/笼中歌者。少女下定决心后，梦境中显现的演出服。她不会拒绝牢笼，她会接受这牢笼，并背负着它歌唱下去。",
+      "img": "assets/skins/char_4184_dolris-skin1.webp",
+      "price": 18
+    }
+  ],
+  "char_4091_ulika": [
+    {
+      "id": "char_4091_ulika-skin1",
+      "opId": "char_4091_ulika",
+      "key": "skin1",
+      "name": "云上直播间",
+      "series": "三丽鸥家族",
+      "color": "#f57daa",
+      "desc": "品牌合作服装/云上直播间。穿着儿时喜欢的裙子在云上醒来，看见朋友们环绕着自己，她恍惚间感受到了久违的自由——但她为什么掏出手机开始直播了？！",
+      "img": "assets/skins/char_4091_ulika-skin1.webp",
+      "price": 18
+    }
+  ],
+  "skadi_alter": [
+    {
+      "id": "skadi_alter-skin1",
+      "opId": "skadi_alter",
+      "key": "skin1",
+      "name": "升华",
+      "series": "斗争血脉/IV",
+      "color": "#8d95a8",
+      "desc": "斗争血脉系列/升华。祂栖息在被大海浸漫的伊比利亚大教堂残骸内，歌声从喉中传出，进入每位海嗣的耳中。",
+      "img": "assets/skins/skadi_alter-skin1.webp",
+      "price": 18
+    },
+    {
+      "id": "skadi_alter-skin2",
+      "opId": "skadi_alter",
+      "key": "skin2",
+      "name": "红女爵",
+      "series": "命途迭代/II",
+      "color": "#b5163c",
+      "desc": "命途迭代系列/红女爵。浊心斯卡蒂在决策F/3019226中的迭代。混沌与冲动带来了赤红原野独一的主人。借着这样的情感，她创造出了心爱的造物。",
+      "img": "assets/skins/skadi_alter-skin2.webp",
       "price": 18
     }
   ]
