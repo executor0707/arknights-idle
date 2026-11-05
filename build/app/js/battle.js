@@ -139,7 +139,7 @@ export class Battle {
       hp, maxHp: hp, shield: 0, atk: st.atk * (1 + b.atk) * (1 + bb.atk), def: st.def * (1 + b.def),
       res: st.res, interval: st.interval / (1 + bb.aspd), range: st.range, block: st.block,
       cooldown: rand(0.1, 0.6), sp: id === 'amiya' ? Math.min(5, skillSp) : 0, maxSp: skillSp,
-      spRate: 1 + b.spRegen, dead: false, heal: st.heal, bard: !!st.bard, arts: st.arts,
+      spRate: 1 + b.spRegen, dead: false, heal: st.heal, bard: !!st.bard, ambusher: !!st.ambusher, arts: st.arts,
       skillPower: st.skillPower, buffAtk: 0, buffUntil: 0, castUntil: 0, attackLock: 0,
       combo: 0, lastTarget: null, atkStacks: 0, mlynarTimer: 0, phantoms: [],
       hitFlash: 0, healFlash: 0,
@@ -481,6 +481,15 @@ export class Battle {
     a.attackFlash = 0.18;
     a.attackLock = Math.max(a.attackLock || 0, 0.8);
     this._projectile(a, target);
+    if (a.ambusher) {
+      for (const e of this.enemies) {
+        if (e.dead) continue;
+        if (e !== target && Math.abs(e.x - a.x) > a.range) continue;
+        if (e !== target && a.range <= 40 && e.lane !== a.lane) continue;
+        if (e !== target) this._damageEnemy(e, damage, { arts: a.arts, source: a, crit });
+        if (!e.dead) e.stun = Math.max(e.stun || 0, 0.4);
+      }
+    }
     if (a.id === 'chen_alter' && Math.random() < 0.2) {
       for (const e of this.enemies) if (!e.dead && e !== target && Math.abs(e.x - target.x) < 10) this._damageEnemy(e, damage * 0.4, { arts: false, source: a });
     }

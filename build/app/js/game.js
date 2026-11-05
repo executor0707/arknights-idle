@@ -2,7 +2,7 @@ import { OPERATORS, STARTERS } from './operators.js';
 import {
   SAVE_KEY, SAVE_VERSION, MAX_SQUAD, PULL_COST, OFFLINE_CAP_HOURS,
   MATERIALS, STAGES, BANNERS, ROOMS, DAILY_TASKS, SHOP_ITEMS,
-  RARITY_BASE, ROLE_MODS, RECORD_ORDER, SKIN_PRICE, PRIME_SHARD_COST, SELECTOR_COST,
+  RARITY_BASE, ROLE_MODS, RECORD_ORDER, SKIN_PRICE, PRIME_SHARD_COST, SELECTOR_COST, FIVE_STAR_SELECTOR_COST,
   makeEndlessStage, MAX_ENDLESS_FLOOR,
 } from './data.js';
 import { SKINS, SKIN_BY_ID, SKINS_BY_OP } from './skins.js';
@@ -331,11 +331,14 @@ export function getOpStats(id) {
   if (s.potential >= 5) { atk *= 1.03; hp *= 1.03; interval *= 0.94; }
   const skillPower = 1 + (s.skill - 1) * 0.055 + (s.mastery || 0) * 0.075 + (s.potential >= 5 ? 0.1 : 0);
   const bard = data.role === 'supporter' && data.sub === '吟游者';
+  const lord = data.role === 'guard' && data.sub === '领主';
+  const ambusher = data.role === 'specialist' && data.sub === '伏击客';
+  const baseRange = (data.role === 'specialist' && RANGED_SPECIALIST_RANGE.get(data.sub)) || (MELEE_ROLES.has(data.role) ? MELEE_RANGE : mod.range);
   return {
     id, hp, atk, def, res, interval,
-    range: bard ? 999 : ((data.role === 'specialist' && RANGED_SPECIALIST_RANGE.get(data.sub)) || (MELEE_ROLES.has(data.role) ? MELEE_RANGE : mod.range)),
-    block: bard || (data.role === 'specialist' && RANGED_SPECIALIST_RANGE.has(data.sub)) ? 0 : mod.block,
-    role: data.role, arts: !!mod.arts, heal: !!mod.heal, bard, skillPower,
+    range: bard ? 999 : lord ? 999 : baseRange,
+    block: bard || ambusher || (data.role === 'specialist' && RANGED_SPECIALIST_RANGE.has(data.sub)) ? 0 : mod.block,
+    role: data.role, arts: !!mod.arts, heal: !!mod.heal, bard, lord, ambusher, skillPower,
   };
 }
 
@@ -975,6 +978,25 @@ export function claimSixStarSelector(opId) {
     ensureOp(opId);
   }
   state.gacha.selectorsUsed = (state.gacha.selectorsUsed || 0) + 1;
+  saveNow();
+  bus.dispatchEvent(new CustomEvent('selector', { detail: { op, isNew: !existed, maxed } }));
+  return { op, isNew: !existed, maxed };
+}
+
+export function claimFiveStarSelector(opId) {
+  if (state.distinction < FIVE_STAR_SELECTOR_COST) return null;
+  const op = OP_BY_ID.get(opId);
+  if (!op || op.rarity !== 5) return null;
+  state.distinction -= FIVE_STAR_SELECTOR_COST;
+  const existed = owned(opId);
+  let maxed = false;
+  if (existed) {
+    const s = opState(opId);
+    if (s.potential < 5) s.potential += 1;
+    else { maxed = true; state.distinction += 25; }
+  } else {
+    ensureOp(opId);
+  }
   saveNow();
   bus.dispatchEvent(new CustomEvent('selector', { detail: { op, isNew: !existed, maxed } }));
   return { op, isNew: !existed, maxed };

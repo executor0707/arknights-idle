@@ -1,0 +1,4 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+console.log(await evalJS(send, `(()=>{const s=__RHODES__.state;s.gacha.totalPulls=300;s.gacha.selectorsUsed=0;__RHODES__.setView('gacha',true);document.querySelector('[data-action="selector"]')?.click();const before=[...document.querySelectorAll('.selector-card')].filter(c=>!c.classList.contains('hidden')).length;document.querySelector('[data-action="selector-class"][data-value="近卫"]')?.click();const after=[...document.querySelectorAll('.selector-card')].filter(c=>!c.classList.contains('hidden')).length;const input=document.getElementById('selectorSearch');if(input){input.value='银灰';input.dispatchEvent(new Event('input',{bubbles:true}));}const searched=[...document.querySelectorAll('.selector-card')].filter(c=>!c.classList.contains('hidden')).length;return JSON.stringify({before,after,searched,count:document.getElementById('selectorCount')?.textContent})})()`));
+process.exit(0);

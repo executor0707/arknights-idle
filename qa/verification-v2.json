@@ -868,6 +868,20 @@
       "damageRatio": 3.25,
       "clear": 29.4,
       "normalClear": 24.2
+    },
+    "certFiveStarSelector": {
+      "cost": 325,
+      "filters": [
+        "class",
+        "search"
+      ],
+      "tested": true
+    },
+    "roleReworks": {
+      "lordRange": 999,
+      "ambusherBlock": 0,
+      "ambusherStun": 0.4,
+      "ambusherHitsAllInRange": true
     }
   },
   "limitations": [
