@@ -166,6 +166,33 @@
     return null;
   }
 
+  function puppetIdleClip(anims) {
+    if (anims.indexOf('Doll_Idle') >= 0) return 'Doll_Idle';
+    var m = anims.filter(function (a) { return /^Doll_Skill_\d+_Idle$/.test(a); })[0];
+    if (m) return m;
+    m = anims.filter(function (a) { return /^Doll_Skill_\d+_Loop$/.test(a); })[0];
+    if (m) return m;
+    if (anims.indexOf('Idle_B') >= 0) return 'Idle_B';
+    if (anims.indexOf('Doll_Default') >= 0) return 'Doll_Default';
+    return null;
+  }
+
+  function puppetEnterClip(anims, idle) {
+    if (!idle) return null;
+    if (idle === 'Doll_Idle') {
+      var hit = anims.filter(function (a) { return /^Doll_SwitchIn$/i.test(a); })[0];
+      if (hit) return hit;
+      hit = anims.filter(function (a) { return /^Doll_Skill_\d+_SwitchIn$/.test(a); })[0];
+      return hit || null;
+    }
+    if (/^Doll_Skill_\d+_Idle$/.test(idle)) {
+      var n = idle.replace(/_Idle$/, '_SwitchIn');
+      return anims.indexOf(n) >= 0 ? n : null;
+    }
+    if (idle === 'Idle_B') return anims.indexOf('Start_B') >= 0 ? 'Start_B' : null;
+    return null;
+  }
+
   function play(sp, name, loop) {
     if (!sp || sp._anim === name) return;
     if (name === 'Attack') {
@@ -217,6 +244,33 @@
       sp.y = (u.y / 100) * h + 18 + (u.bob || 0);
       sp.visible = !u.dead;
       if (u.dead) { play(sp, 'Die'); continue; }
+      if (u.puppet) {
+        var dollIdle = puppetIdleClip(sp._anims);
+        if (!dollIdle) { play(sp, 'Idle', true); continue; }
+        if (!sp._puppetActive) {
+          sp._puppetActive = true;
+          sp._puppetIdle = dollIdle;
+          var dollEnter = puppetEnterClip(sp._anims, dollIdle);
+          if (dollEnter) { play(sp, dollEnter, false); sp._puppetEntering = true; }
+          else { play(sp, dollIdle, true); sp._puppetEntering = false; }
+        } else if (sp._puppetEntering) {
+          var enterTrack = sp.state.getCurrent(0);
+          var enterDur = enterTrack && enterTrack.animation ? enterTrack.animation.duration : 0;
+          if (!(enterDur > 0.05) || enterTrack.trackTime >= enterDur - 0.03) {
+            sp._puppetEntering = false;
+            play(sp, dollIdle, true);
+          }
+        } else if (sp._anim !== dollIdle) {
+          play(sp, dollIdle, true);
+        }
+        continue;
+      }
+      if (sp._puppetActive) {
+        sp._puppetActive = false;
+        sp._puppetEntering = false;
+        sp._puppetIdle = null;
+        play(sp, 'Idle', true);
+      }
       if (u.bard) { play(sp, 'Idle', true); continue; }
       if (u.castUntil > 0.05) {
         if (sp._castMark !== u.sp) { play(sp, sp._anims.indexOf('Skill') >= 0 ? 'Skill' : 'Attack'); sp._castMark = u.sp; }
