@@ -15,6 +15,14 @@ const BOSS_BY_CHAPTER = {
   12: 'boss_blksnk', 13: 'boss_sfsui', 14: 'boss_blksnk', 15: 'boss_sfsui',
   16: 'boss_blksnk', 17: 'boss_sfsui',
 };
+const MUJICA_IDS = new Set([
+  'char_4182_oblvns',
+  'char_4183_mortis',
+  'char_4184_dolris',
+  'char_4186_tmoris',
+  'char_4185_amoris',
+]);
+
 const ENEMY_INFO = {
   soldier: { glyph: '兵', hp: 1, atk: 1, speed: 1, block: true, size: 1 },
   shield: { glyph: '盾', hp: 1.7, atk: 0.9, speed: 0.72, block: true, size: 1.06 },
@@ -90,6 +98,7 @@ export class Battle {
     this.floats = [];
     this.effects = [];
     this.bardPulseT = 1;
+    this.mujicaT = 4;
     this.cast = null;
     this.cutIn = null;
     this.nextStageId = null;
@@ -215,6 +224,7 @@ export class Battle {
 
     this._updateEnemies(dt);
     this._updateBardChorus(dt);
+    this._updateMujica(dt);
     this._assignBlocks();
     this._updateAllies(dt);
     this._updateProjectiles(dt);
@@ -240,6 +250,32 @@ export class Battle {
       }
     }
     this._effect(50, 50, 'aoe', 0.45);
+  }
+
+  _updateMujica(dt) {
+    const members = this.allies.filter(a => MUJICA_IDS.has(a.id) && !a.dead);
+    if (members.length < 5) { this.mujicaT = 4; return; }
+    this.mujicaT = (this.mujicaT ?? 4) - dt;
+    if (this.mujicaT > 0) return;
+    this.mujicaT += 4;
+    const totalAtk = members.reduce((sum, a) => sum + a.atk, 0);
+    for (const e of this.enemies) {
+      if (e.dead) continue;
+      this._damageEnemy(e, totalAtk * 6.0, { arts: false, source: members[0] });
+      if (!e.dead) {
+        e.stun = Math.max(e.stun || 0, 0.45);
+        e.vuln = Math.max(e.vuln || 0, 0.15);
+        e.vulnT = Math.max(e.vulnT || 0, 4);
+      }
+    }
+    for (const a of this.allies) {
+      if (a.dead) continue;
+      this._healAlly(a, a.maxHp * 0.08, members[0]);
+      a.buffAtk = Math.max(a.buffAtk || 0, 0.4);
+      a.buffUntil = Math.max(a.buffUntil || 0, 4);
+    }
+    this._effect(50, 50, 'aoe', 0.8);
+    this._effect(50, 50, 'buff', 0.8);
   }
 
   _updateEnemies(dt) {
