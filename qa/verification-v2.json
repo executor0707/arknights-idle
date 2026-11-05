@@ -1001,6 +1001,10 @@
         "module": 3,
         "trust": 100
       }
+    },
+    "ambusherStun": {
+      "seconds": 0.2,
+      "tested": true
     }
   },
   "limitations": [
