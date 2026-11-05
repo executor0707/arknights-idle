@@ -1,0 +1,8 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=bard9325'});
+await new Promise(r=>setTimeout(r,3800));
+if (await evalJS(send, `!!document.querySelector('#enterBtn')`)) { await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true}); await new Promise(r=>setTimeout(r,2000)); await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`); }
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state;const ids=['char_101_sora','char_4045_heidi','char_4134_cetsyr','char_4184_dolris','char_4009_irene'];for(const id of ids)s.operators[id]={level:90,elite:2,potential:1,skill:1,mastery:0,trust:0,module:0,exp:0};s.squad=ids;__RHODES__.setView('battle',true);const b=__RHODES__.battle;b.start('CE-6');b.enemies=[];b.baseBonuses.crit=0;b.baseBonuses.critDmg=1.5;b.allies.forEach(a=>a.bard=true);const vals=[];b._damageEnemy=function(e,amount,opts){vals.push(amount)};b.bardPulseT=0;b._updateBardChorus(1);const a=b.allies[0];return JSON.stringify({atk:Math.round(a.atk),hp:Math.round(a.maxHp),expected:+(a.atk*.9325+a.maxHp*.01).toFixed(2),actual:vals.map(x=>+x.toFixed(2)).slice(0,5)})})()`));
+console.log(await evalJS(send, `(()=>{const s=__RHODES__.state;__RHODES__.setView('operators',true);document.querySelector('.op-hit[data-id="char_101_sora"]')?.click();const t=document.querySelector('.modal-backdrop')?.innerText||'';return JSON.stringify({has9325:t.includes('93.25%'),hasHp:t.includes('生命上限 1%')})})()`));
+process.exit(0);

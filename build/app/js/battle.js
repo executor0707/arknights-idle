@@ -251,7 +251,7 @@ export class Battle {
       if (e.dead) continue;
       for (const a of bards) {
         if (e.dead) break;
-        let damage = a.atk * 0.8325;
+        let damage = a.atk * 0.9325 + a.maxHp * 0.01;
         const crit = Math.random() < critChance;
         if (crit) damage *= critDmg;
         this._damageEnemy(e, damage, { arts: false, source: a, crit });
