@@ -1162,6 +1162,10 @@
       "overflowCalls": 5,
       "green": true,
       "fourMedicsCalls": 0
+    },
+    "medicDescription": {
+      "allMedics": true,
+      "samePosition": true
     }
   },
   "limitations": [
