@@ -1083,8 +1083,8 @@ export function upgradeRoom(id) {
 export function repairCost(id) {
   const r = roomDef(id); const s = state.base.rooms[id];
   if (!r || !s) return 0;
-  // Fixed emergency repair fee for a W-sabotaged facility.
-  return 30000;
+  // Base emergency fee, reduced by the dorm's repair-discount bonus.
+  return Math.round(30000 * (1 - repairDiscount()));
 }
 export function repairRoom(id) {
   const s = state.base.rooms[id];

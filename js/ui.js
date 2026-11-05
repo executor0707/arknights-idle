@@ -567,7 +567,7 @@ function renderBattle() {
           <div class="divider"></div>
           <div class="kv"><span>结构监测</span><b>${(state.base.sabotageTimer / 120 * 100).toFixed(0)}%</b></div>
           <div class="progress red mt-8"><i style="width:${state.base.sabotageTimer / 120 * 100}%"></i></div>
-          <div class="small mt-8">每 2 分钟进行一次结构判定。爆炸概率低，但并非为零。维修固定 30,000 龙门币，不随设施等级上升。</div>
+          <div class="small mt-8">每 2 分钟进行一次结构判定。爆炸概率低，但并非为零。基础维修费 30,000 龙门币，宿舍等级提供最高 35% 维修折扣。</div>
           ${state.base.sabotageLog[0] ? `<div class="small mt-8">最近：${esc(state.base.sabotageLog[0].name)} · ${timeAgo(state.base.sabotageLog[0].at)}</div>` : ''}
         </div>
       </div>
