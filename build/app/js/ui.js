@@ -724,14 +724,16 @@ function makeAllyEl(a) {
   node.dataset.uid = a.uid;
   node.style.setProperty('--rarity', STAR_COLOR[d?.rarity || 3]);
   if (a.phantom) {
-    node.innerHTML = `<div class="portrait"><span class="phantom-mark">影</span></div><div class="hpbar"><i></i><span class="shieldbar"><i></i></span></div><div class="spbar"><i></i></div><div class="unit-name">${esc(a.summonName || '召唤物')}</div>`;
+    node.innerHTML = `<div class="portrait"><span class="phantom-mark">影</span></div><div class="hpbar"><i></i><span class="shieldbar"><i></i></span></div><div class="spbar"><i></i></div><div class="puppetbar hidden"><i></i></div><div class="unit-name">${esc(a.summonName || '召唤物')}</div>`;
   } else {
-    node.innerHTML = `<div class="portrait"><img src="${G.portraitFor(a.id)}" alt="${esc(d.name)}" loading="lazy"><span class="block-badge"></span></div><div class="hpbar"><i></i><span class="shieldbar"><i></i></span></div><div class="spbar"><i></i></div><div class="unit-name">${esc(d.name)}</div>`;
+    node.innerHTML = `<div class="portrait"><img src="${G.portraitFor(a.id)}" alt="${esc(d.name)}" loading="lazy"><span class="block-badge"></span></div><div class="hpbar"><i></i><span class="shieldbar"><i></i></span></div><div class="spbar"><i></i></div><div class="puppetbar hidden"><i></i></div><div class="unit-name">${esc(d.name)}</div>`;
   }
   node._refs = {
     hp: node.querySelector('.hpbar > i'),
     shield: node.querySelector('.shieldbar i'),
     sp: node.querySelector('.spbar i'),
+    puppetBar: node.querySelector('.puppetbar'),
+    puppet: node.querySelector('.puppetbar i'),
     badge: node.querySelector('.block-badge'),
   };
   return node;
@@ -777,6 +779,10 @@ function syncArena(rebuild = false) {
     node._refs.shield.title = shield > 0 ? `护盾 ${Math.round(shield)}` : '';
     node.classList.toggle('shielded', shield > 0.5);
     node._refs.sp.style.width = Math.min(100, unit.sp / unit.maxSp * 100) + '%';
+    const isPuppet = !!unit.puppet;
+    node._refs.puppetBar.classList.toggle('hidden', !isPuppet);
+    node._refs.puppet.style.width = isPuppet ? Math.min(100, (unit.puppetElapsed || 0) / 20 * 100) + '%' : '0%';
+    node.classList.toggle('puppet', isPuppet);
     node.classList.toggle('dead', unit.dead);
     node.classList.toggle('spine-unit', isOperatorSpineReady(unit.id));
     node.classList.toggle('hit', unit.hitFlash > 0.04);
@@ -1165,6 +1171,11 @@ export function openOperator(id, opts = {}) {
         <div class="detail-section-head"><b>天赋</b><span>${d.rarity === 6 ? '精英天赋' : '基础天赋'}</span></div>
         <div class="detail-section-body"><div class="skill-desc">${esc(G.talentText(id))}</div></div>
       </div>
+
+      ${d.sub === '傀儡师' ? `<div class="detail-section puppet-skill">
+        <div class="detail-section-head"><b>替身技能</b><span>独立 SP 10</span></div>
+        <div class="detail-section-body"><div class="skill-desc">${esc(G.puppetSkillText(id))}</div></div>
+      </div>` : ''}
 
       <div class="detail-section">
         <div class="detail-section-head"><b>模组</b><span>${mod?.maxed ? 'MODULE MAX' : mod?.locked ? '需精英二' : 'MODULE ' + (mod?.next || 0)}</span></div>

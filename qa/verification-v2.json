@@ -937,6 +937,18 @@
       "cutIn": null,
       "banner": null,
       "spineIdle": true
+    },
+    "puppeteerPuppet": {
+      "operators": 7,
+      "puppetBlock": 0,
+      "puppetSp": 10,
+      "puppetSpRate": 2.5,
+      "puppetWhite": 40,
+      "puppetSeconds": 20,
+      "casts": 4,
+      "returnAlive": true,
+      "deathEnds": true,
+      "bodySpIndependent": true
     }
   },
   "limitations": [

@@ -333,12 +333,13 @@ export function getOpStats(id) {
   const bard = data.role === 'supporter' && data.sub === '吟游者';
   const lord = data.role === 'guard' && data.sub === '领主';
   const ambusher = data.role === 'specialist' && data.sub === '伏击客';
+  const puppeteer = data.role === 'specialist' && data.sub === '傀儡师';
   const baseRange = (data.role === 'specialist' && RANGED_SPECIALIST_RANGE.get(data.sub)) || (MELEE_ROLES.has(data.role) ? MELEE_RANGE : mod.range);
   return {
     id, hp, atk, def, res, interval,
     range: bard ? 999 : lord ? 999 : baseRange,
     block: bard || ambusher || (data.role === 'specialist' && RANGED_SPECIALIST_RANGE.has(data.sub)) ? 0 : mod.block,
-    role: data.role, arts: !!mod.arts, heal: !!mod.heal, bard, lord, ambusher,
+    role: data.role, arts: !!mod.arts, heal: !!mod.heal, bard, lord, ambusher, puppeteer,
     untargetable: ambusher, skillPower,
   };
 }
@@ -572,11 +573,22 @@ export function useToken(id) {
   return true;
 }
 
+export function puppetSkillText(id) {
+  const d = opData(id);
+  if (!d || d.role !== 'specialist' || d.sub !== '傀儡师') return '';
+  const sk = d.skill || {};
+  const name = sk.name ? `替身·${sk.name}` : '替身技能';
+  return `替身技能「${name}」：SP 固定 10，替身期间可按正常技能循环释放 4 次；不随本体技能等级或 SP 变化。白条固定 40 点 / 20 秒，白条读满自动回归本体。`;
+}
+
 export function talentText(id) {
   const d = opData(id);
   if (!d) return '';
   if (d.role === 'specialist' && d.sub === '伏击客') {
     return '伏击：攻击均为范围攻击，对范围内所有敌人造成 0.4 秒停顿；自身不成为敌方攻击目标。';
+  }
+  if (d.role === 'specialist' && d.sub === '傀儡师') {
+    return '傀儡：受到致命伤时不撤退，切换为阻挡 0 的替身，持续 20 秒；替身使用独立技能，SP 固定 10，替身白条读满或替身阵亡时结束。';
   }
   if (d.talent) return `${d.talent.name}：${d.talent.desc}`;
   if (d.rarity === 5) return '战术素养：攻击力 +6%。';
