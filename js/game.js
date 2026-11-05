@@ -1251,12 +1251,12 @@ export function tickBase(dt, opts = {}) {
   s.materialProgress += roomRate('workshop') * dt;
   while (s.materialProgress >= 1) {
     s.materialProgress -= 1;
-    addItem(Math.random() < 0.25 ? 'book2' : 'book1', 1);
+    addItem('book3', 1);
   }
   s.bookProgress += roomRate('training') * dt;
   while (s.bookProgress >= 1) {
     s.bookProgress -= 1;
-    addItem(Math.random() < 0.22 ? 'book2' : 'book1', 1);
+    addItem('module', 1);
   }
   s.blockProgress = (s.blockProgress || 0) + roomRate('reception') * dt;
   while (s.blockProgress >= 1) {
