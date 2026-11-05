@@ -1115,7 +1115,7 @@ export function openOperator(id, opts = {}) {
       ${MUJICA_IDS.has(id) ? `<div class="detail-section mujica-synergy">
         <div class="detail-section-head"><b>假面舞会 · 五重奏</b><span>Ave Mujica</span></div>
         <div class="detail-section-body">
-          <div class="detail-note">当丰川祥子、若叶睦、三角初华、八幡海铃、祐天寺若麦同时在场时，每 <b>4 秒</b>触发一次五重奏：对全场敌人造成五人攻击力总和 <b>600%</b> 的伤害，并附加 <b>0.45 秒</b>麻痹与 <b>15%</b> 易伤；为全队恢复 <b>8%</b> 最大生命，并获得 <b>40%</b> 攻击力加成，持续 4 秒。</div>
+          <div class="detail-note">当丰川祥子、若叶睦、三角初华、八幡海铃、祐天寺若麦同时在场时，每 <b>10 秒</b>触发一次五重奏：对全场敌人造成五人攻击力总和 <b>325%</b> 的伤害，并附加 <b>0.45 秒</b>麻痹与 <b>15%</b> 易伤；为全队恢复 <b>8%</b> 最大生命，并获得 <b>40%</b> 攻击力加成，持续 4 秒。</div>
         </div>
       </div>` : ''}
 
