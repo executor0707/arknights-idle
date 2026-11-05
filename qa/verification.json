@@ -1174,6 +1174,11 @@
       "medicDps": 4776,
       "normalDps": 27263,
       "ratio": 0.175
+    },
+    "pity50": {
+      "hardPity": 50,
+      "testedFrom49": "怒潮凛冬",
+      "rarity": 6
     }
   },
   "limitations": [

@@ -1309,7 +1309,7 @@ function renderGacha() {
         </div>
         <div class="pity-box">
           <div class="pity-item">六星保底<b>${pity.since6} / 50</b></div>
-          <div class="pity-item">距离硬保底<b>${Math.max(0, 99 - pity.since6)} 抽</b></div>
+          <div class="pity-item">距离50抽保底<b>${Math.max(0, 50 - pity.since6)} 抽</b></div>
           <div class="pity-item">本池累计<b>${pity.total}</b></div>
         </div>
       </div>
@@ -1322,7 +1322,7 @@ function renderGacha() {
           <div class="rate-bar">${rates.map(([, v, c]) => `<div class="rate-seg" style="width:${v}%;background:${c}"></div>`).join('')}</div>
           <div class="rate-legend">${rates.map(([n, v, c]) => `<span>${n}<b style="color:${c}">${v}%</b></span>`).join('')}</div>
           <div class="divider"></div>
-          <div class="gacha-notes">• 6★ 基础概率 2%；连续 50 抽未获得 6★ 后，每抽概率 +2%。<br>• 所有卡池内的 6★ 均为等概率随机，不设单独 UP 或角色权重。<br>• 标准、限定、联动卡池分别计算保底，不共享水位。<br>• 每累计 300 抽，可获得 1 次任意 6★ 自选兑换。<br>• 重复干员转化为潜能；满潜后转化为资质凭证。</div>
+          <div class="gacha-notes">• 6★ 基础概率 2%；每累计 50 抽必得 1 名 6★，第 50 抽为硬保底。<br>• 所有卡池内的 6★ 均为等概率随机，不设单独 UP 或角色权重。<br>• 标准、限定、联动卡池分别计算保底，不共享水位。<br>• 每累计 300 抽，可获得 1 次任意 6★ 自选兑换。<br>• 重复干员转化为潜能；满潜后转化为资质凭证。</div>
           <div class="action-row mt-12"><button class="btn btn-small" data-action="pool-six">查看本池全部 6★（${sixPool.length}）</button></div>
         </div>
       </div>
