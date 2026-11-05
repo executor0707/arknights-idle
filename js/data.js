@@ -72,6 +72,7 @@ export const SKIN_PRICE = 18;
 export const PRIME_SHARD_COST = 20;
 export const SELECTOR_COST = 300;
 export const FIVE_STAR_SELECTOR_COST = 325;
+export const MAX_OUT_COST = 50000;
 export const PUPPET_DURATIONS = {
   'char_4183_mortis': 18.133,
   'char_4124_iana': 4,

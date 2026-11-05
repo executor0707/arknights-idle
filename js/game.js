@@ -2,7 +2,7 @@ import { OPERATORS, STARTERS } from './operators.js';
 import {
   SAVE_KEY, SAVE_VERSION, MAX_SQUAD, PULL_COST, OFFLINE_CAP_HOURS,
   MATERIALS, STAGES, BANNERS, ROOMS, DAILY_TASKS, SHOP_ITEMS,
-  RARITY_BASE, ROLE_MODS, RECORD_ORDER, SKIN_PRICE, PRIME_SHARD_COST, SELECTOR_COST, FIVE_STAR_SELECTOR_COST, PUPPET_SKILL, puppetDurationFor, puppetHasSkill,
+  RARITY_BASE, ROLE_MODS, RECORD_ORDER, SKIN_PRICE, PRIME_SHARD_COST, SELECTOR_COST, FIVE_STAR_SELECTOR_COST, MAX_OUT_COST, PUPPET_SKILL, puppetDurationFor, puppetHasSkill,
   makeEndlessStage, MAX_ENDLESS_FLOOR,
 } from './data.js';
 import { SKINS, SKIN_BY_ID, SKINS_BY_OP } from './skins.js';
@@ -1021,6 +1021,26 @@ export function claimFiveStarSelector(opId) {
   saveNow();
   bus.dispatchEvent(new CustomEvent('selector', { detail: { op, isNew: !existed, maxed } }));
   return { op, isNew: !existed, maxed };
+}
+
+export function maxOutOperator(opId) {
+  if (state.distinction < MAX_OUT_COST) return null;
+  const op = OP_BY_ID.get(opId);
+  if (!op) return null;
+  state.distinction -= MAX_OUT_COST;
+  const existed = owned(opId);
+  const s = opState(opId) || ensureOp(opId);
+  s.elite = maxElite(op.rarity);
+  s.level = levelCap(op.rarity, s.elite);
+  s.potential = 5;
+  s.skill = 7;
+  s.mastery = 3;
+  s.trust = 100;
+  s.module = 3;
+  s.exp = 0;
+  saveNow();
+  bus.dispatchEvent(new CustomEvent('selector', { detail: { op, maxOut: true } }));
+  return { op, isNew: !existed };
 }
 
 // ── 基建 ───────────────────────────────────────────────────────────
