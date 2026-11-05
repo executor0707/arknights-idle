@@ -1143,6 +1143,12 @@
         "type": "aoe",
         "damage": 5909
       }
+    },
+    "specialistNoHeal": {
+      "except": "炼金师",
+      "healingSkills": 0,
+      "ascln": "降临/aoe",
+      "jie": "刺身拼盘/multi"
     }
   },
   "limitations": [

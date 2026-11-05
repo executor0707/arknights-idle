@@ -36,6 +36,8 @@ const CLASS_ATTACK_SKILL_FIXES = {
   char_155_tiger: { name: '裂魂', type: 'multi', power: 1.5, hits: 3, duration: 3, sp: 22, desc: '裂魂：连续攻击 3 次，每次造成攻击力 150% 的物理伤害。' },
   char_333_sidero: { name: '破浪回神', type: 'nuke', power: 3, duration: 2, sp: 22, desc: '破浪回神：对生命最低的敌人造成攻击力 300% 的法术伤害。' },
   char_4121_zuole: { name: '佑序有炎', type: 'aoe', power: 3.45, duration: 4, sp: 38, dot: 0.3, desc: '佑序有炎：对范围内所有敌人造成攻击力 345% 的法术伤害，并附加持续 4 秒的灼烧。' },
+  char_4132_ascln: { name: '降临', type: 'aoe', power: 2.8, duration: 4, sp: 22, stun: 0.4, desc: '降临：对范围内所有敌人造成攻击力 280% 的伤害，并使其停顿 0.4 秒。' },
+  char_272_strong: { name: '刺身拼盘', type: 'multi', power: 1.4, hits: 3, duration: 3, sp: 21, desc: '刺身拼盘：连续攻击 3 次，每次造成攻击力 140% 的物理伤害。' },
 };
 for (const [operatorId, skill] of Object.entries(CLASS_ATTACK_SKILL_FIXES)) {
   const data = OP_BY_ID.get(operatorId);
@@ -45,7 +47,9 @@ for (const [operatorId, skill] of Object.entries(CLASS_ATTACK_SKILL_FIXES)) {
 // skill (for example Nearl Alter). Strip it for these four classes so no
 // forgotten flag can apply a hidden self-heal.
 for (const data of OPERATORS) {
-  if (!['先锋', '近卫', '狙击', '术士'].includes(data.cls) || !data.skill) continue;
+  const noHealClass = ['先锋', '近卫', '狙击', '术士'].includes(data.cls)
+    || (data.cls === '特种' && data.sub !== '炼金师');
+  if (!noHealClass || !data.skill) continue;
   const { heal, selfHeal, ...offensive } = data.skill;
   data.skill = offensive;
 }
