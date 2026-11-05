@@ -111,6 +111,7 @@
     var sp = new PIXI.spine.Spine(data);
     sp.autoUpdate = true;
     sp._anims = data.animations.map(function (a) { return a.name; });
+    sp._skillAttack = !!SKILL_ATTACK_SKINS[key];
     sp.state.setAnimation(0, sp._anims.indexOf('Idle') >= 0 ? 'Idle' : sp._anims[0], true);
     sp.update(0);
     var lb = sp.getLocalBounds();
@@ -131,8 +132,27 @@
     return sp;
   }
 
+  var SKILL_ATTACK_SKINS = {
+    'char_388_mint-skin1': 1, 'char_388_mint-skin2': 1,
+    'char_445_wscoot-skin1': 1,
+    'char_426_billro-skin1': 1, 'char_426_billro-skin2': 1,
+    'char_486_takila-skin1': 1, 'char_486_takila-skin2': 1,
+    'mlynar-skin1': 1, 'mlynar-skin2': 1,
+    'char_344_beewax-skin1': 1, 'char_344_beewax-skin2': 1,
+    'char_1043_leizi2-skin1': 1
+  };
+
   function attackClip(sp) {
     var a = sp._anims || [];
+    // Caster formation / liberator skins have no authored Attack clip. Their
+    // first skill animation is the intended attack pose; use the beginning or
+    // loop pose, never the end pose.
+    if (sp._skillAttack) {
+      var skill1 = ['Skill_1_Start', 'Skill_1_Begin', 'Skill_1_Loop', 'Skill_1_Idle'];
+      for (var si = 0; si < skill1.length; si++) if (a.indexOf(skill1[si]) >= 0) return skill1[si];
+      var skill2 = ['Skill_2_Start', 'Skill_2_Begin', 'Skill_2_Loop', 'Skill_2_Idle', 'Skill_Start', 'Skill_Begin', 'Skill_Loop', 'Skill_Idle'];
+      for (var sj = 0; sj < skill2.length; sj++) if (a.indexOf(skill2[sj]) >= 0) return skill2[sj];
+    }
     var pref = ['Attack', 'Attack_Loop', 'Attack_Begin', 'Attack_1_A', 'Attack_1_B', 'Attack_2_A', 'Attack_2_B', 'Doll_Attack_Loop', 'Doll_Attack_Begin'];
     for (var i = 0; i < pref.length; i++) if (a.indexOf(pref[i]) >= 0) return pref[i];
     for (var j = 0; j < a.length; j++) {

@@ -2063,5 +2063,53 @@ export const SKIN_SPINE = {
   "skadi_alter-skin2": {
     "name": "红女爵",
     "base": "assets/spine38/skins/skadi_alter-skin2/char_1012_skadi2_iteration_2"
+  },
+  "char_388_mint-skin1": {
+    "name": "月宵",
+    "base": "assets/spine38/skins/char_388_mint-skin1/char_388_mint_epoque_22"
+  },
+  "char_388_mint-skin2": {
+    "name": "私人书房",
+    "base": "assets/spine38/skins/char_388_mint-skin2/char_388_mint_epoque_30"
+  },
+  "char_445_wscoot-skin1": {
+    "name": "异乡的云",
+    "base": "assets/spine38/skins/char_445_wscoot-skin1/char_445_wscoot_epoque_49"
+  },
+  "char_426_billro-skin1": {
+    "name": "霍恩洛厄的寒沙",
+    "base": "assets/spine38/skins/char_426_billro-skin1/char_426_billro_snow_3"
+  },
+  "char_426_billro-skin2": {
+    "name": "灿阳朝露 SD08",
+    "base": "assets/spine38/skins/char_426_billro-skin2/char_426_billro_summer_8"
+  },
+  "char_486_takila-skin1": {
+    "name": "开牌制胜",
+    "base": "assets/spine38/skins/char_486_takila-skin1/char_486_takila_ambienceSynesthesia_2"
+  },
+  "char_486_takila-skin2": {
+    "name": "巅峰现场",
+    "base": "assets/spine38/skins/char_486_takila-skin2/char_486_takila_shining_2"
+  },
+  "mlynar-skin1": {
+    "name": "远路",
+    "base": "assets/spine38/skins/mlynar-skin1/char_4064_mlynar_epoque_28"
+  },
+  "mlynar-skin2": {
+    "name": "苍茫怒号",
+    "base": "assets/spine38/skins/mlynar-skin2/char_4064_mlynar_iteration_3"
+  },
+  "char_344_beewax-skin1": {
+    "name": "白沙",
+    "base": "assets/spine38/skins/char_344_beewax-skin1/char_344_beewax_epoque_9"
+  },
+  "char_344_beewax-skin2": {
+    "name": "悠然假日 HD61",
+    "base": "assets/spine38/skins/char_344_beewax-skin2/char_344_beewax_summer_11"
+  },
+  "char_1043_leizi2-skin1": {
+    "name": "血翼蔷薇",
+    "base": "assets/spine38/skins/char_1043_leizi2-skin1/char_1043_leizi2_game_8"
   }
 };
