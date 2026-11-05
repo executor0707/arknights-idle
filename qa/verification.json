@@ -1114,7 +1114,13 @@
         "training": 40
       }
     },
-    "basePowerRowRemoved": true
+    "basePowerRowRemoved": true,
+    "book3Module": {
+      "workshopPerHour": 33,
+      "trainingPerHour": 39.6,
+      "book3Delta": 33,
+      "moduleDelta": 40
+    }
   },
   "limitations": [
     "Combat is now a 5-person horizontal march; damage/leak/Boss balance is pending the next numeric pass.",

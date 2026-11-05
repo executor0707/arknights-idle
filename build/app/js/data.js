@@ -279,8 +279,8 @@ export const ROOMS = [
   { id: 'factory', name: '制造站', glyph: '造', desc: '生产作战记录。每级提升全队攻击力。', effect: 'record', rate: 2.4, baseCost: 5200, color: '#72d6d0', combat: { atk: 0.0006 }, combatLabel: '全队攻击 +0.06%' },
   { id: 'power', name: '发电站', glyph: '电', desc: '为全舰供能。每级提升攻速与全舰产出。', effect: 'global', rate: 0.015, baseCost: 6800, color: '#67d9ff', combat: { aspd: 0.0003 }, combatLabel: '攻击速度 +0.03%' },
   { id: 'reception', name: '会客室', glyph: '客', desc: '接待来访势力。每级产出基建材料块并提升治疗量。', effect: 'block', rate: 1 / 36, baseCost: 8200, color: '#f08ac6', combat: { heal: 0.0004 }, combatLabel: '治疗量 +0.04%' },
-  { id: 'workshop', name: '加工站', glyph: '加', desc: '定时整理技巧概要。每级提升治疗量。', effect: 'material', rate: 1 / 240, baseCost: 7000, color: '#c58cff', combat: { heal: 0.0003 }, combatLabel: '治疗量 +0.03%' },
-  { id: 'training', name: '训练室', glyph: '训', desc: '定时整理技巧概要。每级提升治疗量。', effect: 'book', rate: 1 / 200, baseCost: 6600, color: '#8ee08a', combat: { heal: 0.0008 }, combatLabel: '治疗量 +0.08%' },
+  { id: 'workshop', name: '加工站', glyph: '加', desc: '定时整理技巧概要·卷三。每级提升治疗量。', effect: 'material', rate: 1 / 240, baseCost: 7000, color: '#c58cff', combat: { heal: 0.0003 }, combatLabel: '治疗量 +0.03%' },
+  { id: 'training', name: '训练室', glyph: '训', desc: '定时整理模组数据块。每级提升治疗量。', effect: 'book', rate: 1 / 200, baseCost: 6600, color: '#8ee08a', combat: { heal: 0.0008 }, combatLabel: '治疗量 +0.08%' },
   { id: 'dorm', name: '宿舍', glyph: '宿', desc: '让干员好好休息。每级提升全队生命上限，并降低设施维修费。', effect: 'repair', rate: 0, baseCost: 5800, color: '#d7dde5', combat: { hp: 0.0008 }, combatLabel: '生命上限 +0.08%' },
 ];
 

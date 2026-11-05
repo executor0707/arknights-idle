@@ -1544,8 +1544,8 @@ function roomOutputText(r) {
     case 'lmd': return `龙门币 <b>+${fmt(G.roomRate(r.id) * 3600)}/h</b>`;
     case 'record': return `作战记录 <b>+${fmt(G.roomRate(r.id) * 3600)} 经验/h</b>`;
     case 'block': return `基建材料块 <b>+${(G.roomRate(r.id) * 3600).toFixed(1)}/h</b>`;
-    case 'material': return `技巧概要 <b>+${(G.roomRate(r.id) * 3600).toFixed(1)}/h</b>`;
-    case 'book': return `技巧概要 <b>+${(G.roomRate(r.id) * 3600).toFixed(1)}/h</b>`;
+    case 'material': return `技巧概要·卷三 <b>+${(G.roomRate(r.id) * 3600).toFixed(1)}/h</b>`;
+    case 'book': return `模组数据块 <b>+${(G.roomRate(r.id) * 3600).toFixed(1)}/h</b>`;
     case 'global': return `全舰产出 <b>+${((r.rate * (s.level - 1)) * 100).toFixed(1)}%</b>`;
     case 'repair': return `固定维修 <b>3.00万</b>`;
     default: return '';
