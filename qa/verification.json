@@ -1048,6 +1048,11 @@
         "primesAfter": 5,
         "orundum": 900
       }
+    },
+    "receptionRate": {
+      "beforePerHour": 2,
+      "afterPerHour": 100,
+      "multiplier": 50
     }
   },
   "limitations": [
