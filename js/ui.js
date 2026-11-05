@@ -1107,7 +1107,7 @@ export function openOperator(id, opts = {}) {
       ${d.sub === '吟游者' ? `<div class="detail-section bard-synergy">
         <div class="detail-section-head"><b>吟游者共鸣</b><span>5 人联动</span></div>
         <div class="detail-section-body">
-          <div class="detail-note">当场上同时存在 5 名吟游者时，每秒对全场所有敌人造成各自攻击力 <b>80%</b> 的伤害，并使其麻痹 <b>0.3 秒</b>。</div>
+          <div class="detail-note">当场上同时存在 5 名吟游者时，每秒对全场所有敌人造成各自攻击力 <b>80%</b> 的伤害；每当吟游者释放技能时，额外使全场敌人麻痹 <b>0.3 秒</b>，多人同时释放只保留一次控制。</div>
         </div>
       </div>` : ''}
 
