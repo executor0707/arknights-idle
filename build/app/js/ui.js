@@ -1055,6 +1055,10 @@ export function openOperator(id, opts = {}) {
   const next = G.nextLevelInfo(id) || { capped: true, cap: G.levelCap(d.rarity, s.elite), exp: 0, lmd: 0, needExp: 0 };
   const promo = G.promotionInfo(id);
   const skill = G.skillReqInfo(id);
+  const baseSkillSp = Math.max(10, Math.min(40, Number(d.skill.sp) || 30));
+  const skillSp = G.skillSpCost(id);
+  const skillSpCut = Math.max(0, Math.round((1 - skillSp / baseSkillSp) * 1000) / 10);
+  const skillPreview = G.skillUpgradePreview(id);
   const mod = G.moduleReqInfo(id);
   const allSkins = G.skinsFor(id);
   const equipped = state.skins.equipped[id];
@@ -1185,7 +1189,8 @@ export function openOperator(id, opts = {}) {
         <div class="detail-section-body">
           <div class="skill-name">${esc(d.skill.name)} <span class="tag cyan">${skill?.kind === 'mastery' ? '专精' : '技能'}</span></div>
           <div class="skill-desc">${esc(G.skillDescription(id))}</div>
-          <div class="skill-meta"><span>自动回复</span><span>自动触发</span><span>SP ${d.skill.sp || 30}</span></div>
+          <div class="skill-meta"><span>自动回复</span><span>自动触发</span><span>SP ${skillSp} / 基础 ${baseSkillSp} · -${skillSpCut}%</span></div>
+          <div class="detail-note">当前技能倍率 ×${st.skillPower.toFixed(2)}${skillPreview ? ` · 升级后 ×${skillPreview.power.toFixed(2)}，SP ${skillPreview.sp}` : ''}</div>
           ${skill?.maxed ? `<div class="detail-note">技能已专精三。战斗中的技能倍率已计入属性。</div>` : skill?.locked ? `<div class="detail-note">精英二后开放技能专精。</div>` : `
             <div class="cost-line">${costLine(skill.cost)}</div>
             <div class="action-row"><button class="btn btn-small btn-primary" data-action="op-skill" data-id="${id}" ${G.canPay(skill.cost) ? '' : 'disabled'}>${skill.kind === 'mastery' ? '训练专精 ' + skill.next : '提升至 LV ' + skill.next}</button></div>`}

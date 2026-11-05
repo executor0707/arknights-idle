@@ -1064,6 +1064,20 @@
       "appliesCrit": true,
       "testedBase": 3187.6,
       "testedCrit2x": 6374.9
+    },
+    "skillUpgrade": {
+      "spMultiplier": 0.98,
+      "spTested": {
+        "low": 31,
+        "high": 26,
+        "reduction": 16.1
+      },
+      "damageRatio": 1.507,
+      "buffRatio": 1.505,
+      "shieldRatio": 1.505,
+      "healRatio": 1.504,
+      "descriptionCurrent": true,
+      "descriptionPreview": true
     }
   },
   "limitations": [

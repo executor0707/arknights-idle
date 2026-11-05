@@ -1,0 +1,4 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state;const out={};const run=(id,stat,skill,mastery)=>{s.operators[id]={level:90,elite:2,potential:5,skill,mastery,trust:100,module:3,exp:0};s.squad=[id,null,null,null,null];__RHODES__.setView('battle',true);const b=__RHODES__.battle;b.start('CE-6');const a=b.allies[0];if(stat==='heal')a.hp=1;b._castSkill(a);if(stat==='buff')return a.buffAtk;if(stat==='heal')return a.hp;if(stat==='shield')return a.shield/a.maxHp;};for(const id of ['char_4183_mortis','char_4045_heidi','char_4184_dolris']){const low=run(id,id==='char_4183_mortis'?'buff':id==='char_4045_heidi'?'shield':'heal',1,0);const high=run(id,id==='char_4183_mortis'?'buff':id==='char_4045_heidi'?'shield':'heal',7,3);out[id]={low,high,ratio:+(high/low).toFixed(3)};}return JSON.stringify(out)})()`));
+process.exit(0);
