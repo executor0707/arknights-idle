@@ -1123,6 +1123,13 @@
       "autoOff": true,
       "orundumDelta": 6.844,
       "idleSecondsDelta": 4.033
+    },
+    "flatGacha": {
+      "standardSix": 23,
+      "logos": 0,
+      "limitedSix": 23,
+      "collabSix": 28,
+      "noRateUp": true
     }
   },
   "limitations": [

@@ -1280,7 +1280,7 @@ function renderGacha() {
       <div class="banner-roster">
         <div class="roster-head"><span>可抽出 6★</span><b>${sixPool.length}</b><em>POOL WINDOW</em></div>
         <div class="roster-grid">
-          ${roster.map(o => `<div class="roster-op ${o.id === banner.featured6 ? 'featured' : ''}" title="${esc(o.name)}">
+          ${roster.map(o => `<div class="roster-op" title="${esc(o.name)}">
             <img src="${G.portraitFor(o.id)}" alt="${esc(o.name)}" loading="lazy">
             <span>${esc(o.name)}</span>
           </div>`).join('')}
@@ -1289,7 +1289,7 @@ function renderGacha() {
       <div class="banner-content">
         <span class="banner-tag">${banner.tag} · ${banner.subtitle}</span>
         <h2>${esc(featured?.name || '')}<br><em>${esc(banner.name)}</em></h2>
-        <div class="banner-sub">RATE UP // ${banner.featured6.toUpperCase()}</div>
+        <div class="banner-sub">FULL POOL // ALL 6★ EQUAL RATE</div>
         <p class="banner-desc">${esc(banner.desc)}</p>
         <div class="banner-featured">
           <div class="featured-op"><img src="${featured?.img || ''}" alt=""><div><b>${esc(featured?.name || '')}</b><span>6★ · ${banner.pool === 'limited' ? '全部限定混合' : banner.pool === 'collab' ? '全部联动混合' : '常驻混合'}</span></div></div>
@@ -1315,7 +1315,7 @@ function renderGacha() {
           <div class="rate-bar">${rates.map(([, v, c]) => `<div class="rate-seg" style="width:${v}%;background:${c}"></div>`).join('')}</div>
           <div class="rate-legend">${rates.map(([n, v, c]) => `<span>${n}<b style="color:${c}">${v}%</b></span>`).join('')}</div>
           <div class="divider"></div>
-          <div class="gacha-notes">• 6★ 基础概率 2%；连续 50 抽未获得 6★ 后，每抽概率 +2%。<br>• 标准、限定、联动卡池分别计算保底，不共享水位。<br>• 每累计 300 抽，可获得 1 次任意 6★ 自选兑换。<br>• 重复干员转化为潜能；满潜后转化为资质凭证。</div>
+          <div class="gacha-notes">• 6★ 基础概率 2%；连续 50 抽未获得 6★ 后，每抽概率 +2%。<br>• 所有卡池内的 6★ 均为等概率随机，不设单独 UP 或角色权重。<br>• 标准、限定、联动卡池分别计算保底，不共享水位。<br>• 每累计 300 抽，可获得 1 次任意 6★ 自选兑换。<br>• 重复干员转化为潜能；满潜后转化为资质凭证。</div>
           <div class="action-row mt-12"><button class="btn btn-small" data-action="pool-six">查看本池全部 6★（${sixPool.length}）</button></div>
         </div>
       </div>

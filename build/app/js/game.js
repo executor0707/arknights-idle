@@ -978,8 +978,8 @@ function poolFor(rarity, banner) {
 function pickOperator(rarity, banner) {
   const pool = bannerPool(banner);
   if (rarity === 6) {
-    if (banner.pool === 'standard') return Math.random() < 0.5 ? pool.featured : pickFrom(pool.standard);
-    return pickFrom(pool.standard);
+    // Every pool is a flat pool: no featured/UP weighting for any operator.
+    return pickFrom(pool.standard) || pickFrom(pool.six) || pickFrom(OPERATORS.filter(o => o.rarity === 6 && !o.limited && !o.collab));
   }
   const candidates = poolFor(rarity, banner);
   return pickFrom(candidates) || pickFrom(OPERATORS.filter(o => o.rarity === Math.max(2, rarity - 1)));
