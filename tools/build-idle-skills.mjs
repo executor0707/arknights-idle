@@ -150,6 +150,16 @@ for (const op of OPERATORS) {
       desc: '同葬无光之愿：全队攻击力 +200%，持续 10 秒。',
     };
   }
+  if (op.id === 'wisadel') {
+    overrides[op.id] = {
+      name: '定点清算',
+      type: 'control',
+      power: 3,
+      duration: 4,
+      sp: 23,
+      desc: '定点清算：对范围内敌人造成攻击力 300% 的伤害，并使其停顿 4 秒。',
+    };
+  }
   for (const s of list) {
     const d = clean(levelOf(s).description, levelOf(s).blackboard);
     if (BLOCKED.test(d)) blockedCount[s.skillId] = (blockedCount[s.skillId] || 0) + 1;

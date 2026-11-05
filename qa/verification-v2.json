@@ -1149,6 +1149,13 @@
       "healingSkills": 0,
       "ascln": "降临/aoe",
       "jie": "刺身拼盘/multi"
+    },
+    "wisadelSkill": {
+      "power": 3,
+      "atk": 809.41,
+      "expectedDamage": 2428.22,
+      "actualDamage": 2428.22,
+      "text300": true
     }
   },
   "limitations": [
