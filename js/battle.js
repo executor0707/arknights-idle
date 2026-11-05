@@ -655,12 +655,11 @@ export class Battle {
     if (!['heal', 'buff', 'shield', 'summon'].includes(skill.type) && !enemiesInRange.length) return;
     const power = a.skillPower * (a.id === 'dusk' ? 1.2 : 1);
     a.sp = 0;
-    // Bards keep their idle loop: no cast pose, cut-in, banner or casting glow.
-    a.castUntil = a.bard ? 0 : 0.7;
-    if (!a.bard) {
-      this.cast = { name: `${op.name} · ${skill.name}`, life: 1.35, color: a.arts ? '#67d9ff' : '#ffb544' };
-      this.cutIn = { id: a.id, name: op.name, skill: skill.name, life: 1.15, key: `${a.id}-${this.time.toFixed(2)}` };
-    }
+    // Skills apply their effects directly; no cast pose, cut-in or banner for
+    // any operator, so a cast can never interrupt the normal attack animation.
+    a.castUntil = 0;
+    this.cast = null;
+    this.cutIn = null;
     // Bard paralysis is tied to skill release, not to the one-second chorus
     // damage tick. max() prevents several simultaneous bards from stacking
     // multiple 0.3s controls into a long chain.
