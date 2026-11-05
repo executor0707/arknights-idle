@@ -2,7 +2,7 @@ import { OPERATORS } from './operators.js';
 import {
   STAGES, STAGE_GROUPS, BANNERS, MATERIALS, CLASSES, CLASS_GLYPH, CLASS_COLOR,
   STAR_COLOR, ROOMS, DAILY_TASKS, SHOP_ITEMS, SKIN_PRICE, PRIME_SHARD_COST,
-  SELECTOR_COST, FIVE_STAR_SELECTOR_COST, PULL_COST, OFFLINE_CAP_HOURS, SAVE_KEY, MAIN_CHAPTERS,
+  SELECTOR_COST, FIVE_STAR_SELECTOR_COST, MAX_OUT_COST, PULL_COST, OFFLINE_CAP_HOURS, SAVE_KEY, MAIN_CHAPTERS,
 } from './data.js';
 import { SKINS, SKINS_BY_OP, SKIN_BY_ID } from './skins.js';
 import * as G from './game.js';
@@ -57,7 +57,7 @@ const ui = {
   squadDirty: false,
   squadFilter: { rarity: 0, cls: 'all', q: '' },
   skinFilter: { cls: 'all', owned: false, q: '' },
-  selectorFilter: { cls: 'all', q: '' },
+  selectorFilter: { cls: 'all', q: '', rarity: 0 },
   bannerId: 'limited',
   invTab: 'all',
   galleryOwned: false,
@@ -136,6 +136,11 @@ function bindEvents() {
     if (ef) {
       ui.eventFilter[ef.dataset.eventFilter] = ef.value;
       renderView();
+      return;
+    }
+    if (e.target.id === 'selectorRarity') {
+      ui.selectorFilter.rarity = Number(e.target.value) || 0;
+      applySelectorFilter();
       return;
     }
     const sel = e.target.closest('[data-action="chapter-select"]');
@@ -1360,9 +1365,12 @@ function closePullOverlay(silent = false) {
 function applySelectorFilter() {
   const q = ui.selectorFilter.q.trim().toLowerCase();
   const cls = ui.selectorFilter.cls;
+  const rarity = Number(ui.selectorFilter.rarity) || 0;
   let visible = 0;
   document.querySelectorAll('.selector-grid .selector-card').forEach(card => {
-    const show = (cls === 'all' || card.dataset.cls === cls) && (!q || card.dataset.name.includes(q));
+    const show = (cls === 'all' || card.dataset.cls === cls)
+      && (!rarity || Number(card.dataset.rarity) === rarity)
+      && (!q || card.dataset.name.includes(q));
     card.classList.toggle('hidden', !show);
     if (show) visible++;
   });
@@ -1376,37 +1384,53 @@ function applySelectorFilter() {
 }
 
 function openSelector(rarity = 6) {
+  const isMax = rarity === 'max';
   const isSix = rarity === 6;
-  const cost = isSix ? 0 : FIVE_STAR_SELECTOR_COST;
-  const available = isSix ? G.selectorsAvailable() : Math.floor(state.distinction / FIVE_STAR_SELECTOR_COST);
-  const pool = OPERATORS.filter(o => o.rarity === rarity)
+  const cost = isMax ? MAX_OUT_COST : isSix ? 0 : FIVE_STAR_SELECTOR_COST;
+  const available = isMax
+    ? Math.floor(state.distinction / MAX_OUT_COST)
+    : (isSix ? G.selectorsAvailable() : Math.floor(state.distinction / FIVE_STAR_SELECTOR_COST));
+  const pool = (isMax ? OPERATORS.slice() : OPERATORS.filter(o => o.rarity === rarity))
     .sort((a, b) => Number(G.owned(b.id)) - Number(G.owned(a.id)) || a.name.localeCompare(b.name, 'zh'));
+  const action = isMax ? 'select-max' : (isSix ? 'select-six' : 'select-five');
   const cards = pool.map(d => {
     const o = state.operators[d.id];
-    const disabled = isSix ? available <= 0 : state.distinction < cost;
-    return `<button class="selector-card rarity-${d.rarity} ${o ? 'owned' : ''}" data-action="${isSix ? 'select-six' : 'select-five'}" data-id="${d.id}" data-name="${esc((d.name + ' ' + d.id).toLowerCase())}" data-cls="${esc(d.cls)}" ${disabled ? 'disabled' : ''} style="--rarity:${STAR_COLOR[d.rarity]}">
+    const disabled = isMax ? state.distinction < cost : (isSix ? available <= 0 : state.distinction < cost);
+    const status = isMax
+      ? (o ? '已拥有 · 直接满练' : 'NEW · 满练')
+      : (o ? '已拥有 · 潜能 +1' : 'NEW');
+    return `<button class="selector-card rarity-${d.rarity} ${o ? 'owned' : ''}" data-action="${action}" data-id="${d.id}" data-name="${esc((d.name + ' ' + d.id).toLowerCase())}" data-cls="${esc(d.cls)}" data-rarity="${d.rarity}" ${disabled ? 'disabled' : ''} style="--rarity:${STAR_COLOR[d.rarity]}">
       <img src="${d.img}" alt="${esc(d.name)}" loading="lazy">
-      <div><b>${esc(d.name)}</b><span>${o ? '已拥有 · 潜能 +1' : 'NEW'}</span></div>
+      <div><b>${esc(d.name)}</b><span>${status}</span></div>
     </button>`;
   }).join('');
   const progress = G.selectorProgress();
-  const info = isSix
-    ? `<b>${available}</b> 次可兑换 · 本轮进度 ${Math.min(progress.current, SELECTOR_COST)} / ${SELECTOR_COST}`
-    : `<b>${available}</b> 次可兑换 · 每次 ${FIVE_STAR_SELECTOR_COST} 资质凭证 · 当前 ${fmt(state.distinction)}`;
+  const info = isMax
+    ? `<b>${available}</b> 次可兑换 · 每次 ${fmt(MAX_OUT_COST)} 资质凭证 · 当前 ${fmt(state.distinction)}`
+    : isSix
+      ? `<b>${available}</b> 次可兑换 · 本轮进度 ${Math.min(progress.current, SELECTOR_COST)} / ${SELECTOR_COST}`
+      : `<b>${available}</b> 次可兑换 · 每次 ${FIVE_STAR_SELECTOR_COST} 资质凭证 · 当前 ${fmt(state.distinction)}`;
   const filterBar = `<div class="selector-filter-bar">
     <input id="selectorSearch" class="selector-search" placeholder="搜索干员名或 ID…" value="${esc(ui.selectorFilter.q)}">
+    <select id="selectorRarity" class="selector-rarity">
+      <option value="0" ${!ui.selectorFilter.rarity ? 'selected' : ''}>全部星级</option>
+      ${[6, 5, 4, 3, 2].map(r => `<option value="${r}" ${ui.selectorFilter.rarity === r ? 'selected' : ''}>${r}★</option>`).join('')}
+    </select>
     <div class="selector-class-filters">
       <button class="filter-btn ${ui.selectorFilter.cls === 'all' ? 'active' : ''}" data-action="selector-class" data-value="all">全</button>
       ${CLASSES.map(c => `<button class="filter-btn ${ui.selectorFilter.cls === c ? 'active' : ''}" data-action="selector-class" data-value="${c}" style="color:${CLASS_COLOR[c]}">${CLASS_GLYPH[c]}</button>`).join('')}
     </div>
     <span class="selector-count" id="selectorCount">${pool.length} 名可选</span>
   </div>`;
-  openModal(modalShell(isSix ? '六星自选兑换' : '五星自选兑换', `<div class="selector-info">${info}</div>${isSix ? `<div class="progress"><i style="width:${Math.min(100, progress.current / SELECTOR_COST * 100)}%"></i></div>` : ''}${filterBar}<div class="selector-grid">${cards}</div><div class="empty-state hidden" id="selectorEmpty">没有匹配的干员。</div>`, {
-    wide: true,
-    kicker: isSix ? 'SELECTOR // 300 PULLS' : 'CERT SHOP // 325',
-    sub: isSix
+  const title = isMax ? '满练凭证兑换' : isSix ? '六星自选兑换' : '五星自选兑换';
+  const kicker = isMax ? 'CERT SHOP // 50000' : isSix ? 'SELECTOR // 300 PULLS' : 'CERT SHOP // 325';
+  const sub = isMax
+    ? (available ? '选择一名干员，立即拉满等级、精英化、潜能、技能、模组与信赖。' : `需要 ${fmt(MAX_OUT_COST)} 资质凭证。`)
+    : isSix
       ? (available ? '选择任意一名 6★ 干员。已拥有则提升 1 点潜能。' : '每累计 300 抽获得一次自选机会。')
-      : (available ? '选择任意一名 5★ 干员。已拥有则提升 1 点潜能。' : `需要 ${FIVE_STAR_SELECTOR_COST} 资质凭证。`),
+      : (available ? '选择任意一名 5★ 干员。已拥有则提升 1 点潜能。' : `需要 ${FIVE_STAR_SELECTOR_COST} 资质凭证。`);
+  openModal(modalShell(title, `<div class="selector-info">${info}</div>${isSix ? `<div class="progress"><i style="width:${Math.min(100, progress.current / SELECTOR_COST * 100)}%"></i></div>` : ''}${filterBar}<div class="selector-grid">${cards}</div><div class="empty-state hidden" id="selectorEmpty">没有匹配的干员。</div>`, {
+    wide: true, kicker, sub,
   }), {});
   requestAnimationFrame(applySelectorFilter);
 }
@@ -1524,7 +1548,8 @@ function renderInventory() {
   }).sort((a, b) => b[1].tier - a[1].tier || a[1].name.localeCompare(b[1].name, 'zh'));
   const invGrid = items.map(([id, m]) => itemCard(id, m)).join('');
   const fiveStarRow = `<div class="shop-row"><div><b>五星自选凭证 ×1</b><small>自选任意一名 5★ 干员；已拥有则提升 1 点潜能。每日不限次数。</small></div><span class="shop-cost">▤ ${FIVE_STAR_SELECTOR_COST}</span><button class="btn btn-small" data-action="five-selector" ${state.distinction < FIVE_STAR_SELECTOR_COST ? 'disabled' : ''}>${state.distinction >= FIVE_STAR_SELECTOR_COST ? '兑换' : '凭证不足'}</button></div>`;
-  const shop = [fiveStarRow, ...SHOP_ITEMS.map(item => {
+  const maxOutRow = `<div class="shop-row"><div><b>满练凭证 ×1</b><small>选择一名干员，立即满级、满精英化、满潜能、满技能、满模组、满信赖。无兑换上限。</small></div><span class="shop-cost">▤ ${fmt(MAX_OUT_COST)}</span><button class="btn btn-small" data-action="maxout-selector" ${state.distinction < MAX_OUT_COST ? 'disabled' : ''}>${state.distinction >= MAX_OUT_COST ? '兑换' : '凭证不足'}</button></div>`;
+  const shop = [maxOutRow, fiveStarRow, ...SHOP_ITEMS.map(item => {
     const stock = state.shop.stock[item.id] ?? 0;
     return `<div class="shop-row"><div><b>${item.name} ×${item.qty}</b><small>${item.desc}</small></div><span class="shop-cost">▤ ${item.cost}</span><button class="btn btn-small" data-action="buy-shop" data-id="${item.id}" ${stock <= 0 || state.distinction < item.cost ? 'disabled' : ''}>${stock > 0 ? '兑换 · 余 ' + stock : '售罄'}</button></div>`;
   })].join('');
@@ -2019,6 +2044,9 @@ async function onClick(e) {
     case 'five-selector':
       if (state.distinction < FIVE_STAR_SELECTOR_COST) { toast('资质凭证不足。', 'warn'); break; }
       openSelector(5); break;
+    case 'maxout-selector':
+      if (state.distinction < MAX_OUT_COST) { toast(`需要 ${fmt(MAX_OUT_COST)} 资质凭证。`, 'warn'); break; }
+      openSelector('max'); break;
     case 'select-six': {
       const r = G.claimSixStarSelector(id);
       if (r) { toast(r.maxed ? `${r.op.name} 已满潜，转化为 30 资质凭证。` : `${r.isNew ? '获得' : '潜能提升'}：${r.op.name}`, 'success'); sfx('gold'); openSelector(6); updateChrome(); }
@@ -2029,6 +2057,12 @@ async function onClick(e) {
       const r = G.claimFiveStarSelector(id);
       if (r) { toast(r.maxed ? `${r.op.name} 已满潜，转化为 25 资质凭证。` : `${r.isNew ? '获得' : '潜能提升'}：${r.op.name}`, 'success'); sfx('gold'); openSelector(5); updateChrome(); }
       else toast(`需要 ${FIVE_STAR_SELECTOR_COST} 资质凭证。`, 'warn');
+      break;
+    }
+    case 'select-max': {
+      const r = G.maxOutOperator(id);
+      if (r) { toast(`${r.op.name} 已满练。`, 'success'); sfx('gold'); openSelector('max'); updateChrome(); }
+      else toast(`需要 ${fmt(MAX_OUT_COST)} 资质凭证。`, 'warn');
       break;
     }
     case 'base-upgrade':

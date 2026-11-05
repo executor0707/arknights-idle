@@ -987,6 +987,20 @@
         "char_4183_mortis"
       ],
       "tested": true
+    },
+    "maxOutToken": {
+      "cost": 50000,
+      "unlimited": true,
+      "selectorCount": 453,
+      "maxed": {
+        "elite": 2,
+        "level": 80,
+        "potential": 5,
+        "skill": 7,
+        "mastery": 3,
+        "module": 3,
+        "trust": 100
+      }
     }
   },
   "limitations": [
