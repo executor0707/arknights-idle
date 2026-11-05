@@ -516,7 +516,10 @@ export class Battle {
     a.healFlash = 0.25;
     this.stats.healing += real;
     if (real > 1) this._float(a.x, a.y - 2, '+' + Math.round(real), 'heal');
-    if (source && source.id === 'shu') a.shield = Math.max(a.shield, a.maxHp * 0.08);
+    if (source && source.id === 'shu') {
+      a.shield = Math.max(a.shield, a.maxHp * 0.08);
+      a.shieldT = Math.max(a.shieldT || 0, 8);
+    }
   }
 
   _castSkill(a) {
@@ -572,7 +575,7 @@ export class Battle {
     } else if (skill.type === 'shield') {
       for (const al of this.allies) if (!al.dead) {
         al.shield = Math.max(al.shield, al.maxHp * (skill.power || 0.25));
-        al.shieldT = skill.duration || 3;
+        al.shieldT = 8;
         if (skill.reflect) al.reflect = skill.reflect;
       }
       this._effect(a.x, a.y, 'shield', 0.8);

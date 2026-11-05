@@ -5,8 +5,8 @@ export const SKILL_OVERRIDES = {
     "name": "闪避",
     "type": "shield",
     "power": 0.15,
-    "duration": 6,
-    "desc": "闪避：为全队提供 6 秒护盾，护盾量相当于自身最大生命的 15%。"
+    "duration": 8,
+    "desc": "闪避：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 15%。"
   },
   "char_225_haak": {
     "name": "爆发剂·榴莲味",
@@ -159,8 +159,8 @@ export const SKILL_OVERRIDES = {
     "name": "锻锤之力",
     "type": "shield",
     "power": 1,
-    "duration": 18,
-    "desc": "锻锤之力：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 100%。"
+    "duration": 8,
+    "desc": "锻锤之力：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 100%。"
   },
   "char_4245_alga": {
     "name": "只为我的答案",
@@ -222,8 +222,8 @@ export const SKILL_OVERRIDES = {
     "name": "深化阵线",
     "type": "shield",
     "power": 0.25,
-    "duration": 18,
-    "desc": "深化阵线：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 25%。"
+    "duration": 8,
+    "desc": "深化阵线：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_4072_ironmn": {
     "name": "铁钳号·原型机",
@@ -264,8 +264,8 @@ export const SKILL_OVERRIDES = {
     "name": "群体迷彩",
     "type": "shield",
     "power": 0.55,
-    "duration": 18,
-    "desc": "群体迷彩：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 55%。"
+    "duration": 8,
+    "desc": "群体迷彩：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 55%。"
   },
   "char_4037_demetr": {
     "name": "清算",
@@ -348,8 +348,8 @@ export const SKILL_OVERRIDES = {
     "name": "土石的恒心",
     "type": "shield",
     "power": 0.8,
-    "duration": 18,
-    "desc": "土石的恒心：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 80%。"
+    "duration": 8,
+    "desc": "土石的恒心：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 80%。"
   },
   "char_286_cast3": {
     "name": "战术指令",
@@ -362,8 +362,8 @@ export const SKILL_OVERRIDES = {
     "name": "恶鬼之力",
     "type": "shield",
     "power": 0.25,
-    "duration": 15,
-    "desc": "恶鬼之力：为全队提供 15 秒护盾，护盾量相当于自身最大生命的 25%。"
+    "duration": 8,
+    "desc": "恶鬼之力：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_4047_pianst": {
     "name": "曲惊四座",
@@ -405,8 +405,8 @@ export const SKILL_OVERRIDES = {
     "name": "信影流·十文字胜",
     "type": "shield",
     "power": 0.5,
-    "duration": 18,
-    "desc": "信影流·十文字胜：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 50%。"
+    "duration": 8,
+    "desc": "信影流·十文字胜：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 50%。"
   },
   "char_1050_chen3": {
     "name": "赤霄·天喟",
@@ -420,8 +420,8 @@ export const SKILL_OVERRIDES = {
     "name": "披荆斩棘",
     "type": "shield",
     "power": 1.3,
-    "duration": 18,
-    "desc": "披荆斩棘：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 130%。"
+    "duration": 8,
+    "desc": "披荆斩棘：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 130%。"
   },
   "chongyue": {
     "name": "我无",
@@ -584,8 +584,8 @@ export const SKILL_OVERRIDES = {
     "name": "承压功率",
     "type": "shield",
     "power": 0.25,
-    "duration": 15,
-    "desc": "承压功率：为全队提供 15 秒护盾，护盾量相当于自身最大生命的 25%。"
+    "duration": 8,
+    "desc": "承压功率：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_294_ayer": {
     "name": "浮游刃启动",
@@ -605,8 +605,8 @@ export const SKILL_OVERRIDES = {
     "name": "乡心无改",
     "type": "shield",
     "power": 0.4,
-    "duration": 5,
-    "desc": "乡心无改：为全队提供 5 秒护盾，护盾量相当于自身最大生命的 40%。"
+    "duration": 8,
+    "desc": "乡心无改：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 40%。"
   },
   "char_4048_doroth": {
     "name": "高速共振排障",
@@ -654,8 +654,8 @@ export const SKILL_OVERRIDES = {
     "name": "闭膛连发",
     "type": "shield",
     "power": 1.2,
-    "duration": 18,
-    "desc": "闭膛连发：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 120%。"
+    "duration": 8,
+    "desc": "闭膛连发：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 120%。"
   },
   "char_4016_kazema": {
     "name": "纸艺·迅击",
@@ -675,15 +675,15 @@ export const SKILL_OVERRIDES = {
     "name": "战术指令",
     "type": "shield",
     "power": 1.6,
-    "duration": 6,
-    "desc": "战术指令：为全队提供 6 秒护盾，护盾量相当于自身最大生命的 160%。"
+    "duration": 8,
+    "desc": "战术指令：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 160%。"
   },
   "char_106_franka": {
     "name": "极致锋度",
     "type": "shield",
     "power": 0.25,
-    "duration": 18,
-    "desc": "极致锋度：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 25%。"
+    "duration": 8,
+    "desc": "极致锋度：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "hibiscus": {
     "name": "治疗强化·α型",
@@ -710,8 +710,8 @@ export const SKILL_OVERRIDES = {
     "name": "永不后退！",
     "type": "shield",
     "power": 0.8,
-    "duration": 18,
-    "desc": "永不后退！：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 80%。"
+    "duration": 8,
+    "desc": "永不后退！：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 80%。"
   },
   "char_326_glacus": {
     "name": "反制电磁脉冲",
@@ -780,8 +780,8 @@ export const SKILL_OVERRIDES = {
     "name": "虚构故事·锈城",
     "type": "shield",
     "power": 0.7,
-    "duration": 18,
-    "desc": "虚构故事·锈城：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 70%。"
+    "duration": 8,
+    "desc": "虚构故事·锈城：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 70%。"
   },
   "char_4066_highmo": {
     "name": "泡影，殆尽",
@@ -871,8 +871,8 @@ export const SKILL_OVERRIDES = {
     "name": "防御强化",
     "type": "shield",
     "power": 0.2,
-    "duration": 6,
-    "desc": "防御强化：为全队提供 6 秒护盾，护盾量相当于自身最大生命的 20%。"
+    "duration": 8,
+    "desc": "防御强化：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 20%。"
   },
   "char_4140_lasher": {
     "name": "权知轻重",
@@ -948,8 +948,8 @@ export const SKILL_OVERRIDES = {
     "name": "沸腾爆裂",
     "type": "shield",
     "power": 0.25,
-    "duration": 10,
-    "desc": "沸腾爆裂：为全队提供 10 秒护盾，护盾量相当于自身最大生命的 25%。"
+    "duration": 8,
+    "desc": "沸腾爆裂：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_1038_whitw2": {
     "name": "终幕·浩劫",
@@ -1018,8 +1018,8 @@ export const SKILL_OVERRIDES = {
     "name": "固守家园",
     "type": "shield",
     "power": 2.1,
-    "duration": 18,
-    "desc": "固守家园：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 210%。"
+    "duration": 8,
+    "desc": "固守家园：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 210%。"
   },
   "char_401_elysm": {
     "name": "聆听",
@@ -1208,8 +1208,8 @@ export const SKILL_OVERRIDES = {
     "name": "指令：熔毁",
     "type": "shield",
     "power": 0.25,
-    "duration": 18,
-    "desc": "指令：熔毁：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 25%。"
+    "duration": 8,
+    "desc": "指令：熔毁：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_1052_kalts2": {
     "name": "破梏重生",
@@ -1222,8 +1222,8 @@ export const SKILL_OVERRIDES = {
     "name": "战火淬炼",
     "type": "shield",
     "power": 0.3,
-    "duration": 18,
-    "desc": "战火淬炼：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 30%。"
+    "duration": 8,
+    "desc": "战火淬炼：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 30%。"
   },
   "char_301_cutter": {
     "name": "绯红刺刀",
@@ -1265,8 +1265,8 @@ export const SKILL_OVERRIDES = {
     "name": "自动防御",
     "type": "shield",
     "power": 0.7,
-    "duration": 18,
-    "desc": "自动防御：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 70%。"
+    "duration": 8,
+    "desc": "自动防御：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 70%。"
   },
   "char_101_sora": {
     "name": "战斗之歌",
@@ -1357,15 +1357,15 @@ export const SKILL_OVERRIDES = {
     "name": "贵客盈门",
     "type": "shield",
     "power": 0.5,
-    "duration": 2,
-    "desc": "贵客盈门：为全队提供 2 秒护盾，护盾量相当于自身最大生命的 50%。"
+    "duration": 8,
+    "desc": "贵客盈门：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 50%。"
   },
   "char_1049_catap2": {
     "name": "超高输出属性解放斩",
     "type": "shield",
     "power": 1,
-    "duration": 4,
-    "desc": "超高输出属性解放斩：为全队提供 4 秒护盾，护盾量相当于自身最大生命的 100%。"
+    "duration": 8,
+    "desc": "超高输出属性解放斩：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 100%。"
   },
   "char_4193_lemuen": {
     "name": "礼炮·强制追思",
@@ -1386,15 +1386,15 @@ export const SKILL_OVERRIDES = {
     "name": "影袭",
     "type": "shield",
     "power": 4,
-    "duration": 2,
-    "desc": "影袭：为全队提供 2 秒护盾，护盾量相当于自身最大生命的 400%。"
+    "duration": 8,
+    "desc": "影袭：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 400%。"
   },
   "char_1036_fang2": {
     "name": "执守阵线",
     "type": "shield",
     "power": 0.4,
-    "duration": 18,
-    "desc": "执守阵线：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 40%。"
+    "duration": 8,
+    "desc": "执守阵线：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 40%。"
   },
   "beehunter": {
     "name": "高机动",
@@ -1414,8 +1414,8 @@ export const SKILL_OVERRIDES = {
     "name": "溃决",
     "type": "shield",
     "power": 0.2,
-    "duration": 2,
-    "desc": "溃决：为全队提供 2 秒护盾，护盾量相当于自身最大生命的 20%。"
+    "duration": 8,
+    "desc": "溃决：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 20%。"
   },
   "char_4080_lin": {
     "name": "流光乍裂",
@@ -1428,8 +1428,8 @@ export const SKILL_OVERRIDES = {
     "name": "乌萨斯战吼",
     "type": "shield",
     "power": 0.6,
-    "duration": 10,
-    "desc": "乌萨斯战吼：为全队提供 10 秒护盾，护盾量相当于自身最大生命的 60%。"
+    "duration": 8,
+    "desc": "乌萨斯战吼：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 60%。"
   },
   "nearl": {
     "name": "急救",
@@ -1528,8 +1528,8 @@ export const SKILL_OVERRIDES = {
     "name": "强磁防卫",
     "type": "shield",
     "power": 1.3,
-    "duration": 18,
-    "desc": "强磁防卫：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 130%。"
+    "duration": 8,
+    "desc": "强磁防卫：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 130%。"
   },
   "char_4196_reckpr": {
     "name": "一点关窍",
@@ -1542,8 +1542,8 @@ export const SKILL_OVERRIDES = {
     "name": "全自动造型仪",
     "type": "shield",
     "power": 0.8,
-    "duration": 18,
-    "desc": "全自动造型仪：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 80%。"
+    "duration": 8,
+    "desc": "全自动造型仪：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 80%。"
   },
   "char_451_robin": {
     "name": "弹射“夹子”",
@@ -1662,8 +1662,8 @@ export const SKILL_OVERRIDES = {
     "name": "防御力强化·α型",
     "type": "shield",
     "power": 0.5,
-    "duration": 18,
-    "desc": "防御力强化·α型：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 50%。"
+    "duration": 8,
+    "desc": "防御力强化·α型：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 50%。"
   },
   "char_344_beewax": {
     "name": "沙暴扩散",
@@ -1711,8 +1711,8 @@ export const SKILL_OVERRIDES = {
     "name": "无畏招架",
     "type": "shield",
     "power": 1.5,
-    "duration": 18,
-    "desc": "无畏招架：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 150%。"
+    "duration": 8,
+    "desc": "无畏招架：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 150%。"
   },
   "char_213_mostma": {
     "name": "序时之匙",
@@ -1809,15 +1809,15 @@ export const SKILL_OVERRIDES = {
     "name": "秽壤的血脉",
     "type": "shield",
     "power": 0.8,
-    "duration": 18,
-    "desc": "秽壤的血脉：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 80%。"
+    "duration": 8,
+    "desc": "秽壤的血脉：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 80%。"
   },
   "nian": {
     "name": "铜印",
     "type": "shield",
     "power": 1.3,
-    "duration": 18,
-    "desc": "铜印：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 130%。"
+    "duration": 8,
+    "desc": "铜印：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 130%。"
   },
   "char_1051_headb2": {
     "name": "无可抵挡",
@@ -1837,15 +1837,15 @@ export const SKILL_OVERRIDES = {
     "name": "英勇的祝福",
     "type": "shield",
     "power": 0.25,
-    "duration": 18,
-    "desc": "英勇的祝福：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 25%。"
+    "duration": 8,
+    "desc": "英勇的祝福：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_381_bubble": {
     "name": "“挨打”",
     "type": "shield",
     "power": 1.2,
-    "duration": 18,
-    "desc": "“挨打”：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 120%。"
+    "duration": 8,
+    "desc": "“挨打”：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 120%。"
   },
   "popukar": {
     "name": "攻击力强化·α型",
@@ -1942,8 +1942,8 @@ export const SKILL_OVERRIDES = {
     "name": "工程者之愿",
     "type": "shield",
     "power": 0.65,
-    "duration": 15,
-    "desc": "工程者之愿：为全队提供 15 秒护盾，护盾量相当于自身最大生命的 65%。"
+    "duration": 8,
+    "desc": "工程者之愿：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 65%。"
   },
   "char_4082_qiubai": {
     "name": "问雪",
@@ -2027,8 +2027,8 @@ export const SKILL_OVERRIDES = {
     "name": "“不准走！”",
     "type": "shield",
     "power": 1.35,
-    "duration": 18,
-    "desc": "“不准走！”：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 135%。"
+    "duration": 8,
+    "desc": "“不准走！”：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 135%。"
   },
   "char_457_blitz": {
     "name": "突破防线",
@@ -2041,15 +2041,15 @@ export const SKILL_OVERRIDES = {
     "name": "教条力场",
     "type": "shield",
     "power": 1,
-    "duration": 18,
-    "desc": "教条力场：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 100%。"
+    "duration": 8,
+    "desc": "教条力场：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 100%。"
   },
   "char_508_aguard": {
     "name": "亮剑",
     "type": "shield",
     "power": 0.25,
-    "duration": 18,
-    "desc": "亮剑：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 25%。"
+    "duration": 8,
+    "desc": "亮剑：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_379_sesa": {
     "name": "延时震荡零件",
@@ -2139,8 +2139,8 @@ export const SKILL_OVERRIDES = {
     "name": "火电模式",
     "type": "shield",
     "power": 0.6,
-    "duration": 18,
-    "desc": "火电模式：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 60%。"
+    "duration": 8,
+    "desc": "火电模式：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 60%。"
   },
   "char_489_serum": {
     "name": "传导蚀滞弹",
@@ -2230,8 +2230,8 @@ export const SKILL_OVERRIDES = {
     "name": "涌潮悲歌",
     "type": "shield",
     "power": 1.3,
-    "duration": 18,
-    "desc": "涌潮悲歌：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 130%。"
+    "duration": 8,
+    "desc": "涌潮悲歌：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 130%。"
   },
   "char_450_necras": {
     "name": "冠死以冕",
@@ -2301,8 +2301,8 @@ export const SKILL_OVERRIDES = {
     "name": "“自由的探戈”",
     "type": "shield",
     "power": 0.25,
-    "duration": 18,
-    "desc": "“自由的探戈”：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 25%。"
+    "duration": 8,
+    "desc": "“自由的探戈”：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_366_acdrop": {
     "name": "扳机时刻",
@@ -2485,8 +2485,8 @@ export const SKILL_OVERRIDES = {
     "name": "“明灭”",
     "type": "shield",
     "power": 0.9,
-    "duration": 15,
-    "desc": "“明灭”：为全队提供 15 秒护盾，护盾量相当于自身最大生命的 90%。"
+    "duration": 8,
+    "desc": "“明灭”：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 90%。"
   },
   "char_4226_veen": {
     "name": "“自呼号生发”",
@@ -2562,8 +2562,8 @@ export const SKILL_OVERRIDES = {
     "name": "全景过载摄像",
     "type": "shield",
     "power": 1.3,
-    "duration": 18,
-    "desc": "全景过载摄像：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 130%。"
+    "duration": 8,
+    "desc": "全景过载摄像：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 130%。"
   },
   "char_423_blemsh": {
     "name": "先贤化身",
@@ -2590,8 +2590,8 @@ export const SKILL_OVERRIDES = {
     "name": "震撼型指路",
     "type": "shield",
     "power": 0.25,
-    "duration": 2,
-    "desc": "震撼型指路：为全队提供 2 秒护盾，护盾量相当于自身最大生命的 25%。"
+    "duration": 8,
+    "desc": "震撼型指路：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "char_497_ctable": {
     "name": "观火",
@@ -2625,8 +2625,8 @@ export const SKILL_OVERRIDES = {
     "name": "退休前布道",
     "type": "shield",
     "power": 2.8,
-    "duration": 6,
-    "desc": "退休前布道：为全队提供 6 秒护盾，护盾量相当于自身最大生命的 280%。"
+    "duration": 8,
+    "desc": "退休前布道：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 280%。"
   },
   "char_1041_angel2": {
     "name": "使命必达！",
@@ -2639,8 +2639,8 @@ export const SKILL_OVERRIDES = {
     "name": "星辉剑",
     "type": "shield",
     "power": 0.8,
-    "duration": 15,
-    "desc": "星辉剑：为全队提供 15 秒护盾，护盾量相当于自身最大生命的 80%。"
+    "duration": 8,
+    "desc": "星辉剑：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 80%。"
   },
   "char_4170_hdbell": {
     "name": "蔬菜大拼盘",
@@ -2660,8 +2660,8 @@ export const SKILL_OVERRIDES = {
     "name": "力之锯",
     "type": "shield",
     "power": 0.9,
-    "duration": 18,
-    "desc": "力之锯：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 90%。"
+    "duration": 8,
+    "desc": "力之锯：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 90%。"
   },
   "char_135_halo": {
     "name": "星束交汇",
@@ -2807,8 +2807,8 @@ export const SKILL_OVERRIDES = {
     "name": "夏末游鳞",
     "type": "shield",
     "power": 0.25,
-    "duration": 18,
-    "desc": "夏末游鳞：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 25%。"
+    "duration": 8,
+    "desc": "夏末游鳞：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 25%。"
   },
   "nearl_alter": {
     "name": "灿焰长刃",
@@ -2912,8 +2912,8 @@ export const SKILL_OVERRIDES = {
     "name": "真银斩",
     "type": "shield",
     "power": 0.2,
-    "duration": 18,
-    "desc": "真银斩：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 20%。"
+    "duration": 8,
+    "desc": "真银斩：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 20%。"
   },
   "char_155_tiger": {
     "name": "裂魂",
@@ -2934,8 +2934,8 @@ export const SKILL_OVERRIDES = {
     "name": "“我的海疆”",
     "type": "shield",
     "power": 0.2,
-    "duration": 2,
-    "desc": "“我的海疆”：为全队提供 2 秒护盾，护盾量相当于自身最大生命的 20%。"
+    "duration": 8,
+    "desc": "“我的海疆”：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 20%。"
   },
   "specter": {
     "name": "肉斩骨断",
@@ -2955,8 +2955,8 @@ export const SKILL_OVERRIDES = {
     "name": "今日做东",
     "type": "shield",
     "power": 0.7,
-    "duration": 18,
-    "desc": "今日做东：为全队提供 18 秒护盾，护盾量相当于自身最大生命的 70%。"
+    "duration": 8,
+    "desc": "今日做东：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 70%。"
   },
   "char_506_rmedic": {
     "name": "战术指令",
@@ -2991,8 +2991,8 @@ export const SKILL_OVERRIDES = {
     "name": "战术指令",
     "type": "shield",
     "power": 1.6,
-    "duration": 6,
-    "desc": "战术指令：为全队提供 6 秒护盾，护盾量相当于自身最大生命的 160%。"
+    "duration": 8,
+    "desc": "战术指令：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 160%。"
   },
   "char_513_apionr": {
     "name": "只余芬芳",
@@ -3103,8 +3103,8 @@ export const SKILL_OVERRIDES = {
     "name": "生存决心",
     "type": "shield",
     "power": 0.5,
-    "duration": 15,
-    "desc": "生存决心：为全队提供 15 秒护盾，护盾量相当于自身最大生命的 50%。"
+    "duration": 8,
+    "desc": "生存决心：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 50%。"
   },
   "char_195_glassb": {
     "name": "文学风暴",
@@ -3168,8 +3168,8 @@ export const SKILL_OVERRIDES = {
     "name": "同葬无光之愿",
     "type": "shield",
     "power": 0.6,
-    "duration": 2,
-    "desc": "同葬无光之愿：为全队提供 2 秒护盾，护盾量相当于自身最大生命的 60%。"
+    "duration": 8,
+    "desc": "同葬无光之愿：为全队提供 8 秒护盾，护盾量相当于自身最大生命的 60%。"
   },
   "char_278_orchid": {
     "name": "迅捷打击·α型",
