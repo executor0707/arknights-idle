@@ -586,7 +586,7 @@ export function talentText(id) {
   const d = opData(id);
   if (!d) return '';
   if (d.role === 'specialist' && d.sub === '伏击客') {
-    return '伏击：攻击均为范围攻击，对范围内所有敌人造成 0.2 秒停顿；自身不成为敌方攻击目标。';
+    return '伏击：攻击均为范围攻击，对范围内所有敌人造成 0.4 秒停顿；自身不成为敌方攻击目标。';
   }
   if (d.role === 'specialist' && d.sub === '傀儡师') {
     const duration = puppetDurationFor(id);

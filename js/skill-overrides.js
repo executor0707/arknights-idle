@@ -205,9 +205,9 @@ export const SKILL_OVERRIDES = {
     "name": "无存之所",
     "type": "control",
     "power": 2,
-    "duration": 15,
+    "duration": 6,
     "sp": 29,
-    "desc": "无存之所：对范围内敌人造成攻击力 200% 的伤害，并使其停顿 15 秒。"
+    "desc": "无存之所：对范围内敌人造成攻击力 200% 的伤害，并使其停顿 6 秒。"
   },
   "char_4166_varkis": {
     "name": "同胞的意志",
