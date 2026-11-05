@@ -976,6 +976,17 @@
       "specter": 20,
       "sp10": true,
       "casts": 4
+    },
+    "puppetSkillThreshold": {
+      "threshold": 10,
+      "noSkill": [
+        "char_4124_iana",
+        "char_4107_vrdant"
+      ],
+      "skill": [
+        "char_4183_mortis"
+      ],
+      "tested": true
     }
   },
   "limitations": [

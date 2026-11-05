@@ -1,6 +1,6 @@
 import { state, getOpStats, getSquadBuffs, getBaseBonuses, grantStageRewards, saveNow, bus, STAGE_BY_ID, STAGES, isStageUnlocked, ensureEndlessFloor } from './game.js';
 import { OPERATORS } from './operators.js';
-import { PUPPET_SKILL, puppetDurationFor } from './data.js';
+import { PUPPET_SKILL, puppetDurationFor, puppetHasSkill } from './data.js';
 
 const MELEE = new Set(['vanguard', 'guard', 'defender', 'specialist']);
 // Merc Storia-like single horizontal marching line. Positions are still
@@ -443,7 +443,7 @@ export class Battle {
           }
         }
       }
-      if (state.settings.autoSkill && a.sp >= a.maxSp) this._castSkill(a);
+      if (state.settings.autoSkill && a.sp >= a.maxSp && !(a.puppet && !a.puppetSkill)) this._castSkill(a);
     }
     this.allies = this.allies.filter(a => a.phantom ? a.phantomT > 0 : true);
   }
@@ -587,9 +587,11 @@ export class Battle {
     sub.hp = sub.maxHp;
     sub.sp = 0;
     sub.maxSp = 10;
-    // 44 SP over the full puppet lifetime guarantees four 10-SP casts.
-    sub.spRate = 44 / sub.puppetDuration;
-    sub.puppetSkill = { ...PUPPET_SKILL };
+    const hasSkill = puppetHasSkill(body.id);
+    // Puppets under 10s have no independent skill. Longer puppets get four
+    // 10-SP casts over their lifetime.
+    sub.spRate = hasSkill ? 44 / sub.puppetDuration : 0;
+    sub.puppetSkill = hasSkill ? { ...PUPPET_SKILL } : null;
     this.allies[idx] = sub;
     this._effect(body.x, body.y, 'switch', 0.8);
     this._float(body.x, body.y - 8, '替身', 'buff');
@@ -634,6 +636,7 @@ export class Battle {
   _castSkill(a) {
     const op = OP_MAP.get(a.id);
     if (!op) return;
+    if (a.puppet && !a.puppetSkill) return;
     const skill = a.puppet && a.puppetSkill ? a.puppetSkill : op.skill;
     const enemiesInRange = this.enemies.filter(e => !e.dead && (a.range > 40 ? Math.abs(e.x - a.x) <= Math.max(70, a.range * 1.5) : e.lane === a.lane && Math.abs(e.x - a.x) <= 38));
     if (!['heal', 'buff', 'shield', 'summon'].includes(skill.type) && !enemiesInRange.length) return;

@@ -2,7 +2,7 @@ import { OPERATORS, STARTERS } from './operators.js';
 import {
   SAVE_KEY, SAVE_VERSION, MAX_SQUAD, PULL_COST, OFFLINE_CAP_HOURS,
   MATERIALS, STAGES, BANNERS, ROOMS, DAILY_TASKS, SHOP_ITEMS,
-  RARITY_BASE, ROLE_MODS, RECORD_ORDER, SKIN_PRICE, PRIME_SHARD_COST, SELECTOR_COST, FIVE_STAR_SELECTOR_COST, PUPPET_SKILL, puppetDurationFor,
+  RARITY_BASE, ROLE_MODS, RECORD_ORDER, SKIN_PRICE, PRIME_SHARD_COST, SELECTOR_COST, FIVE_STAR_SELECTOR_COST, PUPPET_SKILL, puppetDurationFor, puppetHasSkill,
   makeEndlessStage, MAX_ENDLESS_FLOOR,
 } from './data.js';
 import { SKINS, SKIN_BY_ID, SKINS_BY_OP } from './skins.js';
@@ -10,6 +10,7 @@ import { RANDOM_EVENTS } from './events.js';
 import { SKILL_OVERRIDES } from './skill-overrides.js';
 
 export { STAGES, OPERATORS, SKINS };
+export { puppetHasSkill };
 export const OP_BY_ID = new Map(OPERATORS.map(o => [o.id, o]));
 // Replace the old generic class-template skill descriptions with one
 // thematic, wiki-derived signature skill per operator.
@@ -577,6 +578,7 @@ export function puppetSkillText(id) {
   const d = opData(id);
   if (!d || d.role !== 'specialist' || d.sub !== '傀儡师') return '';
   const duration = puppetDurationFor(id);
+  if (!puppetHasSkill(id)) return `该替身持续 ${duration} 秒，持续时间不足 10 秒，没有独立技能。`;
   return `${PUPPET_SKILL.desc} 替身持续 ${duration} 秒，期间可按正常技能循环释放 4 次；不随本体技能等级或 SP 变化。白条读满时自动回归本体。`;
 }
 
@@ -588,7 +590,10 @@ export function talentText(id) {
   }
   if (d.role === 'specialist' && d.sub === '傀儡师') {
     const duration = puppetDurationFor(id);
-    return `傀儡：受到致命伤时不撤退，切换为阻挡 0 的替身，持续 ${duration} 秒；替身使用独立技能，SP 固定 10，替身白条读满或替身阵亡时结束。`;
+    const skillLine = puppetHasSkill(id)
+      ? '替身使用独立技能，SP 固定 10。'
+      : '该替身持续时间不足 10 秒，没有独立技能。';
+    return `傀儡：受到致命伤时不撤退，切换为阻挡 0 的替身，持续 ${duration} 秒；${skillLine}替身白条读满或替身阵亡时结束。`;
   }
   if (d.talent) return `${d.talent.name}：${d.talent.desc}`;
   if (d.rarity === 5) return '战术素养：攻击力 +6%。';
