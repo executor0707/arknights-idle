@@ -1010,6 +1010,28 @@
       "duration": 6,
       "ambusherStun": 0.4,
       "tested": true
+    },
+    "visualSpacing": {
+      "min": 0.5,
+      "max": 2,
+      "default": 1,
+      "actualXUnchanged": true,
+      "tested": {
+        "actual": [
+          28,
+          35,
+          42,
+          49,
+          56
+        ],
+        "visualAt2": [
+          "6",
+          "20",
+          "34",
+          "48",
+          "62"
+        ]
+      }
     }
   },
   "limitations": [
