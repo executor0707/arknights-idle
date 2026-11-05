@@ -1643,6 +1643,10 @@ export const SPINE38_OPERATORS = {
   "liskarm": {
     "base": "assets/spine38/operators/liskarm/char_107_liskarm",
     "name": "雷蛇"
+  },
+  "rathalos_noir": {
+    "base": "assets/spine38/operators/rathalos_noir/char_1030_noirc2",
+    "name": "火龙S黑角"
   }
 };
 
@@ -1702,10 +1706,6 @@ export const SPINE35_ONLY = {
   "char_4027_heyak": {
     "base": "assets/spine/operators/char_4027_heyak/char_4027_heyak",
     "name": "霍尔海雅"
-  },
-  "rathalos_noir": {
-    "base": "assets/spine/operators/rathalos_noir/char_1030_noirc2",
-    "name": "火龙S黑角"
   },
   "char_493_firwhl": {
     "base": "assets/spine/operators/char_493_firwhl/char_493_firwhl",

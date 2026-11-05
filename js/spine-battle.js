@@ -1,9 +1,11 @@
 import { SPINE_ENEMIES } from './spine-index.js';
 import { SPINE38_OPERATORS, SPINE35_ONLY } from './spine38-index.js';
+import { OPERATORS } from './operators.js';
 import { SKIN_SPINE } from './skin-spine-index.js';
 import { SKIN_SPINE_REMOTE } from './skin-spine-remote.js';
 import { state, skinScaleForOp } from './game.js';
 const OPS_DATA = { ...SPINE38_OPERATORS, ...SKIN_SPINE_REMOTE, ...SKIN_SPINE };
+const OP_MAP = new Map(OPERATORS.map(o => [o.id, o]));
 
 const ENEMY_KEY = { soldier: 'soldier', shield: 'shield', caster: 'caster', drone: 'hound', boss: 'boss_skulsr' };
 function mobileBattleScale() {
@@ -55,7 +57,7 @@ export function initSpineArena(arena) {
 
   frame = document.createElement('iframe');
   frame.className = 'spine38-frame';
-  frame.src = 'spine38-frame.html?v=9';
+  frame.src = 'spine38-frame.html?v=10';
   frame.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;z-index:3;pointer-events:none;opacity:0;';
   frame.setAttribute('allowtransparency', 'true');
   frame.addEventListener('load', () => {
@@ -230,7 +232,9 @@ export function syncSpine(battle) {
     // the default 3.5 model.
     if (SPINE38_OPERATORS[a.id] || skinEntry) {
       const key = skinEntry ? skinKey : a.id;
-      post.push({ uid: 'a:' + a.uid, kind: 'op', key, fallback: SPINE38_OPERATORS[a.id] ? a.id : null, x: a.x, y: a.y, scale: (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id) * mobileBattleScale(), speed: state.stage.speed || 1, bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
+      const opData = OP_MAP.get(a.id);
+      const skillAttack = !!opData && (opData.sub === '阵法术师' || opData.sub === '解放者');
+      post.push({ uid: 'a:' + a.uid, kind: 'op', key, fallback: SPINE38_OPERATORS[a.id] ? a.id : null, skillAttack, x: a.x, y: a.y, scale: (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id) * mobileBattleScale(), speed: state.stage.speed || 1, bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
       continue;
     }
     if (!SPINE35_ONLY[a.id]) continue;

@@ -111,7 +111,7 @@
     var sp = new PIXI.spine.Spine(data);
     sp.autoUpdate = true;
     sp._anims = data.animations.map(function (a) { return a.name; });
-    sp._skillAttack = !!SKILL_ATTACK_SKINS[key];
+    sp._skillAttack = !!SKILL_ATTACK_SKINS[key] || !!(unit && unit.skillAttack);
     sp.state.setAnimation(0, sp._anims.indexOf('Idle') >= 0 ? 'Idle' : sp._anims[0], true);
     sp.update(0);
     var lb = sp.getLocalBounds();
