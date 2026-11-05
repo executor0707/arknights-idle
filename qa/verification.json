@@ -1156,6 +1156,12 @@
       "expectedDamage": 2428.22,
       "actualDamage": 2428.22,
       "text300": true
+    },
+    "medicSynergy": {
+      "fiveMedics": 5,
+      "overflowCalls": 5,
+      "green": true,
+      "fourMedicsCalls": 0
     }
   },
   "limitations": [

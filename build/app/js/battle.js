@@ -426,11 +426,14 @@ export class Battle {
         }
       } else if (a.heal) {
         const target = this._lowestAlly(a);
+        const medicSynergy = a.role === 'medic' && this._hasMedicSynergy();
         // Healing uses the same cadence as a normal attack. It is not gated
         // on the skill gauge; the skill is only an additional AoE heal.
-        if (target && target.hp < target.maxHp && a.cooldown <= 0 && a.attackLock <= 0) {
+        if (target && (medicSynergy || target.hp < target.maxHp) && a.cooldown <= 0 && a.attackLock <= 0) {
           const amount = a.atk * (1 + this.buffs.heal) * (1 + (this.baseBonuses?.heal || 0));
-          this._healAlly(target, amount, a);
+          const raw = amount * (1 + this.buffs.heal);
+          const real = this._healAlly(target, amount, a);
+          if (medicSynergy) this._overflowHeal(raw - real, a);
           this._effect(target.x, target.y, 'heal', 0.55);
           a.sp = Math.min(a.maxSp, a.sp + 4);
           a.cooldown = a.interval;
@@ -468,6 +471,18 @@ export class Battle {
     // the battlefield is a valid target. Lowest HP percentage wins.
     return this.allies.filter(x => !x.dead)
       .sort((x, y) => (x.hp / x.maxHp) - (y.hp / y.maxHp))[0];
+  }
+
+  _hasMedicSynergy() {
+    return this.allies.filter(a => !a.dead && a.role === 'medic').length >= 5;
+  }
+
+  _overflowHeal(amount, source) {
+    if (!(amount > 1)) return;
+    const enemies = this.enemies.filter(e => !e.dead);
+    if (!enemies.length) return;
+    const target = enemies[Math.floor(Math.random() * enemies.length)];
+    this._damageEnemy(target, amount, { arts: true, source, green: true });
   }
 
   _attack(a, target) {
@@ -527,7 +542,8 @@ export class Battle {
     e.hp -= dmg;
     e.hitFlash = 0.12;
     this.stats.damage += dmg;
-    if (opts.crit) this._float(e.x, e.y - 4, '暴击 ' + dmg, 'crit');
+    if (opts.green) this._float(e.x, e.y - 4, String(dmg), 'green');
+    else if (opts.crit) this._float(e.x, e.y - 4, '暴击 ' + dmg, 'crit');
     else if (Math.random() < 0.55) this._float(e.x, e.y - 2, String(dmg), opts.arts ? 'arts' : 'phys');
     if (e.hp <= 0) this._killEnemy(e);
   }
@@ -634,7 +650,7 @@ export class Battle {
   }
 
   _healAlly(a, amount, source) {
-    if (a.dead) return;
+    if (a.dead) return 0;
     const real = Math.min(a.maxHp - a.hp, amount * (1 + this.buffs.heal));
     a.hp = Math.min(a.maxHp, a.hp + real);
     a.healFlash = 0.25;
@@ -644,6 +660,7 @@ export class Battle {
       a.shield = Math.max(a.shield, a.maxHp * 0.08);
       a.shieldT = Math.max(a.shieldT || 0, 8);
     }
+    return real;
   }
 
   _castSkill(a) {
@@ -693,8 +710,12 @@ export class Battle {
         this._projectile(a, t);
       }
     } else if (skill.type === 'heal') {
+      const medicSynergy = a.role === 'medic' && this._hasMedicSynergy();
       for (const al of this.allies) if (!al.dead) {
-        this._healAlly(al, a.atk * 0.42 * (skill.power || 1) * power * (1 + (this.baseBonuses?.heal || 0)), a);
+        const amount = a.atk * 0.42 * (skill.power || 1) * power * (1 + (this.baseBonuses?.heal || 0));
+        const raw = amount * (1 + this.buffs.heal);
+        const real = this._healAlly(al, amount, a);
+        if (medicSynergy) this._overflowHeal(raw - real, a);
         if (skill.shield) { al.shield = Math.max(al.shield, al.maxHp * skill.shield * power); al.shieldT = 8; }
       }
       this._effect(a.x, a.y, 'heal', 0.8);

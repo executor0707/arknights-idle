@@ -1,0 +1,7 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=medic5'});
+await new Promise(r=>setTimeout(r,3800));
+if (await evalJS(send, `!!document.querySelector('#enterBtn')`)) { await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true}); await new Promise(r=>setTimeout(r,2000)); await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`); }
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state;const meds=G.OPERATORS.filter(o=>o.cls==='医疗').slice(0,5);for(const o of meds)s.operators[o.id]={level:90,elite:2,potential:1,skill:1,mastery:0,trust:0,module:0,exp:0};s.squad=meds.map(o=>o.id);s.settings.autoSkill=false;__RHODES__.setView('battle',true);const b=__RHODES__.battle;b.start('CE-6');b.enemies=[];b._spawnEnemy({type:'boss',wave:1,boss:true,lane:0,bossKey:'boss_skulsr'});const calls=[];b._damageEnemy=function(e,amount,opts){calls.push({amount:+amount.toFixed(2),green:!!opts.green,hp:+e.hp.toFixed(2)})};for(const a of b.allies){a.hp=a.maxHp;a.cooldown=0;a.attackLock=0;a.sp=0;}b._updateAllies(0.1);const full={medics:b.allies.length,calls:calls.slice(0,10),allFull:true};calls.length=0;b.allies[4].dead=true;for(const a of b.allies){a.cooldown=0;a.attackLock=0;}b._updateAllies(0.1);return JSON.stringify({medics:meds.map(o=>o.name),full,four:{callCount:calls.length,green:calls.filter(x=>x.green).length}})})()`));
+process.exit(0);

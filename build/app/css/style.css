@@ -365,6 +365,7 @@ a { color: var(--orange); }
 .float-text.phys { color: #f4f6ef; }
 .float-text.arts { color: #85dfff; }
 .float-text.heal { color: #8ff0bd; }
+.float-text.green { color: #58ff9a; text-shadow: 0 0 9px rgba(88,255,154,.55), 0 1px 3px #000; }
 .float-text.hurt { color: #ff8d82; }
 .float-text.danger { color: #ff5d55; font-size: 14px; }
 .fx { position: absolute; transform: translate(-50%, -50%); pointer-events: none; border-radius: 50%; }
