@@ -1113,7 +1113,8 @@
         "workshop": 15,
         "training": 40
       }
-    }
+    },
+    "basePowerRowRemoved": true
   },
   "limitations": [
     "Combat is now a 5-person horizontal march; damage/leak/Boss balance is pending the next numeric pass.",

@@ -2220,7 +2220,6 @@ export function showOfflineReport(report) { showOffline(report); }
 
 function renderBase() {
   const sum = G.baseSummary();
-  const powerGain = G.baseLevelPowerGain();
   const damaged = ROOMS.filter(r => state.base.rooms[r.id].damaged);
   const rooms = ROOMS.map(r => {
     const s = state.base.rooms[r.id];
@@ -2287,7 +2286,6 @@ function renderBase() {
           <div class="kv"><span>治疗量（仅治疗干员）</span><b>+${(sum.bonuses.heal * 100).toFixed(2)}%</b></div>
           <div class="kv"><span>暴击率</span><b>${(sum.bonuses.crit * 100).toFixed(2)}%</b></div>
           <div class="kv"><span>暴击伤害</span><b>${(sum.bonuses.critDmg * 100).toFixed(0)}%</b></div>
-          <div class="kv"><span>全基升 1 级战力</span><b>+${fmt(powerGain)}</b></div>
           <div class="divider"></div>
           <div class="small">设施等级无上限；控制中枢在暴击率达到 100% 时封顶。每级只提供很小的固定加成，升级成本会持续上升。<br>材料块主要来自挂机：前期约 1.2 块/小时，后期约 3.2 块/小时。</div>
           <div class="kv mt-12"><span>受损维修费</span><b>30,000 / 设施</b></div>
