@@ -1007,9 +1007,8 @@
       "tested": true
     },
     "hailingSkill": {
-      "duration": 6,
-      "ambusherStun": 0.4,
-      "tested": true
+      "duration": 3,
+      "sp": 29
     },
     "visualSpacing": {
       "min": 0.5,

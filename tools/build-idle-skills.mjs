@@ -137,8 +137,8 @@ for (const op of OPERATORS) {
     fallback.push(op.id + '|' + op.name);
   }
   if (op.id === 'char_4186_tmoris') {
-    overrides[op.id].duration = 6;
-    overrides[op.id].desc = '无存之所：对范围内敌人造成攻击力 200% 的伤害，并使其停顿 6 秒。';
+    overrides[op.id].duration = 3;
+    overrides[op.id].desc = '无存之所：对范围内敌人造成攻击力 200% 的伤害，并使其停顿 3 秒。';
   }
   for (const s of list) {
     const d = clean(levelOf(s).description, levelOf(s).blackboard);
