@@ -2,7 +2,7 @@ import { OPERATORS } from './operators.js';
 import {
   STAGES, STAGE_GROUPS, BANNERS, MATERIALS, CLASSES, CLASS_GLYPH, CLASS_COLOR,
   STAR_COLOR, ROOMS, DAILY_TASKS, SHOP_ITEMS, SKIN_PRICE, PRIME_SHARD_COST,
-  SELECTOR_COST, FIVE_STAR_SELECTOR_COST, MAX_OUT_COST, PULL_COST, OFFLINE_CAP_HOURS, SAVE_KEY, MAIN_CHAPTERS,
+  SELECTOR_COST, FIVE_STAR_SELECTOR_COST, MAX_OUT_COST, PRIME_TO_ORUNDUM, PULL_COST, OFFLINE_CAP_HOURS, SAVE_KEY, MAIN_CHAPTERS,
 } from './data.js';
 import { SKINS, SKINS_BY_OP, SKIN_BY_ID } from './skins.js';
 import * as G from './game.js';
@@ -178,6 +178,14 @@ function bindEvents() {
       if (label) label.textContent = Math.round(v * 100) + '%';
       G.saveNow();
       if (battle && ui.view === 'battle') syncArena();
+      return;
+    }
+    if (e.target.id === 'primeExchangeRange') {
+      const n = Math.max(0, Math.floor(Number(e.target.value) || 0));
+      const cost = $('#primeExchangeCost');
+      const gain = $('#primeExchangeGain');
+      if (cost) cost.textContent = `${n} 源石`;
+      if (gain) gain.textContent = `${fmt(n * PRIME_TO_ORUNDUM)} 合成玉`;
       return;
     }
     if (e.target.id === 'selectorSearch') {
@@ -1303,6 +1311,16 @@ function renderGacha() {
         </div>
       </div>
       <div class="panel">
+        <div class="panel-head"><div class="panel-title">源石兑换</div><span class="panel-meta">PRIME EXCHANGE</span></div>
+        <div class="panel-body">
+          <div class="kv"><span>当前源石</span><b>${fmt(state.primes)} ◆</b></div>
+          <div class="small mt-8">1 源石可兑换 ${PRIME_TO_ORUNDUM} 合成玉。</div>
+          <div class="setting-slider mt-12"><input id="primeExchangeRange" type="range" min="0" max="${Math.max(1, state.primes)}" step="1" value="${Math.min(1, state.primes)}"><b id="primeExchangeGain">${fmt(Math.min(1, state.primes) * PRIME_TO_ORUNDUM)} 合成玉</b></div>
+          <div class="kv mt-8"><span>消耗</span><b id="primeExchangeCost">${Math.min(1, state.primes)} 源石</b></div>
+          <button class="btn btn-primary btn-small mt-12" data-action="exchange-primes" ${state.primes < 1 ? 'disabled' : ''}>兑换</button>
+        </div>
+      </div>
+      <div class="panel">
         <div class="panel-head"><div class="panel-title">300 抽自选</div><span class="panel-meta">${sel.available ? 'AVAILABLE' : 'CHARGING'}</span></div>
         <div class="panel-body">
           <div class="kv"><span>本轮进度</span><b>${Math.min(sel.current, SELECTOR_COST)} / ${SELECTOR_COST}</b></div>
@@ -2039,6 +2057,19 @@ async function onClick(e) {
       ui.bannerId = id; renderView(); break;
     case 'pool-six':
       openPoolSix(); break;
+    case 'exchange-primes': {
+      const range = $('#primeExchangeRange');
+      const n = Math.max(0, Math.floor(Number(range?.value) || 0));
+      const gained = G.exchangePrimes(n);
+      if (gained) {
+        toast(`兑换完成：${n} 源石 → ${fmt(gained)} 合成玉。`, 'success');
+        updateChrome();
+        renderView();
+      } else {
+        toast('源石不足。', 'warn');
+      }
+      break;
+    }
     case 'pull': {
       const r = G.pull(target.dataset.banner, Number(target.dataset.count));
       if (r.error) { toast(r.error + (r.need ? `（需要 ${fmt(r.need)}）` : ''), 'warn'); break; }
