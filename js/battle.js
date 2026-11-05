@@ -1,4 +1,4 @@
-import { state, getOpStats, getSquadBuffs, getBaseBonuses, grantStageRewards, saveNow, bus, STAGE_BY_ID, STAGES, isStageUnlocked, ensureEndlessFloor } from './game.js';
+import { state, getOpStats, getSquadBuffs, getBaseBonuses, grantStageRewards, saveNow, bus, STAGE_BY_ID, STAGES, isStageUnlocked, ensureEndlessFloor, skillSpCost } from './game.js';
 import { OPERATORS } from './operators.js';
 import { PUPPET_SKILL, puppetDurationFor, puppetHasSkill } from './data.js';
 
@@ -134,7 +134,7 @@ export class Battle {
     const b = this.buffs;
     const bb = this.baseBonuses || { atk: 0, hp: 0, aspd: 0, heal: 0, crit: 0.05, critDmg: 1.5 };
     const hp = Math.round(st.hp * (1 + b.hp) * (1 + bb.hp));
-    const skillSp = Math.max(10, Math.min(40, Number(OP_MAP.get(id)?.skill?.sp) || 30));
+    const skillSp = skillSpCost(id);
     return {
       uid: uid('a'), id, x, y, lane, role: st.role, bobPhase: Math.random() * Math.PI * 2,
       hp, maxHp: hp, shield: 0, atk: st.atk * (1 + b.atk) * (1 + bb.atk), def: st.def * (1 + b.def),
@@ -687,20 +687,20 @@ export class Battle {
       }
     } else if (skill.type === 'heal') {
       for (const al of this.allies) if (!al.dead) {
-        this._healAlly(al, a.atk * 0.42 * (skill.power || 1) * (1 + (this.baseBonuses?.heal || 0)), a);
-        if (skill.shield) { al.shield = Math.max(al.shield, al.maxHp * skill.shield); al.shieldT = 8; }
+        this._healAlly(al, a.atk * 0.42 * (skill.power || 1) * power * (1 + (this.baseBonuses?.heal || 0)), a);
+        if (skill.shield) { al.shield = Math.max(al.shield, al.maxHp * skill.shield * power); al.shieldT = 8; }
       }
       this._effect(a.x, a.y, 'heal', 0.8);
     } else if (skill.type === 'buff') {
       for (const al of this.allies) if (!al.dead) {
-        al.buffAtk = Math.max(al.buffAtk, skill.power || 0.25);
+        al.buffAtk = Math.max(al.buffAtk, (skill.power || 0.25) * power);
         al.buffUntil = skill.duration || 8;
         if (a.id === 'skadi_alter') al.hp = Math.min(al.maxHp, al.hp + al.maxHp * 0.15);
       }
       this._effect(a.x, a.y, 'buff', 0.8);
     } else if (skill.type === 'shield') {
       for (const al of this.allies) if (!al.dead) {
-        al.shield = Math.max(al.shield, al.maxHp * (skill.power || 0.25));
+        al.shield = Math.max(al.shield, al.maxHp * (skill.power || 0.25) * power);
         al.shieldT = 8;
         if (skill.reflect) al.reflect = skill.reflect;
       }

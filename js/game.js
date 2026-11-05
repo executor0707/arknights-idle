@@ -535,6 +535,25 @@ const MASTERY_REQS = [
   { lmd: 68000, items: { book3: 7 } },
 ];
 
+export function skillSpCost(id) {
+  const d = opData(id); const s = opState(id);
+  if (!d || !s) return 30;
+  const base = Math.max(10, Math.min(40, Number(d.skill?.sp) || 30));
+  const steps = Math.max(0, (Number(s.skill) || 1) - 1) + Math.max(0, Number(s.mastery) || 0);
+  return Math.max(10, Math.round(base * Math.pow(0.98, steps)));
+}
+
+export function skillUpgradePreview(id) {
+  const d = opData(id); const s = opState(id); const info = skillReqInfo(id);
+  if (!d || !s || !info || info.maxed || info.locked) return null;
+  const nextSkill = Math.min(7, (s.skill || 1) + (info.kind === 'skill' ? 1 : 0));
+  const nextMastery = Math.min(3, (s.mastery || 0) + (info.kind === 'mastery' ? 1 : 0));
+  const nextPower = 1 + (nextSkill - 1) * 0.055 + nextMastery * 0.075 + (s.potential >= 5 ? 0.1 : 0);
+  const baseSp = Math.max(10, Math.min(40, Number(d.skill?.sp) || 30));
+  const nextSp = Math.max(10, Math.round(baseSp * Math.pow(0.98, (nextSkill - 1) + nextMastery)));
+  return { power: nextPower, sp: nextSp, baseSp };
+}
+
 export function skillReqInfo(id) {
   const d = opData(id); const s = opState(id);
   if (!d || !s) return null;
@@ -669,21 +688,28 @@ export function equipSkin(opId, key) {
 export function skillDescription(id) {
   const d = opData(id);
   if (!d) return '';
-  if (d.skill.desc) return d.skill.desc;
   const p = Math.round((d.skill.power || 2) * 100);
-  switch (d.skill.type) {
-    case 'nuke': return `对生命最低的敌人造成 ${p}% 攻击力的伤害。`;
-    case 'aoe': return `对范围内所有敌人造成 ${p}% 攻击力的伤害。`;
-    case 'multi': return `连续攻击 ${d.skill.hits || 3} 次，每次造成 ${p}% 攻击力的伤害。`;
-    case 'heal': return `为生命最低的队友回复 ${p}% 攻击力的生命。`;
-    case 'buff': return `全队攻击力 +${Math.round((d.skill.power || 0.2) * 100)}%，持续 ${d.skill.duration || 8} 秒。`;
-    case 'shield': return `为自身与周围队友提供护盾，持续 ${d.skill.duration || 6} 秒。`;
-    case 'control': return `对范围内敌人造成 ${p}% 伤害，并使其停顿 ${d.skill.duration || 2} 秒。`;
-    case 'execute': return `对生命最低的敌人造成 ${p}% 真实伤害。`;
-    case 'debuff': return `对范围内敌人造成 ${p}% 伤害，并使其受到伤害 +20%，持续 ${d.skill.duration || 6} 秒。`;
-    case 'summon': return `召唤 ${d.skill.count || 1} 个召唤物协同作战，持续 ${d.skill.duration || 12} 秒。`;
-    default: return '自动释放的战术技能。';
+  let text;
+  if (d.skill.desc) text = d.skill.desc;
+  else switch (d.skill.type) {
+    case 'nuke': text = `对生命最低的敌人造成 ${p}% 攻击力的伤害。`; break;
+    case 'aoe': text = `对范围内所有敌人造成 ${p}% 攻击力的伤害。`; break;
+    case 'multi': text = `连续攻击 ${d.skill.hits || 3} 次，每次造成 ${p}% 攻击力的伤害。`; break;
+    case 'heal': text = `为生命最低的队友回复 ${p}% 攻击力的生命。`; break;
+    case 'buff': text = `全队攻击力 +${Math.round((d.skill.power || 0.2) * 100)}%，持续 ${d.skill.duration || 8} 秒。`; break;
+    case 'shield': text = `为自身与周围队友提供护盾，持续 ${d.skill.duration || 6} 秒。`; break;
+    case 'control': text = `对范围内敌人造成 ${p}% 伤害，并使其停顿 ${d.skill.duration || 2} 秒。`; break;
+    case 'execute': text = `对生命最低的敌人造成 ${p}% 真实伤害。`; break;
+    case 'debuff': text = `对范围内敌人造成 ${p}% 伤害，并使其受到伤害 +20%，持续 ${d.skill.duration || 6} 秒。`; break;
+    case 'summon': text = `召唤 ${d.skill.count || 1} 个召唤物协同作战，持续 ${d.skill.duration || 12} 秒。`; break;
+    default: text = '自动释放的战术技能。';
   }
+  const st = getOpStats(id);
+  const mult = st?.skillPower || 1;
+  const baseSp = Math.max(10, Math.min(40, Number(d.skill.sp) || 30));
+  const sp = skillSpCost(id);
+  const cut = Math.max(0, Math.round((1 - sp / baseSp) * 1000) / 10);
+  return `${text} 当前技能倍率 ×${mult.toFixed(2)}；SP ${sp}（基础 ${baseSp}，已降低 ${cut}%）。`;
 }
 
 // ── 编队 ───────────────────────────────────────────────────────────
