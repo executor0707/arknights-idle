@@ -1,0 +1,4 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state;const ids=['control','trade','factory','power','reception','workshop','training','dorm'];const id='silverash';s.operators[id]={level:90,elite:2,potential:5,skill:7,mastery:3,trust:100,module:3,exp:0};s.squad=[id,null,null,null,null];for(const k of ids)s.base.rooms[k]={level:1,damaged:false};__RHODES__.setView('battle',true);const b=__RHODES__.battle;b.start('CE-6');const one={base:b.baseBonuses,hp:Math.round(b.allies[0].maxHp),atk:Math.round(b.allies[0].atk),interval:+b.allies[0].interval.toFixed(4)};for(const k of ids)s.base.rooms[k]={level:10,damaged:false};b.start('CE-6');const ten={base:b.baseBonuses,hp:Math.round(b.allies[0].maxHp),atk:Math.round(b.allies[0].atk),interval:+b.allies[0].interval.toFixed(4)};return JSON.stringify({one,ten})})()`));
+process.exit(0);

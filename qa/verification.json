@@ -896,6 +896,28 @@
     "fiveStarSelector": {
       "cost": 325,
       "dailyLimit": false
+    },
+    "baseBonuses": {
+      "control": "global+crit",
+      "trade": "lmd+critDmg",
+      "factory": "record+atk",
+      "power": "global+aspd",
+      "reception": "block+heal",
+      "workshop": "material+heal",
+      "training": "book+heal",
+      "dorm": "hp+repairDiscount",
+      "allApplied": true,
+      "repairDiscountFixed": true,
+      "battleLevel1": {
+        "hp": 11191,
+        "atk": 1124,
+        "interval": 0.9632
+      },
+      "battleLevel10": {
+        "hp": 11271,
+        "atk": 1130,
+        "interval": 0.9606
+      }
     }
   },
   "limitations": [
