@@ -89,6 +89,7 @@ export class Battle {
     this.projectiles = [];
     this.floats = [];
     this.effects = [];
+    this.bardPulseT = 1;
     this.cast = null;
     this.cutIn = null;
     this.nextStageId = null;
@@ -212,6 +213,7 @@ export class Battle {
     }
 
     this._updateEnemies(dt);
+    this._updateBardChorus(dt);
     this._assignBlocks();
     this._updateAllies(dt);
     this._updateProjectiles(dt);
@@ -221,6 +223,23 @@ export class Battle {
     if (this.baseHp <= 0) { this._finish(false, '防线崩溃'); return; }
     if (!this.spawnQueue.length && !this.enemies.length && this.time > 1) { this._finish(true, '作战完成'); return; }
     if (this.time > this.timeout) { this._finish(false, '行动超时'); return; }
+  }
+
+  _updateBardChorus(dt) {
+    const bards = this.allies.filter(a => a.bard && !a.dead);
+    if (bards.length < 5) { this.bardPulseT = 1; return; }
+    this.bardPulseT = (this.bardPulseT ?? 1) - dt;
+    if (this.bardPulseT > 0) return;
+    this.bardPulseT += 1;
+    for (const e of this.enemies) {
+      if (e.dead) continue;
+      for (const a of bards) {
+        if (e.dead) break;
+        this._damageEnemy(e, a.atk * 0.8, { arts: false, source: a });
+      }
+      if (!e.dead) e.stun = Math.max(e.stun || 0, 0.3);
+    }
+    this._effect(50, 50, 'aoe', 0.45);
   }
 
   _updateEnemies(dt) {
