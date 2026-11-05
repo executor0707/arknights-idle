@@ -1,0 +1,10 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.bringToFront'); await send('Runtime.enable'); await send('Network.enable'); await send('Network.setCacheDisabled',{cacheDisabled:true});
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=linkedscale'});
+await new Promise(r=>setTimeout(r,1800));
+if (await evalJS(send, `!!document.querySelector('#enterBtn')`)) { await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true}); await new Promise(r=>setTimeout(r,1600)); await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`); await new Promise(r=>setTimeout(r,300)); }
+console.log('open', await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state,id='char_391_rosmon';s.operators[id]={level:90,elite:2,potential:1,skill:7,mastery:0,trust:0,module:0,exp:0};s.skins.owned[id+'-skin1']=true;s.skins.equipped[id]='skin1';G.setSkinScale(id+'-skin1',1.4);__RHODES__.setView('operators',true);document.querySelector('.op-hit[data-id="'+id+'"]')?.click();const input=document.querySelector('[data-skin-scale="'+id+'-skin1"]');return JSON.stringify({slider:!!input,value:input?.value,label:input?.closest('.skin-scale-row')?.querySelector('b')?.textContent,scale:G.skinScale(id+'-skin1')})})()`));
+console.log('change', await evalJS(send, `(()=>{const G=__RHODES__.G,id='char_391_rosmon';const input=document.querySelector('[data-skin-scale="'+id+'-skin1"]');input.value='120';input.dispatchEvent(new Event('input',{bubbles:true}));return JSON.stringify({state:G.skinScale(id+'-skin1'),label:input.closest('.skin-scale-row')?.querySelector('b')?.textContent})})()`));
+console.log('shop', await evalJS(send, `(()=>{__RHODES__.setView('skins',true);const input=document.querySelector('[data-skin-scale="char_391_rosmon-skin1"]');return JSON.stringify({slider:!!input,value:input?.value,label:input?.closest('.skin-scale-row')?.querySelector('b')?.textContent})})()`));
+process.exit(0);

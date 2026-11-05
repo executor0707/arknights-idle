@@ -807,6 +807,14 @@
         "mlynarClip": "Skill_1_Start",
         "rathalosHeight": 117
       }
+    },
+    "skinScaleLink": {
+      "operatorDetailSlider": true,
+      "shopSlider": true,
+      "sharedKey": true,
+      "tested": 140,
+      "changed": 120,
+      "noDoubleMultiplier": true
     }
   },
   "limitations": [
