@@ -1,0 +1,9 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=classattack'});
+await new Promise(r=>setTimeout(r,3500));
+if (await evalJS(send, `!!document.querySelector('#enterBtn')`)) { await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true}); await new Promise(r=>setTimeout(r,2000)); await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`); }
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G;const cls=new Set(['先锋','近卫','狙击','术士']);const hits=[];for(const o of G.OPERATORS){if(!cls.has(o.cls))continue;const sk=o.skill;if(!sk)continue;if(sk.type==='heal'||/治疗|回复|恢复|自愈|吸血/.test(sk.desc||'')||sk.selfHeal||sk.heal)hits.push({name:o.name,cls:o.cls,type:sk.type,desc:sk.desc});}return JSON.stringify({count:hits.length,hits})})()`));
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state,id='char_450_necras';s.operators[id]={level:90,elite:2,potential:5,skill:7,mastery:3,trust:100,module:3,exp:0};s.squad=[id,null,null,null,null];__RHODES__.setView('battle',true);const b=__RHODES__.battle;b.start('CE-6');b._spawnEnemy({type:'boss',wave:1,boss:true,lane:0,bossKey:'boss_skulsr'});const a=b.allies[0],e=b.enemies[0];e.x=a.x;e.hp=e.maxHp=100000;const before=e.hp;b._castSkill(a);return JSON.stringify({skill:G.OP_BY_ID.get(id).skill,damage:Math.round(before-e.hp),castUntil:a.castUntil})})()`));
+console.log(await evalJS(send, `(()=>{__RHODES__.setView('operators',true);document.querySelector('.op-hit[data-id="char_450_necras"]')?.click();const t=document.querySelector('.modal-backdrop')?.innerText||'';return JSON.stringify({hasHeal:t.includes('治疗'),hasAttack:t.includes('攻击力 320%')})})()`));
+process.exit(0);

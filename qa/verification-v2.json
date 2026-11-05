@@ -1130,6 +1130,19 @@
       "limitedSix": 23,
       "collabSix": 28,
       "noRateUp": true
+    },
+    "classAttackSkills": {
+      "classes": [
+        "先锋",
+        "近卫",
+        "狙击",
+        "术士"
+      ],
+      "healingSkills": 0,
+      "necras": {
+        "type": "aoe",
+        "damage": 5909
+      }
     }
   },
   "limitations": [
