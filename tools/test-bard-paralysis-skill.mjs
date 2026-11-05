@@ -1,0 +1,4 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+console.log(await evalJS(send, `(()=>{const s=__RHODES__.state,G=__RHODES__.G;const ids=['char_101_sora','char_4045_heidi','char_4134_cetsyr','char_4184_dolris','char_4091_ulika'];for(const id of ids)s.operators[id]={level:90,elite:2,potential:1,skill:7,mastery:0,trust:0,module:0,exp:0};s.squad=ids;const b=__RHODES__.battle;__RHODES__.setView('battle',true);b.start('CE-6');b._spawnEnemy({type:'boss',wave:1,boss:true,lane:0,bossKey:'boss_skulsr'});const e=b.enemies[0];const bard=b.allies.find(a=>a.bard);b._castSkill(bard);const afterOne=e.stun;b._castSkill(b.allies.filter(a=>a.bard)[1]);const afterTwo=e.stun;e.stun=0;b.bardPulseT=0;b._updateBardChorus(0.01);const afterPulse=e.stun;return JSON.stringify({afterOne,afterTwo,afterPulse,hpAlive:e.hp>0})})()`));
+process.exit(0);

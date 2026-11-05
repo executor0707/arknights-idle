@@ -237,7 +237,6 @@ export class Battle {
         if (e.dead) break;
         this._damageEnemy(e, a.atk * 0.8, { arts: false, source: a });
       }
-      if (!e.dead) e.stun = Math.max(e.stun || 0, 0.3);
     }
     this._effect(50, 50, 'aoe', 0.45);
   }
@@ -531,6 +530,13 @@ export class Battle {
     a.castUntil = 0.7;
     this.cast = { name: `${op.name} · ${skill.name}`, life: 1.35, color: a.arts ? '#67d9ff' : '#ffb544' };
     this.cutIn = { id: a.id, name: op.name, skill: skill.name, life: 1.15, key: `${a.id}-${this.time.toFixed(2)}` };
+    // Bard paralysis is tied to skill release, not to the one-second chorus
+    // damage tick. max() prevents several simultaneous bards from stacking
+    // multiple 0.3s controls into a long chain.
+    if (a.bard) {
+      for (const e of this.enemies) if (!e.dead) e.stun = Math.max(e.stun || 0, 0.3);
+      this._effect(a.x, a.y, 'stun', 0.45);
+    }
     bus.dispatchEvent(new CustomEvent('battle-sfx', { detail: { sound: 'skill' } }));
     if (skill.type === 'aoe') {
       const targets = enemiesInRange.length ? enemiesInRange : this.enemies;

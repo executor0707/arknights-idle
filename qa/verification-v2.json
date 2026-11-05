@@ -817,11 +817,14 @@
       "noDoubleMultiplier": true
     },
     "bardChorus": {
-      "bardsRequired": 5,
-      "pulseSeconds": 1,
-      "damageRatio": 0.8,
+      "damagePerSecond": 1766,
+      "stunSource": "bard skill cast",
       "stunSeconds": 0.3,
-      "tested": true
+      "stunStacks": false,
+      "pulseStun": 0,
+      "normalDps": 3657,
+      "bardClear": 34.2,
+      "normalClear": 27.7
     },
     "shieldBar": {
       "yellowOverlay": true,
