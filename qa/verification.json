@@ -1039,6 +1039,15 @@
       "makoto": "Doll_Skill_1_Idle",
       "returnIdle": true,
       "frameVersion": 12
+    },
+    "primeExchange": {
+      "rate": 180,
+      "slider": true,
+      "tested": {
+        "primesBefore": 10,
+        "primesAfter": 5,
+        "orundum": 900
+      }
     }
   },
   "limitations": [

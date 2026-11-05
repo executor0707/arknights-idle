@@ -2,7 +2,7 @@ import { OPERATORS, STARTERS } from './operators.js';
 import {
   SAVE_KEY, SAVE_VERSION, MAX_SQUAD, PULL_COST, OFFLINE_CAP_HOURS,
   MATERIALS, STAGES, BANNERS, ROOMS, DAILY_TASKS, SHOP_ITEMS,
-  RARITY_BASE, ROLE_MODS, RECORD_ORDER, SKIN_PRICE, PRIME_SHARD_COST, SELECTOR_COST, FIVE_STAR_SELECTOR_COST, MAX_OUT_COST, PUPPET_SKILL, puppetDurationFor, puppetHasSkill,
+  RARITY_BASE, ROLE_MODS, RECORD_ORDER, SKIN_PRICE, PRIME_SHARD_COST, SELECTOR_COST, FIVE_STAR_SELECTOR_COST, MAX_OUT_COST, PRIME_TO_ORUNDUM, PUPPET_SKILL, puppetDurationFor, puppetHasSkill,
   makeEndlessStage, MAX_ENDLESS_FLOOR,
 } from './data.js';
 import { SKINS, SKIN_BY_ID, SKINS_BY_OP } from './skins.js';
@@ -269,6 +269,16 @@ export function pay(cost = {}) {
   return true;
 }
 export function itemName(id) { return MATERIALS[id]?.name || id; }
+
+export function exchangePrimes(count) {
+  const n = Math.max(0, Math.floor(Number(count) || 0));
+  if (n < 1 || state.primes < n) return 0;
+  state.primes -= n;
+  state.orundum += n * PRIME_TO_ORUNDUM;
+  saveNow();
+  bus.dispatchEvent(new CustomEvent('currency-change', { detail: { primes: -n, orundum: n * PRIME_TO_ORUNDUM } }));
+  return n * PRIME_TO_ORUNDUM;
+}
 
 function notify(text, tone = 'info') {
   bus.dispatchEvent(new CustomEvent('notice', { detail: { text, tone } }));
