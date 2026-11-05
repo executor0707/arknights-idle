@@ -1167,15 +1167,19 @@ export function openOperator(id, opts = {}) {
         </div>
       </div>
 
+      ${d.sub === '傀儡师' ? `<div class="detail-section puppet-skill">
+        <div class="detail-section-head"><b>傀儡技能</b><span>替身专属 · SP 10</span></div>
+        <div class="detail-section-body">
+          <div class="skill-name">傀儡技能 <span class="tag cyan">替身</span></div>
+          <div class="skill-desc">${esc(G.puppetSkillText(id))}</div>
+          <div class="skill-meta"><span>自动回复</span><span>自动触发</span><span>SP 10</span></div>
+        </div>
+      </div>` : ''}
+
       <div class="detail-section">
         <div class="detail-section-head"><b>天赋</b><span>${d.rarity === 6 ? '精英天赋' : '基础天赋'}</span></div>
         <div class="detail-section-body"><div class="skill-desc">${esc(G.talentText(id))}</div></div>
       </div>
-
-      ${d.sub === '傀儡师' ? `<div class="detail-section puppet-skill">
-        <div class="detail-section-head"><b>替身技能</b><span>独立 SP 10</span></div>
-        <div class="detail-section-body"><div class="skill-desc">${esc(G.puppetSkillText(id))}</div></div>
-      </div>` : ''}
 
       <div class="detail-section">
         <div class="detail-section-head"><b>模组</b><span>${mod?.maxed ? 'MODULE MAX' : mod?.locked ? '需精英二' : 'MODULE ' + (mod?.next || 0)}</span></div>

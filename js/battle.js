@@ -1,5 +1,6 @@
 import { state, getOpStats, getSquadBuffs, getBaseBonuses, grantStageRewards, saveNow, bus, STAGE_BY_ID, STAGES, isStageUnlocked, ensureEndlessFloor } from './game.js';
 import { OPERATORS } from './operators.js';
+import { PUPPET_SKILL } from './data.js';
 
 const MELEE = new Set(['vanguard', 'guard', 'defender', 'specialist']);
 // Merc Storia-like single horizontal marching line. Positions are still
@@ -585,8 +586,7 @@ export class Battle {
     sub.sp = 0;
     sub.maxSp = 10;
     sub.spRate = 2.5;
-    const baseSkill = OP_MAP.get(body.id)?.skill || { name: '替身技能', type: 'buff', power: 1, duration: 4 };
-    sub.puppetSkill = { ...baseSkill, name: `替身·${baseSkill.name || '技能'}`, sp: 10 };
+    sub.puppetSkill = { ...PUPPET_SKILL };
     this.allies[idx] = sub;
     this._effect(body.x, body.y, 'switch', 0.8);
     this._float(body.x, body.y - 8, '替身', 'buff');
@@ -651,10 +651,16 @@ export class Battle {
     }
     bus.dispatchEvent(new CustomEvent('battle-sfx', { detail: { sound: 'skill' } }));
     if (skill.type === 'aoe') {
-      const targets = enemiesInRange.length ? enemiesInRange : this.enemies;
-      for (const e of targets) this._damageEnemy(e, a.atk * skill.power * power, { arts: a.arts, source: a });
+      const targets = skill.all
+        ? this.enemies.filter(e => !e.dead)
+        : (enemiesInRange.length ? enemiesInRange : this.enemies);
+      for (const e of targets) {
+        this._damageEnemy(e, a.atk * skill.power * power, { arts: a.arts, source: a });
+        if (!e.dead && skill.stun) e.stun = Math.max(e.stun || 0, skill.stun);
+      }
       this._effect(a.x + 8, a.y, 'aoe', 0.75);
       if (skill.dot) for (const e of targets) { e.burnT = Math.max(e.burnT || 0, skill.duration || 4); e.burnDmg = a.atk * skill.dot * power; }
+      if (skill.selfHeal) this._healAlly(a, a.maxHp * skill.selfHeal, a);
     } else if (skill.type === 'nuke') {
       const t = this.enemies.filter(e => !e.dead).sort((x, y) => x.hp - y.hp)[0];
       if (t) this._damageEnemy(t, a.atk * skill.power * power, { arts: a.arts, source: a });
