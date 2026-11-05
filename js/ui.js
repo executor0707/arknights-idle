@@ -34,6 +34,7 @@ const timeAgo = (t) => {
   return Math.floor(m / 60) + ' 小时前';
 };
 const classOf = (d) => CLASS_COLOR[d.cls] || '#aaa';
+const visualAllyX = (x) => 50 + (Number(x) - 50) * (Number(state.settings?.formationSpacing) || 1);
 const MUJICA_IDS = new Set(['char_4182_oblvns', 'char_4183_mortis', 'char_4184_dolris', 'char_4186_tmoris', 'char_4185_amoris']);
 
 const NAV = [
@@ -168,6 +169,15 @@ function bindEvents() {
       const label = e.target.id === 'charScale' ? $('#charScaleValue') : $('#enemyScaleValue');
       if (label) label.textContent = Math.round(v * 100) + '%';
       G.saveNow();
+      return;
+    }
+    if (e.target.id === 'charSpacing') {
+      const v = Math.min(2, Math.max(0.5, Number(e.target.value) || 1));
+      state.settings.formationSpacing = v;
+      const label = $('#charSpacingValue');
+      if (label) label.textContent = Math.round(v * 100) + '%';
+      G.saveNow();
+      if (battle && ui.view === 'battle') syncArena();
       return;
     }
     if (e.target.id === 'selectorSearch') {
@@ -647,7 +657,7 @@ function renderRangeOverlay() {
     const r = Math.max(7, Math.min(74, Number(st.range) || 12));
     const w = r * 1.45, h = r * 0.86;
     const selected = ui.deploying === a.id;
-    return `<div class="range-ring ${selected ? 'selected' : ''} ${r > 40 ? 'ranged' : 'melee'}" style="left:${a.x - w / 2}%;top:${a.y - h / 2}%;width:${w}%;height:${h}%">
+    return `<div class="range-ring ${selected ? 'selected' : ''} ${r > 40 ? 'ranged' : 'melee'}" style="left:${visualAllyX(a.x) - w / 2}%;top:${a.y - h / 2}%;width:${w}%;height:${h}%">
       <span>${esc(CLASS_GLYPH[d.cls] || '')}${selected ? ' · 点击战场放置' : ''}</span>
     </div>`;
   }).join('');
@@ -777,7 +787,7 @@ function syncArena(rebuild = false) {
     if (!node) { node = makeAllyEl(unit); a.layerAllies.appendChild(node); a.allies.set(unit.uid, node); }
     const bob = Math.sin(performance.now() / 170 + (unit.bobPhase || 0)) * 1.6;
     const bobX = Math.sin(performance.now() / 220 + (unit.bobPhase || 0)) * 0.7;
-    node.style.left = `calc(${unit.x}% + ${bobX.toFixed(1)}px)`;
+    node.style.left = `calc(${visualAllyX(unit.x)}% + ${bobX.toFixed(1)}px)`;
     node.style.top = `calc(${unit.y}% + ${bob.toFixed(1)}px)`;
     node._refs.hp.style.width = Math.max(0, unit.hp / unit.maxHp * 100) + '%';
     const shield = Math.max(0, Number(unit.shield) || 0);
@@ -1658,6 +1668,10 @@ function renderArchive() {
           <div class="setting-row setting-slider-row">
             <div>战斗小人缩放（全局）<small>与皮肤单独缩放相乘 · 50%–200%</small></div>
             <div class="setting-slider"><input id="charScale" type="range" min="0.5" max="2" step="0.05" value="${state.settings.characterScale ?? 1.2}"><b id="charScaleValue">${Math.round((state.settings.characterScale ?? 1.2) * 100)}%</b></div>
+          </div>
+          <div class="setting-row setting-slider-row">
+            <div>角色间距<small>仅影响站位显示，不改变技能范围 · 50%–200%</small></div>
+            <div class="setting-slider"><input id="charSpacing" type="range" min="0.5" max="2" step="0.05" value="${state.settings.formationSpacing ?? 1}"><b id="charSpacingValue">${Math.round((state.settings.formationSpacing ?? 1) * 100)}%</b></div>
           </div>
           <div class="setting-row setting-slider-row">
             <div>敌方单位大小<small>小兵与 Boss 同步缩放 · 50%–200%</small></div>
