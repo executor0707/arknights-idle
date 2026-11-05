@@ -57,7 +57,7 @@ export function initSpineArena(arena) {
 
   frame = document.createElement('iframe');
   frame.className = 'spine38-frame';
-  frame.src = 'spine38-frame.html?v=11';
+  frame.src = 'spine38-frame.html?v=12';
   frame.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;z-index:3;pointer-events:none;opacity:0;';
   frame.setAttribute('allowtransparency', 'true');
   frame.addEventListener('load', () => {
@@ -234,7 +234,7 @@ export function syncSpine(battle) {
       const key = skinEntry ? skinKey : a.id;
       const opData = OP_MAP.get(a.id);
       const skillAttack = !!opData && (opData.sub === '阵法术师' || opData.sub === '解放者');
-      post.push({ uid: 'a:' + a.uid, kind: 'op', key, fallback: SPINE38_OPERATORS[a.id] ? a.id : null, skillAttack, bard: !!a.bard, x: 50 + (a.x - 50) * (Number(state.settings?.formationSpacing) || 1), y: a.y, scale: (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id) * mobileBattleScale(), speed: state.stage.speed || 1, bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
+      post.push({ uid: 'a:' + a.uid, kind: 'op', key, fallback: SPINE38_OPERATORS[a.id] ? a.id : null, skillAttack, bard: !!a.bard, puppet: !!a.puppet, x: 50 + (a.x - 50) * (Number(state.settings?.formationSpacing) || 1), y: a.y, scale: (state.settings?.characterScale || 1.2) * skinScaleForOp(a.id) * mobileBattleScale(), speed: state.stage.speed || 1, bob: Math.sin(performance.now() / 170 + (a.bobPhase || 0)) * 1.6, bobX: Math.sin(performance.now() / 220 + (a.bobPhase || 0)) * 0.7, dead: a.dead, attackFlash: a.attackFlash, attackLock: a.attackLock || 0, castUntil: a.castUntil, sp: a.sp });
       continue;
     }
     if (!SPINE35_ONLY[a.id]) continue;

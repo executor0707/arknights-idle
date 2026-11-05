@@ -1032,6 +1032,13 @@
           "62"
         ]
       }
+    },
+    "skinPuppetVisuals": {
+      "bena": "Idle_B",
+      "mortis": "Doll_Idle",
+      "makoto": "Doll_Skill_1_Idle",
+      "returnIdle": true,
+      "frameVersion": 12
     }
   },
   "limitations": [
