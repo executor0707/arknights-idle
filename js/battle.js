@@ -434,9 +434,8 @@ export class Battle {
         if (target && (medicSynergy || target.hp < target.maxHp) && a.cooldown <= 0 && a.attackLock <= 0) {
           const enhance = Math.max(0, Number(a.enhance) || 0) * 0.0001;
           const amount = a.atk * (1 + this.buffs.heal) * (1 + (this.baseBonuses?.heal || 0)) * (1 + enhance);
-          const raw = amount * (1 + this.buffs.heal);
-          const real = this._healAlly(target, amount, a);
-          if (medicSynergy) this._overflowHeal(raw - real, a);
+          const healed = this._healAlly(target, amount, a);
+          if (medicSynergy) this._overflowHeal(healed.raw - healed.real, a);
           this._effect(target.x, target.y, 'heal', 0.55);
           a.cooldown = a.interval;
           a.attackFlash = 0.18;
@@ -653,17 +652,21 @@ export class Battle {
   }
 
   _healAlly(a, amount, source) {
-    if (a.dead) return 0;
-    const real = Math.min(a.maxHp - a.hp, amount * (1 + this.buffs.heal));
+    if (a.dead) return { real: 0, raw: 0, crit: false };
+    const enhance = Math.max(0, Number(source?.enhance) || 0) * 0.0001;
+    const crit = Math.random() < Math.min(1, (this.baseBonuses?.crit || 0.05) + enhance);
+    const critDmg = (this.baseBonuses?.critDmg || 1.5) + enhance;
+    const raw = amount * (1 + this.buffs.heal) * (crit ? critDmg : 1);
+    const real = Math.min(a.maxHp - a.hp, raw);
     a.hp = Math.min(a.maxHp, a.hp + real);
     a.healFlash = 0.25;
     this.stats.healing += real;
-    if (real > 1) this._float(a.x, a.y - 2, '+' + Math.round(real), 'heal');
+    if (real > 1) this._float(a.x, a.y - 2, (crit ? '暴击 ' : '') + '+' + Math.round(real), 'heal');
     if (source && source.id === 'shu') {
       a.shield = Math.max(a.shield, a.maxHp * 0.08);
       a.shieldT = Math.max(a.shieldT || 0, 8);
     }
-    return real;
+    return { real, raw, crit };
   }
 
   _castSkill(a) {
@@ -717,9 +720,8 @@ export class Battle {
       for (const al of this.allies) if (!al.dead) {
         const enhance = Math.max(0, Number(a.enhance) || 0) * 0.0001;
         const amount = a.atk * 0.42 * (skill.power || 1) * power * (1 + (this.baseBonuses?.heal || 0)) * (1 + enhance);
-        const raw = amount * (1 + this.buffs.heal);
-        const real = this._healAlly(al, amount, a);
-        if (medicSynergy) this._overflowHeal(raw - real, a);
+        const healed = this._healAlly(al, amount, a);
+        if (medicSynergy) this._overflowHeal(healed.raw - healed.real, a);
         if (skill.shield) { al.shield = Math.max(al.shield, al.maxHp * skill.shield * power); al.shieldT = 8; }
       }
       this._effect(a.x, a.y, 'heal', 0.8);
