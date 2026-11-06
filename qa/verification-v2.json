@@ -1204,6 +1204,11 @@
       "enhanceRatio": 1.0001,
       "maxEndlessDisplay": 39999,
       "maxRec": 335992
+    },
+    "healCrit": {
+      "critHealRatio": 2,
+      "noCritHeal": 100,
+      "critHeal": 200
     }
   },
   "limitations": [
