@@ -1,0 +1,12 @@
+import { connect, evalJS } from './cdp.mjs';
+const { send } = await connect();
+await send('Page.navigate',{url:'http://127.0.0.1:8765/v4/?v=economy76'});
+await new Promise(r=>setTimeout(r,3500));
+if (await evalJS(send, `!!document.querySelector('#enterBtn')`)) { await send('Runtime.evaluate',{expression:`document.getElementById('enterBtn')?.click()`,userGesture:true}); await new Promise(r=>setTimeout(r,2000)); await evalJS(send, `document.querySelector('[data-action="tutorial-skip"]')?.click();true`); }
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state;s.stage.selected='CE-6';s.orundum=0;const rate=G.stageIdleRates();G.tickIdle(3600);const idle=s.orundum;s.primes=1;s.orundum=0;const exchange=G.exchangePrimes(1);s.orundum=0;s.stage.firstClear={};const reward=G.grantStageRewards(G.STAGE_BY_ID.get('CE-6'),{offline:true,multiplier:1});return JSON.stringify({idleRate:rate.orundumPerHour,idleAfterHour:s.orundum,exchange,rewardOrundum:reward.orundum})})()`));
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state,id='mlynar';s.operators[id]={level:90,elite:2,potential:5,skill:7,mastery:3,trust:100,module:3,exp:0,enhance:0};const before={hp:G.getCombatStats(id).hp,atk:G.getCombatStats(id).atk,crit:G.getCombatStats(id).crit};s.orundum=1000000;const ok=G.enhanceOperator(id);const after={hp:G.getCombatStats(id).hp,atk:G.getCombatStats(id).atk,crit:G.getCombatStats(id).crit};const second=G.enhanceOperator(id);return JSON.stringify({ok,second,enhance:s.operators[id].enhance,orundum:s.orundum,before,after,hpRatio:+(after.hp/before.hp).toFixed(6),atkRatio:+(after.atk/before.atk).toFixed(6)})})()`));
+console.log(await evalJS(send, `(()=>{const G=__RHODES__.G,s=__RHODES__.state;const st=G.ensureEndlessFloor(39999);const raw=st.idle.orundumPerHour;const adjusted=G.stageIdleRates(st).orundumPerHour;return JSON.stringify({max:G.MAX_ENDLESS_FLOOR,floor:st.floor,rec:st.rec,rawRate:raw,adjustedRate:adjusted,code:st.code})})()`));
+await evalJS(send, `__RHODES__.setView('operators',true);document.querySelector('.op-hit[data-id="mlynar"]')?.click()`);
+await new Promise(r=>setTimeout(r,300));
+console.log(await evalJS(send, `(()=>{const t=document.querySelector('.modal-backdrop')?.innerText||'';return JSON.stringify({enhanceSection:t.includes('属性强化'),enhanceButton:t.includes('强化一层'),healStats:t.includes('治疗加成')})})()`));
+process.exit(0);

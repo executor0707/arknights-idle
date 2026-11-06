@@ -1195,6 +1195,15 @@
       "count": 7,
       "range": 62,
       "block": 0
+    },
+    "economyEnhanceEndless": {
+      "orundumRate": 610.942,
+      "primeExchange": 18,
+      "enhanceCost": 1000000,
+      "enhanceRate": 0.0001,
+      "enhanceRatio": 1.0001,
+      "maxEndlessDisplay": 39999,
+      "maxRec": 335992
     }
   },
   "limitations": [

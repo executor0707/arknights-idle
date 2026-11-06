@@ -2,7 +2,7 @@ import { OPERATORS } from './operators.js';
 import {
   STAGES, STAGE_GROUPS, BANNERS, MATERIALS, CLASSES, CLASS_GLYPH, CLASS_COLOR,
   STAR_COLOR, ROOMS, DAILY_TASKS, SHOP_ITEMS, SKIN_PRICE, PRIME_SHARD_COST,
-  SELECTOR_COST, FIVE_STAR_SELECTOR_COST, MAX_OUT_COST, PRIME_TO_ORUNDUM, PULL_COST, OFFLINE_CAP_HOURS, SAVE_KEY, MAIN_CHAPTERS,
+  SELECTOR_COST, FIVE_STAR_SELECTOR_COST, MAX_OUT_COST, PRIME_TO_ORUNDUM, ORUNDUM_INCOME_RATE, ENHANCE_COST, ENHANCE_RATE, PULL_COST, OFFLINE_CAP_HOURS, SAVE_KEY, MAIN_CHAPTERS,
 } from './data.js';
 import { SKINS, SKINS_BY_OP, SKIN_BY_ID } from './skins.js';
 import * as G from './game.js';
@@ -619,9 +619,9 @@ function rewardChips(stage) {
   const chips = [];
   chips.push(`<span class="reward-chip">龙门币 <b>${fmt(r.lmd)}</b></span>`);
   if (stage.group === 'annihilation' && stage.idle) {
-    chips.push(`<span class="reward-chip">挂机 <b>${fmt(stage.idle.orundumPerHour)} 合成玉/h</b></span>`);
+    chips.push(`<span class="reward-chip">挂机 <b>${fmt(G.stageIdleRates(stage).orundumPerHour)} 合成玉/h</b></span>`);
   } else if (r.orundum) {
-    chips.push(`<span class="reward-chip">合成玉 <b>${r.orundum}</b></span>`);
+    chips.push(`<span class="reward-chip">合成玉 <b>${fmt(r.orundum * ORUNDUM_INCOME_RATE)}</b></span>`);
   }
   if (!state.stage.firstClear[stage.id]) chips.push(`<span class="reward-chip">首通 <b>◆ ${stage.firstClearPrime}</b></span>`);
   if (stage.group === 'resource') {
@@ -1115,6 +1115,16 @@ export function openOperator(id, opts = {}) {
         <div class="stat-box"><span>攻速加成</span><b>+${(st.aspd * 100).toFixed(1)}%</b></div>
         <div class="stat-box"><span>信赖加成</span><b>+${(s.trust / 100 * 8).toFixed(1)}%</b></div>
         ${st.heal || st.bard ? `<div class="stat-box"><span>治疗加成</span><b>+${(st.healBonus * 100).toFixed(1)}%</b></div>` : ''}
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-section-head"><b>属性强化</b><span>永久 · 无上限</span></div>
+        <div class="detail-section-body">
+          <div class="kv"><span>强化层数</span><b>${s.enhance || 0}</b></div>
+          <div class="kv"><span>全属性加成</span><b>+${((s.enhance || 0) * ENHANCE_RATE * 100).toFixed(2)}%</b></div>
+          <div class="small mt-8">每花费 ${fmt(ENHANCE_COST)} 合成玉，永久提升该干员全属性 0.01%；生命、攻击、防御、法抗、攻速、暴击、暴伤与治疗加成均生效，不设上限。</div>
+          <button class="btn btn-primary btn-small mt-12" data-action="op-enhance" data-id="${id}" ${state.orundum < ENHANCE_COST ? 'disabled' : ''}>${state.orundum < ENHANCE_COST ? '合成玉不足' : '强化一层（100万合成玉）'}</button>
+        </div>
       </div>
 
       ${id === 'amiya' || id === 'char_1001_amiya2' || id === 'char_1037_amiya3' ? `<div class="detail-section amiya-form-section">
@@ -1787,7 +1797,7 @@ function openTasks() {
       <div class="task-name">${t.name}</div>
       <div class="task-prog">${claimed ? '已领取' : p + ' / ' + t.target}</div>
       <div class="progress"><i style="width:${Math.min(100, p / t.target * 100)}%"></i></div>
-      <div class="task-rewards">${t.rewards.lmd ? `<span>L <b>${fmt(t.rewards.lmd)}</b></span>` : ''}${t.rewards.orundum ? `<span>◇ <b>${t.rewards.orundum}</b></span>` : ''}${Object.entries(t.rewards.items || {}).map(([id, n]) => `<span>${MATERIALS[id]?.glyph || id} <b>${n}</b></span>`).join('')}</div>
+      <div class="task-rewards">${t.rewards.lmd ? `<span>L <b>${fmt(t.rewards.lmd)}</b></span>` : ''}${t.rewards.orundum ? `<span>◇ <b>${fmt(t.rewards.orundum * ORUNDUM_INCOME_RATE)}</b></span>` : ''}${Object.entries(t.rewards.items || {}).map(([id, n]) => `<span>${MATERIALS[id]?.glyph || id} <b>${n}</b></span>`).join('')}</div>
       <button class="btn btn-small ${claimed ? '' : 'btn-primary'}" data-action="claim-task" data-id="${t.id}" ${claimed || p < t.target ? 'disabled' : ''}>${claimed ? '已领取' : '领取'}</button>
     </div>`;
   }).join('');
@@ -2040,6 +2050,13 @@ async function onClick(e) {
     case 'op-module':
       if (G.upgradeModule(id)) { toast('模组升级完成。', 'success'); openOperator(id, { silent: true }); }
       else toast('模组材料不足。', 'warn');
+      break;
+    case 'op-enhance':
+      if (G.enhanceOperator(id)) {
+        toast('全属性永久强化 +0.01%。', 'success');
+        openOperator(id, { silent: true });
+        updateChrome();
+      } else toast('合成玉不足，需要 100 万。', 'warn');
       break;
     case 'op-token':
       if (G.useToken(id)) { toast('潜能提升 1 点。', 'success'); openOperator(id, { silent: true }); }
