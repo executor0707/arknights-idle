@@ -73,7 +73,10 @@ export const PRIME_SHARD_COST = 20;
 export const SELECTOR_COST = 300;
 export const FIVE_STAR_SELECTOR_COST = 325;
 export const MAX_OUT_COST = 50000;
-export const PRIME_TO_ORUNDUM = 180;
+export const PRIME_TO_ORUNDUM = 18;
+export const ORUNDUM_INCOME_RATE = 0.1;
+export const ENHANCE_COST = 1000000;
+export const ENHANCE_RATE = 0.0001;
 export const PUPPET_DURATIONS = {
   'char_4183_mortis': 18.133,
   'char_4124_iana': 4,
@@ -182,8 +185,8 @@ const LEGACY_STAGES = [
 ];
 
 export const ENDLESS_BOSSES = ['boss_skulsr', 'boss_frstar', 'boss_faust', 'boss_mephi', 'boss_sfsui', 'boss_blksnk'];
-// Internal floor 1 displays as 无尽战线-0; internal 10000 displays as -9999.
-export const MAX_ENDLESS_FLOOR = 9999;
+// Internal floor 1 displays as 无尽战线-0; internal 40000 displays as -39999.
+export const MAX_ENDLESS_FLOOR = 40000;
 export function makeEndlessStage(n) {
   const floor = Math.max(1, Math.min(MAX_ENDLESS_FLOOR, Math.floor(n)));
   // Two endless floors per full-base-level power gain. The base calculator

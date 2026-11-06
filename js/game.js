@@ -2,7 +2,7 @@ import { OPERATORS, STARTERS } from './operators.js';
 import {
   SAVE_KEY, SAVE_VERSION, MAX_SQUAD, PULL_COST, OFFLINE_CAP_HOURS,
   MATERIALS, STAGES, BANNERS, ROOMS, DAILY_TASKS, SHOP_ITEMS,
-  RARITY_BASE, ROLE_MODS, RECORD_ORDER, SKIN_PRICE, PRIME_SHARD_COST, SELECTOR_COST, FIVE_STAR_SELECTOR_COST, MAX_OUT_COST, PRIME_TO_ORUNDUM, PUPPET_SKILL, puppetDurationFor, puppetHasSkill,
+  RARITY_BASE, ROLE_MODS, RECORD_ORDER, SKIN_PRICE, PRIME_SHARD_COST, SELECTOR_COST, FIVE_STAR_SELECTOR_COST, MAX_OUT_COST, PRIME_TO_ORUNDUM, ORUNDUM_INCOME_RATE, ENHANCE_COST, ENHANCE_RATE, PUPPET_SKILL, puppetDurationFor, puppetHasSkill,
   makeEndlessStage, MAX_ENDLESS_FLOOR,
 } from './data.js';
 import { SKINS, SKIN_BY_ID, SKINS_BY_OP } from './skins.js';
@@ -106,7 +106,7 @@ export function createDefaultState() {
   const now = Date.now();
   const ops = {};
   const initial = [...STARTERS, ...OPERATORS.filter(o => o.rarity === 2).map(o => o.id)];
-  for (const id of initial) ops[id] = { level: 1, elite: 0, potential: 1, skill: 1, mastery: 0, trust: 0, module: 0, exp: 0 };
+  for (const id of initial) ops[id] = { level: 1, elite: 0, potential: 1, skill: 1, mastery: 0, trust: 0, module: 0, exp: 0, enhance: 0 };
   const squad = [...STARTERS].slice(0, MAX_SQUAD);
   while (squad.length < MAX_SQUAD) squad.push(null);
   return {
@@ -198,6 +198,7 @@ export function loadGame() {
         s.trust = Math.max(0, Math.min(100, Number(s.trust) || 0));
         s.module = Math.max(0, Math.min(3, Number(s.module) || 0));
         s.exp = Math.max(0, Number(s.exp) || 0);
+        s.enhance = Math.max(0, Math.floor(Number(s.enhance) || 0));
       }
     }
   } catch (e) {
@@ -326,7 +327,7 @@ export function opData(id) { return OP_BY_ID.get(id); }
 export function owned(id) { return !!state.operators[id]; }
 export function opState(id) { return state.operators[id]; }
 export function ensureOp(id) {
-  if (!state.operators[id]) state.operators[id] = { level: 1, elite: 0, potential: 1, skill: 1, mastery: 0, trust: 0, module: 0, exp: 0 };
+  if (!state.operators[id]) state.operators[id] = { level: 1, elite: 0, potential: 1, skill: 1, mastery: 0, trust: 0, module: 0, exp: 0, enhance: 0 };
   return state.operators[id];
 }
 
@@ -379,6 +380,12 @@ export function getOpStats(id) {
   if (id === 'nian') def *= 1.1;
   if (s.potential >= 3) atk *= 1.02;
   if (s.potential >= 5) { atk *= 1.03; hp *= 1.03; interval *= 0.94; }
+  const enhanceMul = 1 + Math.max(0, Number(s.enhance) || 0) * ENHANCE_RATE;
+  hp *= enhanceMul;
+  atk *= enhanceMul;
+  def *= enhanceMul;
+  res *= enhanceMul;
+  interval /= enhanceMul;
   const skillPower = 1 + (s.skill - 1) * 0.055 + (s.mastery || 0) * 0.075 + (s.potential >= 5 ? 0.1 : 0);
   const bard = data.role === 'supporter' && data.sub === '吟游者';
   const lord = data.role === 'guard' && data.sub === '领主';
@@ -402,6 +409,7 @@ export function getCombatStats(id) {
   if (!st) return null;
   const b = getBaseBonuses();
   const healer = !!(st.heal || st.bard);
+  const enhance = Math.max(0, Number(opState(id)?.enhance) || 0) * ENHANCE_RATE;
   return {
     ...st,
     hp: st.hp * (1 + b.hp),
@@ -409,10 +417,10 @@ export function getCombatStats(id) {
     def: st.def * (1 + b.def),
     res: st.res + b.res,
     interval: st.interval / (1 + b.aspd),
-    crit: Math.min(1, b.crit),
-    critDmg: b.critDmg,
+    crit: Math.min(1, b.crit + enhance),
+    critDmg: b.critDmg + enhance,
     aspd: b.aspd,
-    healBonus: healer ? b.heal : 0,
+    healBonus: healer ? b.heal + enhance : 0,
   };
 }
 
@@ -852,7 +860,7 @@ export function setStage(id) {
 }
 export function stageIdleRates(stage = STAGE_BY_ID.get(state.stage.selected)) {
   if (!stage?.idle) return { orundumPerHour: 0, shardsPerHour: 0, blocksPerHour: 0, lmdPerHour: 0, expPerHour: 0, chipsPerHour: 0, chipPacksPerHour: 0 };
-  return stage.idle;
+  return { ...stage.idle, orundumPerHour: (stage.idle.orundumPerHour || 0) * ORUNDUM_INCOME_RATE };
 }
 
 export function idleSummary(stage = STAGE_BY_ID.get(state.stage.selected)) {
@@ -923,7 +931,7 @@ export function addDoctorExp(n) {
     ups += 1;
     state.primes += 5;
     state.lmd += 5000;
-    state.orundum += 300;
+    state.orundum += 300 * ORUNDUM_INCOME_RATE;
   }
   if (state.doctor.todayLevels >= DOCTOR_DAILY_LEVELS) {
     // Do not bank an unbounded amount of XP past the daily cap.
@@ -955,7 +963,7 @@ export function grantStageRewards(stage, opts = {}) {
   // not a lump sum on clear.
   const orundum = stage.group === 'annihilation'
     ? 0
-    : Math.round((r.orundum || 0) * multiplier);
+    : Math.round((r.orundum || 0) * multiplier * ORUNDUM_INCOME_RATE);
   const items = {};
   const add = (id, n) => { if (id && n > 0) items[id] = (items[id] || 0) + n; };
   // Only resource stages provide items now. Main/annihilation/endless do not
@@ -1134,6 +1142,18 @@ export function claimFiveStarSelector(opId) {
   saveNow();
   bus.dispatchEvent(new CustomEvent('selector', { detail: { op, isNew: !existed, maxed } }));
   return { op, isNew: !existed, maxed };
+}
+
+export function enhanceOperator(opId) {
+  const d = opData(opId);
+  if (!d || !owned(opId)) return false;
+  if (state.orundum < ENHANCE_COST) return false;
+  state.orundum -= ENHANCE_COST;
+  const s = opState(opId);
+  s.enhance = Math.max(0, Math.floor(Number(s.enhance) || 0)) + 1;
+  saveNow();
+  bus.dispatchEvent(new CustomEvent('operator-enhance', { detail: { id: opId, enhance: s.enhance } }));
+  return true;
 }
 
 export function maxOutOperator(opId) {
@@ -1403,7 +1423,7 @@ export function claimTask(id) {
   if (!task || state.daily.claimed.includes(id) || taskProgress(task) < task.target) return false;
   state.daily.claimed.push(id);
   if (task.rewards.lmd) state.lmd += task.rewards.lmd;
-  if (task.rewards.orundum) state.orundum += task.rewards.orundum;
+  if (task.rewards.orundum) state.orundum += task.rewards.orundum * ORUNDUM_INCOME_RATE;
   for (const [iid, n] of Object.entries(task.rewards.items || {})) addItem(iid, n);
   saveNow();
   return true;
@@ -1413,7 +1433,7 @@ export function claimDailySupply() {
   if (state.daily.supplyClaimed) return false;
   state.daily.supplyClaimed = true;
   state.lmd += 10000;
-  state.orundum += 300;
+  state.orundum += 300 * ORUNDUM_INCOME_RATE;
   addItem('record2', 8);
   addItem('book1', 3);
   saveNow();

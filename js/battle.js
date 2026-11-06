@@ -146,7 +146,7 @@ export class Battle {
       cooldown: rand(0.1, 0.6), sp: id === 'amiya' ? Math.min(5, skillSp) : 0, maxSp: skillSp,
       spRate: 1, dead: false, heal: st.heal, bard: !!st.bard, ambusher: !!st.ambusher,
       puppeteer: !!st.puppeteer, puppet: false, puppetElapsed: 0, puppetBody: null, puppetSkill: null,
-      untargetable: !!st.untargetable, arts: st.arts,
+      untargetable: !!st.untargetable, arts: st.arts, enhance: Math.max(0, Number(state.operators[id]?.enhance) || 0),
       skillPower: st.skillPower, buffAtk: 0, buffUntil: 0, castUntil: 0, attackLock: 0,
       combo: 0, lastTarget: null, atkStacks: 0, mlynarTimer: 0, phantoms: [],
       hitFlash: 0, healFlash: 0,
@@ -249,15 +249,14 @@ export class Battle {
     this.bardPulseT = (this.bardPulseT ?? 1) - dt;
     if (this.bardPulseT > 0) return;
     this.bardPulseT += 1;
-    const critChance = this.baseBonuses?.crit ?? 0.05;
-    const critDmg = this.baseBonuses?.critDmg ?? 1.5;
     for (const e of this.enemies) {
       if (e.dead) continue;
       for (const a of bards) {
         if (e.dead) break;
+        const enhance = Math.max(0, Number(a.enhance) || 0) * 0.0001;
         let damage = a.atk * 0.9325 + a.maxHp * 0.01;
-        const crit = Math.random() < critChance;
-        if (crit) damage *= critDmg;
+        const crit = Math.random() < Math.min(1, (this.baseBonuses?.crit ?? 0.05) + enhance);
+        if (crit) damage *= (this.baseBonuses?.critDmg ?? 1.5) + enhance;
         this._damageEnemy(e, damage, { arts: false, source: a, crit });
       }
     }
@@ -433,7 +432,8 @@ export class Battle {
         // Healing uses the same cadence as a normal attack. It is not gated
         // on the skill gauge; the skill is only an additional AoE heal.
         if (target && (medicSynergy || target.hp < target.maxHp) && a.cooldown <= 0 && a.attackLock <= 0) {
-          const amount = a.atk * (1 + this.buffs.heal) * (1 + (this.baseBonuses?.heal || 0));
+          const enhance = Math.max(0, Number(a.enhance) || 0) * 0.0001;
+          const amount = a.atk * (1 + this.buffs.heal) * (1 + (this.baseBonuses?.heal || 0)) * (1 + enhance);
           const raw = amount * (1 + this.buffs.heal);
           const real = this._healAlly(target, amount, a);
           if (medicSynergy) this._overflowHeal(raw - real, a);
@@ -504,10 +504,11 @@ export class Battle {
       damage += a.atk * 0.8;
       this._effect(target.x, target.y, 'blast', 0.35);
     }
+    const enhance = Math.max(0, Number(a.enhance) || 0) * 0.0001;
     let crit = false;
-    if (Math.random() < (this.baseBonuses?.crit || 0.05)) {
+    if (Math.random() < Math.min(1, (this.baseBonuses?.crit || 0.05) + enhance)) {
       crit = true;
-      damage *= (this.baseBonuses?.critDmg || 1.5);
+      damage *= (this.baseBonuses?.critDmg || 1.5) + enhance;
     }
     this._damageEnemy(target, damage, { arts: a.arts, source: a, crit });
     a.attackFlash = 0.18;
@@ -714,7 +715,8 @@ export class Battle {
     } else if (skill.type === 'heal') {
       const medicSynergy = a.role === 'medic' && this._hasMedicSynergy();
       for (const al of this.allies) if (!al.dead) {
-        const amount = a.atk * 0.42 * (skill.power || 1) * power * (1 + (this.baseBonuses?.heal || 0));
+        const enhance = Math.max(0, Number(a.enhance) || 0) * 0.0001;
+        const amount = a.atk * 0.42 * (skill.power || 1) * power * (1 + (this.baseBonuses?.heal || 0)) * (1 + enhance);
         const raw = amount * (1 + this.buffs.heal);
         const real = this._healAlly(al, amount, a);
         if (medicSynergy) this._overflowHeal(raw - real, a);
